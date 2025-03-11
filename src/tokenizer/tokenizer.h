@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:35:39 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/08 18:44:52 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:01:35 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,32 @@
 # include "src/include/minirt.h"
 
 // Define the different types of tokens
-typedef enum {
+typedef enum e_tokentype {
 	TOKEN_TYPE_KEYWORD,
 	TOKEN_TYPE_IDENTIFIER,
 	TOKEN_TYPE_NUMBER,
 	TOKEN_TYPE_SYMBOL,
-} TokenType;
+} t_tokentype;
 
 // Define the structure of a token
-typedef struct {
-	TokenType type;
+typedef struct s_token {
+	t_tokentype type;
 	char *value;
-} Token;
+} t_token;
 
 // Define the tokenizer
-typedef struct {
+typedef struct s_tokenizer {
 	char *input;
 	int position;
-} Tokenizer;
+} t_tokenizer;
 
 // Create a new tokenizer
-Tokenizer *tokenizer_new(char *input);
+t_tokenizer *tokenizer_new(char *input);
 
 // Get the next token from the tokenizer
-Token *tokenizer_next(Tokenizer *tokenizer);
+t_token *tokenizer_next(t_tokenizer *tokenizer);
 
 // Free the tokenizer
-void tokenizer_free(Tokenizer *tokenizer);
+void tokenizer_free(t_tokenizer *tokenizer);
 
 #endif

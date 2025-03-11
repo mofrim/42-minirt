@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/08 19:03:04 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:26:32 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ typedef struct s_node {
 }   t_node;
 
 // Define the parser
-typedef struct {
+typedef struct s_parser {
     Tokenizer *tokenizer;
-} Parser;
+} t_parser;
 
 // Create a new parser
-Parser *parser_new(Tokenizer *tokenizer);
+t_parser *parser_new(Tokenizer *tokenizer);
 
 // Parse the stream of tokens and return the AST
-Node *parser_parse(Parser *parser);
+t_node *parser_parse(t_parser *parser);
 
 // Free the parser
-void parser_free(Parser *parser);
+void parser_free(t_parser *parser);
 
 #endif

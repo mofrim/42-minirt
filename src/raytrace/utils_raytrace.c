@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   disk.c                                             :+:      :+:    :+:   */
+/*   utils_raytrace.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 14:40:31 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/06 17:28:19 by fmaurer          ###   ########.fr       */
+/*   Created: 2025/03/11 09:32:55 by fmaurer           #+#    #+#             */
+/*   Updated: 2025/03/11 09:41:02 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/* Draw a disk. */
-void	draw_disk(t_pxl p, int radius, char *colr, t_mrt mrt)
+t_colr	colr_mult(t_colr c, double i)
 {
-	int	i;
-	int	j;
+	t_colr	res;
 
-	i = -1;
-	while (++i < radius)
-	{
-		j = -1;
-		while (++j < sqrt(radius * radius - i * i))
-		{
-			put_pixel_canvas(mrt, (t_pxl){p.x - i, p.y + j}, colr);
-			put_pixel_canvas(mrt, (t_pxl){p.x - i, p.y - j}, colr);
-			put_pixel_canvas(mrt, (t_pxl){p.x + i, p.y + j}, colr);
-			put_pixel_canvas(mrt, (t_pxl){p.x + i, p.y - j}, colr);
-		}
-	}
+	res.r = (c.r * i > 255) * 255 + (c.r * i <= 255) * (uint8_t)(c.r * i);
+	res.g = (c.g * i > 255) * 255 + (c.g * i <= 255) * (uint8_t)(c.g * i);
+	res.b = (c.b * i > 255) * 255 + (c.b * i <= 255) * (uint8_t)(c.b * i);
+	return (res);
 }

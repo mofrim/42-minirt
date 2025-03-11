@@ -6,16 +6,16 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/10 14:57:03 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:09:21 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
 // Create a new parser
-Parser *parser_new(Tokenizer *tokenizer)
+t_parser *parser_new(Tokenizer *tokenizer)
 {
-    Parser *parser = malloc(sizeof(Parser));
+    t_parser *parser = malloc(sizeof(t_parser));
     if (!parser)
         return NULL;
     parser->tokenizer = tokenizer;
@@ -23,12 +23,13 @@ Parser *parser_new(Tokenizer *tokenizer)
 }
 
 // Parse the stream of tokens and return the scene
-t_scene *parser_parse(Parser *parser)
+t_scene *parser_parse(t_parser *parser)
 {
-    t_scene  *scene = malloc(sizeof(t_scene));
+    t_scene  *scene;
     Token     *token;
     t_objlst  *objlst;
 
+    scene = malloc(sizeof(t_scene));
     if (!scene)
         return (NULL); // Handle allocation error
     scene->objects = NULL; // Initialize objects list
@@ -76,13 +77,13 @@ t_scene *parser_parse(Parser *parser)
 }
 
 // Free the parser
-void parser_free(Parser *parser)
+void parser_free(t_parser *parser)
 {
     free(parser);
 }
 
 // Parse an ambient light
-t_amb_light parse_ambient_light(Parser *parser)
+t_amb_light parse_ambient_light(t_parser *parser)
 {
     t_amb_light amb_light;
 
@@ -92,7 +93,7 @@ t_amb_light parse_ambient_light(Parser *parser)
 }
 
 // Parse a camera
-t_camera parse_camera(Parser *parser)
+t_camera parse_camera(t_parser *parser)
 {
     t_camera camera;
 
@@ -103,33 +104,33 @@ t_camera parse_camera(Parser *parser)
 }
 
 // Parse a light
-t_light *parse_light(Parser *parser)
+t_light *parse_light(t_parser *parser)
 {
     t_light *light = malloc(sizeof(t_light));
 
     if (!light)
         return (NULL); // Handle allocation error
     light->pos = parse_point(parser);
-    light->brightness = parse_number(parser);
+    light->bright = parse_number(parser);
     light->colr = parse_color(parser);
     return light;
 }
 
 // Parse a sphere
-t_sphere *parse_sphere(Parser *parser)
+t_sphere *parse_sphere(t_parser *parser)
 {
     t_sphere *sphere = malloc(sizeof(t_sphere));
 
     if (!sphere)
         return (NULL); // Handle allocation error
     sphere->center = parse_point(parser);
-    sphere->diameter = parse_number(parser);
+    sphere->r_squared = parse_number(parser);
     sphere->colr = parse_color(parser);
     return sphere;
 }
 
 // Parse a plane
-t_plane *parse_plane(Parser *parser)
+t_plane *parse_plane(t_parser *parser)
 {
     t_plane *plane = malloc(sizeof(t_plane));
 
@@ -142,7 +143,7 @@ t_plane *parse_plane(Parser *parser)
 }
 
 // Parse a cylinder
-t_cylinder *parse_cylinder(Parser *parser)
+t_cylinder *parse_cylinder(t_parser *parser)
 {
     t_cylinder *cylinder = malloc(sizeof(t_cylinder));
 
@@ -157,4 +158,64 @@ t_cylinder *parse_cylinder(Parser *parser)
 }
 
 // Helper functions to parse numbers, points, vectors, and colors
-// ... (Implementation for these functions would go here)
+
+// Helper function to parse coordinates from a string like "-50.0,0,20"
+t_v3 parse_coordinates(char *str)
+{
+    t_v3 coords;
+    char **parts;
+
+    parts = ft_split(str, ',');
+    if (!parts)
+    {
+        //handle allocation error
+    }
+    coords.x
+
+}
+
+// Parse a point
+t_v3 parse_point(t_parser *parser)
+{
+    t_token *token;
+    
+    token = tokenizer_next(parser->tokenizer);
+
+    if (token->type != TOKEN_TYPE_IDENTIFIER)
+    {
+        // Handle error: Expected identifier
+    }
+
+    return parse_coordinates(token->value);
+}
+
+// Parse a vector
+
+
+// Parse color tokens
+t_colr parse_color(t_parser *parser)
+{
+    t_colr color;
+    char **parts;
+    t_token *token;
+
+    token = tokenizer_next(parser->tokenizer);
+
+    if (token->type != TOKEN_TYPE_IDENTIFIER)
+    {
+        // handle identifier errors != expected
+    }
+
+    parts = ft_split(token->value, ',');
+    if (!parts)
+    {
+        //handle allocation errors 
+    }
+
+    color.r = ft_atoi(parts[0]);
+    color.g = ft_atoi(parts[1]);
+    color.b = ft_atoi(parts[2]);
+
+    free_parts(parts);
+    return (color);
+}

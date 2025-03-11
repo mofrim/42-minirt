@@ -6,16 +6,16 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/10 14:43:02 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:07:16 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
 // Create a new tokenizer
-Tokenizer *tokenizer_new(char *input)
+t_tokenizer *tokenizer_new(char *input)
 {
-    Tokenizer *tokenizer = malloc(sizeof(Tokenizer));
+    t_tokenizer *tokenizer = malloc(sizeof(t_tokenizer));
     if (!tokenizer)
         return NULL;
     tokenizer->input = input;
@@ -24,7 +24,7 @@ Tokenizer *tokenizer_new(char *input)
 }
 
 // Get the next token from the tokenizer
-Token *tokenizer_next(Tokenizer *tokenizer)
+t_token *tokenizer_next(t_tokenizer *tokenizer)
 {
     // Skip whitespace
     while (isspace(tokenizer->input[tokenizer->position]))
@@ -33,7 +33,7 @@ Token *tokenizer_next(Tokenizer *tokenizer)
     if (tokenizer->input[tokenizer->position] == '\0')
         return NULL;
     // Create a new token
-    Token *token = malloc(sizeof(Token));
+    t_token *token = malloc(sizeof(t_token));
     if (!token)
         return NULL;
     // Check for keyword
@@ -64,13 +64,13 @@ Token *tokenizer_next(Tokenizer *tokenizer)
 }
 
 // Free the tokenizer
-void tokenizer_free(Tokenizer *tokenizer)
+void tokenizer_free(t_tokenizer *tokenizer)
 {
     free(tokenizer);
 }
 
 // Parse a keyword
-char *parse_keyword(Tokenizer *tokenizer)
+char *parse_keyword(t_tokenizer *tokenizer)
 {
     int start = tokenizer->position;
     while (isalpha(tokenizer->input[tokenizer->position]))
@@ -79,7 +79,7 @@ char *parse_keyword(Tokenizer *tokenizer)
 }
 
 // Parse an identifier
-char *parse_identifier(Tokenizer *tokenizer)
+char *parse_identifier(t_tokenizer *tokenizer)
 {
     int start = tokenizer->position;
     while (isalnum(tokenizer->input[tokenizer->position]))
@@ -88,7 +88,7 @@ char *parse_identifier(Tokenizer *tokenizer)
 }
 
 // Parse a number
-char *parse_number(Tokenizer *tokenizer)
+char *parse_number(t_tokenizer *tokenizer)
 {
     int start = tokenizer->position;
     while (isdigit(tokenizer->input[tokenizer->position]))
@@ -97,7 +97,7 @@ char *parse_number(Tokenizer *tokenizer)
 }
 
 // Parse a symbol
-char *parse_symbol(Tokenizer *tokenizer)
+char *parse_symbol(t_tokenizer *tokenizer)
 {
     char *symbol = malloc(sizeof(char) * 2);
     if (!symbol)

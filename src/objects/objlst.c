@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objlst.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:53:28 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/10 14:47:09 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:26:41 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,5 @@ void	objlst_clear(t_objlst *lst)
 		free(lst->obj);
 		free(lst);
 		lst = tmp;
-	}
-}
-
-void	objlst_print(t_objlst *lst)
-{
-	while (lst)
-	{
-		if (lst->type == SPHERE)
-		{
-			printf("  sphere { center=(%f,%f,%f), radius=%f,"
-					" colr=[%d,%d,%d]}\n",
-					((t_sphere *)lst->obj)->center.x,
-					((t_sphere *)lst->obj)->center.y,
-					((t_sphere *)lst->obj)->center.z,
-					((t_sphere *)lst->obj)->radius,
-					((t_sphere *)lst->obj)->colr.r,
-					((t_sphere *)lst->obj)->colr.g,
-					((t_sphere *)lst->obj)->colr.b);
-		}
-		lst = lst->next;
 	}
 }

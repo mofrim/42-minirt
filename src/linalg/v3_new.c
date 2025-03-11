@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:33:53 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/08 14:27:10 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/03/11 10:36:45 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,10 @@ t_v3 v3_new(double x, double y, double z)
 	p.y = y;
 	p.z = z;
     return (p);
+}
+
+/* Print a t_v3. */
+void	v3_print(t_v3 v)
+{
+	printf("v3: (%f, %f, %f)", v.x, v.y, v.z);
 }

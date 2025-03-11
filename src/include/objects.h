@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/10 14:52:03 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:20:26 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
 # include "vec3.h"
 # include "v3.h"
+# include "mtrx.h"
 # include <stdint.h>
-
 
 /* The RGB color struct. */
 typedef struct s_colr
@@ -34,7 +33,7 @@ typedef enum e_obj
 	PLANE,
 	SPHERE,
 	CYLINDER
-} t_objtype;
+}	t_objtype;
 
 /* WARNING: the subject specifies that the *diameter* will be specified in the
  * scene.rt... still the radius is the number we will calculate with. this
@@ -57,7 +56,6 @@ typedef struct s_cylinder
 	t_colr	colr;
 }	t_cylinder;
 
-
 /* pop = Point On Plane :) */
 typedef struct s_plane
 {
@@ -66,18 +64,18 @@ typedef struct s_plane
 	t_colr	colr;
 }	t_plane;
 
-typedef struct s_light
-{
-	t_v3	pos;
-	t_v3	look_at;
-	t_colr	colr;
-	double	brightness;
-}	t_light;
 typedef struct s_amb_light
 {
-	double	ratio; //maybe this ratio can be combined with the normal light's brightness?
+	double	ratio;
 	t_colr	colr;
 }	t_amb_light;
+
+typedef struct s_light
+ {
+ 	t_v3	pos;
+ 	t_colr	colr;
+ 	double	bright;
+ }	t_light;
 
 /* Camera struct. */
 typedef struct s_camera {
@@ -95,7 +93,7 @@ typedef struct s_objlst
 	t_objtype		type;
 	void			*obj;
 	struct s_objlst	*next;
-} t_objlst;
+}	t_objlst;
 
 /********** Objlst llist funcs. **********/
 

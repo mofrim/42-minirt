@@ -6,33 +6,38 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:23:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/08 15:05:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/03/11 10:59:57 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_v3	canvas2viewport(int cx, int cy, double vw);
-t_colr	traceray(t_objlst *objs, t_v3 campos, t_v3 d, double t_min, double t_max);
-t_v2	intersectraysphere(t_v3 campos, t_v3 d, t_sphere *sphere);
+t_v3	canvas2viewport(int cx, int cy, t_camera cam);
+t_colr	traceray(t_mrt mrt, t_v3 ray_dir);
 
+/**
+ * The main raytracing routine.
+ *
+ * So far this is complete. Any further development should be happening in the
+ * subroutines.
+ */
 void	raytrace(t_mrt mrt)
 {
 	int		cx;
 	int		cy;
-	t_v3	d;
+	t_v3	ray_dir;
 	t_colr	px_colr;
-	t_v3	campos;
 
 	cx = PIXEL_MINX;
-	campos = (t_v3){0, 0, 0};
+	px_colr = mrt.scene->alight->colr;
 	while (cx < PIXEL_MAXX)
 	{
 		cy = PIXEL_MINY;
 		while (cy < PIXEL_MAXY)
 		{
-			d = canvas2viewport(cx, cy, 1.0);
-			px_colr = traceray(mrt.scene->objects, campos, d, 1, 1000.0);
+			ray_dir = canvas2viewport(cx, cy, *mrt.scene->cam);
+			if (!(cy % mrt.scene->subsample))
+				px_colr = traceray(mrt, ray_dir);
 			put_pixel_canvas_rt(mrt, (t_pxl){cx, cy}, px_colr);
 			cy++;
 		}
@@ -40,83 +45,69 @@ void	raytrace(t_mrt mrt)
 	}
 }
 
-
-t_v3	canvas2viewport(int cx, int cy, double vw)
+/**
+ * Converts canvas coords to viewport coords.
+ *
+ * The Screen coordinates (params cx and cy) are given in our raytracing-canvas
+ * coordinates where the middle of the canvas is the origin. The 2nd param is
+ * the canvas2viewport_ratio.
+ * We always want our viewport to be at a 1 unit distance from our camera ->
+ * z = 1.
+ *
+ * Explanation vor the calculation:
+ * 	
+ * 	The book says V_x = C_x * V_w/C_w and V_y = C_y * V_h / C_h, where V_x, V_y
+ * 	are the corresponding viewport coords to the Canvas-coords C_x, C_y. V_w,
+ * 	V_h and C_w,C_h are the viewport / Canvas width / height. In our case the
+ * 	viewport height V_h = V_w * WINY / CANVAS_WIDTH = V_w * C_h / C_w
+ * 	=> V_h/C_h  = V_w / C_w. So the same canvas_to_view_ratio =: cvr hast to be
+ * 	applied to both coords.
+ */
+t_v3	canvas2viewport(int cx, int cy, t_camera cam)
 { 
-	t_v3	res;
+	t_v3	viewport_vec;
 
-	res.x = (double)cx * vw / CANVAS_WIDTH;
-	res.y = (double)cy * vw / CANVAS_WIDTH;
-	res.z = 1;
-	return (res);
+	viewport_vec.x = (double)cx * cam.cvr;
+	viewport_vec.y = (double)cy * cam.cvr;
+	viewport_vec.z = VIEWZ;
+	return (mtrx_prod_vec(cam.rot, viewport_vec));
 }
 
-t_colr	traceray(t_objlst *objs, t_v3 campos, t_v3 d, double t_min, double t_max)
+/**
+ * The main action of tracing the rays intersection.
+ *
+ * Checks for the closest intersection with any obj from the objlst. Returns the
+ * color the pixel to be printed.
+ */
+t_colr	traceray(t_mrt mrt , t_v3 ray_dir)
 {
 	double		closest_t;
-	t_sphere	*closest_sphere;
-	t_v2		t;
+	t_objlst	*closest_obj;
+	t_objlst	*objs;
+	double		t;
 
-	closest_t = 1000000;
-	closest_sphere = NULL;
+	objs = mrt.scene->objects;
+	closest_t = INF;
+	closest_obj = NULL;
 	while (objs)
 	{
-		if (objs->type == SPHERE)
+		if (objs->type != LIGHT )
 		{
-			t = intersectraysphere(campos, d, objs->obj);
-			if (t_min < t.x1 && t.x1 < t_max && t.x1 < closest_t)
+			t = intersect_ray_obj(mrt.scene->cam->pos, ray_dir, objs);
+			if (VIEWZ < t && t < INF && t < closest_t)
 			{
-				closest_t = t.x1;
-				closest_sphere = objs->obj;
-			}
-			if (t_min < t.x2 && t.x2 < t_max && t.x2 < closest_t)
-			{
-				closest_t = t.x2;
-				closest_sphere = objs->obj;
+				closest_t = t;
+				closest_obj = objs;
 			}
 		}
 		objs = objs->next;
 	}
-	if (closest_sphere == NULL)
-		return ((t_colr){0, 0, 0});
-	return (closest_sphere->colr);
-}
-
-/* Highly not normified intersection calculation. 
- *
- * TODO: also the syntax for working with the t_vec3 is not at all comfy.
- * Possibilities:
- * 	1) either make the struct members in t_sphere directly t_vec3
- * 	2) drop t_vec3 completely in favor of external functions. Some pseudo-code
- * 	for this:
- *
- * 		co = v3_add_vec(co, v3_mult(center, -1));
- *
- * 	... IMHO this looks just much more clean to me.
- *
- * */
-t_v2	intersectraysphere(t_v3 campos, t_v3 d, t_sphere *sphere)
-{
-	t_v2	res;
-	double	r;
-	t_vec3	co;
-	t_vec3	center;
-	t_vec3	d3;
-	double a,b,c;
-	double	disc;
-
-	r = sphere->radius;
-	co = vec3_new_v3(campos);
-	center = vec3_new_v3(sphere->center);
-	d3 = vec3_new_v3(d);
-	co = co.add_vec(&co, center.mult(&center, -1));
-	a = d3.dot(&d3, d3);
-	b = 2 * co.dot(&co, d3);
-	c = co.dot(&co, co) - r * r;
-	disc = b * b - 4 * a * c;
-	if (disc < 0)
-		return ((t_v2){1001.0, 1001.0});
-	res.x1 = (-b + sqrt(disc) / (2 * a));
-	res.x1 = (-b - sqrt(disc) / (2 * a));
-	return (res);
+	if (closest_t != INF )
+	{
+		printf("hitpoint:\n");
+		v3_print(v3_add_vec(mrt.scene->cam->pos, v3_mult(ray_dir, closest_t)));
+		printf("\n");
+	}
+	return (get_object_colr(*mrt.scene, closest_obj,
+				v3_add_vec(mrt.scene->cam->pos, v3_mult(ray_dir, closest_t))));
 }
