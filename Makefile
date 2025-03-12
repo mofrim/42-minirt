@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
+#    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 12:55:36 by fmaurer           #+#    #+#              #
-#    Updated: 2025/03/08 14:40:13 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/03/12 17:26:39 by jroseiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_DIR		=	./src
 #
 # TLDR; this will make make find the correct source file `./src/exec/bla.c` for
 # any obj called `obj/bla.o`
-VPATH	=	./src ./src/linalg ./src/objects ./src/ui ./src/utils ./src/raytrace
+VPATH	=	./src ./src/linalg ./src/objects ./src/ui ./src/utils ./src/raytrace ./src/parsing
 
 # list all source files here
 SRCS		=	main.c \
@@ -34,13 +34,13 @@ SRCS		=	main.c \
 					vec3_products.c \
 					v3_new.c \
 					put_pixel_string.c \
-					disk.c \
 					sidebar.c \
 					objlst.c \
 					print_scene.c \
 					tcolr_to_int.c \
-					raytrace.c \
-					do_stuff.c
+					do_stuff.c \
+					tokenizer.c \
+					parser.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
@@ -61,7 +61,9 @@ MINRT_HDRS	= $(INC_DIR)/minirt.h \
 							$(INC_DIR)/vec3.h \
 							$(INC_DIR)/v3.h \
 							$(INC_DIR)/constants.h \
-							$(INC_DIR)/objects.h
+							$(INC_DIR)/objects.h \
+							$(INC_DIR)/mtrx.h \
+							$(INC_DIR)/parser.h
 
 # change this back to 'cc' @school for eval
 CC			=	clang
@@ -128,8 +130,8 @@ setup:
 	@echo -e "$(call log_msg,Setting things up...)"
 	@rm -rf ./minilibx-linux ./test_maps
 	@echo -e "$(call log_msg,Downloading mlx...)"
-	@wget -c https://cdn.intra.42.fr/document/document/30844/minilibx-linux.tgz 2> /dev/null
-	@wget -c https://cdn.intra.42.fr/document/document/30845/minilibx_opengl.tgz 2> /dev/null
+	@wget -c https://cdn.intra.42.fr/document/document/31543/minilibx-linux.tgz 2> /dev/null
+	@wget -c https://cdn.intra.42.fr/document/document/31544/minilibx_opengl.tgz 2> /dev/null
 	@echo	-e "$(call log_msg,Unpacking mlx...)"
 	@tar xzf ./minilibx-linux.tgz > /dev/null
 	@tar xzf ./minilibx_opengl.tgz > /dev/null
