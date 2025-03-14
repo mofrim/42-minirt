@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/12 16:38:56 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:42:11 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 // to prevent cross includes
 # include "objects.h"
+# include <stdbool.h>
+# include <stddef.h>
 
 typedef struct s_scene t_scene;
 
@@ -116,5 +118,8 @@ t_sphere    *parse_sphere(t_parser *parser);
 t_plane     *parse_plane(t_parser *parser);
 t_cylinder  *parse_cylinder(t_parser *parser);
 t_colr      parse_color(t_parser *parser);
+
+bool	ft_isspace(char c);
+
 
 #endif // PARSER_H

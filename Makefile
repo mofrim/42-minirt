@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 12:55:36 by fmaurer           #+#    #+#              #
-#    Updated: 2025/03/12 17:26:39 by jroseiro         ###   ########.fr        #
+#    Updated: 2025/03/14 15:41:22 by jroseiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,9 @@ SRCS		=	main.c \
 					tcolr_to_int.c \
 					do_stuff.c \
 					tokenizer.c \
-					parser.c
+					parser.c \
+					ft_isspace.c \
+					ft_strndup.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
