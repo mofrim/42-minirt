@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/03 00:06:06 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/07 21:40:31 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ t_tokenizer	*tokenizer_new(char *input)
 	t_tokenizer	*tokenizer;
 
 	tokenizer = malloc(sizeof(t_tokenizer));
-	if (!tokenizer)
-		return (NULL);
+	nullcheck(tokenizer, "tokenizer_new()");
 	tokenizer->input = input;
 	tokenizer->position = 0;
 	tokenizer->len = ft_strlen(input);

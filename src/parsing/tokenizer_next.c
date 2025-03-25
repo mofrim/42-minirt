@@ -3,28 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_next.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/24 11:15:58 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 23:30:46 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	is_coordinate(t_tokenizer *tokenizer)
+// In tokenizer_next.c, improve is_coordinate function
+int is_coordinate(t_tokenizer *tokenizer)
 {
-	bool	is_really_v3;
-	size_t		i;
-
+    int i;
+    int comma_count;
+	
 	i = 0;
-	while (tokenizer->position + i < tokenizer->len && \
-				!ft_isspace(tokenizer->input[tokenizer->position + i]))
-		i++;
-	is_really_v3 = (ft_strchr(&tokenizer->input[tokenizer->position], ',') - &tokenizer->input[tokenizer->position]) < (int)i;
-	return (is_really_v3 && (ft_isdigit(tokenizer->input[tokenizer->position]) || \
-			tokenizer->input[tokenizer->position] == '-' || \
-			tokenizer->input[tokenizer->position] == '+'));
+	comma_count = 0;
+    // Check if it starts with a digit or sign
+    if (!(ft_isdigit(tokenizer->input[tokenizer->position]) || 
+          tokenizer->input[tokenizer->position] == '-' || 
+          tokenizer->input[tokenizer->position] == '+'))
+        return (0);
+    // Count commas and ensure all characters are valid for coordinates
+    while ((size_t)(tokenizer->position + i) < tokenizer->len && 
+           !ft_isspace(tokenizer->input[tokenizer->position + i]))
+    {
+        if (tokenizer->input[tokenizer->position + i] == ',')
+            comma_count++;
+        else if (!ft_isdigit(tokenizer->input[tokenizer->position + i]) && 
+                 tokenizer->input[tokenizer->position + i] != '.' && 
+                 tokenizer->input[tokenizer->position + i] != '-' && 
+                 tokenizer->input[tokenizer->position + i] != '+')
+            return (0); // Invalid character for coordinate
+        i++;
+    }
+    // A valid coordinate has exactly 2 commas (x,y,z)
+    return (comma_count == 2);
 }
 
 int	is_identifier(t_tokenizer *tokenizer)

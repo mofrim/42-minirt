@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/22 23:04:51 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/07 21:41:24 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ t_parser	*parser_new(t_tokenizer *tokenizer)
 	t_parser	*parser;
 
 	parser = malloc(sizeof(t_parser));
-	if (!parser)
-		return (NULL);
+	nullcheck(parser, "parser_new()");
 	parser->tokenizer = tokenizer;
 	return (parser);
 }

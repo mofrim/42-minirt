@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/24 11:34:02 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/03/28 15:35:10 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_token	*parse_number_token(t_tokenizer *tokenizer)
 	parse_decimal(tokenizer);
 	token->type = TOKEN_TYPE_NUMBER;
 	numstr = ft_strndup(&tokenizer->input[start], tokenizer->position - start);
-	token->u_value.num = atof(numstr);
+	token->u_value.num = ft_atof(numstr);
 	free(numstr);
 	debug_token(token, "in parse_number_token");
 	return (token);

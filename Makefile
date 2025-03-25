@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/04 20:18:20 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/07 18:43:03 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ VPATH	=	./src ./src/linalg ./src/objects ./src/ui ./src/utils ./src/raytrace \
 
 # list all source files here
 SRCS		=	main.c \
-					parse_scene.c \
 					close_btn_handler.c \
 					init_mrt.c \
 					kbd_input_handler.c \
@@ -57,12 +56,15 @@ SRCS		=	main.c \
 					colr_utils.c \
 					do_stuff.c \
 					general_utils.c \
+					ft_atof.c \
 					parser.c \
 					parser_objs.c \
 					parser_objs2.c \
 					parser_parse.c \
 					parser_utils.c \
 					parser_utils2.c \
+					parser_validator.c \
+					parser_validator2.c \
 					tokenizer.c \
 					tokenizer_next.c \
 					tokenizer_nums.c \
@@ -78,6 +80,12 @@ SRCS		=	main.c \
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
+
+# X11 MAC
+#X11_FIX_PATH = ~/x11_include_fix
+X11_PATH = $(shell brew --prefix libx11)
+XORG_PATH = $(shell brew --prefix xorgproto)
+XEXT_PATH = $(shell brew --prefix libxext)
 
 LIBFT_PATH	= ./libft
 LIBFT				= $(LIBFT_PATH)/libft.a
@@ -103,6 +111,8 @@ MINRT_HDRS	= $(INC_DIR)/minirt.h \
 # FIXME: change this back to 'cc' @school for eval
 CC			=	clang
 CFLAGS	=	-g -Werror -Wall -Wextra
+# -I$(X11_PATH)/include -I$(XORG_PATH)/include -I$(XEXT_PATH)/include -Wno-deprecated-non-prototype
+#LDFLAGS += -L$(X11_PATH)/lib -L$(XEXT_PATH)/lib -lX11 -lXext
 
 # special nix compilation support for mlx. see LIBMLX rule.
 NIX11 = $(shell echo $$NIX11)
@@ -138,21 +148,23 @@ $(OBJDIR)/%.o : %.c $(MINRT_HDRS)
 $(NAME): $(OBJS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
 	@echo -e "$(call log_msg,Compiling minirt...)"
 	@echo -e "$(call log_msg,For host $(HOST)!)"
-	$(CC) -D$(BHOST) $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(OBJS) $(LIBS)
+	$(CC) -D$(BHOST) $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(OBJS) $(LDFLAGS) $(LIBS)
 
 $(LIBFT):
 	@echo -e "$(call log_msg,Compiling libft...)"
 	make -C $(LIBFT_PATH) all
 
 $(LIBMLX):
-ifdef NIX11
-	@echo -e "$(call log_msg,feels nixy around here.. Compiling MLX the nix way!)"
+ifeq ($(shell uname), Darwin)
+	@echo -e "$(call log_msg,Compiling MLX for macOS...)"
+	make -C ./minilibx-linux/
+else ifdef NIX11
+	@echo -e "$(call log_msg,Compiling MLX the Nix way!)"
 	sed -i 's/local xlib_inc="$$(get_xlib_include_path)"/local xlib_inc="$$NIX11"/g' ./minilibx-linux/configure
 	sed -i 's/mlx_int_anti_resize_win/\/\/mlx_int_anti_resize_win/g' ./minilibx-linux/mlx_new_window.c
 	NIX11=$NIX11 make -C ./minilibx-linux/
 else
-	@echo -e "$(call log_msg,feels clustery around here.. compiling MLX the normal way!)"
-	@echo
+	@echo -e "$(call log_msg,Compiling MLX the normal way!)"
 	make -C ./minilibx-linux/
 endif
 
