@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/17 21:44:50 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/03/31 16:18:17 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ static void	calc_diff_reflection(t_light light, t_v3 light_ray, t_v3 n,
  * In the forumla for intensity calculation the surface normal is already
  * normalized -> |n| = 1 => we only devide by v3_norm(light_ray)!
  * `ip` := light [I]ntensity at hit[P]oint.
- * NOTE: needed to go as low as 0.000001 with tmin for the shadow calculations
+ * NOTE: needed to go as low as 0.00000001 with tmin for the shadow calculations
  * because otherwise there would be white pixels at some edgy places.
+ * The 0.99999999 for tmax are also of numerical importance: with a tmax-value
+ * of 1.0 and a light source placed directly on the surface of an object
+ * t-values like 0.9999999999999981 (intersect_ray_sphere) would be counted as
+ * an intersection (because t < tmax). but this is a numerical bug bc
+ * DBL_EPSILON == 0.000000000000002.
  */
 // QUESTION Is this already working for all objects?!
 t_colr	calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n, t_colr obj_colr)
@@ -45,7 +50,7 @@ t_colr	calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n, t_colr obj_colr)
 			light = *(t_light *)objs->obj;
 			light_ray = v3_add_vec(light.pos, v3_mult(hitpoint, -1));
 			if (intersect_ray_objs(hitpoint, light_ray, \
-					(t_ray_minmax){0.000001, 1.0}, scene.objects).t == INF)
+					(t_ray_minmax){0.00000001, 0.99999999}, scene.objects).t == INF)
 				calc_diff_reflection(light, light_ray, n, &obj_colr);
 		}
 		objs = objs->next;
