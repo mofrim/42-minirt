@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/22 22:13:55 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/03/31 15:31:35 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void		redraw_win(t_mrt mrt);
 /********** Trace the rays. **********/
 
 void		raytrace(t_mrt mrt);
-double		intersect_ray_obj(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+double		intersect_ray_single_obj(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 				t_objlst *obj);
 t_intersec	intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 				t_objlst *objs);

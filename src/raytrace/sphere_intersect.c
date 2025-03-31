@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/17 21:21:47 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/03/31 15:56:32 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // invalid and the other, even though it is greater, is the correct one!
 // ANSWER: mitigated this for now by checking inside of this function, but maybe
 // it have to think about this more later....
-double	intersect_ray_sphere(t_v3 cam_pos, t_v3 ray_dir, t_ray_minmax rp,
+double	intersect_ray_sphere(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_sphere *sphere)
 {
 	t_v2	res;
@@ -26,7 +26,7 @@ double	intersect_ray_sphere(t_v3 cam_pos, t_v3 ray_dir, t_ray_minmax rp,
 	t_v3	abc;
 	double	disc;
 
-	co = v3_add_vec(cam_pos, v3_mult(sphere->center, -1));
+	co = v3_add_vec(origin, v3_mult(sphere->center, -1));
 	abc.x = v3_dot(ray_dir, ray_dir);
 	abc.y = 2 * v3_dot(co, ray_dir);
 	abc.z = v3_dot(co, co) - sphere->r_squared;

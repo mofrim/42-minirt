@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:29:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/17 21:26:47 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/03/31 16:20:20 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_intersec	intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	{
 		if (objs->type != LIGHT)
 		{
-			t = intersect_ray_obj(origin, ray_dir, rp, objs);
+			t = intersect_ray_single_obj(origin, ray_dir, rp, objs);
 			if (rp.tmin < t && t < rp.tmax && t < intersec.t)
 				intersec = (t_intersec){t, objs};
 		}
@@ -43,7 +43,7 @@ t_intersec	intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 
 /* Generalized ray obj intersection function. Dispatches to the specific object
  * type intersection function. */
-double	intersect_ray_obj(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+double	intersect_ray_single_obj(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_objlst *obj)
 {
 	if (obj->type == SPHERE)
