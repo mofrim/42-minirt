@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:23:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/17 21:23:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/02 08:44:13 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	raytrace(t_mrt mrt)
  * z = 1.
  *
  * Explanation vor the calculation:
- * 	
+ *
  * 	The book says V_x = C_x * V_w/C_w and V_y = C_y * V_h / C_h, where V_x, V_y
  * 	are the corresponding viewport coords to the Canvas-coords C_x, C_y. V_w,
  * 	V_h and C_w,C_h are the viewport / Canvas width / height. In our case the

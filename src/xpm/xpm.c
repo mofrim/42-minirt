@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 20:33:27 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/22 11:39:43 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:15:18 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx)
 	return (xcanv);
 }
 
+/**
+ * Put a pixel to the xpm in mem.
+ *
+ * TODO: comment this exhaustively!
+ */
 int	put_pixel_xpm(t_xpm_canvas *xc, int x, int y, t_colr colr)
 {
 	int				dec;
@@ -59,5 +64,35 @@ int	put_pixel_xpm(t_xpm_canvas *xc, int x, int y, t_colr colr)
 	while (dec--)
 		*(ptr + (PIXEL_MAXX + x) * xc->opp + dec) = \
 			((unsigned char *)(&color))[dec];
+	return (0);
+}
+
+/**
+ * Put a pixel to the xpm in mem. Using the array approach...
+ *
+ * INFO: Keep this for later maybe.
+ */
+int	put_pixel_xpm_arr(t_xpm_canvas *xc, int *xy)
+{
+	int				dec;
+	unsigned char	*ptr;
+	int				x;
+	int				y;
+
+	x = 0;
+	while (x < CANVAS_WIDTH)
+	{
+		y = 0;
+		while (y < WINY)
+		{
+			ptr = &xc->data[y * xc->xpm_line_len];
+			dec = xc->opp;
+			while (dec--)
+				*(ptr + x * xc->opp + dec) = \
+				((unsigned char *)(&xy[x + CANVAS_WIDTH * (WINY - y)]))[dec];
+			y++;
+		}
+		x++;
+	}
 	return (0);
 }
