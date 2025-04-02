@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/03/27 13:08:02 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/02 15:00:33 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,9 +116,11 @@ MSGEND = $(YLW)]]$(EOC)
 log_msg = $(MSGOPN) $(1) $(MSGEND)
 
 # Control preproc consts in constants.h based on build host:
-ifeq ($(HOST), rubi)
+
+HOST = $(shell hostname)
+ifeq ($(findstring rubi,$(HOST)), rubi)
 	BHOST = RUBI
-else ifeq ($(HOST), school)
+else ifeq ($(findstring wolfsburg,$(HOST)), wolfsburg)
 	BHOST = SCHOOL
 else
 	BHOST = DEFAULT
@@ -131,9 +133,9 @@ $(OBJDIR)/%.o : %.c $(MINRT_HDRS)
 	@echo -e "$(call log_msg,Compiling: $<)"
 	@$(CC) -D$(BHOST) $(CFLAGS) $(INC) -c $< -o $@
 
-
 $(NAME): $(OBJS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
 	@echo -e "$(call log_msg,Compiling minirt...)"
+	@echo -e "$(call log_msg,For host $(HOST)!)"
 	$(CC) -D$(BHOST) $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(OBJS) $(LIBS)
 
 $(LIBFT):
@@ -143,7 +145,7 @@ $(LIBFT):
 $(LIBMLX):
 ifdef NIX11
 	@echo -e "$(call log_msg,feels nixy around here.. Compiling MLX the nix way!)"
-	sed -i 's/local xlib_inc="$$(get_xlib_include_path)"/local xlib_inc="$$NIX11"/g' ./minilibx-linux/configure 
+	sed -i 's/local xlib_inc="$$(get_xlib_include_path)"/local xlib_inc="$$NIX11"/g' ./minilibx-linux/configure
 	sed -i 's/mlx_int_anti_resize_win/\/\/mlx_int_anti_resize_win/g' ./minilibx-linux/mlx_new_window.c
 	NIX11=$NIX11 make -C ./minilibx-linux/
 else
@@ -198,7 +200,6 @@ fullfclean:
 fclean: clean
 	@echo -e "$(call log_msg,Removing $(NAME) binary.)"
 	@rm -f $(NAME)
-
 
 fullre: fullfclean all
 
