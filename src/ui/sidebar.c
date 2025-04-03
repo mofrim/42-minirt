@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/22 20:42:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/03 07:53:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	show_sidebar(t_mrt mrt)
 	i++;
 	print_mapinfo(mrt, "subsample: ", mrt.scene->subsample, &i);
 	print_mapinfo(mrt, "fov: ", rad2deg_int(mrt.scene->cam->fov), &i);
+	print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->bright, &i);
 }
 
 static void	draw_sidebar_seperator(t_mrt mrt)
@@ -65,6 +66,7 @@ static void	show_keys(t_mrt mrt, int *i)
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "esc = quit");
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "][  = +/- subsample");
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, ")(  = +/- fov");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-/=  = +/- abright");
 }
 
 static void	show_mapinfo(t_mrt mrt, int *i)

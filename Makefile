@@ -74,7 +74,8 @@ SRCS		=	main.c \
 					kbd_cam.c \
 					cam_get_new_pos_rot.c \
 					circle_colr.c \
-					circle_intersect.c
+					circle_intersect.c \
+					kbd_other.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

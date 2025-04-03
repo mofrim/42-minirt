@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:49:56 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/24 15:19:12 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/03 07:43:36 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	handle_subsample(int key, t_mrt mrt);
 void	handle_fov(int key, t_mrt mrt);
 void	handle_cam_rot_keys(int key, t_mrt mrt);
 void	handle_cam_dir_keys(int key, t_mrt mrt);
+void	handle_amb_bright(int key, t_mrt mrt);
 
 int	kbd_input_handler(int key, t_mrt *mrt)
 {
@@ -27,6 +28,7 @@ int	kbd_input_handler(int key, t_mrt *mrt)
 	handle_fov(key, *mrt);
 	handle_cam_rot_keys(key, *mrt);
 	handle_cam_dir_keys(key, *mrt);
+	handle_amb_bright(key, *mrt);
 	return (0);
 }
 
