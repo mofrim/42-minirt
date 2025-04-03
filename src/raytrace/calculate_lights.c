@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/31 16:18:17 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/03 11:32:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_colr	calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n, t_colr obj_colr)
 	t_light		light;
 	t_v3		light_ray;
 
-	obj_colr = colr_add_light(obj_colr, \
-			colr_mult(scene.alight->colr, scene.alight->bright));
+	obj_colr = colr_add_amblight(obj_colr, scene.alight->colr,
+			scene.alight->bright);
 	objs = scene.objects;
 	while (objs)
 	{

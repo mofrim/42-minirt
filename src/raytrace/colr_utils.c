@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 09:32:55 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/22 22:12:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/03 11:31:52 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,41 +37,54 @@ t_colr	colr_add_colr(t_colr c1, t_colr c2)
 	return (res);
 }
 
-/* Add a colr... and a light. Uses the multiplication approach which leads to a
- * very subtractive behavior. Meaning: If some value in your light is zero the
- * result for this value will also be zero here. */
-// t_colr	colr_add_light(t_colr c, t_colr l)
-// {
-// 	t_colr	res;
-// 	float	r;
-// 	float	g;
-// 	float	b;
-
-// 	r = (c.r / 255.0f) * (l.r / 255.0f);
-// 	g = (c.g / 255.0f) * (l.g / 255.0f);
-// 	b = (c.b / 255.0f) * (l.b / 255.0f);
-// 	res.r = (uint8_t)(r * 255);
-// 	res.g = (uint8_t)(g * 255);
-// 	res.b = (uint8_t)(b * 255);
-// 	return (res);
-// }
-
-t_colr	colr_add_light(t_colr c, t_colr l)
+/**
+ * Add the a spotlights influence to a pixel colr.
+ *
+ * The Blending is controlled via the spotlights brightness or intensity. If the
+ * brightness is high the lights effect on overblending the objects original
+ * color will be high.
+ */
+t_colr	colr_add_light(t_colr c, t_colr l, float light_intens)
 {
 	t_colr	res;
-	float	color_blend;
 
-	// Apply the light's color influence (we can adjust this factor, maybe
-	// through the intensity?)
-	color_blend = 0.7f; // How much the light color influences the object
-	res.r = (uint8_t)fmin(255, c.r * (1.0f - color_blend + \
-				color_blend * l.r / 255.0f));
-	res.g = (uint8_t)fmin(255, c.g * (1.0f - color_blend + \
-				color_blend * l.g / 255.0f));
-	res.b = (uint8_t)fmin(255, c.b * (1.0f - color_blend + \
-				color_blend * l.b / 255.0f));
+	res.r = (uint8_t)fmin(255, c.r * (1.0f - light_intens + \
+				light_intens * l.r / 255.0f));
+	res.g = (uint8_t)fmin(255, c.g * (1.0f - light_intens + \
+				light_intens * l.g / 255.0f));
+	res.b = (uint8_t)fmin(255, c.b * (1.0f - light_intens + \
+				light_intens * l.b / 255.0f));
 	return (res);
 }
+
+/* Another approach for adding the effect of the ambient light. The rationale
+ * here:
+ * 	- in the absence of any spotlights and an ambient light set to 0 we want to
+ * 	end up with a black scene
+ * 	- the final color value of the object should be limited in a way that if one
+ * 	component reaches 255 the other won't get increased more
+ *
+ */
+t_colr	colr_add_amblight(t_colr oc, t_colr ac, float abright)
+{
+	t_colr	res;
+
+	res.r = (uint8_t)fmin(255, (oc.r + ac.r * abright) * abright);
+	res.g = (uint8_t)fmin(255, (oc.g + ac.g * abright) * abright);
+	res.b = (uint8_t)fmin(255, (oc.b + ac.b * abright) * abright);
+	return (res);
+}
+//// another approach... keep for now.
+//
+// t_colr	colr_add_amblight(t_colr oc, t_colr ac, float abright)
+// {
+// 	t_colr	res;
+//
+// 	res.r = (uint8_t)fmin(255, oc.r * ac.r/255.0f * abright);
+// 	res.g = (uint8_t)fmin(255, oc.g * ac.g/255.0f * abright);
+// 	res.b = (uint8_t)fmin(255, oc.b * ac.b/255.0f * abright);
+// 	return (res);
+// }
 
 /* Print a colr var and its name. */
 void	colr_print(t_colr c, char *name)

@@ -139,7 +139,7 @@ void		error_exit(char *msg);
 void		nullcheck(void *p, char *msg);
 void		cleanup_mrt(t_mrt *mrt);
 char		*read_file(char *filename);
-int         ft_atof(const char *str); // Still need to implement this
+int			ft_atof(const char *str); // Still need to implement this
 
 /********** Math utils. **********/
 
@@ -167,7 +167,8 @@ t_colr		get_object_colr(t_scene scene, t_objlst *close_obj, t_v3 hitpoint);
 t_colr		colr_mult(t_colr c, double i);
 t_colr		colr_add_colr(t_colr c1, t_colr c2);
 void		colr_print(t_colr c, char *name);
-t_colr		colr_add_light(t_colr c, t_colr l);
+// t_colr		colr_add_light(t_colr c, t_colr l);
+t_colr		colr_add_light(t_colr c, t_colr l, float light_intens);
 t_colr		calculate_lights(t_scene scene, t_v3 p, t_v3 n, t_colr obj_colr);
 
 double		intersect_ray_sphere(t_v3 cam_pos, t_v3 ray_dir, t_ray_minmax rp,
@@ -177,6 +178,7 @@ t_colr		get_sphere_colr(t_scene scene, t_sphere s, t_v3 hitpoint);
 double		circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 				t_circle circle);
 t_colr		circle_get_colr(t_scene scene, t_circle c, t_v3 hitpoint);
+t_colr		colr_add_amblight(t_colr oc, t_colr ac, float abright);
 
 /********** Do stuff. **********/
 
