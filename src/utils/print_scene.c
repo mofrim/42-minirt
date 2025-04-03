@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:43:57 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/24 11:34:26 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/02 15:16:57 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,16 @@ static void print_debug(t_scene scene)
                 printf("    Radius: %f\n", cylinder->radius);
                 printf("    Height: %f\n", cylinder->height);
                 printf("    Color: (%d, %d, %d)\n", cylinder->colr.r, cylinder->colr.g, cylinder->colr.b);
+                break;
+            }
+            case CIRCLE:
+            {
+                t_circle *circle = (t_circle *)current->obj;
+                printf("  Circle %d:\n", count);
+                printf("    Center: (%f, %f, %f)\n", circle->center.x, circle->center.y, circle->center.z);
+                printf("    Normal: (%f, %f, %f)\n", circle->normal.x, circle->normal.y, circle->normal.z);
+                printf("    Radius: %f\n", circle->r);
+                printf("    Color: (%d, %d, %d)\n", circle->colr.r, circle->colr.g, circle->colr.b);
                 break;
             }
             default:

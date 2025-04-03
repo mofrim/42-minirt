@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/17 21:15:31 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/02 15:07:02 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ typedef enum e_obj
 	LIGHT,
 	PLANE,
 	SPHERE,
-	CYLINDER
+	CYLINDER,
+	CIRCLE
 }	t_objtype;
 
 /* WARNING: the subject specifies that the *diameter* will be specified in the
@@ -63,6 +64,15 @@ typedef struct s_plane
 	t_v3	normal;
 	t_colr	colr;
 }	t_plane;
+
+typedef struct s_circle
+{
+	double	r;
+	double	r2;
+	t_v3	normal;
+	t_v3	center;
+	t_colr	colr;
+}	t_circle;
 
 typedef struct s_amb_light
 {

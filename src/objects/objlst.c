@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:53:28 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/22 16:47:52 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/02 15:07:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_objlst	*objlst_new(t_objtype type, void *obj)
 		new->obj = (t_cylinder *)obj;
 	if (type == LIGHT)
 		new->obj = (t_light *)obj;
+	if (type == CIRCLE)
+		new->obj = (t_circle *)obj;
 	return (new);
 }
 

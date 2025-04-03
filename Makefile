@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/02 15:00:33 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/03 07:44:35 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,9 @@ SRCS		=	main.c \
 					xpm.c \
 					cleanup_mrt.c \
 					kbd_cam.c \
-					cam_get_new_pos_rot.c
+					cam_get_new_pos_rot.c \
+					circle_colr.c \
+					circle_intersect.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 11:29:11 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/22 22:17:56 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/03 10:51:14 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,81 +68,55 @@ void setup_camera(t_camera *cam)
 		   cam->fov, cam->view_width);
 }
 
+void	add_circle(t_mrt mrt)
+{
+	t_circle	*c = malloc(sizeof(t_circle));
+	c->center = (t_v3){0, 0, 0};
+	c->r = 10;
+	c->r2 = c->r * c->r;
+	c->normal = v3_get_norm((t_v3){0, 1, 0});
+	c->colr = rgb_to_tcolr(DARK_SLATE_BLUE);
+	objlst_add_back(&mrt.scene->objects, objlst_new(CIRCLE, c));
 
+	t_circle	*c2 = malloc(sizeof(t_circle));
+	c2->center = (t_v3){0, 0.01, 0};
+	c2->r = 9;
+	c2->r2 = c2->r * c2->r;
+	c2->normal = v3_get_norm((t_v3){0, 1, 0});
+	c2->colr = rgb_to_tcolr(MEDIUM_BLUE);
+	objlst_add_back(&mrt.scene->objects, objlst_new(CIRCLE, c2));
 
+	t_circle	*c3 = malloc(sizeof(t_circle));
+	c3->center = (t_v3){0, 0.02, 0};
+	c3->r = 8;
+	c3->r2 = c3->r * c3->r;
+	c3->normal = v3_get_norm((t_v3){0, 1, 0});
+	c3->colr = rgb_to_tcolr(DODGER_BLUE);
+	objlst_add_back(&mrt.scene->objects, objlst_new(CIRCLE, c3));
 
-// void	init_objs(t_mrt mrt)
-// {
-// 	t_objlst	**objs;
+	t_circle	*c4 = malloc(sizeof(t_circle));
+	c4->center = (t_v3){0, 0.03, 0};
+	c4->r = 7;
+	c4->r2 = c4->r * c4->r;
+	c4->normal = v3_get_norm((t_v3){0, 1, 0});
+	c4->colr = rgb_to_tcolr(DARK_SEA_GREEN);
+	objlst_add_back(&mrt.scene->objects, objlst_new(CIRCLE, c4));
 
-// 	mrt.scene->objects = NULL;
-// 	objs = &mrt.scene->objects;
-// 	t_sphere	*sphere1 = malloc(sizeof(t_sphere));
-// 	*sphere1 = (t_sphere){v3_new(0, 0, 10), 2, 2 * 2, (t_colr){255, 0, 0}};
-// 	t_sphere	*sphere2 = malloc(sizeof(t_sphere));
-// 	*sphere2 = (t_sphere){v3_new(4, 0, 14), 2, 2 * 2, (t_colr){0, 255, 0}};
-// 	t_sphere	*sphere3 = malloc(sizeof(t_sphere));
-// 	*sphere3 = (t_sphere){v3_new(-4, 0, 14), 1.5, 1.5 * 1.5, (t_colr){0, 0, 142}};
-// 	t_sphere	*sphere4 = malloc(sizeof(t_sphere));
-// 	*sphere4 = (t_sphere){v3_new(-2, -1, 8), 1.5, 1.5 * 1.5, (t_colr){0, 99, 142}};
-// 	t_sphere	*sphere5 = malloc(sizeof(t_sphere));
-// 	*sphere5 = (t_sphere){v3_new(2, -1, 8), 1, 1 * 1, (t_colr){123, 99, 142}};
-// 	objlst_add_back(objs, objlst_new(SPHERE, sphere1));
-// 	objlst_add_back(objs, objlst_new(SPHERE, sphere2));
-// 	objlst_add_back(objs, objlst_new(SPHERE, sphere3));
-// 	objlst_add_back(objs, objlst_new(SPHERE, sphere4));
-// 	objlst_add_back(objs, objlst_new(SPHERE, sphere5));
-// }
-
-// void	init_lights(t_mrt mrt)
-// {
-// 	t_objlst	**objs;
-
-// 	mrt.scene->alight = malloc(sizeof(t_amb_light));
-// 	mrt.scene->alight->bright = 0.3;
-// 	mrt.scene->alight->colr = (t_colr){255, 255, 255};
-
-// 	objs = &mrt.scene->objects;
-
-// 	t_light	*light1 = malloc(sizeof(t_light));
-// 	light1->bright = 0.5;
-// 	// light1->colr = (t_colr){255, 0, 0};
-// 	light1->colr = (t_colr){255, 255, 255};
-// 	light1->pos = (t_v3){0, 2.9, 10};
-// 	objlst_add_back(objs, objlst_new(LIGHT, light1));
-
-// 	t_light	*light2 = malloc(sizeof(t_light));
-// 	light2->bright = 0.9;
-// 	light2->colr = (t_colr){0, 0, 255};
-// 	light2->pos = (t_v3){0, -2.1, 8};
-// 	objlst_add_back(objs, objlst_new(LIGHT, light2));
-
-// 	t_light	*light3 = malloc(sizeof(t_light));
-// 	light3->bright = 0.9;
-// 	light3->colr = (t_colr){200, 12, 23};
-// 	light3->pos = (t_v3){0, 0, 7};
-// 	objlst_add_back(objs, objlst_new(LIGHT, light3));
-
-// 	t_light	*light4 = malloc(sizeof(t_light));
-// 	light4->bright = 0.6;
-// 	light4->colr = (t_colr){123, 231, 76};
-// 	light4->pos = (t_v3){0, 5, 7};
-// 	objlst_add_back(objs, objlst_new(LIGHT, light4));
-// }
-
-// void	init_scene(t_mrt mrt)
-// {
-// 	init_objs(mrt);
-// 	init_cam(mrt);
-// 	init_lights(mrt);
-// 	mrt.scene->subsample = 1;
-// }
+	t_circle	*c5 = malloc(sizeof(t_circle));
+	c5->center = (t_v3){0, 0.04, 0};
+	c5->r = 6;
+	c5->r2 = c5->r * c5->r;
+	c5->normal = v3_get_norm((t_v3){0, 1, 0});
+	c5->colr = rgb_to_tcolr(GOLDENROD);
+	objlst_add_back(&mrt.scene->objects, objlst_new(CIRCLE, c5));
+}
 
 void	do_stuff(t_mrt mrt)
 {
 
 	// init_scene(mrt);
 	show_sidebar(mrt);
+	add_circle(mrt);
 	print_scene(*mrt.scene);
 	raytrace_xpm(mrt);
 }
