@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/24 11:09:37 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:19:00 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	skip_whitespace(t_tokenizer *tokenizer)
 {
 	while (tokenizer->input[tokenizer->position] && \
 			(tokenizer->input[tokenizer->position] == ' ' || \
-			tokenizer->input[tokenizer->position] == '\t' || \
-			tokenizer->input[tokenizer->position] == '\n'))
+			tokenizer->input[tokenizer->position] == '\t'))
 		tokenizer->position++;
 }
 
