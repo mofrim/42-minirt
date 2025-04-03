@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/24 11:09:37 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/03 00:06:06 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ t_token	*parse_identifier(t_tokenizer *tokenizer)
 	token->type = TOKEN_TYPE_KEYWORD;
 	token->u_value.str = ft_strndup(&tokenizer->input[start], \
 								tokenizer->position - start);
+	debug_token(token, "in parse_identifier");
 	return (token);
 }

@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/22 23:03:25 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/03 11:34:23 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_amb_light	*parse_ambient_light(t_parser *parser)
 
 	amb_light = malloc(sizeof(t_amb_light));
 	nullcheck(amb_light, "parse_ambient_light()");
+	skip_whitespace(parser->tokenizer);
 	amb_light->bright = parse_number(parser->tokenizer);
 	amb_light->colr = parse_color(parser);
 	return (amb_light);
