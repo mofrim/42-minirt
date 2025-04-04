@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:53:28 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/02 15:07:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 12:18:26 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_objlst	*objlst_new(t_objtype type, void *obj)
 
 	new = malloc(sizeof(t_objlst));
 	new->type = type;
+	new->id = 0;
 	new->next = NULL;
 	if (type == SPHERE)
 		new->obj = (t_sphere *)obj;
@@ -46,6 +47,8 @@ t_objlst	*objlst_last(t_objlst *head)
 
 void	objlst_add_back(t_objlst **head, t_objlst *newend)
 {
+	t_objlst	*last;
+
 	if (!newend)
 		return ;
 	if (!*head)
@@ -53,7 +56,9 @@ void	objlst_add_back(t_objlst **head, t_objlst *newend)
 		*head = newend;
 		return ;
 	}
-	objlst_last(*head)->next = newend;
+	last = objlst_last(*head);
+	last->next = newend;
+	newend->id = last->id + 1;
 }
 
 void	objlst_clear(t_objlst *lst)

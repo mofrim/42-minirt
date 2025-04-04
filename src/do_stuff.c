@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 11:29:11 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/03 10:51:14 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 11:31:21 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,9 @@ void	add_circle(t_mrt mrt)
 
 void	do_stuff(t_mrt mrt)
 {
-
 	// init_scene(mrt);
 	show_sidebar(mrt);
 	add_circle(mrt);
-	print_scene(*mrt.scene);
 	raytrace_xpm(mrt);
 }
 

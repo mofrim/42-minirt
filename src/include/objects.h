@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/02 15:07:02 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 11:33:33 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_camera {
 /* The objects linked list. */
 typedef struct s_objlst
 {
+	int				id;
 	t_objtype		type;
 	void			*obj;
 	struct s_objlst	*next;

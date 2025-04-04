@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:16:02 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/10 09:51:25 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 11:30:56 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * Rodrigues formula to calc the rotation matrix from this assumption.
  * Orient has to be normalized!
  */
-// TODO: handle orient = {0, 0, -1}. And maybe test a little bit more if this is
+// FIXME: handle orient = {0, 0, -1}. And maybe test a little bit more if this is
 // really bullet proof...
 t_mtrx	get_rotmtrx(t_v3 orient)
 {
@@ -40,7 +40,5 @@ t_mtrx	get_rotmtrx(t_v3 orient)
 						sin(rot_angle))), \
 				mtrx_mult_scalar(mtrx_prod_mtrx(cross_matrix, cross_matrix), \
 					1 - cos(rot_angle)));
-	printf("rotation mtrx:\n");
-	mtrx_print(rot);
 	return (rot);
 }

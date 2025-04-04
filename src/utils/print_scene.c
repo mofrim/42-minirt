@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:43:57 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/02 15:16:57 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 11:31:37 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,6 @@ static void print_debug(t_scene scene)
 void	print_scene(t_scene scene)
 {
 	print_debug(scene);
-	// printf("-- cam --\n");
-	// print_cam(*scene.cam);
-	// printf("-- objects --\n");
-	// objlst_print(scene.objects);
 }
 
 
