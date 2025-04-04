@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/03 07:37:43 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 11:09:23 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,9 +171,9 @@ void		colr_print(t_colr c, char *name);
 t_colr		colr_add_light(t_colr c, t_colr l, float light_intens);
 t_colr		calculate_lights(t_scene scene, t_v3 p, t_v3 n, t_colr obj_colr);
 
-double		intersect_ray_sphere(t_v3 cam_pos, t_v3 ray_dir, t_ray_minmax rp,
+double		sphere_intersect_ray(t_v3 cam_pos, t_v3 ray_dir, t_ray_minmax rp,
 				t_sphere *sphere);
-t_colr		get_sphere_colr(t_scene scene, t_sphere s, t_v3 hitpoint);
+t_colr		sphere_get_colr(t_scene scene, t_sphere s, t_v3 hitpoint);
 
 double		circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 				t_circle circle);

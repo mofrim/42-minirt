@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:29:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/02 18:35:32 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 11:10:50 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
  * This scans through all objects in the scene for a intersection. For the
  * object-dependent intersection calculations dispatches to the
  * intersect_ray_obj() func.
- * TODO: find better names!!!!
  */
 t_intersec	intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_objlst *objs)
@@ -47,7 +46,7 @@ double	intersect_ray_single_obj(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_objlst *obj)
 {
 	if (obj->type == SPHERE)
-		return (intersect_ray_sphere(origin, ray_dir, rp, obj->obj));
+		return (sphere_intersect_ray(origin, ray_dir, rp, obj->obj));
 	if (obj->type == CIRCLE)
 		return (circle_intersect_ray(origin, ray_dir, rp,
 				*(t_circle *)obj->obj));

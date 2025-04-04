@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/03 07:44:35 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/04 11:06:49 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,7 @@ SRCS		=	main.c \
 					math_utils.c \
 					get_object_colr.c \
 					intersect_ray_obj.c \
-					sphere_intersect.c \
-					sphere_colr.c \
+					sphere.c \
 					calculate_lights.c \
 					colr_utils.c \
 					do_stuff.c \
@@ -73,8 +72,7 @@ SRCS		=	main.c \
 					cleanup_mrt.c \
 					kbd_cam.c \
 					cam_get_new_pos_rot.c \
-					circle_colr.c \
-					circle_intersect.c \
+					circle.c \
 					kbd_other.c
 
 OBJDIR	=	obj

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_intersect.c                                 :+:      :+:    :+:   */
+/*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/31 15:56:32 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 11:09:23 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // invalid and the other, even though it is greater, is the correct one!
 // ANSWER: mitigated this for now by checking inside of this function, but maybe
 // it have to think about this more later....
-double	intersect_ray_sphere(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+double	sphere_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_sphere *sphere)
 {
 	t_v2	res;
@@ -40,4 +40,22 @@ double	intersect_ray_sphere(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	if (rp.tmin < res.x2 && res.x2 < rp.tmax)
 		return (res.x2);
 	return (INF);
+}
+
+/* Returns the normal vector on the sphere at a given hitpoint. */
+static t_v3	get_normal_sphere(t_v3	hitpoint, t_v3 center)
+{
+	return (v3_get_norm(v3_add_vec(hitpoint, v3_mult(center, -1))));
+}
+
+/* Returns the color of the sphere at the hitpoint. So far only for ambient and
+ * diffuse lighting. */
+t_colr	sphere_get_colr(t_scene scene, t_sphere s, t_v3 hitpoint)
+{
+	t_v3	normal_vec;
+	t_colr	colr_at_hitpoint;
+
+	normal_vec = get_normal_sphere(hitpoint, s.center);
+	colr_at_hitpoint = calculate_lights(scene, hitpoint, normal_vec, s.colr);
+	return (colr_at_hitpoint);
 }
