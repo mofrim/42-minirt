@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_validator2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:49:25 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/28 18:55:42 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/04/04 00:08:46 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,53 @@ static bool is_keyword(char *str)
 void parse_tokens_recursive(t_parser *parser, t_scene *scene, bool *valid)
 {
     t_token *token;
-    bool    element_parsed;
-
-    element_parsed = false;
-    token = tokenizer_next(parser->tokenizer);
-    if (!token)
-        return ;
-    if (token->type == TOKEN_TYPE_KEYWORD)
+    char **lines;
+    int i;
+    
+    // Split input by newlines
+    lines = ft_split(parser->tokenizer->input, '\n');
+    if (!lines)
+        return;
+    
+    i = 0;
+    while (lines[i] && *valid)
     {
-        if (!is_keyword(token->u_value.str))
+        // Skip empty lines
+        if (ft_strlen(lines[i]) == 0)
         {
-            ft_putendl_fd("Error\nInvalid element type", 2);
-            *valid = false;
+            i++;
+            continue;
         }
-        else
+        
+        // Create a temporary tokenizer for this line
+        t_tokenizer *line_tokenizer = tokenizer_new(lines[i]);
+        t_parser *line_parser = parser_new(line_tokenizer);
+        
+        // Parse the single line
+        token = tokenizer_next(line_tokenizer);
+        if (token && token->type == TOKEN_TYPE_KEYWORD)
         {
-            handle_token_keyword(parser, scene, token);
-            element_parsed = true;
+            handle_token_keyword(line_parser, scene, token);
+            token_free(token);
+            
+            // Check if there are more tokens on this line (should be none)
+            token = tokenizer_next(line_tokenizer);
+            if (token)
+            {
+                ft_putendl_fd("Error: Multiple elements on one line", 2);
+                *valid = false;
+                token_free(token);
+            }
         }
+        
+        // Clean up
+        parser_free(line_parser);
+        tokenizer_free(line_tokenizer);
+        i++;
     }
-    token_free(token);
-    if (!element_parsed)
-        return ;
-
-    if (!check_newline(parser->tokenizer))
-    {
-        ft_putendl_fd("Error\nMore than one element per line", 2);
-        *valid = false;
-        return ;
-    }
-    parse_tokens_recursive(parser, scene, valid);
+    
+    // Free the split lines
+    free_parts(lines);
 }
+
 

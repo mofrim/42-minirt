@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:52:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/03 12:52:07 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:27:55 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,39 @@ char *read_file(char *filename)
 	close(fd);
 	ft_printf("%s", file_content);
 	return (file_content);
+}
+
+bool has_minimum_required_elements(char *content)
+{
+    bool has_ambient = false;
+    bool has_camera = false;
+    bool has_light = false;
+    char **lines;
+    int i;
+    
+    lines = ft_split(content, '\n');
+    if (!lines)
+        return (false);
+    
+    i = 0;
+    while (lines[i])
+    {
+        // Skip whitespace at beginning of line
+        char *trimmed = lines[i];
+        while (*trimmed && ft_isspace(*trimmed))
+            trimmed++;
+        
+        // Check for element identifiers
+        if (*trimmed == 'A')
+            has_ambient = true;
+        else if (*trimmed == 'C')
+            has_camera = true;
+        else if (*trimmed == 'L')
+            has_light = true;
+        
+        i++;
+    }
+    
+    free_parts(lines);
+    return (has_ambient && has_camera && has_light);
 }

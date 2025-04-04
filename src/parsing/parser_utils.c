@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/28 17:09:34 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:26:18 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,37 +47,35 @@ t_v3	parse_v3_from_parts(char **parts)
 	return (v3);
 }
 
-t_v3	parse_v3(t_parser *parser, bool *valid)
+t_v3 parse_v3(t_parser *parser, bool *valid)
 {
-	t_v3	v3;
-	t_token	*token;
-	char	**parts;
-
-	v3 = parse_default_v3();
-	token = tokenizer_next(parser->tokenizer);
-	debug_token(token, "in parse_v3");
-	if (!token || token->type != TOKEN_TYPE_V3)
-	{
-		if (token)
-			token_free(token);
-		ft_putendl_fd("Error: Expected vector format x,y,z", 2);
-		*valid = false;
-		return (v3);
-	}
-	parts = ft_split(token->u_value.str, ',');
-	if (!parts || !parts[0] || !parts[1] || !parts[2])
-	{
-		if (parts)
-			free_parts_helper(parts);
-		token_free(token);
-		ft_putendl_fd("Error: Invalid vector format", 2);
-		*valid = false;
-		return (v3);
-	}
-	v3 = parse_v3_from_parts(parts);
-	free_parts_helper(parts);
-	token_free(token);
-	return (v3);
+    t_v3 v3;
+    t_token *token;
+    char **parts;
+    
+    v3 = parse_default_v3();
+    token = tokenizer_next(parser->tokenizer);
+    if (!token || token->type != TOKEN_TYPE_V3)
+    {
+        if (token)
+            token_free(token);
+        ft_putendl_fd("Error: Expected vector format x,y,z", 2);
+        *valid = false;
+        return (v3);
+    }
+    
+    parts = ft_split(token->u_value.str, ',');
+    if (!validate_vector_components(parts, valid))
+    {
+        free_parts(parts);
+        token_free(token);
+        return (v3);
+    }
+    
+    v3 = parse_v3_from_parts(parts);
+    free_parts(parts);
+    token_free(token);
+    return (v3);
 }
 
 void	free_parts(char **parts)

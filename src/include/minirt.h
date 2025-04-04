@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/28 15:40:23 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:47:47 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,25 @@ t_mrt		*init_mrt(t_scene *scene);
 void		setup_camera(t_camera *cam);
 void		setup_scene(t_scene *scene);
 
+/********** File and Scene Handling **********/
+
+char		*read_file(char *filename);
+void		test_colors(void);
+bool		has_minimum_required_elements(char *content);
+t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx);
+t_xpm_canvas	*raytrace_xpm(t_mrt mrt);
+
 /********** Debug functions. **********/
+
 void		debug_parsed_scene(t_scene *scene);
 void		debug_token(t_token *token, const char *message);
+void		debug_camera(t_camera *cam);
+void		debug_ambient_light(t_amb_light *alight);
+void		debug_sphere(t_sphere *sphere);
+void		debug_plane(t_plane *plane);
+void		debug_cylinder(t_cylinder *cylinder);
+void		debug_light(t_light *light);
+void		debug_objects(t_objlst *objects);
 
 /********** Utils. **********/
 
@@ -138,8 +154,8 @@ t_colr		int_to_tcolr(int int_colr);
 void		error_exit(char *msg);
 void		nullcheck(void *p, char *msg);
 void		cleanup_mrt(t_mrt *mrt);
-char		*read_file(char *filename);
-double			ft_atof(const char *str); // Still need to implement this
+double		ft_atof(const char *str);
+void		colr_print(t_colr c, char *name);
 
 /********** Math utils. **********/
 
@@ -149,10 +165,11 @@ t_mtrx		cam_get_new_rot(t_mtrx	oldrot, double x_ang, double y_ang);
 t_v3		cam_get_new_pos(t_camera *cam, t_dirs dir, double step);
 t_v3		cam_update_orient(t_camera cam);
 
-/********** UI. **********/
+/********** UI & Event Handlers. **********/
 
 int			close_btn_handler(t_mrt *mrt);
 int			kbd_input_handler(int key, t_mrt *mrt);
+int			key_press_handler(int key, t_mrt *mrt);
 void		show_sidebar(t_mrt mrt);
 void		redraw_win(t_mrt mrt);
 
@@ -168,7 +185,6 @@ double		intersect_ray_sphere(t_v3 cam_pos, t_v3 ray_dir, t_ray_minmax rp,
 t_colr		get_object_colr(t_scene scene, t_objlst *close_obj, t_v3 hitpoint);
 t_colr		colr_mult(t_colr c, double i);
 t_colr		colr_add_colr(t_colr c1, t_colr c2);
-void		colr_print(t_colr c, char *name);
 t_colr		colr_add_light(t_colr c, t_colr l);
 t_colr		calculate_lights(t_scene scene, t_v3 p, t_v3 n, t_colr obj_colr);
 t_colr		get_sphere_colr(t_scene scene, t_sphere s, t_v3 hitpoint);

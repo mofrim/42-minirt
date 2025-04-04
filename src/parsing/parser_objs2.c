@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_objs2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/28 18:52:32 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:24:57 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,65 @@ t_cylinder	*parse_cylinder(t_parser *parser)
 
 // FIXME: introduce TOKEN_TYPE_COLR in order to handle color parsing (i.e. with
 // checking for correct value ranges and so on)
-t_colr	parse_color(t_parser *parser, bool *valid)
-{
-	t_colr	color;
-	t_token	*token;
-	char	**parts;
+// t_colr	parse_color(t_parser *parser, bool *valid)
+// {
+// 	t_colr	color;
+// 	t_token	*token;
+// 	char	**parts;
 
-	*valid = true;
-	color.r = 255;
-	color.g = 255;
-	color.b = 255;
-	token = tokenizer_next(parser->tokenizer);
-	debug_token(token, "in parse_color");
-	if (!token)
-		return (color);
-	if (token->type == TOKEN_TYPE_V3)
-	{
-		parts = ft_split(token->u_value.str, ',');
-		if (parts && parts[0] && parts[1] && parts[2])
-		{
-			color.r = ft_atoi(parts[0]);
-			color.g = ft_atoi(parts[1]);
-			color.b = ft_atoi(parts[2]);
-			free_parts(parts);
-		}
-	}
-	token_free(token);
-	return (validate_color(color, valid));
+// 	*valid = true;
+// 	color.r = 255;
+// 	color.g = 255;
+// 	color.b = 255;
+// 	token = tokenizer_next(parser->tokenizer);
+// 	debug_token(token, "in parse_color");
+// 	if (!token)
+// 		return (color);
+// 	if (token->type == TOKEN_TYPE_V3)
+// 	{
+// 		parts = ft_split(token->u_value.str, ',');
+// 		if (parts && parts[0] && parts[1] && parts[2])
+// 		{
+// 			color.r = ft_atoi(parts[0]);
+// 			color.g = ft_atoi(parts[1]);
+// 			color.b = ft_atoi(parts[2]);
+// 			free_parts(parts);
+// 		}
+// 	}
+// 	token_free(token);
+// 	return (validate_color(color, valid));
+// }
+
+t_colr parse_color(t_parser *parser, bool *valid)
+{
+    t_colr color;
+    t_token *token;
+    char **parts;
+    
+    color = (t_colr){0, 0, 0};
+    token = tokenizer_next(parser->tokenizer);
+    if (!token || token->type != TOKEN_TYPE_KEYWORD)
+    {
+        if (token)
+            token_free(token);
+        ft_putendl_fd("Error: Expected color format r,g,b", 2);
+        *valid = false;
+        return (color);
+    }
+    
+    parts = ft_split(token->u_value.str, ',');
+    if (!validate_color_components(parts, valid))
+    {
+        free_parts(parts);
+        token_free(token);
+        return (color);
+    }
+    
+    color.r = ft_atoi(parts[0]);
+    color.g = ft_atoi(parts[1]);
+    color.b = ft_atoi(parts[2]);
+    
+    free_parts(parts);
+    token_free(token);
+    return (color);
 }

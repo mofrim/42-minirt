@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_validator.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:18:34 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/03/28 16:46:52 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:29:33 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,27 @@ bool	is_rt(char *filename)
 char	*validate_file_content(char *filename)
 {
 	char *content;
-
+	
 	if (!is_rt(filename))
 	{
 		ft_putendl_fd("Error: Invalid extension. Expected '.rt'", 2);
 		return (NULL);
 	}
+	
 	content = read_file(filename);
 	if (!content)
 	{
 		ft_putendl_fd("Error: Failed to read file", 2);
 		return (NULL);
 	}
+	
 	if (!*content)
 	{
 		ft_putendl_fd("Error: File is empty", 2);
 		free(content);
 		return (NULL);
 	}
+	
 	return (content);
 }
 
