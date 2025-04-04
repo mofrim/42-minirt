@@ -7,6 +7,7 @@ minilibx_opengl.tgz
 .cache/
 minirt
 obj/
+compile_commands.json
 
 core
 playground/chat
