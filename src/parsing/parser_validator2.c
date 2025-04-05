@@ -6,36 +6,36 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:49:25 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/04 00:08:46 by zrz              ###   ########.fr       */
+/*   Updated: 2025/04/04 23:28:42 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static bool check_newline(t_tokenizer *tokenizer)
-{
-	int	pos;
+// static bool check_newline(t_tokenizer *tokenizer)
+// {
+// 	int	pos;
 
-	pos = tokenizer->position;
-	skip_whitespace(tokenizer);
-	if (tokenizer->input[tokenizer->position] == '\n')
-	{
-		tokenizer->position++;
-		return (true);
-	}
-	tokenizer->position = pos;
-	return (false);
-}
+// 	pos = tokenizer->position;
+// 	skip_whitespace(tokenizer);
+// 	if (tokenizer->input[tokenizer->position] == '\n')
+// 	{
+// 		tokenizer->position++;
+// 		return (true);
+// 	}
+// 	tokenizer->position = pos;
+// 	return (false);
+// }
 
-static bool is_keyword(char *str)
-{
-    return (ft_strcmp(str, "A") == 0 || 
-            ft_strcmp(str, "C") == 0 || 
-            ft_strcmp(str, "L") == 0 || 
-            ft_strcmp(str, "sp") == 0 || 
-            ft_strcmp(str, "pl") == 0 || 
-            ft_strcmp(str, "cy") == 0);
-}
+// static bool is_keyword(char *str)
+// {
+//     return (ft_strcmp(str, "A") == 0 || 
+//             ft_strcmp(str, "C") == 0 || 
+//             ft_strcmp(str, "L") == 0 || 
+//             ft_strcmp(str, "sp") == 0 || 
+//             ft_strcmp(str, "pl") == 0 || 
+//             ft_strcmp(str, "cy") == 0);
+// }
 
 void parse_tokens_recursive(t_parser *parser, t_scene *scene, bool *valid)
 {

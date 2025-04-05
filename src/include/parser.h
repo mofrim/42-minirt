@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/04 11:47:31 by zrz              ###   ########.fr       */
+/*   Updated: 2025/04/04 23:27:42 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int         is_numeric(t_tokenizer *tokenizer);
 void        skip_sign(t_tokenizer *tokenizer);
 void        parse_digits(t_tokenizer *tokenizer);
 void        parse_decimal(t_tokenizer *tokenizer);
-bool        check_newline(t_tokenizer *tokenizer);
+// bool        check_newline(t_tokenizer *tokenizer);
 
 // Debug functions
 void        debug_token(t_token *token, const char *message);

@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/04 00:10:42 by zrz              ###   ########.fr       */
+/*   Updated: 2025/04/04 23:30:46 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int is_coordinate(t_tokenizer *tokenizer)
           tokenizer->input[tokenizer->position] == '+'))
         return (0);
     // Count commas and ensure all characters are valid for coordinates
-    while (tokenizer->position + i < tokenizer->len && 
+    while ((size_t)(tokenizer->position + i) < tokenizer->len && 
            !ft_isspace(tokenizer->input[tokenizer->position + i]))
     {
         if (tokenizer->input[tokenizer->position + i] == ',')

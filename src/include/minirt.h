@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 11:47:47 by zrz              ###   ########.fr       */
+/*   Updated: 2025/04/04 23:26:20 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char		*read_file(char *filename);
 void		test_colors(void);
 bool		has_minimum_required_elements(char *content);
 t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx);
-t_xpm_canvas	*raytrace_xpm(t_mrt mrt);
+// t_xpm_canvas	*raytrace_xpm(t_mrt mrt);
 
 /********** Debug functions. **********/
 
