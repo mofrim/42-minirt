@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:07:08 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 11:42:45 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 18:21:27 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,30 @@ static void print_circle(t_objlst obj)
 			c.colr.b);
 }
 
+static void print_triangle(t_objlst obj)
+{
+	int			id;
+	t_triangle	t;
+
+	id = obj.id;
+	t = *((t_triangle *)obj.obj);
+	printf("  [%2d] triangle { a=(%.4f,%.4f,%.4f), b=(%.4f,%.4f,%.4f), "
+			"c=(%.4f,%.4f,%.4f), colr=[%d,%d,%d] }\n",
+			id,
+			t.a.x,
+			t.a.y,
+			t.a.z,
+			t.b.x,
+			t.b.y,
+			t.b.z,
+			t.c.x,
+			t.c.y,
+			t.c.z,
+			t.colr.r,
+			t.colr.g,
+			t.colr.b);
+}
+
 void	objlst_print(t_objlst *lst)
 {
 	while (lst)
@@ -78,6 +102,8 @@ void	objlst_print(t_objlst *lst)
 			print_light(*lst);
 		if (lst->type == CIRCLE)
 			print_circle(*lst);
+		if (lst->type == TRIANGLE)
+			print_triangle(*lst);
 		lst = lst->next;
 	}
 }

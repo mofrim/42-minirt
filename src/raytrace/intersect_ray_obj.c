@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:29:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 11:10:50 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 20:16:38 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ double	intersect_ray_single_obj(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 {
 	if (obj->type == SPHERE)
 		return (sphere_intersect_ray(origin, ray_dir, rp, obj->obj));
-	if (obj->type == CIRCLE)
+	else if (obj->type == CIRCLE)
 		return (circle_intersect_ray(origin, ray_dir, rp,
 				*(t_circle *)obj->obj));
+	else if (obj->type == TRIANGLE)
+		return (triangle_intersect_ray(origin, ray_dir, rp,
+				*(t_triangle *)obj->obj));
 	return (0);
 }

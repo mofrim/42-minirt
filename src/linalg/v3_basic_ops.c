@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:33:53 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/08 19:20:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 20:08:25 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ t_v3	v3_add_vec(t_v3 v, t_v3 w)
 	v.x += w.x;
 	v.y += w.y;
 	v.z += w.z;
+	return (v);
+}
+
+t_v3	v3_minus_vec(t_v3 v, t_v3 w)
+{
+	v.x -= w.x;
+	v.y -= w.y;
+	v.z -= w.z;
 	return (v);
 }
 

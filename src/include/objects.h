@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 11:33:33 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 18:54:09 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ typedef enum e_obj
 	PLANE,
 	SPHERE,
 	CYLINDER,
-	CIRCLE
+	CIRCLE,
+	TRIANGLE
 }	t_objtype;
 
 /* WARNING: the subject specifies that the *diameter* will be specified in the
@@ -73,6 +74,23 @@ typedef struct s_circle
 	t_v3	center;
 	t_colr	colr;
 }	t_circle;
+
+/* potdn = PointOnTriangleDotN convenience variable to speed up intersection
+ * calc. */
+// TODO: also do this for circles and planes.
+typedef struct s_triangle
+{
+	t_v3	a;
+	t_v3	b;
+	t_v3	c;
+	t_v3	ab;
+	t_v3	ac;
+	t_v3	bc;
+	t_v3	normal;
+	double	potdn;
+	double	area;
+	t_colr	colr;
+}	t_triangle;
 
 typedef struct s_amb_light
 {

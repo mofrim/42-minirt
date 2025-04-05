@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 11:09:23 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/04 20:14:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,10 @@ double		circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 				t_circle circle);
 t_colr		circle_get_colr(t_scene scene, t_circle c, t_v3 hitpoint);
 t_colr		colr_add_amblight(t_colr oc, t_colr ac, float abright);
+
+double		triangle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+				t_triangle tri);
+t_colr		triangle_get_colr(t_scene scene, t_triangle tri, t_v3 hitpoint);
 
 /********** Do stuff. **********/
 

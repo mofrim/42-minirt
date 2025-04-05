@@ -2,6 +2,9 @@
 
 ## Most recent TODOs
 
+- [ ] a white circle / sphere should be completely white, no? at least with
+  ambient light at 1.0?
+
 ### features
 
 - [x] UI feat: move the camera using `wasd` and `+/-`. `wasd` should rotate the

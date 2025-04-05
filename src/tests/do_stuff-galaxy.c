@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 11:29:11 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/05 10:47:34 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/05 10:23:29 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,53 @@ void	add_circle(t_mrt mrt)
 	c->center = (t_v3){0, 0, 0};
 	c->r = 10;
 	c->r2 = c->r * c->r;
-	c->normal = v3_get_norm((t_v3){0, 0, -1});
+	c->normal = v3_get_norm((t_v3){0, 1, 0});
 	c->colr = rgb_to_tcolr(DARK_SLATE_BLUE);
 	objlst_add_back(&mrt.scene->objects, objlst_new(CIRCLE, c));
+
+	t_circle	*c2 = malloc(sizeof(t_circle));
+	c2->center = (t_v3){0, 0.01, 0};
+	c2->r = 9;
+	c2->r2 = c2->r * c2->r;
+	c2->normal = v3_get_norm((t_v3){0, 1, 0});
+	c2->colr = rgb_to_tcolr(MEDIUM_BLUE);
+	objlst_add_back(&mrt.scene->objects, objlst_new(CIRCLE, c2));
+
+	t_circle	*c3 = malloc(sizeof(t_circle));
+	c3->center = (t_v3){0, 0.02, 0};
+	c3->r = 8;
+	c3->r2 = c3->r * c3->r;
+	c3->normal = v3_get_norm((t_v3){0, 1, 0});
+	c3->colr = rgb_to_tcolr(DODGER_BLUE);
+	objlst_add_back(&mrt.scene->objects, objlst_new(CIRCLE, c3));
+
+	t_circle	*c4 = malloc(sizeof(t_circle));
+	c4->center = (t_v3){0, 0.03, 0};
+	c4->r = 7;
+	c4->r2 = c4->r * c4->r;
+	c4->normal = v3_get_norm((t_v3){0, 1, 0});
+	c4->colr = rgb_to_tcolr(DARK_SEA_GREEN);
+	objlst_add_back(&mrt.scene->objects, objlst_new(CIRCLE, c4));
+
+	t_circle	*c5 = malloc(sizeof(t_circle));
+	c5->center = (t_v3){0, 0.04, 0};
+	c5->r = 6;
+	c5->r2 = c5->r * c5->r;
+	c5->normal = v3_get_norm((t_v3){0, 1, 0});
+	c5->colr = rgb_to_tcolr(GOLDENROD);
+	objlst_add_back(&mrt.scene->objects, objlst_new(CIRCLE, c5));
 }
 
 void	add_triangle(t_mrt mrt)
 {
 	t_triangle *t0 = malloc(sizeof(t_triangle));
-	t0->a = (t_v3){-4,-4,-2};
-	t0->b = (t_v3){4,-4,-2};
-	t0->c = (t_v3){0,4,-2};
+	t0->a = (t_v3){-4,0,0};
+	t0->b = (t_v3){4,0,0};
+	t0->c = (t_v3){0,8,0};
 	t0->ab = v3_minus_vec(t0->b, t0->a);
 	t0->ac = v3_minus_vec(t0->c, t0->a);
 	t0->bc= v3_minus_vec(t0->c, t0->b);
-	t0->normal = v3_mult(v3_cross(t0->ab, t0->ac), -1);
+	t0->normal = v3_cross(t0->ab, t0->ac);
 	t0->potdn = v3_dot(t0->a, t0->normal);
 	t0->area = 0.5 * v3_norm(v3_cross(t0->ab, t0->ac));
 	t0->colr = rgb_to_tcolr(ORANGE);
@@ -100,7 +132,6 @@ void	do_stuff(t_mrt mrt)
 	// init_scene(mrt);
 	show_sidebar(mrt);
 	add_circle(mrt);
-	add_triangle(mrt);
 	raytrace_xpm(mrt);
 }
 
