@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:52:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/07 21:28:48 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/07 22:29:51 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@ void	error_exit(char *msg)
 		perror(msg);
 	else
 		perror("Error");
+	exit(EXIT_FAILURE);
+}
+
+/* Print a errmsg to stderr, append a newline and exit with EXIT_FAILURE. */
+void	exit_with_errmsg(char *msg)
+{
+	ft_dprintf(STDERR_FILENO, "%s\n", msg);
 	exit(EXIT_FAILURE);
 }
 

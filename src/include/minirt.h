@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/07 18:37:14 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/07 23:03:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,7 @@ typedef enum e_dirs
 
 /********** General functions. **********/
 
-t_scene		*parse_scene(char *scene_file);
-t_mrt		*init_mrt(t_scene *scene);
-
+t_mrt		*init_mrt(char *scene_filename);
 void		setup_camera(t_camera *cam);
 void		setup_scene(t_scene *scene);
 
@@ -152,6 +150,7 @@ void		print_scene(t_scene scene);
 int			tcolr_to_int(t_colr colr);
 t_colr		int_to_tcolr(int int_colr);
 void		error_exit(char *msg);
+void		exit_with_errmsg(char *msg);
 void		nullcheck(void *p, char *msg);
 void		cleanup_mrt(t_mrt *mrt);
 double		ft_atof(const char *str);

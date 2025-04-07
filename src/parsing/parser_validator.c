@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:18:34 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/07 21:38:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/07 22:33:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,20 @@ bool	is_rt(char *filename)
 	return (true);
 }
 
-// FIXME: comment
+/* Basic scenefile validation. No allocs until here so using exit is fine. */
 char	*validate_file_content(char *filename)
 {
 	char	*content;
 
 	if (!is_rt(filename))
-		return (ft_dprintf(STDERR_FILENO, \
-					"Error\nInvalid extension. Expected '.rt'"), NULL);
+		exit_with_errmsg("Error\nInvalid extension. Expected '.rt'");
 	content = read_file(filename);
 	if (!content)
-		return (ft_dprintf(STDERR_FILENO, "Error\nFailed to read file"), NULL);
+		exit_with_errmsg("Error\nFailed to read file");
 	if (!*content)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\n File is empty");
 		free(content);
-		return (NULL);
+		exit_with_errmsg("Error\nFile is empty");
 	}
 	return (content);
 }
