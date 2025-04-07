@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 21:09:25 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/27 12:58:53 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/08 00:55:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,8 @@
 
 /* For now our viewport is fixed at z = 1.0 from camera. */
 # define VIEWZ	1.0
+
+/* Read buffer size for reading scene file. */
+# define FILE_BUFSIZE 1000
 
 #endif
