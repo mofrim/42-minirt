@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+         #
+#    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/04 23:38:58 by zrz              ###   ########.fr        #
+#    Updated: 2025/04/07 09:27:05 by jroseiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,8 +108,9 @@ MINRT_HDRS	= $(INC_DIR)/minirt.h \
 
 # FIXME: change this back to 'cc' @school for eval
 CC			=	clang
-CFLAGS	=	-g -Werror -Wall -Wextra -I$(X11_PATH)/include -I$(XORG_PATH)/include -I$(XEXT_PATH)/include -Wno-deprecated-non-prototype
-LDFLAGS += -L$(X11_PATH)/lib -L$(XEXT_PATH)/lib -lX11 -lXext
+CFLAGS	=	-g -Werror -Wall -Wextra 
+# -I$(X11_PATH)/include -I$(XORG_PATH)/include -I$(XEXT_PATH)/include -Wno-deprecated-non-prototype
+#LDFLAGS += -L$(X11_PATH)/lib -L$(XEXT_PATH)/lib -lX11 -lXext
 
 # special nix compilation support for mlx. see LIBMLX rule.
 NIX11 = $(shell echo $$NIX11)
