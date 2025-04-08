@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/04 23:27:42 by zrz              ###   ########.fr       */
+/*   Updated: 2025/04/08 10:40:04 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_parser {
 
 // Parser initialization and cleanup
 t_parser    *parser_new(t_tokenizer *tokenizer);
-void        parser_free(t_parser *parser);
 
 // Main parsing functions
 t_scene     *parser_parse(t_parser *parser);
@@ -100,6 +99,8 @@ t_colr      parse_color(t_parser *parser, bool *valid);
 t_sphere    *parse_sphere(t_parser *parser);
 t_plane     *parse_plane(t_parser *parser);
 t_cylinder  *parse_cylinder(t_parser *parser);
+t_triangle	*parse_triangle(t_parser *parser);
+t_circle	*parse_circle(t_parser *parser);
 
 // Parser utilities
 t_v3        parse_v3(t_parser *parser, bool *valid);

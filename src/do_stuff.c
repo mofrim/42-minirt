@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 11:29:11 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/07 21:24:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/08 09:23:19 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,6 @@
 // }
 
 
-void setup_camera(t_camera *cam)
-{
-	if (!cam)
-		return;
-
-	// Convert FOV from degrees to radians if needed
-	if (cam->fov > M_PI)  // If FOV is likely in degrees
-		cam->fov = cam->fov * M_PI / 180.0;
-
-	// Set up the rotation matrix
-	cam->rot = get_rotmtrx(v3_get_norm(cam->orient));
-
-	// Calculate view based on fov
-	cam->view_width = 2 * tan(cam->fov / 2);
-
-	// Calculate canvas to viewport ratio
-	cam->cvr = cam->view_width / CANVAS_WIDTH;
-
-	printf("Camera setup: pos=(%f,%f,%f), orient=(%f,%f,%f), fov=%f rad, width=%f\n",
-		   cam->pos.x, cam->pos.y, cam->pos.z,
-		   cam->orient.x, cam->orient.y, cam->orient.z,
-		   cam->fov, cam->view_width);
-}
-
 void	add_circle(t_mrt mrt)
 {
 	t_circle	*c = malloc(sizeof(t_circle));
@@ -101,7 +77,7 @@ void	do_stuff(t_mrt mrt)
 	show_sidebar(mrt);
 	// add_circle(mrt);
 	// add_triangle(mrt);
-	objlst_print(mrt.scene->objects);
+	print_scene(*mrt.scene);
 	raytrace_xpm(mrt);
 }
 

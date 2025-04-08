@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/07 21:41:51 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/08 09:13:53 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_amb_light	*parse_ambient_light(t_parser *parser)
 	valid = true;
 	amb_light = malloc(sizeof(t_amb_light));
 	nullcheck(amb_light, "parse_ambient_light()");
-	skip_whitespace(parser->tokenizer);
 	amb_light->bright = parse_number(parser->tokenizer);
 	amb_light->colr = parse_color(parser, &valid);
 	return (amb_light);
@@ -59,7 +58,6 @@ t_amb_light	*parse_ambient_light(t_parser *parser)
 t_camera	*parse_camera(t_parser *parser)
 {
 	t_camera	*camera;
-	t_token		*token;
 	bool valid;
 
 	valid = true;
@@ -67,17 +65,6 @@ t_camera	*parse_camera(t_parser *parser)
 	nullcheck(camera, "parse_camera");
 	camera->pos = parse_v3(parser, &valid);
 	camera->orient = parse_v3(parser, &valid);
-	token = tokenizer_next(parser->tokenizer);
-	if (token && token->type == TOKEN_TYPE_NUMBER)
-	{
-		camera->fov = token->u_value.num;
-		token_free(token);
-	}
-	else
-	{
-		camera->fov = 70.0;
-		if (token)
-			token_free(token);
-	}
+	camera->fov = parse_number(parser->tokenizer);
 	return (camera);
 }

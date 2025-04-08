@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/07 22:08:32 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/08 10:49:48 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 t_plane	*parse_plane(t_parser *parser)
 {
 	t_plane	*plane;
-	bool valid;
-	
+	bool	valid;
+
 	valid = true;
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
@@ -30,7 +30,7 @@ t_plane	*parse_plane(t_parser *parser)
 t_cylinder	*parse_cylinder(t_parser *parser)
 {
 	t_cylinder	*cylinder;
-	bool valid;
+	bool		valid;
 
 	valid = true;
 	cylinder = malloc(sizeof(t_cylinder));
@@ -42,6 +42,51 @@ t_cylinder	*parse_cylinder(t_parser *parser)
 	cylinder->height = parse_number(parser->tokenizer);
 	cylinder->colr = parse_color(parser, &valid);
 	return (cylinder);
+}
+
+// FIXME: should we do the calculations in here? have a `setup` function for
+// every object?
+t_triangle	*parse_triangle(t_parser *parser)
+{
+	t_triangle	*tr;
+	bool		valid;
+
+	valid = true;
+	tr = malloc(sizeof(t_triangle));
+	nullcheck(tr, "Error\nparse_circle()");
+	tr->a = parse_v3(parser, &valid);
+	tr->b = parse_v3(parser, &valid);
+	tr->c = parse_v3(parser, &valid);
+	tr->colr = parse_color(parser, &valid);
+
+	// FIXME calculations / setup
+	tr->ab = v3_minus_vec(tr->b, tr->a);
+	tr->ac = v3_minus_vec(tr->c, tr->a);
+	tr->bc= v3_minus_vec(tr->c, tr->b);
+	tr->normal = v3_mult(v3_cross(tr->ab, tr->ac), -1); // FIXME eeehmm
+	tr->potdn = v3_dot(tr->a, tr->normal);
+	tr->area = 0.5 * v3_norm(v3_cross(tr->ab, tr->ac));
+
+	return (tr);
+}
+
+t_circle	*parse_circle(t_parser *parser)
+{
+	t_circle	*ci;
+	bool		valid;
+
+	valid = true;
+	ci = malloc(sizeof(t_circle));
+	nullcheck(ci, "Error\nparse_circle()");
+	ci->center = parse_v3(parser, &valid);
+	ci->normal = parse_v3(parser, &valid);
+	ci->r = parse_number(parser->tokenizer);
+	ci->colr = parse_color(parser, &valid);
+
+	// FIXME calculations / setup
+	ci->r2 = ci->r * ci->r;
+	ci->normal = v3_get_norm(ci->normal);
+	return (ci);
 }
 
 // FIXME: introduce TOKEN_TYPE_COLR in order to handle color parsing (i.e. with

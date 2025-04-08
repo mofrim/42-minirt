@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/07 23:03:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/08 09:16:40 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx);
 
 /********** Debug functions. **********/
 
-void		debug_parsed_scene(t_scene *scene);
 void		debug_token(t_token *token, const char *message);
 void		debug_camera(t_camera *cam);
 void		debug_ambient_light(t_amb_light *alight);

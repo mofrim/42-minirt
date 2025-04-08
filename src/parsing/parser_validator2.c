@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:49:25 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/07 21:51:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/08 09:52:28 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 //             ft_strcmp(str, "cy") == 0);
 // }
 
+// FIXME: refac && what happens if we do not have any token on a line? can this
+// still happen at this stage?
 void parse_tokens_recursive(t_parser *parser, t_scene *scene, bool *valid)
 {
 	t_token		*token;
@@ -47,14 +49,11 @@ void parse_tokens_recursive(t_parser *parser, t_scene *scene, bool *valid)
 
 	lines = ft_split(parser->tokenizer->input, '\n');
 	nullcheck(lines, "parse_tokens_recursive()");
-	i = 0;
-	while (lines[i] && *valid)
+	i = -1;
+	while (lines[++i] && *valid)
 	{
 		if (ft_strlen(lines[i]) == 0)
-		{
-			i++;
 			continue;
-		}
 		line_tokenizer = tokenizer_new(lines[i]);
 		line_parser = parser_new(line_tokenizer);
 		token = tokenizer_next(line_tokenizer);
@@ -65,14 +64,14 @@ void parse_tokens_recursive(t_parser *parser, t_scene *scene, bool *valid)
 			token = tokenizer_next(line_tokenizer);
 			if (token)
 			{
-				ft_putendl_fd("Error: Multiple elements on one line", 2);
+				ft_dprintf(STDERR_FILENO,
+						"Error\nMultiple elements on one line");
 				*valid = false;
 				token_free(token);
 			}
 		}
-		parser_free(line_parser);
+		free(line_parser);
 		tokenizer_free(line_tokenizer);
-		i++;
 	}
 	free_parts(lines);
 }

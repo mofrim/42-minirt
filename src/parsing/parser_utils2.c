@@ -6,17 +6,20 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 22:52:15 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/07 22:56:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/08 09:14:26 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+// FIXME add validation check here?!
+// rewrite to have the same structure as parse_color or the like!
 double	parse_number(t_tokenizer *tokenizer)
 {
 	t_token	*token;
 	double	value;
 
+	skip_whitespace(tokenizer);
 	token = parse_number_token(tokenizer);
 	if (!token)
 		return (0.0);

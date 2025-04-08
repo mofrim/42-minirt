@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/07 18:43:03 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/08 08:57:13 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ SRCS		=	main.c \
 					tokenizer.c \
 					tokenizer_next.c \
 					tokenizer_nums.c \
-					setup_init_scene.c \
+					setup_scene.c \
 					raytrace_xpm.c \
 					xpm.c \
 					cleanup_mrt.c \
