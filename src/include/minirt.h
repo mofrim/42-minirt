@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/08 09:16:40 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/11 22:00:58 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void		print_scene(t_scene scene);
 int			tcolr_to_int(t_colr colr);
 t_colr		int_to_tcolr(int int_colr);
 void		error_exit(char *msg);
+void		print_errmsg(char *msg);
 void		exit_with_errmsg(char *msg);
 void		nullcheck(void *p, char *msg);
 void		cleanup_mrt(t_mrt *mrt);

@@ -22,10 +22,18 @@ void	error_exit(char *msg)
 	exit(EXIT_FAILURE);
 }
 
+/* Convenience error printing to stderr. */
+void	print_errmsg(char *msg)
+{
+	if (!msg)
+		return ;
+	ft_dprintf(STDERR_FILENO, "%s\n", msg);
+}
+
 /* Print a errmsg to stderr, append a newline and exit with EXIT_FAILURE. */
 void	exit_with_errmsg(char *msg)
 {
-	ft_dprintf(STDERR_FILENO, "%s\n", msg);
+	print_errmsg(msg);
 	exit(EXIT_FAILURE);
 }
 
