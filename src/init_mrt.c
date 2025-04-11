@@ -6,14 +6,14 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/08 09:52:21 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/11 22:04:20 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 static void		init_mlx_win(t_mrt *mrt);
-static t_scene	*parse_scene(char *scene_filename);
+static t_scene	*parse_scene(char *scene_filename, t_mrt *mrt);
 
 t_mrt	*init_mrt(char *scene_filename)
 {
@@ -21,15 +21,22 @@ t_mrt	*init_mrt(char *scene_filename)
 
 	mrt = malloc(sizeof(t_mrt));
 	nullcheck(mrt, "Error\nmrt in init_mrt()");
+	mrt->scene = parse_scene(scene_filename, mrt);
 	init_mlx_win(mrt);
-	mrt->scene = parse_scene(scene_filename);
 	mrt->xc = init_xpm_canvas(mrt->mlx);
 	nullcheck(mrt->xc, "Error\nxc in init_mrt()");
 	return (mrt);
 }
 
+/* Helper function for parse_scene. */
+static void	free_mrt_exit(t_mrt *mrt)
+{
+	free(mrt);
+	exit(1);
+}
+
 /* All the file reading and parsing is done in here. */
-t_scene	*parse_scene(char *scene_filename)
+t_scene	*parse_scene(char *scene_filename, t_mrt *mrt)
 {
 	t_scene		*scene;
 	t_tokenizer	*tokenizer;
@@ -37,6 +44,8 @@ t_scene	*parse_scene(char *scene_filename)
 	char		*content;
 
 	content = validate_file_content(scene_filename);
+	if (!content)
+		free_mrt_exit(mrt);
 	tokenizer = tokenizer_new(content);
 	parser = parser_new(tokenizer);
 	scene = parser_parse(parser);

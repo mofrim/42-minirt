@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:18:34 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/07 22:33:11 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/11 22:07:52 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,12 @@ char	*validate_file_content(char *filename)
 	char	*content;
 
 	if (!is_rt(filename))
-		exit_with_errmsg("Error\nInvalid extension. Expected '.rt'");
+		return (print_errmsg("Error\nInvalid extension. Expected '.rt'"), NULL);
 	content = read_file(filename);
 	if (!content)
-		exit_with_errmsg("Error\nFailed to read file");
+		return (print_errmsg("Error\nFailed to read file"), NULL);
 	if (!*content)
-	{
-		free(content);
-		exit_with_errmsg("Error\nFile is empty");
-	}
+		return (free(content), print_errmsg("Error\nFile is empty"), NULL);
 	return (content);
 }
 
