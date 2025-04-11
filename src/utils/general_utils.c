@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:52:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/08 01:11:40 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/11 22:10:20 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ char	*read_file(char *filename)
 	nullcheck(buf, "read_file()");
 	bytes_read = read(fd, buf, FILE_BUFSIZE);
 	if (bytes_read == -1)
-		return (NULL);
+		return (free(buf), NULL);
 	while (bytes_read > 0)
 	{
 		append_from_file(&file_content, buf);
 		ft_bzero(buf, FILE_BUFSIZE);
 		bytes_read = read(fd, buf, FILE_BUFSIZE);
 		if (bytes_read == -1)
-			return (NULL);
+			return (free(buf), NULL);
 	}
 	close(fd);
-	return (file_content);
+	return (free(buf), file_content);
 }
 
 // FIXME: this is not necessary i would argue. the only thing i would say we can
