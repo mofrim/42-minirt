@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/08 08:57:13 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/11 21:36:44 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -158,13 +158,15 @@ $(LIBMLX):
 ifeq ($(shell uname), Darwin)
 	@echo -e "$(call log_msg,Compiling MLX for macOS...)"
 	make -C ./minilibx-linux/
-else ifdef NIX11
+endif
+ifeq ($(NIX11),)
+	@echo -e "$(call log_msg,Compiling MLX the normal way!)"
+	make -C ./minilibx-linux/
+else
+	echo "NIX11 = $(NIX11)"
 	@echo -e "$(call log_msg,Compiling MLX the Nix way!)"
 	sed -i 's/local xlib_inc="$$(get_xlib_include_path)"/local xlib_inc="$$NIX11"/g' ./minilibx-linux/configure
 	sed -i 's/mlx_int_anti_resize_win/\/\/mlx_int_anti_resize_win/g' ./minilibx-linux/mlx_new_window.c
-	NIX11=$NIX11 make -C ./minilibx-linux/
-else
-	@echo -e "$(call log_msg,Compiling MLX the normal way!)"
 	make -C ./minilibx-linux/
 endif
 
