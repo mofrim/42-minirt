@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/08 10:49:48 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:53:01 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ t_colr parse_color(t_parser *parser, bool *valid)
 	t_token	*token;
 	char	**parts;
 
-	color = (t_colr){0, 0, 0};
+	color = (t_colr){0, 0, 0, 0};
 	token = tokenizer_next(parser->tokenizer);
 	if (!token || token->type != TOKEN_TYPE_V3)
 	{

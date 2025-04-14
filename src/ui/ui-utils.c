@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 19:33:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/17 19:37:55 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:50:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	draw_axis(t_mrt mrt)
 	int		i;
 	t_colr	c;
 
-	c = (t_colr){42, 42, 42};
+	c = (t_colr){42, 42, 42, 0.5};
 	i = -1;
 	while (++i < CANVAS_WIDTH)
 	{

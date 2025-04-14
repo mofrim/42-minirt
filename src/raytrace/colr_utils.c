@@ -6,24 +6,17 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 09:32:55 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/03 11:31:52 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 08:49:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/* Multiply a colr by a double value. Avoid oveflow by maxing out to 255. */
-t_colr	colr_mult(t_colr c, double i)
-{
-	t_colr	res;
-
-	res.r = (c.r * i > 255) * 255 + (c.r * i <= 255) * (uint8_t)(c.r * i);
-	res.g = (c.g * i > 255) * 255 + (c.g * i <= 255) * (uint8_t)(c.g * i);
-	res.b = (c.b * i > 255) * 255 + (c.b * i <= 255) * (uint8_t)(c.b * i);
-	return (res);
-}
-
-/* Add 2 colrs. Avoid oveflow by maxing out to 255. */
+/**
+ * Simply add together 2 t_colrs channelwise.
+ *
+ * Use this in combination with colr_add_light.
+ */
 t_colr	colr_add_colr(t_colr c1, t_colr c2)
 {
 	t_colr	res;
@@ -34,60 +27,42 @@ t_colr	colr_add_colr(t_colr c1, t_colr c2)
 			* (uint8_t)(c1.g + c2.g);
 	res.b = (c1.b + c2.b > 255) * 255 + (c1.b + c2.b <= 255) \
 			* (uint8_t)(c1.b + c2.b);
+	res.i = c1.i;
 	return (res);
 }
 
-/**
- * Add the a spotlights influence to a pixel colr.
- *
- * The Blending is controlled via the spotlights brightness or intensity. If the
- * brightness is high the lights effect on overblending the objects original
- * color will be high.
+/* Add a light effect to a objects color (oc).
+ * - If oc is zero in one channel -> no effect.
+ * - If lights color is zero in one channel -> no effect.
+ * - In between: only return the contribution of the light on the channel
+ *   weighted by the surfaces refelctirvity (aka color) in that channel (the
+ *   factor c.x/255.0) and by the lights intensity.
  */
-t_colr	colr_add_light(t_colr c, t_colr l, float light_intens)
+t_colr	colr_add_light(t_colr c, t_colr l)
 {
 	t_colr	res;
 
-	res.r = (uint8_t)fmin(255, c.r * (1.0f - light_intens + \
-				light_intens * l.r / 255.0f));
-	res.g = (uint8_t)fmin(255, c.g * (1.0f - light_intens + \
-				light_intens * l.g / 255.0f));
-	res.b = (uint8_t)fmin(255, c.b * (1.0f - light_intens + \
-				light_intens * l.b / 255.0f));
+	res.r = (uint8_t)fmin(255, (c.r / 255.0f) * l.i * l.r);
+	res.g = (uint8_t)fmin(255, (c.g / 255.0f) * l.i * l.g);
+	res.b = (uint8_t)fmin(255, (c.b / 255.0f) * l.i * l.b);
+	res.i = c.i;
 	return (res);
 }
 
-/* Another approach for adding the effect of the ambient light. The rationale
- * here:
- * 	- in the absence of any spotlights and an ambient light set to 0 we want to
- * 	end up with a black scene
- * 	- the final color value of the object should be limited in a way that if one
- * 	component reaches 255 the other won't get increased more
- *
- */
-t_colr	colr_add_amblight(t_colr oc, t_colr ac, float abright)
+/* Should max out at half the channels max value, which is 127. */
+t_colr	hp_add_alight(t_colr sc, t_colr al)
 {
 	t_colr	res;
 
-	res.r = (uint8_t)fmin(255, (oc.r + ac.r * abright) * abright);
-	res.g = (uint8_t)fmin(255, (oc.g + ac.g * abright) * abright);
-	res.b = (uint8_t)fmin(255, (oc.b + ac.b * abright) * abright);
+	res.r = (uint8_t)fmin(127, 127 * (sc.r / 255.0f) * (al.r / 255.0f) * al.i);
+	res.g = (uint8_t)fmin(127, 127 * (sc.g / 255.0f) * (al.g / 255.0f) * al.i);
+	res.b = (uint8_t)fmin(127, 127 * (sc.b / 255.0f) * (al.b / 255.0f) * al.i);
 	return (res);
 }
-//// another approach... keep for now.
-//
-// t_colr	colr_add_amblight(t_colr oc, t_colr ac, float abright)
-// {
-// 	t_colr	res;
-//
-// 	res.r = (uint8_t)fmin(255, oc.r * ac.r/255.0f * abright);
-// 	res.g = (uint8_t)fmin(255, oc.g * ac.g/255.0f * abright);
-// 	res.b = (uint8_t)fmin(255, oc.b * ac.b/255.0f * abright);
-// 	return (res);
-// }
 
-/* Print a colr var and its name. */
-void	colr_print(t_colr c, char *name)
+/* Add the contribution of a pointlight to the existing final color of a
+ * hitpoint struct. */
+t_colr	hp_add_pointlight(t_hpcolr hp, t_colr light_colr)
 {
-	printf("colr-%s: [%d, %d, %d]\n", name, c.r, c.g, c.b);
+	return (colr_add_colr(hp.fcolr, colr_add_light(hp.scolr, light_colr)));
 }

@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/08 09:13:53 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/16 21:51:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,13 @@ t_amb_light	*parse_ambient_light(t_parser *parser)
 	valid = true;
 	amb_light = malloc(sizeof(t_amb_light));
 	nullcheck(amb_light, "parse_ambient_light()");
+
+	// FIXME: check for brightness value in range [0,1], otherwise: throw error
 	amb_light->bright = parse_number(parser->tokenizer);
+
+	// FIXME: parse bright before colr and then add to colr as brightness
 	amb_light->colr = parse_color(parser, &valid);
+	amb_light->colr.i = amb_light->bright;
 	return (amb_light);
 }
 

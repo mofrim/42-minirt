@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:05:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/24 15:18:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:39:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,32 @@ void	handle_cam_dir_keys(int key, t_mrt mrt)
 	{
 		printf("move pos forth\n");
 		mrt.scene->cam->pos = cam_get_new_pos(mrt.scene->cam, FORTH, 0.4);
+		mrt.scene->cam->is_inside_obj = is_cam_inside_obj(*mrt.scene->cam,
+				*mrt.scene);
 		redraw_win(mrt);
 	}
 	else if (key == KEY_DOWN)
 	{
 		printf("move pos back\n");
 		mrt.scene->cam->pos = cam_get_new_pos(mrt.scene->cam, BACK, 0.4);
+		mrt.scene->cam->is_inside_obj = is_cam_inside_obj(*mrt.scene->cam,
+				*mrt.scene);
 		redraw_win(mrt);
 	}
 	else if (key == KEY_LEFT)
 	{
 		printf("move pos left\n");
 		mrt.scene->cam->pos = cam_get_new_pos(mrt.scene->cam, LEFT, 0.4);
+		mrt.scene->cam->is_inside_obj = is_cam_inside_obj(*mrt.scene->cam,
+				*mrt.scene);
 		redraw_win(mrt);
 	}
 	else if (key == KEY_RIGHT)
 	{
 		printf("move pos right\n");
 		mrt.scene->cam->pos = cam_get_new_pos(mrt.scene->cam, RIGHT, 0.4);
+		mrt.scene->cam->is_inside_obj = is_cam_inside_obj(*mrt.scene->cam,
+				*mrt.scene);
 		redraw_win(mrt);
 	}
 }

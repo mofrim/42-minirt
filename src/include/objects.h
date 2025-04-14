@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 18:54:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:44:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@
 # include "v3.h"
 # include "mtrx.h"
 # include <stdint.h>
+# include <stdbool.h>
 
-/* The RGB color struct. */
+/* The RGB color struct. I would like to use the l = brightness value like
+ * according to the HSL = Hue Saturation Lightness - color model. This means:
+ * - l = 0 -> color is black
+ * - 0 < l <= 0.5 -> colr is darker or at normal brightness at l = 0.5
+ * - 0.5 < l <= 1.0 -> colr is brighter with being white at l = 1.0 */
 typedef struct s_colr
 {
 	uint8_t	r;
 	uint8_t	g;
 	uint8_t	b;
+	float	i;
 }	t_colr;
 
 /* Object structs */
@@ -113,6 +119,7 @@ typedef struct s_camera {
 	double	fov;
 	double	view_width;
 	double	cvr;
+	bool	is_inside_obj;
 }	t_camera;
 
 /* The objects linked list. */

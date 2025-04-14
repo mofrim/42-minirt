@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rgb_to_int.c                                       :+:      :+:    :+:   */
+/*   rgb_to_int_tcolr.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 09:00:16 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/21 10:13:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:49:27 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_colr	rgb_to_tcolr(char *rgbstr)
 	t_colr	ret;
 
 	if (!ft_strlen(rgbstr) || ft_strlen(rgbstr) % 2)
-		return ((t_colr){0, 0, 0});
+		return ((t_colr){0, 0, 0, 0});
 	ret.r = hexchar_to_int(rgbstr[0]) * 16 + hexchar_to_int(rgbstr[1]);
 	ret.g = hexchar_to_int(rgbstr[2]) * 16 + hexchar_to_int(rgbstr[3]);
 	ret.b = hexchar_to_int(rgbstr[4]) * 16 + hexchar_to_int(rgbstr[5]);

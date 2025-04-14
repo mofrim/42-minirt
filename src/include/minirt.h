@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/11 22:00:58 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 08:39:02 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,23 @@ typedef enum e_dirs
 	BACK
 }	t_dirs;
 
+/* The hp = hitpoint struct. Holds the surfaces color (scolr) and the final
+ * color (fcolr). The scolr is used in the calculations to determine which
+ * wavelengths aka colors will be reflected from the surface. All contributions
+ * by any lights will be saved in the fcolr member which is returned by
+ * calculate_lights(). */
+typedef struct s_hpcolr
+{
+	t_colr	scolr;
+	t_colr	fcolr;
+}	t_hpcolr;
+
 /********** General functions. **********/
 
 t_mrt		*init_mrt(char *scene_filename);
-void		setup_camera(t_camera *cam);
+void		setup_camera(t_camera *cam, t_scene scene);
 void		setup_scene(t_scene *scene);
+bool		is_cam_inside_obj(t_camera cam, t_scene scene);
 
 /********** File and Scene Handling **********/
 
@@ -123,7 +135,6 @@ char		*read_file(char *filename);
 void		test_colors(void);
 bool		has_minimum_required_elements(char *content);
 t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx);
-// t_xpm_canvas	*raytrace_xpm(t_mrt mrt);
 
 /********** Debug functions. **********/
 
@@ -154,7 +165,6 @@ void		exit_with_errmsg(char *msg);
 void		nullcheck(void *p, char *msg);
 void		cleanup_mrt(t_mrt *mrt);
 double		ft_atof(const char *str);
-void		colr_print(t_colr c, char *name);
 
 /********** Math utils. **********/
 
@@ -180,23 +190,32 @@ double		intersect_ray_single_obj(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 t_intersec	intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 				t_objlst *objs);
 t_colr		get_object_colr(t_scene scene, t_objlst *close_obj, t_v3 hitpoint);
-t_colr		colr_mult(t_colr c, double i);
-t_colr		colr_add_colr(t_colr c1, t_colr c2);
-t_colr		colr_add_light(t_colr c, t_colr l, float light_intens);
-t_colr		calculate_lights(t_scene scene, t_v3 p, t_v3 n, t_colr obj_colr);
+t_colr		calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n,
+				t_objlst obj);
 
 double		sphere_intersect_ray(t_v3 cam_pos, t_v3 ray_dir, t_ray_minmax rp,
 				t_sphere *sphere);
-t_colr		sphere_get_colr(t_scene scene, t_sphere s, t_v3 hitpoint);
+t_colr		sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hitpoint);
 
 double		circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 				t_circle circle);
-t_colr		circle_get_colr(t_scene scene, t_circle c, t_v3 hitpoint);
-t_colr		colr_add_amblight(t_colr oc, t_colr ac, float abright);
+t_colr		circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hitpoint);
+t_colr		colr_add_amblight(t_colr c, t_colr l);
 
 double		triangle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 				t_triangle tri);
-t_colr		triangle_get_colr(t_scene scene, t_triangle tri, t_v3 hitpoint);
+t_colr		triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hitpoint);
+
+/********** Color stuff. **********/
+
+void		colr_print(t_colr c, char *name);
+t_colr		colr_mult(t_colr c, double i);
+t_colr		colr_add_light(t_colr c, t_colr l);
+t_colr		colr_get_darkest(t_colr c);
+t_colr		colr_apply_intns(t_colr c);
+t_colr		hp_add_alight(t_colr sc, t_colr al);
+t_colr 		hp_add_pointlight(t_hpcolr hp, t_colr light_colr);
+t_colr		colr_add_colr(t_colr c1, t_colr c2);
 
 /********** Do stuff. **********/
 

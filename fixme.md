@@ -62,3 +62,41 @@
 ## window management
 
 - [ ] make sure that the requirements regarding window management are met!
+
+## the color problem
+
+What i would want the colors to behave:
+
+Ambient light:
+
+- ambient light (A) is just a basic offset for all obj colors in the scene.
+- A.i == 0 => the obj should still retain its color
+- A.i == 1 => should not lead to overexposure, rather scale the original objects
+  colors to the their full original value. (how to do that when A is colored and
+  not only white?)
+
+Spotlights:
+
+- the effect of a light should be proportional to its intensity
+- overexposure is allowed! meaning if a high intensity white light is
+- a completely Blue light on a completely Red sphere should have **no** effect!
+  Meaning: there is some multiplicative color_light_adding going on!
+- a white light with 0.3 brightness on a red sphere at 0.1 ambient light should
+  definitely have an effect! with
+
+  ```c
+	res.r = (uint8_t)fmin(255, c.r * (1.0f - l.i + l.i * l.r / 255.0f));
+  ```
+
+  this is not the case bc this simply returns `c.r`!
+  ways to fix this:
+
+  1) add the intensities `c.i + l.i` and multiply `c.r` by the result.
+  2) be more additive with something like
+
+  ```c
+	res.r = (uint8_t)fmin(255, c.r * l.i * l.r / 255.0f);
+  ```
+- white light on a red sphere should only brighten the red component! not the
+  others.
+

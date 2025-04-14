@@ -6,61 +6,58 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/03 11:32:07 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 08:45:15 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void	calc_diff_reflection(t_light light, t_v3 light_ray, t_v3 n,
-				t_colr *obj_colr);
+static int		calc_diff_reflection(t_light light, t_v3 light_ray, t_v3 n,
+					t_hpcolr *hp);
+static t_colr	get_colr_from_objlst(t_objlst obj);
 
 /**
- * Calculate the light intensity at the hitpoint.
+ * Calculate all light sources effect on the hipoint.
  *
- * For the ambient light we use `colr_add_lights` which follows the
- * multiplication approach for color addition. The final obj_colr is calculated
- * using `colr_add_colr`. This is still to be justified technically. Optically
- * this works fine!
- * In the forumla for intensity calculation the surface normal is already
- * normalized -> |n| = 1 => we only devide by v3_norm(light_ray)!
- * `ip` := light [I]ntensity at hit[P]oint.
- * NOTE: needed to go as low as 0.00000001 with tmin for the shadow calculations
- * because otherwise there would be white pixels at some edgy places.
- * The 0.99999999 for tmax are also of numerical importance: with a tmax-value
- * of 1.0 and a light source placed directly on the surface of an object
- * t-values like 0.9999999999999981 (intersect_ray_sphere) would be counted as
- * an intersection (because t < tmax). but this is a numerical bug bc
- * DBL_EPSILON == 0.000000000000002.
+ * Description: TODO
  */
-// QUESTION Is this already working for all objects?!
-t_colr	calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n, t_colr obj_colr)
+t_colr	calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n, t_objlst obj)
 {
+	t_hpcolr	hp;
 	t_objlst	*objs;
 	t_light		light;
 	t_v3		light_ray;
 
-	obj_colr = colr_add_amblight(obj_colr, scene.alight->colr,
-			scene.alight->bright);
+	hp.scolr = get_colr_from_objlst(obj);
+	hp.fcolr = hp.scolr;
+	if (!scene.cam->is_inside_obj)
+		hp.fcolr = hp_add_alight(hp.scolr, scene.alight->colr);
 	objs = scene.objects;
 	while (objs)
 	{
 		if (objs->type == LIGHT)
 		{
 			light = *(t_light *)objs->obj;
-			light_ray = v3_add_vec(light.pos, v3_mult(hitpoint, -1));
+			light_ray = v3_minus_vec(light.pos, hitpoint);
 			if (intersect_ray_objs(hitpoint, light_ray, \
-					(t_ray_minmax){0.00000001, 0.99999999}, scene.objects).t == INF)
-				calc_diff_reflection(light, light_ray, n, &obj_colr);
+				(t_ray_minmax){0.00000001, 0.99999999}, scene.objects).t == INF)
+				calc_diff_reflection(light, light_ray, n, &hp);
 		}
 		objs = objs->next;
 	}
-	return (obj_colr);
+	return (hp.fcolr);
 }
 
-/* Extracted diffuse reflection calculation routine. */
-void	calc_diff_reflection(t_light light, t_v3 light_ray, t_v3 n,
-		t_colr *obj_colr)
+/**
+ * Calculate the diffuse reflection for a light source at a hitpoint.
+ *
+ * After long struggle this is what we have settled with for now... looks most
+ * like PovRay. The main how-to-add-light-to-the-object logic is implemented in
+ * hp_add_pointlight. In PovRay there is als the `falloff` parameter which leads
+ * to the edges of the light area on an object being less fuzzy.
+ */
+static int	calc_diff_reflection(t_light light, t_v3 light_ray, t_v3 n,
+		t_hpcolr *hp)
 {
 	double	ndotl;
 	double	ip;
@@ -69,6 +66,24 @@ void	calc_diff_reflection(t_light light, t_v3 light_ray, t_v3 n,
 	if (ndotl > 0)
 	{
 		ip = light.bright * ndotl / v3_norm(light_ray);
-		*obj_colr = colr_add_colr(*obj_colr, colr_mult(light.colr, ip));
+		light.colr.i = ip;
+		hp->fcolr = hp_add_pointlight(*hp, light.colr);
+		return (1);
 	}
+	return (0);
+}
+
+t_colr	get_colr_from_objlst(t_objlst obj)
+{
+	if (obj.type == SPHERE)
+		return (((t_sphere *)obj.obj)->colr);
+	if (obj.type == PLANE)
+		return (((t_plane *)obj.obj)->colr);
+	if (obj.type == TRIANGLE)
+		return (((t_triangle *)obj.obj)->colr);
+	if (obj.type == CIRCLE)
+		return (((t_circle *)obj.obj)->colr);
+	if (obj.type == CYLINDER)
+		return (((t_cylinder *)obj.obj)->colr);
+	return ((t_colr){0, 0, 0, 0});
 }

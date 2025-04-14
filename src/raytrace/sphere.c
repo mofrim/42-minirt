@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 11:09:23 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/14 22:28:52 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ double	sphere_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	t_v3	abc;
 	double	disc;
 
-	co = v3_add_vec(origin, v3_mult(sphere->center, -1));
+	co = v3_minus_vec(origin, sphere->center);
 	abc.x = v3_dot(ray_dir, ray_dir);
 	abc.y = 2 * v3_dot(co, ray_dir);
 	abc.z = v3_dot(co, co) - sphere->r_squared;
@@ -35,7 +35,9 @@ double	sphere_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		return (INF);
 	res.x1 = (-abc.y + sqrt(disc)) / (2 * abc.x);
 	res.x2 = (-abc.y - sqrt(disc)) / (2 * abc.x);
-	if (rp.tmin < res.x1 && res.x1 < rp.tmax && res.x1 < res.x2)
+	if (rp.tmin < res.x1 && res.x1 < rp.tmax && (res.x1 < res.x2 || \
+			!(rp.tmin < res.x2 && res.x2 < rp.tmax)))
+	// if (rp.tmin < res.x1 && res.x1 < rp.tmax && res.x1 < res.x2 )
 		return (res.x1);
 	if (rp.tmin < res.x2 && res.x2 < rp.tmax)
 		return (res.x2);
@@ -45,17 +47,21 @@ double	sphere_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 /* Returns the normal vector on the sphere at a given hitpoint. */
 static t_v3	get_normal_sphere(t_v3	hitpoint, t_v3 center)
 {
-	return (v3_get_norm(v3_add_vec(hitpoint, v3_mult(center, -1))));
+	return (v3_get_norm(v3_minus_vec(hitpoint, center)));
 }
 
 /* Returns the color of the sphere at the hitpoint. So far only for ambient and
  * diffuse lighting. */
-t_colr	sphere_get_colr(t_scene scene, t_sphere s, t_v3 hitpoint)
+t_colr	sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hitpoint)
 {
-	t_v3	normal_vec;
-	t_colr	colr_at_hitpoint;
+	t_sphere	s;
+	t_v3		normal_vec;
+	t_colr		colr_at_hitpoint;
 
+	s = *(t_sphere *)sobj.obj;
 	normal_vec = get_normal_sphere(hitpoint, s.center);
-	colr_at_hitpoint = calculate_lights(scene, hitpoint, normal_vec, s.colr);
+	if (v3_norm(v3_minus_vec(scene.cam->pos, s.center)) < s.r)
+		normal_vec = v3_mult(normal_vec, -1);
+	colr_at_hitpoint = calculate_lights(scene, hitpoint, normal_vec, sobj);
 	return (colr_at_hitpoint);
 }

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:29:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 20:16:38 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/14 13:34:14 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_intersec	intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 
 /* Generalized ray obj intersection function. Dispatches to the specific object
  * type intersection function. */
+// TODO homegenize func params (maybe all obj->obj)
 double	intersect_ray_single_obj(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_objlst *obj)
 {

@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/08 10:27:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/14 18:36:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_light	*parse_light(t_parser *parser)
 		return (NULL);
 	light->pos = parse_v3(parser, &valid);
 	token = tokenizer_next(parser->tokenizer);
+	// FIXME: this anti-logic in here...
 	if (token && token->type == TOKEN_TYPE_KEYWORD)
 		light->bright = ft_atof(token->u_value.str);
 	else if (token && token->type == TOKEN_TYPE_NUMBER)
@@ -33,6 +34,8 @@ t_light	*parse_light(t_parser *parser)
 	if (token)
 		token_free(token);
 	light->colr = parse_color(parser, &valid);
+	// FIXME: this anti-logic in here...
+	light->colr.i = light->bright;
 	return (light);
 }
 

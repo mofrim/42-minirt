@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 11:05:34 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:11:28 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ double	circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 
 /* Returns the color of the sphere at the hitpoint. So far only for ambient and
  * diffuse lighting. */
-t_colr	circle_get_colr(t_scene scene, t_circle c, t_v3 hitpoint)
+t_colr	circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hitpoint)
 {
-	t_v3	normal_vec;
-	t_colr	colr_at_hitpoint;
+	t_circle	c;
+	t_v3		normal_vec;
+	t_colr		colr_at_hitpoint;
 
+	c = *(t_circle *)cobj.obj;
 	normal_vec = v3_get_norm(c.normal);
-	colr_at_hitpoint = calculate_lights(scene, hitpoint, normal_vec, c.colr);
+	colr_at_hitpoint = calculate_lights(scene, hitpoint, normal_vec, cobj);
 	return (colr_at_hitpoint);
 }
