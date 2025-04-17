@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:49:25 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 09:32:53 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:11:35 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 
 // FIXME: refac && what happens if we do not have any token on a line? can this
 // still happen at this stage?
-void parse_tokens_recursive(t_tokenizer *tokenizer, t_scene *scene, bool *valid)
+void lineparse_scenefile(t_tokenizer *tokenizer, t_scene *scene, bool *valid)
 {
 	t_token		*token;
 	t_tokenizer	*line_tokenizer;

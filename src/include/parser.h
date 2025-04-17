@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 14:18:16 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:11:35 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ typedef struct s_tokenizer
 /********** PARSER FUNCTIONS **********/
 
 // Main parsing functions
-t_scene		*parser_parse(t_tokenizer *tokenizer);
+t_scene		*get_scene_from_parser(t_tokenizer *tokenizer);
 t_scene		*parse_scene(char *scene_filename, t_mrt *mrt);
 t_scene     *init_scene(void);
-void 		parse_tokens_recursive(t_tokenizer *tokenizer, t_scene *scene,
+void 		lineparse_scenefile(t_tokenizer *tokenizer, t_scene *scene,
 				bool *valid);
 
 // Token handlers

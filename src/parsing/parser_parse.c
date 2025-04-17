@@ -6,21 +6,21 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 13:48:26 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:11:33 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 
-t_scene	*parser_parse(t_tokenizer *tokenizer)
+t_scene	*get_scene_from_parser(t_tokenizer *tokenizer)
 {
 	t_scene	*scene;
 	bool	valid;
 
 	valid = true;
 	scene = init_scene();
-	parse_tokens_recursive(tokenizer, scene, &valid);
+	lineparse_scenefile(tokenizer, scene, &valid);
 	if (!valid)
 		return (NULL);
 	return (scene);

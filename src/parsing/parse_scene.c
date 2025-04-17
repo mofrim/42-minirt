@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:08:06 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/17 14:22:04 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:10:21 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_scene	*parse_scene(char *scene_filename, t_mrt *mrt)
 	if (!rtfile_content)
 		free_mrt_exit(mrt);
 	toknizr = tokenizer_new(rtfile_content);
-	scene = parser_parse(toknizr);
+	scene = get_scene_from_parser(toknizr);
 	if (!scene)
 	{
 		free_tok_rtfile(toknizr, rtfile_content);
