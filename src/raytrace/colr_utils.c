@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 09:32:55 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/17 08:49:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 09:25:13 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ t_colr	colr_add_colr(t_colr c1, t_colr c2)
 	return (res);
 }
 
-/* Add a light effect to a objects color (oc).
+/** Add a light effect to a objects color (oc).
+ *
  * - If oc is zero in one channel -> no effect.
  * - If lights color is zero in one channel -> no effect.
  * - In between: only return the contribution of the light on the channel
@@ -49,7 +50,20 @@ t_colr	colr_add_light(t_colr c, t_colr l)
 	return (res);
 }
 
-/* Should max out at half the channels max value, which is 127. */
+/**
+ * Add ambient lights contribution to hitpoints colr.
+ *
+ * Well... after long struggle this the most promising solution. 1st, we limit
+ * the ambient lights contribution to half the max intensity per channel this is
+ * why we max out at 127. The reason is, we explicitly do not want overexposure
+ * & we can do it like :) 2nd, the calculation here only uses ratios so if any
+ * of the channels, either in the surface color (sc) or in the ambient light
+ * (ac) is zero there is not contribution! This behavior implements the physical
+ * property of an objects color: if it has a color in a certain channel it
+ * reflects light in that channel proportionally to that colors value.
+ * Similarly, if a light source has a certain value in one channel it will
+ * lighten any object proportionally to that channels value.
+ */
 t_colr	hp_add_alight(t_colr sc, t_colr al)
 {
 	t_colr	res;
