@@ -6,14 +6,13 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/17 09:30:32 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:11:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 static void		init_mlx_win(t_mrt *mrt);
-static t_scene	*parse_scene(char *scene_filename, t_mrt *mrt);
 
 t_mrt	*init_mrt(char *scene_filename)
 {
@@ -28,37 +27,6 @@ t_mrt	*init_mrt(char *scene_filename)
 	return (mrt);
 }
 
-/* Helper function for parse_scene. */
-static void	free_mrt_exit(t_mrt *mrt)
-{
-	free(mrt);
-	exit(1);
-}
-
-/* All the file reading and parsing is done in here. */
-t_scene	*parse_scene(char *scene_filename, t_mrt *mrt)
-{
-	t_scene		*scene;
-	t_tokenizer	*tokenizer;
-	char		*content;
-
-	content = validate_file_content(scene_filename);
-	if (!content)
-		free_mrt_exit(mrt);
-	tokenizer = tokenizer_new(content);
-	scene = parser_parse(tokenizer);
-	if (!scene)
-	{
-		free(content);
-		free(tokenizer);
-		exit_with_errmsg("Error\nFailed to parse scene");
-	}
-	free(tokenizer);
-	free(content);
-	setup_scene(scene);
-	return (scene);
-}
-
 static void	init_mlx_win(t_mrt *mrt)
 {
 	mrt->mlx = mlx_init();
@@ -69,18 +37,15 @@ static void	init_mlx_win(t_mrt *mrt)
 		exit_with_errmsg("Error\n!! mlx_new_window fail !!");
 }
 
-/* Intialize scene struct. */
-// TODO what to do with the subsample setting in here???
+/* Intialize scene struct. If malloc fails -> errorexit! */
 t_scene	*init_scene(void)
 {
 	t_scene	*scene;
 
 	scene = malloc(sizeof(t_scene));
-	if (!scene)
-		return (NULL);
+	nullcheck(scene, "init_scene()");
 	scene->objects = NULL;
 	scene->alight = NULL;
 	scene->cam = NULL;
-	scene->subsample = 10;
 	return (scene);
 }

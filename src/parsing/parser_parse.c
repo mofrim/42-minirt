@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 10:38:20 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 13:48:26 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ t_scene	*parser_parse(t_tokenizer *tokenizer)
 
 	valid = true;
 	scene = init_scene();
-	if (!scene)
-		return (NULL);
 	parse_tokens_recursive(tokenizer, scene, &valid);
 	if (!valid)
 		return (NULL);

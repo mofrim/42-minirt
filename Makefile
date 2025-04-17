@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/17 08:49:51 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/17 14:09:17 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRCS		=	main.c \
 					general_utils.c \
 					ft_atof.c \
 					parser.c \
+					parse_scene.c \
 					parser_objs.c \
 					parser_objs2.c \
 					parser_parse.c \

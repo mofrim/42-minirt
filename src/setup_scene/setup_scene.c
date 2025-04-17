@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:35:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/14 21:47:29 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 13:38:31 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	setup_scene(t_scene *scene)
 		setup_camera(scene->cam, *scene);
 	if (!scene->objects)
 		ft_printf("Warning: No objects in scene!\n");
+	scene->subsample = 10;
 }
 
 void setup_camera(t_camera *cam, t_scene scene)

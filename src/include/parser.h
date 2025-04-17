@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 10:48:58 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:18:16 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 # include <stddef.h>
 # include <stdlib.h>
 
+/* Forward declarations from minirt.h */
 typedef struct s_scene t_scene;
+typedef struct s_mrt t_mrt;
 
 // Define the different types of nodes in the AST
 typedef enum {
@@ -68,7 +70,7 @@ typedef struct s_token
 typedef struct s_tokenizer
 {
 	char	*input;
-	int		position;
+	int		pos;
 	size_t	len;
 }	t_tokenizer;
 
@@ -76,6 +78,7 @@ typedef struct s_tokenizer
 
 // Main parsing functions
 t_scene		*parser_parse(t_tokenizer *tokenizer);
+t_scene		*parse_scene(char *scene_filename, t_mrt *mrt);
 t_scene     *init_scene(void);
 void 		parse_tokens_recursive(t_tokenizer *tokenizer, t_scene *scene,
 				bool *valid);
@@ -103,8 +106,8 @@ double      parse_number(t_tokenizer *tokenizer);
 void        free_parts(char **parts);
 void        free_parts_helper(char **parts);
 t_colr      validate_color(t_colr color, bool *valid);
-char        *validate_file_content(char *filename);
-bool        is_rt(char *filename);
+char        *read_scenefile(char *filename);
+bool        has_rt_ext(char *filename);
 bool        validate_color_components(char **parts, bool *valid);
 bool        validate_vector_components(char **parts, bool *valid);
 bool        has_minimum_required_elements(char *content);

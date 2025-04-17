@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/04 23:30:46 by zrz              ###   ########.fr       */
+/*   Updated: 2025/04/17 14:18:16 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@ int is_coordinate(t_tokenizer *tokenizer)
 	i = 0;
 	comma_count = 0;
     // Check if it starts with a digit or sign
-    if (!(ft_isdigit(tokenizer->input[tokenizer->position]) || 
-          tokenizer->input[tokenizer->position] == '-' || 
-          tokenizer->input[tokenizer->position] == '+'))
+    if (!(ft_isdigit(tokenizer->input[tokenizer->pos]) || 
+          tokenizer->input[tokenizer->pos] == '-' || 
+          tokenizer->input[tokenizer->pos] == '+'))
         return (0);
     // Count commas and ensure all characters are valid for coordinates
-    while ((size_t)(tokenizer->position + i) < tokenizer->len && 
-           !ft_isspace(tokenizer->input[tokenizer->position + i]))
+    while ((size_t)(tokenizer->pos + i) < tokenizer->len && 
+           !ft_isspace(tokenizer->input[tokenizer->pos + i]))
     {
-        if (tokenizer->input[tokenizer->position + i] == ',')
+        if (tokenizer->input[tokenizer->pos + i] == ',')
             comma_count++;
-        else if (!ft_isdigit(tokenizer->input[tokenizer->position + i]) && 
-                 tokenizer->input[tokenizer->position + i] != '.' && 
-                 tokenizer->input[tokenizer->position + i] != '-' && 
-                 tokenizer->input[tokenizer->position + i] != '+')
+        else if (!ft_isdigit(tokenizer->input[tokenizer->pos + i]) && 
+                 tokenizer->input[tokenizer->pos + i] != '.' && 
+                 tokenizer->input[tokenizer->pos + i] != '-' && 
+                 tokenizer->input[tokenizer->pos + i] != '+')
             return (0); // Invalid character for coordinate
         i++;
     }
@@ -44,21 +44,21 @@ int is_coordinate(t_tokenizer *tokenizer)
 
 int	is_identifier(t_tokenizer *tokenizer)
 {
-	return (ft_isalpha(tokenizer->input[tokenizer->position]));
+	return (ft_isalpha(tokenizer->input[tokenizer->pos]));
 }
 
 int	is_numeric(t_tokenizer *tokenizer)
 {
-	return (ft_isdigit(tokenizer->input[tokenizer->position]) || \
-				tokenizer->input[tokenizer->position] == '-' || \
-				tokenizer->input[tokenizer->position] == '+' || \
-			tokenizer->input[tokenizer->position] == '.');
+	return (ft_isdigit(tokenizer->input[tokenizer->pos]) || \
+				tokenizer->input[tokenizer->pos] == '-' || \
+				tokenizer->input[tokenizer->pos] == '+' || \
+			tokenizer->input[tokenizer->pos] == '.');
 }
 
 t_token	*tokenizer_next(t_tokenizer *tokenizer)
 {
 	skip_whitespace(tokenizer);
-	if (tokenizer->input[tokenizer->position] == '\0')
+	if (tokenizer->input[tokenizer->pos] == '\0')
 		return (NULL);
 	if (is_coordinate(tokenizer))
 		return (parse_coordinate(tokenizer));
@@ -74,8 +74,8 @@ char	*parse_keyword(t_tokenizer *tokenizer)
 {
 	int	start;
 
-	start = tokenizer->position;
-	while (ft_isalpha(tokenizer->input[tokenizer->position]))
-		tokenizer->position++;
-	return (ft_strndup(&tokenizer->input[start], tokenizer->position - start));
+	start = tokenizer->pos;
+	while (ft_isalpha(tokenizer->input[tokenizer->pos]))
+		tokenizer->pos++;
+	return (ft_strndup(&tokenizer->input[start], tokenizer->pos - start));
 }
