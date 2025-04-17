@@ -6,13 +6,13 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/14 15:53:01 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 10:45:19 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_plane	*parse_plane(t_parser *parser)
+t_plane	*parse_plane(t_tokenizer *tokenizer)
 {
 	t_plane	*plane;
 	bool	valid;
@@ -21,13 +21,13 @@ t_plane	*parse_plane(t_parser *parser)
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
 		return (NULL);
-	plane->pop = parse_v3(parser, &valid);
-	plane->normal = parse_v3(parser, &valid);
-	plane->colr = parse_color(parser, &valid);
+	plane->pop = parse_v3(tokenizer, &valid);
+	plane->normal = parse_v3(tokenizer, &valid);
+	plane->colr = parse_color(tokenizer, &valid);
 	return (plane);
 }
 
-t_cylinder	*parse_cylinder(t_parser *parser)
+t_cylinder	*parse_cylinder(t_tokenizer *tokenizer)
 {
 	t_cylinder	*cylinder;
 	bool		valid;
@@ -36,17 +36,17 @@ t_cylinder	*parse_cylinder(t_parser *parser)
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (NULL);
-	cylinder->center = parse_v3(parser, &valid);
-	cylinder->axis = parse_v3(parser, &valid);
-	cylinder->radius = parse_number(parser->tokenizer);
-	cylinder->height = parse_number(parser->tokenizer);
-	cylinder->colr = parse_color(parser, &valid);
+	cylinder->center = parse_v3(tokenizer, &valid);
+	cylinder->axis = parse_v3(tokenizer, &valid);
+	cylinder->radius = parse_number(tokenizer);
+	cylinder->height = parse_number(tokenizer);
+	cylinder->colr = parse_color(tokenizer, &valid);
 	return (cylinder);
 }
 
 // FIXME: should we do the calculations in here? have a `setup` function for
 // every object?
-t_triangle	*parse_triangle(t_parser *parser)
+t_triangle	*parse_triangle(t_tokenizer *tokenizer)
 {
 	t_triangle	*tr;
 	bool		valid;
@@ -54,10 +54,10 @@ t_triangle	*parse_triangle(t_parser *parser)
 	valid = true;
 	tr = malloc(sizeof(t_triangle));
 	nullcheck(tr, "Error\nparse_circle()");
-	tr->a = parse_v3(parser, &valid);
-	tr->b = parse_v3(parser, &valid);
-	tr->c = parse_v3(parser, &valid);
-	tr->colr = parse_color(parser, &valid);
+	tr->a = parse_v3(tokenizer, &valid);
+	tr->b = parse_v3(tokenizer, &valid);
+	tr->c = parse_v3(tokenizer, &valid);
+	tr->colr = parse_color(tokenizer, &valid);
 
 	// FIXME calculations / setup
 	tr->ab = v3_minus_vec(tr->b, tr->a);
@@ -70,7 +70,7 @@ t_triangle	*parse_triangle(t_parser *parser)
 	return (tr);
 }
 
-t_circle	*parse_circle(t_parser *parser)
+t_circle	*parse_circle(t_tokenizer *tokenizer)
 {
 	t_circle	*ci;
 	bool		valid;
@@ -78,10 +78,10 @@ t_circle	*parse_circle(t_parser *parser)
 	valid = true;
 	ci = malloc(sizeof(t_circle));
 	nullcheck(ci, "Error\nparse_circle()");
-	ci->center = parse_v3(parser, &valid);
-	ci->normal = parse_v3(parser, &valid);
-	ci->r = parse_number(parser->tokenizer);
-	ci->colr = parse_color(parser, &valid);
+	ci->center = parse_v3(tokenizer, &valid);
+	ci->normal = parse_v3(tokenizer, &valid);
+	ci->r = parse_number(tokenizer);
+	ci->colr = parse_color(tokenizer, &valid);
 
 	// FIXME calculations / setup
 	ci->r2 = ci->r * ci->r;
@@ -123,14 +123,14 @@ t_circle	*parse_circle(t_parser *parser)
 
 // FIXME: idk its a little bit of a smell that colors are indistinguishable from
 // TOKEN_TYPE_V3's. but for now it is okay i would say.
-t_colr parse_color(t_parser *parser, bool *valid)
+t_colr parse_color(t_tokenizer *tokenizer, bool *valid)
 {
 	t_colr	color;
 	t_token	*token;
 	char	**parts;
 
 	color = (t_colr){0, 0, 0, 0};
-	token = tokenizer_next(parser->tokenizer);
+	token = tokenizer_next(tokenizer);
 	if (!token || token->type != TOKEN_TYPE_V3)
 	{
 		if (token)

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/11 22:04:20 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 09:30:32 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,20 @@ t_scene	*parse_scene(char *scene_filename, t_mrt *mrt)
 {
 	t_scene		*scene;
 	t_tokenizer	*tokenizer;
-	t_parser	*parser;
 	char		*content;
 
 	content = validate_file_content(scene_filename);
 	if (!content)
 		free_mrt_exit(mrt);
 	tokenizer = tokenizer_new(content);
-	parser = parser_new(tokenizer);
-	scene = parser_parse(parser);
+	scene = parser_parse(tokenizer);
 	if (!scene)
 	{
 		free(content);
-		tokenizer_free(tokenizer);
-		free(parser);
+		free(tokenizer);
 		exit_with_errmsg("Error\nFailed to parse scene");
 	}
-	tokenizer_free(tokenizer);
-	free(parser);
+	free(tokenizer);
 	free(content);
 	setup_scene(scene);
 	return (scene);

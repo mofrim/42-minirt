@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/07 21:40:31 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 09:27:23 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ t_tokenizer	*tokenizer_new(char *input)
 	tokenizer->position = 0;
 	tokenizer->len = ft_strlen(input);
 	return (tokenizer);
-}
-
-void	tokenizer_free(t_tokenizer *tokenizer)
-{
-	free(tokenizer);
 }
 
 void	skip_whitespace(t_tokenizer *tokenizer)

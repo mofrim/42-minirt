@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:49:25 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/08 09:52:28 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 09:32:53 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,14 @@
 
 // FIXME: refac && what happens if we do not have any token on a line? can this
 // still happen at this stage?
-void parse_tokens_recursive(t_parser *parser, t_scene *scene, bool *valid)
+void parse_tokens_recursive(t_tokenizer *tokenizer, t_scene *scene, bool *valid)
 {
 	t_token		*token;
 	t_tokenizer	*line_tokenizer;
-	t_parser	*line_parser;
 	char		**lines;
 	int			i;
 
-	lines = ft_split(parser->tokenizer->input, '\n');
+	lines = ft_split(tokenizer->input, '\n');
 	nullcheck(lines, "parse_tokens_recursive()");
 	i = -1;
 	while (lines[++i] && *valid)
@@ -55,11 +54,10 @@ void parse_tokens_recursive(t_parser *parser, t_scene *scene, bool *valid)
 		if (ft_strlen(lines[i]) == 0)
 			continue;
 		line_tokenizer = tokenizer_new(lines[i]);
-		line_parser = parser_new(line_tokenizer);
 		token = tokenizer_next(line_tokenizer);
 		if (token && token->type == TOKEN_TYPE_KEYWORD)
 		{
-			handle_token_keyword(line_parser, scene, token);
+			handle_token_keyword(line_tokenizer, scene, token);
 			token_free(token);
 			token = tokenizer_next(line_tokenizer);
 			if (token)
@@ -70,8 +68,7 @@ void parse_tokens_recursive(t_parser *parser, t_scene *scene, bool *valid)
 				token_free(token);
 			}
 		}
-		free(line_parser);
-		tokenizer_free(line_tokenizer);
+		free(line_tokenizer);
 	}
 	free_parts(lines);
 }

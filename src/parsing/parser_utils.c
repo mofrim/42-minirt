@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/07 21:45:07 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 09:38:01 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ t_v3	parse_v3_from_parts(char **parts)
 	return (v3);
 }
 
-t_v3 parse_v3(t_parser *parser, bool *valid)
+t_v3 parse_v3(t_tokenizer *tokenizer, bool *valid)
 {
-    t_v3 v3;
-    t_token *token;
-    char **parts;
-    
+    t_v3	v3;
+    t_token	*token;
+    char	**parts;
+
     v3 = parse_default_v3();
-    token = tokenizer_next(parser->tokenizer);
+    token = tokenizer_next(tokenizer);
     if (!token || token->type != TOKEN_TYPE_V3)
     {
         if (token)
@@ -63,7 +63,6 @@ t_v3 parse_v3(t_parser *parser, bool *valid)
         *valid = false;
         return (v3);
     }
-    
     parts = ft_split(token->u_value.str, ',');
     if (!validate_vector_components(parts, valid))
     {
@@ -71,7 +70,6 @@ t_v3 parse_v3(t_parser *parser, bool *valid)
         token_free(token);
         return (v3);
     }
-    
     v3 = parse_v3_from_parts(parts);
     free_parts(parts);
     token_free(token);

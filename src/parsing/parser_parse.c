@@ -6,14 +6,14 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/16 21:51:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 10:38:20 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 
-t_scene	*parser_parse(t_parser *parser)
+t_scene	*parser_parse(t_tokenizer *tokenizer)
 {
 	t_scene	*scene;
 	bool	valid;
@@ -22,7 +22,7 @@ t_scene	*parser_parse(t_parser *parser)
 	scene = init_scene();
 	if (!scene)
 		return (NULL);
-	parse_tokens_recursive(parser, scene, &valid);
+	parse_tokens_recursive(tokenizer, scene, &valid);
 	if (!valid)
 		return (NULL);
 	return (scene);
@@ -42,7 +42,7 @@ void	token_free(t_token *token)
 	}
 }
 
-t_amb_light	*parse_ambient_light(t_parser *parser)
+t_amb_light	*parse_ambient_light(t_tokenizer *tokenizer)
 {
 	t_amb_light	*amb_light;
 	bool valid;
@@ -52,15 +52,15 @@ t_amb_light	*parse_ambient_light(t_parser *parser)
 	nullcheck(amb_light, "parse_ambient_light()");
 
 	// FIXME: check for brightness value in range [0,1], otherwise: throw error
-	amb_light->bright = parse_number(parser->tokenizer);
+	amb_light->bright = parse_number(tokenizer);
 
 	// FIXME: parse bright before colr and then add to colr as brightness
-	amb_light->colr = parse_color(parser, &valid);
+	amb_light->colr = parse_color(tokenizer, &valid);
 	amb_light->colr.i = amb_light->bright;
 	return (amb_light);
 }
 
-t_camera	*parse_camera(t_parser *parser)
+t_camera	*parse_camera(t_tokenizer *tokenizer)
 {
 	t_camera	*camera;
 	bool valid;
@@ -68,8 +68,8 @@ t_camera	*parse_camera(t_parser *parser)
 	valid = true;
 	camera = malloc(sizeof(t_camera));
 	nullcheck(camera, "parse_camera");
-	camera->pos = parse_v3(parser, &valid);
-	camera->orient = parse_v3(parser, &valid);
-	camera->fov = parse_number(parser->tokenizer);
+	camera->pos = parse_v3(tokenizer, &valid);
+	camera->orient = parse_v3(tokenizer, &valid);
+	camera->fov = parse_number(tokenizer);
 	return (camera);
 }

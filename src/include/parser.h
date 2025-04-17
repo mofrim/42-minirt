@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/08 10:40:04 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 10:48:58 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,38 +72,31 @@ typedef struct s_tokenizer
 	size_t	len;
 }	t_tokenizer;
 
-// Define the parser
-typedef struct s_parser {
-	t_tokenizer *tokenizer;
-}	t_parser;
-
 /********** PARSER FUNCTIONS **********/
 
-// Parser initialization and cleanup
-t_parser    *parser_new(t_tokenizer *tokenizer);
-
 // Main parsing functions
-t_scene     *parser_parse(t_parser *parser);
+t_scene		*parser_parse(t_tokenizer *tokenizer);
 t_scene     *init_scene(void);
-void        parse_tokens_recursive(t_parser *parser, t_scene *scene, bool *valid);
+void 		parse_tokens_recursive(t_tokenizer *tokenizer, t_scene *scene,
+				bool *valid);
 
 // Token handlers
-void        handle_token_keyword(t_parser *parser, t_scene *scene, t_token *token);
-void        handle_more_keywords(t_parser *parser, t_scene *scene, t_token *token);
+void        handle_token_keyword(t_tokenizer *tokenizer, t_scene *scene, t_token *token);
+void        handle_more_keywords(t_tokenizer *tokenizer, t_scene *scene, t_token *token);
 
 // Object parsers
-t_amb_light *parse_ambient_light(t_parser *parser);
-t_camera    *parse_camera(t_parser *parser);
-t_light     *parse_light(t_parser *parser);
-t_colr      parse_color(t_parser *parser, bool *valid);
-t_sphere    *parse_sphere(t_parser *parser);
-t_plane     *parse_plane(t_parser *parser);
-t_cylinder  *parse_cylinder(t_parser *parser);
-t_triangle	*parse_triangle(t_parser *parser);
-t_circle	*parse_circle(t_parser *parser);
+t_amb_light *parse_ambient_light(t_tokenizer *tokenizer);
+t_camera    *parse_camera(t_tokenizer *tokenizer);
+t_light     *parse_light(t_tokenizer *tokenizer);
+t_colr      parse_color(t_tokenizer *tokenizer, bool *valid);
+t_sphere    *parse_sphere(t_tokenizer *tokenizer);
+t_plane     *parse_plane(t_tokenizer *tokenizer);
+t_cylinder  *parse_cylinder(t_tokenizer *tokenizer);
+t_triangle	*parse_triangle(t_tokenizer *tokenizer);
+t_circle	*parse_circle(t_tokenizer *tokenizer);
 
 // Parser utilities
-t_v3        parse_v3(t_parser *parser, bool *valid);
+t_v3        parse_v3(t_tokenizer *tokenizer, bool *valid);
 t_v3        parse_default_v3(void);
 t_v3        parse_v3_from_parts(char **parts);
 double      parse_number(t_tokenizer *tokenizer);
@@ -118,11 +111,7 @@ bool        has_minimum_required_elements(char *content);
 
 /********** TOKENIZER FUNCTIONS **********/
 
-// Tokenizer initialization and cleanup
 t_tokenizer *tokenizer_new(char *input);
-void        tokenizer_free(t_tokenizer *tokenizer);
-
-// Token generation
 t_token     *tokenizer_next(t_tokenizer *tokenizer);
 void        token_free(t_token *token);
 
