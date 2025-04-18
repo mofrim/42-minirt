@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 22:52:15 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/18 11:02:12 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/19 01:06:21 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	token_free(t_token *tok)
 {
 	if (tok)
 	{
-		if (tok->type == TOKEN_TYPE_KEYWORD || tok->type == TOKEN_TYPE_V3 || \
-			tok->type == TOKEN_TYPE_IDENTIFIER || \
-			tok->type == TOKEN_TYPE_SYMBOL)
+		if (tok->type == TOKEN_TYPE_KEYWORD || tok->type == TOKEN_TYPE_V3)
 			free(tok->u_value.str);
 		free(tok);
 	}

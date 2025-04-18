@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:17:05 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/17 17:18:18 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/19 01:42:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 
 // TODO add checking functions in here!
 
+/**
+ * Ambient light parsing func.
+ *
+ * Expected Structure:
+ * - alight's intensity aka brightness
+ * - alight's color
+ *
+ * Example: "A 0.3 255,255,255"
+ * Rules: 0 <= bright <= 1, colr must be valid
+ */
+// QUESTION: what to do with the valid flag??? should every parsing function
+// carry the flag along? Should all the checking be done in the parsing
+// functions or later in setup_scene (or a check_scene function before that??)?
 t_amb_light	*parse_ambient_light(t_tokenizer *tokenizer)
 {
 	t_amb_light	*amb_light;

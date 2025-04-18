@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/18 22:12:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/19 01:39:47 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,17 @@ bool	parse_line(char *line, t_scene *scene)
 
 	valid = true;
 	line_tokenizer = tokenizer_new(line);
-	token = tokenizer_next(line_tokenizer);
+	token = get_next_token(line_tokenizer);
 	if (token && token->type == TOKEN_TYPE_KEYWORD)
 	{
-		handle_token_keyword(line_tokenizer, scene, token);
+		handle_token_keyword(scene, line_tokenizer, token->u_value.str);
 		token_free(token);
-		token = tokenizer_next(line_tokenizer);
+		token = get_next_token(line_tokenizer);
 		if (token)
 		{
-			// FIXME? 
+			token_free(token);
 			print_errmsg("malformed line in scenefile.");
 			valid = false;
-			token_free(token);
 		}
 	}
 	free(line_tokenizer);

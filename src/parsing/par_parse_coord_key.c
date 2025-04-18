@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   par_parse_coord_id.c                               :+:      :+:    :+:   */
+/*   par_parse_coord_key.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 11:19:02 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/18 11:30:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/19 01:13:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,16 @@ t_token	*parse_coordinate(t_tokenizer *tok)
 	token = malloc(sizeof(t_token));
 	nullcheck(token, "parse_coordinate()");
 	start = tok->pos;
-	while (tok->input[tok->pos] && \
-			tok->input[tok->pos] != ' ' && \
-			tok->input[tok->pos] != '\t' && \
-			tok->input[tok->pos] != '\n')
+	while (tok->input[tok->pos] && tok->input[tok->pos] != ' ' && \
+			tok->input[tok->pos] != '\t')
 		tok->pos++;
 	token->type = TOKEN_TYPE_V3;
-	token->u_value.str = ft_strndup(&tok->input[start], \
-								tok->pos - start);
+	token->u_value.str = ft_strndup(&tok->input[start], tok->pos - start);
 	debug_token(token, "in parse_coordinate");
 	return (token);
 }
 
-t_token	*parse_identifier(t_tokenizer *tok)
+t_token	*parse_keyword(t_tokenizer *tok)
 {
 	t_token	*token;
 	int		start;
@@ -71,8 +68,7 @@ t_token	*parse_identifier(t_tokenizer *tok)
 	else
 		tok->pos++;
 	token->type = TOKEN_TYPE_KEYWORD;
-	token->u_value.str = ft_strndup(&tok->input[start], \
-								tok->pos - start);
-	debug_token(token, "in parse_identifier");
+	token->u_value.str = ft_strndup(&tok->input[start], tok->pos - start);
+	debug_token(token, "in parse_keyword");
 	return (token);
 }

@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/18 11:33:13 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/19 01:08:32 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ t_tokenizer	*tokenizer_new(char *input)
 	return (tokenizer);
 }
 
-t_token	*tokenizer_next(t_tokenizer *tok)
+t_token	*get_next_token(t_tokenizer *tok)
 {
 	skip_whitespace(tok);
-	if (tok->input[tok->pos] == '\0')
+	if (tok->input[tok->pos] == '\0' || tok->input[tok->pos] == '#')
 		return (NULL);
 	if (is_coordinate(tok))
 		return (parse_coordinate(tok));
 	else if (ft_isalpha(tok->input[tok->pos]))
-		return (parse_identifier(tok));
+		return (parse_keyword(tok));
 	else if (is_numeric(tok))
 		return (parse_number_token(tok));
 	else
-		return (parse_symbol_token(tok));
+		return (NULL);
 }
 
 static int	is_numeric(t_tokenizer *t)

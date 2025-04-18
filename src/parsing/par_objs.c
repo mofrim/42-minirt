@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 19:37:38 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/19 01:26:06 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_light	*parse_light(t_tokenizer *tokenizer)
 	light = malloc(sizeof(t_light));
 	nullcheck(light, "parse_light()");
 	light->pos = parse_v3(tokenizer, &valid);
-	token = tokenizer_next(tokenizer);
-	if (token && token->type == TOKEN_TYPE_NUMBER)
+	token = get_next_token(tokenizer);
+	if (token && token->type == TOKEN_TYPE_NUM)
 		light->bright = token->u_value.num;
 	if (token)
 		token_free(token);
@@ -46,8 +46,8 @@ t_sphere	*parse_sphere(t_tokenizer *tokenizer)
 	if (!sphere)
 		return (NULL);
 	sphere->center = parse_v3(tokenizer, &valid);
-	token = tokenizer_next(tokenizer);
-	if (token && token->type == TOKEN_TYPE_NUMBER)
+	token = get_next_token(tokenizer);
+	if (token && token->type == TOKEN_TYPE_NUM)
 		sphere->r = token->u_value.num / 2.0;
 	else
 		return (NULL);

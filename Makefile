@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/18 11:34:43 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/19 01:10:10 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ SRCS		=	main.c \
 					par_handle_objs.c \
 					par_alight_cam.c \
 					par_scene.c \
-					par_parse_coord_id.c \
+					par_parse_coord_key.c \
 					par_objs.c \
 					par_objs2.c \
 					par_lineparse.c \
@@ -108,7 +108,7 @@ MINRT_HDRS	= $(INC_DIR)/minirt.h \
 							$(INC_DIR)/constants.h \
 							$(INC_DIR)/objects.h \
 							$(INC_DIR)/mtrx.h \
-							$(INC_DIR)/parser.h \
+							$(INC_DIR)/parsing.h \
 							$(INC_DIR)/keycodes.h
 
 # FIXME: change this back to 'cc' @school for eval
