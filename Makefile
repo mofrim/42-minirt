@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/17 14:09:17 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/18 11:34:43 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,17 +57,18 @@ SRCS		=	main.c \
 					do_stuff.c \
 					general_utils.c \
 					ft_atof.c \
-					parser.c \
-					parse_scene.c \
-					parser_objs.c \
-					parser_objs2.c \
-					parser_parse.c \
-					parser_utils.c \
-					parser_utils2.c \
-					parser_validator.c \
-					parser_validator2.c \
+					par_handle_objs.c \
+					par_alight_cam.c \
+					par_scene.c \
+					par_parse_coord_id.c \
+					par_objs.c \
+					par_objs2.c \
+					par_lineparse.c \
+					par_utils.c \
+					par_utils2.c \
+					par_validator.c \
+					par_validate_colr_vector.c \
 					tokenizer.c \
-					tokenizer_next.c \
 					tokenizer_nums.c \
 					setup_scene.c \
 					raytrace_xpm.c \

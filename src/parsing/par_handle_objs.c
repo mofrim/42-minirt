@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   par_handle_objs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 10:47:03 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 19:56:43 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,5 @@ void	handle_token_keyword(t_tokenizer *tokenizer, t_scene *scene, t_token *token
 	else if (tok_is_object(*token) == true)
 		handle_objects(*token, scene, tokenizer);
 	else
-		ft_dprintf(STDERR_FILENO, "Error\nInvalid keyword in scene file\n");
+		print_errmsg("Invalid keyword in scene file");
 }

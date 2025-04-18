@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:01:16 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/08 00:50:16 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/18 10:36:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	main(int ac, char **av)
 	// for those who shouldn't.
 	//
 	// mlx_key_hook(mrt->win, kbd_input_handler, mrt);
-	mlx_hook(mrt->win, KeyPress, KeyPressMask, kbd_input_handler, mrt);
 
+	mlx_hook(mrt->win, KeyPress, KeyPressMask, kbd_input_handler, mrt);
 	mlx_hook(mrt->win, DestroyNotify, 0, close_btn_handler, mrt);
 	do_stuff(*mrt);
 	mlx_loop(mrt->mlx);

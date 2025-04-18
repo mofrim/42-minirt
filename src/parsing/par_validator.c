@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_validator.c                                 :+:      :+:    :+:   */
+/*   par_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:18:34 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 14:02:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/18 11:03:56 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,8 @@ char	*read_scenefile(char *filename)
 
 	content = read_file(filename);
 	if (!content)
-		return (print_errmsg("Error\nFailed to read file"), NULL);
+		return (print_errmsg("Failed to read file"), NULL);
 	if (!*content)
-		return (free(content), print_errmsg("Error\nFile is empty"), NULL);
+		return (free(content), print_errmsg("File is empty"), NULL);
 	return (content);
-}
-
-static bool	is_colr_value(int value)
-{
-	return (value >= 0 && value <= 255);
-}
-
-// QUESTION where is this used?
-// possible FIXME: is the error msg printing subject.pdf-conform?
-t_colr	validate_color(t_colr color, bool *valid)
-{
-	if (!is_colr_value(color.r) || !is_colr_value(color.g) || \
-			!is_colr_value(color.b))
-	{
-		ft_dprintf(STDERR_FILENO, "Error\nInvalid RGB values");
-		*valid = false;
-	}
-	return (color);
 }

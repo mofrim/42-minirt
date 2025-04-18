@@ -6,11 +6,13 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 14:18:16 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/18 11:33:13 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static int	is_numeric(t_tokenizer *t);
 
 t_tokenizer	*tokenizer_new(char *input)
 {
@@ -24,52 +26,30 @@ t_tokenizer	*tokenizer_new(char *input)
 	return (tokenizer);
 }
 
+t_token	*tokenizer_next(t_tokenizer *tok)
+{
+	skip_whitespace(tok);
+	if (tok->input[tok->pos] == '\0')
+		return (NULL);
+	if (is_coordinate(tok))
+		return (parse_coordinate(tok));
+	else if (ft_isalpha(tok->input[tok->pos]))
+		return (parse_identifier(tok));
+	else if (is_numeric(tok))
+		return (parse_number_token(tok));
+	else
+		return (parse_symbol_token(tok));
+}
+
+static int	is_numeric(t_tokenizer *t)
+{
+	return (ft_isdigit(t->input[t->pos]) || t->input[t->pos] == '-' || \
+				t->input[t->pos] == '+' || t->input[t->pos] == '.');
+}
+
 void	skip_whitespace(t_tokenizer *t)
 {
-	while (t->input[t->pos] && \
-			(t->input[t->pos] == ' ' || \
-			t->input[t->pos] == '\t' || \
-			t->input[t->pos] == '\n'))
+	while (t->input[t->pos] && (t->input[t->pos] == ' ' || \
+			t->input[t->pos] == '\t' || t->input[t->pos] == '\n'))
 		t->pos++;
-}
-
-t_token	*parse_coordinate(t_tokenizer *tokenizer)
-{
-	t_token	*token;
-	int		start;
-
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	start = tokenizer->pos;
-	while (tokenizer->input[tokenizer->pos] && \
-			tokenizer->input[tokenizer->pos] != ' ' && \
-			tokenizer->input[tokenizer->pos] != '\t' && \
-			tokenizer->input[tokenizer->pos] != '\n')
-		tokenizer->pos++;
-	token->type = TOKEN_TYPE_V3;
-	token->u_value.str = ft_strndup(&tokenizer->input[start], \
-								tokenizer->pos - start);
-	debug_token(token, "in parse_coordinate");
-	return (token);
-}
-
-t_token	*parse_identifier(t_tokenizer *tokenizer)
-{
-	t_token	*token;
-	int		start;
-
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	start = tokenizer->pos;
-	if (ft_isalpha(tokenizer->input[tokenizer->pos + 1]))
-		tokenizer->pos += 2;
-	else
-		tokenizer->pos++;
-	token->type = TOKEN_TYPE_KEYWORD;
-	token->u_value.str = ft_strndup(&tokenizer->input[start], \
-								tokenizer->pos - start);
-	debug_token(token, "in parse_identifier");
-	return (token);
 }

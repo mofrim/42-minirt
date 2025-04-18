@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:52:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/11 22:10:20 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/17 22:19:26 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,21 @@
 /* Exit with error custom error msg, or not. */
 void	error_exit(char *msg)
 {
+	ft_dprintf(STDERR_FILENO, "Error\nFatal: ");
 	if (msg)
 		perror(msg);
 	else
-		perror("Error");
+		perror("Fatal Error");
 	exit(EXIT_FAILURE);
 }
 
-/* Convenience error printing to stderr. */
+/* Convenience error printing to stderr. Prints "Error\n" followed by the msg
+ * given as argument. */
 void	print_errmsg(char *msg)
 {
 	if (!msg)
 		return ;
-	ft_dprintf(STDERR_FILENO, "%s\n", msg);
+	ft_dprintf(STDERR_FILENO, "Error\n%s\n", msg);
 }
 
 /* Print a errmsg to stderr, append a newline and exit with EXIT_FAILURE. */

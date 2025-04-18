@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 17:11:35 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/18 11:32:41 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,10 @@ typedef struct s_tokenizer
 /********** PARSER FUNCTIONS **********/
 
 // Main parsing functions
-t_scene		*get_scene_from_parser(t_tokenizer *tokenizer);
+int			get_scene_from_parser(t_tokenizer *tokenizer, t_scene *scene);
 t_scene		*parse_scene(char *scene_filename, t_mrt *mrt);
 t_scene     *init_scene(void);
-void 		lineparse_scenefile(t_tokenizer *tokenizer, t_scene *scene,
-				bool *valid);
+int			lineparse_scenefile(t_tokenizer *tokenizer, t_scene *scene);
 
 // Token handlers
 void        handle_token_keyword(t_tokenizer *tokenizer, t_scene *scene, t_token *token);
@@ -100,16 +99,14 @@ t_circle	*parse_circle(t_tokenizer *tokenizer);
 
 // Parser utilities
 t_v3        parse_v3(t_tokenizer *tokenizer, bool *valid);
-t_v3        parse_default_v3(void);
 t_v3        parse_v3_from_parts(char **parts);
 double      parse_number(t_tokenizer *tokenizer);
 void        free_parts(char **parts);
 void        free_parts_helper(char **parts);
-t_colr      validate_color(t_colr color, bool *valid);
 char        *read_scenefile(char *filename);
 bool        has_rt_ext(char *filename);
-bool        validate_color_components(char **parts, bool *valid);
-bool        validate_vector_components(char **parts, bool *valid);
+bool        validate_color(char **parts, bool *valid);
+bool        validate_vector(char **parts, bool *valid);
 bool        has_minimum_required_elements(char *content);
 
 /********** TOKENIZER FUNCTIONS **********/
@@ -123,13 +120,10 @@ t_token     *parse_coordinate(t_tokenizer *tokenizer);
 t_token     *parse_identifier(t_tokenizer *tokenizer);
 t_token     *parse_number_token(t_tokenizer *tokenizer);
 t_token     *parse_symbol_token(t_tokenizer *tokenizer);
-char        *parse_keyword(t_tokenizer *tokenizer);
 
 // Helper functions for tokenizing
 void        skip_whitespace(t_tokenizer *tokenizer);
 int         is_coordinate(t_tokenizer *tokenizer);
-int         is_identifier(t_tokenizer *tokenizer);
-int         is_numeric(t_tokenizer *tokenizer);
 void        skip_sign(t_tokenizer *tokenizer);
 void        parse_digits(t_tokenizer *tokenizer);
 void        parse_decimal(t_tokenizer *tokenizer);

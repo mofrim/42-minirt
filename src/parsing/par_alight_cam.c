@@ -1,44 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_parse.c                                     :+:      :+:    :+:   */
+/*   par_alight_cam.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 17:11:33 by fmaurer          ###   ########.fr       */
+/*   Created: 2025/04/17 17:17:05 by fmaurer           #+#    #+#             */
+/*   Updated: 2025/04/17 17:18:18 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-
-t_scene	*get_scene_from_parser(t_tokenizer *tokenizer)
-{
-	t_scene	*scene;
-	bool	valid;
-
-	valid = true;
-	scene = init_scene();
-	lineparse_scenefile(tokenizer, scene, &valid);
-	if (!valid)
-		return (NULL);
-	return (scene);
-}
-
-void	token_free(t_token *token)
-{
-	if (token)
-	{
-		if (token->type == TOKEN_TYPE_KEYWORD || \
-			token->type == TOKEN_TYPE_IDENTIFIER || \
-			token->type == TOKEN_TYPE_SYMBOL)
-		{
-			free(token->u_value.str);
-		}
-		free(token);
-	}
-}
+// TODO add checking functions in here!
 
 t_amb_light	*parse_ambient_light(t_tokenizer *tokenizer)
 {
@@ -71,3 +45,4 @@ t_camera	*parse_camera(t_tokenizer *tokenizer)
 	camera->fov = parse_number(tokenizer);
 	return (camera);
 }
+

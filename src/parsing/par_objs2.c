@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_objs2.c                                     :+:      :+:    :+:   */
+/*   par_objs2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 10:45:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/18 11:03:56 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,12 @@ t_colr parse_color(t_tokenizer *tokenizer, bool *valid)
 	{
 		if (token)
 			token_free(token);
-		ft_putendl_fd("Error: Expected color format r,g,b", 2);
+		print_errmsg("Expected color format r,g,b");
 		*valid = false;
 		return (color);
 	}
 	parts = ft_split(token->u_value.str, ',');
-	if (!validate_color_components(parts, valid))
+	if (!validate_color(parts, valid))
 	{
 		free_parts(parts);
 		token_free(token);
