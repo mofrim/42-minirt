@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:18:34 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/18 11:03:56 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/18 22:13:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char	*read_scenefile(char *filename)
 
 	content = read_file(filename);
 	if (!content)
-		return (print_errmsg("Failed to read file"), NULL);
+		return (print_errmsg("failed to read file"), NULL);
 	if (!*content)
-		return (free(content), print_errmsg("File is empty"), NULL);
+		return (free(content), print_errmsg("file is empty"), NULL);
 	return (content);
 }

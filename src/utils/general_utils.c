@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:52:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/17 22:19:26 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/18 22:12:04 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_errmsg(char *msg)
 {
 	if (!msg)
 		return ;
-	ft_dprintf(STDERR_FILENO, "Error\n%s\n", msg);
+	ft_dprintf(STDERR_FILENO, "Error\n-> %s\n", msg);
 }
 
 /* Print a errmsg to stderr, append a newline and exit with EXIT_FAILURE. */

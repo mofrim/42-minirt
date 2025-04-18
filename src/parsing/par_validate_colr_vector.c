@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 10:56:45 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/18 11:12:35 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/18 22:12:53 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool validate_color(char **parts, bool *valid)
 
 	if (!parts[0] || !parts[1] || !parts[2] || parts[3])
 	{
-		print_errmsg("Color must have exactly 3 components");
+		print_errmsg("color must have exactly 3 components");
 		*valid = false;
 		return (false);
 	}
@@ -28,7 +28,7 @@ bool validate_color(char **parts, bool *valid)
 		{
 			if (!ft_isdigit(parts[i][j]))
 			{
-				print_errmsg("Color components must be numeric");
+				print_errmsg("color components must be numeric");
 				*valid = false;
 				return (false);
 			}
@@ -39,7 +39,7 @@ bool validate_color(char **parts, bool *valid)
 	b = ft_atoi(parts[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
-		print_errmsg("Color components must be between 0 and 255");
+		print_errmsg("color components must be between 0 and 255");
 		*valid = false;
 		return (false);
 	}

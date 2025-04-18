@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/18 11:03:56 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/18 22:12:23 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ t_colr parse_color(t_tokenizer *tokenizer, bool *valid)
 	{
 		if (token)
 			token_free(token);
-		print_errmsg("Expected color format r,g,b");
+		print_errmsg("expected color format r,g,b");
 		*valid = false;
 		return (color);
 	}
