@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/16 23:19:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 22:24:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	show_sidebar(t_mrt mrt)
 	print_menu_text(mrt, 15, 20 + (++i) * 15, "-- current Map Params --");
 	i++;
 	print_mapinfo(mrt, "subsample: ", mrt.scene->subsample, &i);
-	print_mapinfo(mrt, "fov: ", rad2deg_int(mrt.scene->cam->fov), &i);
-	print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->colr.i, &i);
+	if (mrt.scene->alight)
+		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->colr.i, &i);
 }
 
 static void	draw_sidebar_seperator(t_mrt mrt)
@@ -78,10 +78,14 @@ static void	show_mapinfo(t_mrt mrt, int *i)
 	(*i)++;
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- cam params --");
 	(*i)++;
-	print_mapinfo_float(mrt, "cam_pos.x : ", mrt.scene->cam->pos.x, i);
-	print_mapinfo_float(mrt, "cam_pos.y : ", mrt.scene->cam->pos.y, i);
-	print_mapinfo_float(mrt, "cam_pos.z : ", mrt.scene->cam->pos.z, i);
-	print_mapinfo_float(mrt, "cam_orient.x : ", mrt.scene->cam->orient.x, i);
-	print_mapinfo_float(mrt, "cam_orient.y : ", mrt.scene->cam->orient.y, i);
-	print_mapinfo_float(mrt, "cam_orient.z : ", mrt.scene->cam->orient.z, i);
+	if (mrt.scene->cam)
+	{
+		print_mapinfo(mrt, "fov: ", rad2deg_int(mrt.scene->cam->fov), i);
+		print_mapinfo_float(mrt, "cam_pos.x : ", mrt.scene->cam->pos.x, i);
+		print_mapinfo_float(mrt, "cam_pos.y : ", mrt.scene->cam->pos.y, i);
+		print_mapinfo_float(mrt, "cam_pos.z : ", mrt.scene->cam->pos.z, i);
+		print_mapinfo_float(mrt, "cam_orient.x : ", mrt.scene->cam->orient.x, i);
+		print_mapinfo_float(mrt, "cam_orient.y : ", mrt.scene->cam->orient.y, i);
+		print_mapinfo_float(mrt, "cam_orient.z : ", mrt.scene->cam->orient.z, i);
+	}
 }

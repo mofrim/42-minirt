@@ -6,24 +6,11 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/19 01:02:42 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 20:52:21 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	free_parts_helper(char **parts)
-{
-	int	i;
-
-	i = 0;
-	while (parts[i])
-	{
-		free(parts[i]);
-		i++;
-	}
-	free(parts);
-}
 
 t_v3	parse_v3_from_parts(char **parts)
 {
@@ -35,44 +22,62 @@ t_v3	parse_v3_from_parts(char **parts)
 	return (v3);
 }
 
-t_v3	parse_v3(t_tokenizer *tokenizer, bool *valid)
+t_v3	parse_v3(t_tokenizer *tok)
 {
 	t_v3	v3;
 	t_token	*token;
 	char	**parts;
 
 	v3 = (t_v3){0, 0, 0};
-	token = get_next_token(tokenizer);
+	token = get_next_token(tok);
 	if (!token || token->type != TOKEN_TYPE_V3)
 	{
 		if (token)
 			token_free(token);
 		print_errmsg("expected vector format x,y,z");
-		*valid = false;
+		tok->valid = false;
 		return (v3);
 	}
 	parts = ft_split(token->u_value.str, ',');
-	if (!validate_vector(parts, valid))
+	if (!validate_vector(parts, &tok->valid))
 	{
-		free_parts(parts);
+		ft_freesplit(&parts);
 		token_free(token);
 		return (v3);
 	}
 	v3 = parse_v3_from_parts(parts);
-	free_parts(parts);
+	ft_freesplit(&parts);
 	token_free(token);
 	return (v3);
 }
 
-void	free_parts(char **parts)
+/**
+ * Get the next string from tokenizer input.
+ *
+ * Splits the tokenizer input by whitespaces starting from tok->pos. Then
+ * returns the first split elem.
+ */
+char	*get_tokstr(t_tokenizer *tok)
 {
-	int	i;
+	char	**split;
+	char	*tokstr;
 
-	i = 0;
-	while (parts[i])
+	split = ft_whitesplit(&tok->input[tok->pos]);
+	nullcheck(split, "check_parse_numtok()");
+	tokstr = NULL;
+	if (split[0])
+		tokstr = ft_strdup(split[0]);
+	ft_freesplit(&split);
+	return (tokstr);
+}
+
+/* Free a token. */
+void	token_free(t_token *tok)
+{
+	if (tok)
 	{
-		free(parts[i]);
-		i++;
+		if (tok->type == TOKEN_TYPE_KEYWORD || tok->type == TOKEN_TYPE_V3)
+			free(tok->u_value.str);
+		free(tok);
 	}
-	free(parts);
 }

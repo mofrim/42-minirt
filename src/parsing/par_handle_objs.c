@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/19 01:38:53 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/21 20:03:49 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	handle_objects(t_scene *scene, t_tokenizer *tokenizer, char *key)
 /* Check if current identifier is for an object we know. */
 static	bool	tok_is_object(char *key)
 {
-
-	if (ft_strlen(key) == 2 && (!ft_strcmp(key, "sp") || !ft_strcmp(key, "cy") || \
-		!ft_strcmp(key, "pl") || !ft_strcmp(key, "sp") || \
-		!ft_strcmp(key, "tr") || !ft_strcmp(key, "ci")))
+	if (ft_strlen(key) == 2 && (!ft_strcmp(key, "sp") || \
+		!ft_strcmp(key, "cy") || !ft_strcmp(key, "pl") || \
+		!ft_strcmp(key, "sp") || !ft_strcmp(key, "tr") || \
+		!ft_strcmp(key, "ci")))
 		return (true);
 	else if (ft_strlen(key) == 1 && !ft_strcmp(key, "L"))
 		return (true);
@@ -76,4 +76,3 @@ void	parse_object(t_objtype type, t_tokenizer *tok, t_scene *sc,
 	obj = objlst_new(type, parse_func(tok));
 	objlst_add_back(&sc->objects, obj);
 }
-

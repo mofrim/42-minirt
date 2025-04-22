@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:17:05 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/19 01:42:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 22:48:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,38 +24,28 @@
  * Example: "A 0.3 255,255,255"
  * Rules: 0 <= bright <= 1, colr must be valid
  */
-// QUESTION: what to do with the valid flag??? should every parsing function
-// carry the flag along? Should all the checking be done in the parsing
-// functions or later in setup_scene (or a check_scene function before that??)?
-t_amb_light	*parse_ambient_light(t_tokenizer *tokenizer)
+t_alight	*parse_ambient_light(t_tokenizer *tok)
 {
-	t_amb_light	*amb_light;
-	bool valid;
+	t_alight	*alight;
 
-	valid = true;
-	amb_light = malloc(sizeof(t_amb_light));
-	nullcheck(amb_light, "parse_ambient_light()");
-
-	// FIXME: check for brightness value in range [0,1], otherwise: throw error
-	amb_light->bright = parse_number(tokenizer);
-
-	// FIXME: parse bright before colr and then add to colr as brightness
-	amb_light->colr = parse_color(tokenizer, &valid);
-	amb_light->colr.i = amb_light->bright;
-	return (amb_light);
+	alight = malloc(sizeof(t_alight));
+	nullcheck(alight, "parse_ambient_light()");
+	alight->bright = parse_pos_num(tok);
+	if (alight->bright > 1.0)
+		printerr_set_invalid("ambient light too bright", tok);
+	alight->colr = parse_color(tok);
+	alight->colr.i = alight->bright;
+	return (alight);
 }
 
-t_camera	*parse_camera(t_tokenizer *tokenizer)
+t_camera	*parse_camera(t_tokenizer *tok)
 {
 	t_camera	*camera;
-	bool valid;
 
-	valid = true;
 	camera = malloc(sizeof(t_camera));
 	nullcheck(camera, "parse_camera");
-	camera->pos = parse_v3(tokenizer, &valid);
-	camera->orient = parse_v3(tokenizer, &valid);
-	camera->fov = parse_number(tokenizer);
+	camera->pos = parse_v3(tok);
+	camera->orient = parse_v3(tok);
+	camera->fov = parse_pos_num(tok);
 	return (camera);
 }
-

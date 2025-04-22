@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   par_valid_elements.c                               :+:      :+:    :+:   */
+/*   par_minimum_elems.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:30:00 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/19 01:24:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 20:25:33 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ bool has_minimum_required_elements(char *content)
 			has_light = true;
 		i++;
 	}
-	free_parts(lines);
+	ft_freesplit(&lines);
 	return (has_ambient && has_camera && has_light);
 }

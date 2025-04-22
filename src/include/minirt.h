@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/19 01:23:22 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 22:46:26 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_v2
 typedef struct s_scene
 {
 	t_camera	*cam;
-	t_amb_light	*alight;
+	t_alight	*alight;
 	t_objlst	*objects;
 	int			subsample;
 }	t_scene;
@@ -139,7 +139,7 @@ t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx);
 
 void			debug_token(t_token *token, const char *message);
 void			debug_camera(t_camera *cam);
-void			debug_ambient_light(t_amb_light *alight);
+void			debug_ambient_light(t_alight *alight);
 void			debug_sphere(t_sphere *sphere);
 void			debug_plane(t_plane *plane);
 void			debug_cylinder(t_cylinder *cylinder);
@@ -160,10 +160,13 @@ int				tcolr_to_int(t_colr colr);
 t_colr			int_to_tcolr(int int_colr);
 void			error_exit(char *msg);
 void			print_errmsg(char *msg);
+void			printerr_set_invalid(char *msg, t_tokenizer *tok);
 void			exit_with_errmsg(char *msg);
 void			nullcheck(void *p, char *msg);
 void			cleanup_mrt(t_mrt *mrt);
 double			ft_atof(const char *str);
+char 			**split_whitespace(char *s);
+bool			is_numstr(char	*s);
 
 /********** Math utils. **********/
 

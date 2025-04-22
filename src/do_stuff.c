@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 11:29:11 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/17 08:35:36 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 22:30:54 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,15 @@ void	do_stuff(t_mrt mrt)
 	// init_scene(mrt);
 	show_sidebar(mrt);
 	print_scene(*mrt.scene);
-	raytrace_xpm(mrt);
-
+	
+	// NOTE: checking for alight and cam is necessary. otherwise raytrace_xpm
+	// will segfault.
+	// MAYBE - TODO: integrate into raytrace_xpm
+	if (mrt.scene->alight && mrt.scene->cam)
+	{
+		printf("doing the trace!\n");
+		raytrace_xpm(mrt);
+	}
 
 	/* Added this for testing correct color display. */
 

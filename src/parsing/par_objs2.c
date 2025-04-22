@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/19 01:02:42 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 20:54:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,28 @@
 t_plane	*parse_plane(t_tokenizer *tokenizer)
 {
 	t_plane	*plane;
-	bool	valid;
 
-	valid = true;
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
 		return (NULL);
-	plane->pop = parse_v3(tokenizer, &valid);
-	plane->normal = parse_v3(tokenizer, &valid);
-	plane->colr = parse_color(tokenizer, &valid);
+	plane->pop = parse_v3(tokenizer);
+	plane->normal = parse_v3(tokenizer);
+	plane->colr = parse_color(tokenizer);
 	return (plane);
 }
 
 t_cylinder	*parse_cylinder(t_tokenizer *tokenizer)
 {
 	t_cylinder	*cylinder;
-	bool		valid;
 
-	valid = true;
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (NULL);
-	cylinder->center = parse_v3(tokenizer, &valid);
-	cylinder->axis = parse_v3(tokenizer, &valid);
-	cylinder->radius = parse_number(tokenizer);
-	cylinder->height = parse_number(tokenizer);
-	cylinder->colr = parse_color(tokenizer, &valid);
+	cylinder->center = parse_v3(tokenizer);
+	cylinder->axis = parse_v3(tokenizer);
+	cylinder->radius = parse_pos_num(tokenizer);
+	cylinder->height = parse_pos_num(tokenizer);
+	cylinder->colr = parse_color(tokenizer);
 	return (cylinder);
 }
 
@@ -49,20 +45,18 @@ t_cylinder	*parse_cylinder(t_tokenizer *tokenizer)
 t_triangle	*parse_triangle(t_tokenizer *tokenizer)
 {
 	t_triangle	*tr;
-	bool		valid;
 
-	valid = true;
 	tr = malloc(sizeof(t_triangle));
 	nullcheck(tr, "Error\nparse_circle()");
-	tr->a = parse_v3(tokenizer, &valid);
-	tr->b = parse_v3(tokenizer, &valid);
-	tr->c = parse_v3(tokenizer, &valid);
-	tr->colr = parse_color(tokenizer, &valid);
+	tr->a = parse_v3(tokenizer);
+	tr->b = parse_v3(tokenizer);
+	tr->c = parse_v3(tokenizer);
+	tr->colr = parse_color(tokenizer);
 
 	// FIXME calculations / setup
 	tr->ab = v3_minus_vec(tr->b, tr->a);
 	tr->ac = v3_minus_vec(tr->c, tr->a);
-	tr->bc= v3_minus_vec(tr->c, tr->b);
+	tr->bc = v3_minus_vec(tr->c, tr->b);
 	tr->normal = v3_mult(v3_cross(tr->ab, tr->ac), -1); // FIXME eeehmm
 	tr->potdn = v3_dot(tr->a, tr->normal);
 	tr->area = 0.5 * v3_norm(v3_cross(tr->ab, tr->ac));
@@ -73,15 +67,13 @@ t_triangle	*parse_triangle(t_tokenizer *tokenizer)
 t_circle	*parse_circle(t_tokenizer *tokenizer)
 {
 	t_circle	*ci;
-	bool		valid;
 
-	valid = true;
 	ci = malloc(sizeof(t_circle));
 	nullcheck(ci, "Error\nparse_circle()");
-	ci->center = parse_v3(tokenizer, &valid);
-	ci->normal = parse_v3(tokenizer, &valid);
-	ci->r = parse_number(tokenizer);
-	ci->colr = parse_color(tokenizer, &valid);
+	ci->center = parse_v3(tokenizer);
+	ci->normal = parse_v3(tokenizer);
+	ci->r = parse_pos_num(tokenizer);
+	ci->colr = parse_color(tokenizer);
 
 	// FIXME calculations / setup
 	ci->r2 = ci->r * ci->r;
@@ -120,36 +112,33 @@ t_circle	*parse_circle(t_tokenizer *tokenizer)
 // 	return (validate_color(color, valid));
 // }
 
-
 // FIXME: idk its a little bit of a smell that colors are indistinguishable from
 // TOKEN_TYPE_V3's. but for now it is okay i would say.
-t_colr parse_color(t_tokenizer *tokenizer, bool *valid)
+t_colr	parse_color(t_tokenizer *tok)
 {
-	t_colr	color;
+	t_colr	colr;
 	t_token	*token;
 	char	**parts;
 
-	color = (t_colr){0, 0, 0, 0};
-	token = get_next_token(tokenizer);
+	colr = (t_colr){0, 0, 0, 0};
+	token = get_next_token(tok);
 	if (!token || token->type != TOKEN_TYPE_V3)
 	{
 		if (token)
 			token_free(token);
 		print_errmsg("expected color format r,g,b");
-		*valid = false;
-		return (color);
+		tok->valid = false;
+		return (colr);
 	}
 	parts = ft_split(token->u_value.str, ',');
-	if (!validate_color(parts, valid))
+	if (!validate_color(parts, &tok->valid))
 	{
-		free_parts(parts);
+		ft_freesplit(&parts);
 		token_free(token);
-		return (color);
+		return (colr);
 	}
-	color.r = ft_atoi(parts[0]);
-	color.g = ft_atoi(parts[1]);
-	color.b = ft_atoi(parts[2]);
-	free_parts(parts);
+	colr = (t_colr){ft_atoi(parts[0]), ft_atoi(parts[1]), ft_atoi(parts[2]), 0};
+	ft_freesplit(&parts);
 	token_free(token);
-	return (color);
+	return (colr);
 }

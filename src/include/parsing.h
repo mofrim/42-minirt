@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/19 01:38:36 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 22:39:49 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ typedef struct s_token
 	}	u_value;
 }	t_token;
 
-// Define the tokenizer
+/* The "tokenizer". Also used for carrying along the valid flag which will get
+ * set to false if any parsing func encounters an error. */
 typedef struct s_tokenizer
 {
 	char	*input;
-	int		pos;
+	size_t	pos;
 	size_t	len;
+	bool	valid;
 }	t_tokenizer;
 
 /********** PARSER FUNCTIONS **********/
@@ -62,10 +64,10 @@ void		handle_token_keyword(t_scene *scene, t_tokenizer *tokenizer,
 				char *key);
 
 // Object parsers
-t_amb_light	*parse_ambient_light(t_tokenizer *tokenizer);
+t_alight	*parse_ambient_light(t_tokenizer *tokenizer);
 t_camera	*parse_camera(t_tokenizer *tokenizer);
 t_light		*parse_light(t_tokenizer *tokenizer);
-t_colr		parse_color(t_tokenizer *tokenizer, bool *valid);
+t_colr		parse_color(t_tokenizer *tokenizer);
 t_sphere	*parse_sphere(t_tokenizer *tokenizer);
 t_plane		*parse_plane(t_tokenizer *tokenizer);
 t_cylinder	*parse_cylinder(t_tokenizer *tokenizer);
@@ -73,15 +75,14 @@ t_triangle	*parse_triangle(t_tokenizer *tokenizer);
 t_circle	*parse_circle(t_tokenizer *tokenizer);
 
 // Parser utilities
-t_v3		parse_v3(t_tokenizer *tokenizer, bool *valid);
+t_v3		parse_v3(t_tokenizer *tok);
 t_v3		parse_v3_from_parts(char **parts);
-double		parse_number(t_tokenizer *tokenizer);
-void		free_parts(char **parts);
-void		free_parts_helper(char **parts);
+float		parse_pos_num(t_tokenizer *tok);
 char		*read_scenefile(char *filename);
 bool		has_rt_ext(char *filename);
 bool		validate_color(char **parts, bool *valid);
 bool		validate_vector(char **parts, bool *valid);
+char		*get_tokstr(t_tokenizer *tok);
 
 /********** TOKENIZER FUNCTIONS **********/
 

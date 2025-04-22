@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/14 17:44:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 22:39:49 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ typedef struct s_triangle
 	t_colr	colr;
 }	t_triangle;
 
-typedef struct s_amb_light
+typedef struct s_alight
 {
 	double	bright;
 	t_colr	colr;
-}	t_amb_light;
+}	t_alight;
 
 typedef struct s_light
 {

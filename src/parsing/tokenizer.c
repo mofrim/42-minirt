@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/19 01:08:32 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 20:46:49 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_tokenizer	*tokenizer_new(char *input)
 	tokenizer->input = input;
 	tokenizer->pos = 0;
 	tokenizer->len = ft_strlen(input);
+	tokenizer->valid = true;
 	return (tokenizer);
 }
 
@@ -49,7 +50,6 @@ static int	is_numeric(t_tokenizer *t)
 
 void	skip_whitespace(t_tokenizer *t)
 {
-	while (t->input[t->pos] && (t->input[t->pos] == ' ' || \
-			t->input[t->pos] == '\t' || t->input[t->pos] == '\n'))
+	while (t->input[t->pos] && ft_isspace(t->input[t->pos]))
 		t->pos++;
 }

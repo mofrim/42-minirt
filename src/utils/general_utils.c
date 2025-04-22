@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:52:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/18 22:12:04 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/22 22:47:01 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ void	print_errmsg(char *msg)
 	if (!msg)
 		return ;
 	ft_dprintf(STDERR_FILENO, "Error\n-> %s\n", msg);
+}
+
+/* Convenience error printing to stderr. Prints "Error\n" followed by the msg
+ * given as argument AND sets valid flag in tokenizer to false. */
+void	printerr_set_invalid(char *msg, t_tokenizer *tok)
+{
+	if (!msg)
+		return ;
+	ft_dprintf(STDERR_FILENO, "Error\n-> %s\n", msg);
+	tok->valid = false;
 }
 
 /* Print a errmsg to stderr, append a newline and exit with EXIT_FAILURE. */
@@ -85,39 +95,3 @@ char	*read_file(char *filename)
 	close(fd);
 	return (free(buf), file_content);
 }
-
-// FIXME: this is not necessary i would argue. the only thing i would say we can
-// demand that a valid scene should have is a camera. but not even this i would
-// be sure about. what is wrong with a scene file that only defines a sphere. or
-// a light. or a camera? in principle nothing.
-
-// bool has_minimum_required_elements(char *content)
-// {
-// 	bool has_ambient = false;
-// 	bool has_camera = false;
-// 	bool has_light = false;
-// 	char **lines;
-// 	int i;
-//
-// 	lines = ft_split(content, '\n');
-// 	if (!lines)
-// 		return (false);
-// 	i = 0;
-// 	while (lines[i])
-// 	{
-// 		// Skip whitespace at beginning of line
-// 		char *trimmed = lines[i];
-// 		while (*trimmed && ft_isspace(*trimmed))
-// 			trimmed++;
-// 		// Check for element identifiers
-// 		if (*trimmed == 'A')
-// 			has_ambient = true;
-// 		else if (*trimmed == 'C')
-// 			has_camera = true;
-// 		else if (*trimmed == 'L')
-// 			has_light = true;
-// 		i++;
-// 	}
-// 	free_parts(lines);
-// 	return (has_ambient && has_camera && has_light);
-// }

@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/19 01:10:10 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/22 20:15:04 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,11 +65,11 @@ SRCS		=	main.c \
 					par_objs2.c \
 					par_lineparse.c \
 					par_utils.c \
-					par_utils2.c \
 					par_validator.c \
-					par_validate_colr_vector.c \
+					validate_colr.c \
+					validate_v3.c \
 					tokenizer.c \
-					tokenizer_nums.c \
+					parse_number_token.c \
 					setup_scene.c \
 					raytrace_xpm.c \
 					xpm.c \
