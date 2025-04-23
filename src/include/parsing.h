@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/22 22:39:49 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 11:53:53 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_tokenizer
 int			get_scene_from_parser(t_tokenizer *tokenizer, t_scene *scene);
 t_scene		*parse_scene(char *scene_filename, t_mrt *mrt);
 t_scene		*init_scene(void);
-int			lineparse_scenefile(t_tokenizer *tokenizer, t_scene *scene);
+int			lineparse_scenefile(char *file_content, t_scene *scene);
 void		handle_token_keyword(t_scene *scene, t_tokenizer *tokenizer,
 				char *key);
 

@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 10:51:31 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 12:18:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,20 @@ static bool	parse_line(char *line, t_scene *scene);
  *
  * Returns -1 if parsing failed somewhere down the line.
  */
-// FIXME: t_tokenizer is useless in here because its functionality is not used
-// anywhere. So, just pass the file_content string.
-int	lineparse_scenefile(t_tokenizer *tokenizer, t_scene *scene)
+int	lineparse_scenefile(char *file_content, t_scene *scene)
 {
 	bool		valid;
 	char		**lines;
 	int			i;
 
 	valid = true;
-	lines = ft_split(tokenizer->input, '\n');
+	lines = ft_split(file_content, '\n');
 	nullcheck(lines, "lineparse_scenefile()");
 	i = -1;
 	while (lines[++i] && valid)
 	{
 		if (ft_strlen(lines[i]) == 0)
-			continue;
+			continue ;
 		valid = parse_line(lines[i], scene);
 	}
 	ft_freesplit(&lines);

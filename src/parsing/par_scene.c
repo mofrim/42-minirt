@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:08:06 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 10:21:18 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 11:54:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	cleanup_scene_mrt(t_mrt *mrt, t_scene *sc);
 static void	free_mrt_exit(t_mrt *mrt);
-static void	free_tok_rtfile(t_tokenizer *tok, char *scf);
 
 /**
  * Main scenefile parsing func.
@@ -25,7 +24,6 @@ static void	free_tok_rtfile(t_tokenizer *tok, char *scf);
 t_scene	*parse_scene(char *scene_filename, t_mrt *mrt)
 {
 	t_scene		*scene;
-	t_tokenizer	*toknizr;
 	char		*rtfile_content;
 
 	if (!has_rt_ext(scene_filename))
@@ -36,15 +34,14 @@ t_scene	*parse_scene(char *scene_filename, t_mrt *mrt)
 	rtfile_content = read_scenefile(scene_filename);
 	if (!rtfile_content)
 		free_mrt_exit(mrt);
-	toknizr = tokenizer_new(rtfile_content);
 	scene = init_scene();
-	if (lineparse_scenefile(toknizr, scene) == -1)
+	if (lineparse_scenefile(rtfile_content, scene) == -1)
 	{
-		free_tok_rtfile(toknizr, rtfile_content);
+		free(rtfile_content);
 		cleanup_scene_mrt(mrt, scene);
 		exit_with_errmsg("failed to parse scene");
 	}
-	free_tok_rtfile(toknizr, rtfile_content);
+	free(rtfile_content);
 	setup_scene(scene);
 	return (scene);
 }
@@ -54,12 +51,6 @@ static void	free_mrt_exit(t_mrt *mrt)
 {
 	free(mrt);
 	exit(1);
-}
-
-static void	free_tok_rtfile(t_tokenizer *tok, char *scf)
-{
-	free(tok);
-	free(scf);
 }
 
 /* Cleanup subroutine if parsing fails at some line in scenefile.  */
