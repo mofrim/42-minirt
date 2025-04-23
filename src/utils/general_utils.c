@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:52:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 10:47:55 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 14:30:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_errmsg(char *msg, char *elem)
 	if (!elem)
 		ft_dprintf(STDERR_FILENO, "Error\n-> %s\n", msg);
 	if (elem)
-		ft_dprintf(STDERR_FILENO, "Error\n-> %s: %s\n", msg, elem);
+		ft_dprintf(STDERR_FILENO, "Error\n-> %s, got: %s\n", msg, elem);
 }
 
 /* Convenience error printing to stderr. Prints "Error\n" followed by the msg
