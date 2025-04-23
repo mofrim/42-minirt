@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/22 20:15:04 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/23 10:37:09 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,9 +65,9 @@ SRCS		=	main.c \
 					par_objs2.c \
 					par_lineparse.c \
 					par_utils.c \
-					par_validator.c \
-					validate_colr.c \
-					validate_v3.c \
+					read_scenefile.c \
+					parse_colr.c \
+					parse_v3.c \
 					tokenizer.c \
 					parse_number_token.c \
 					setup_scene.c \
@@ -155,7 +155,7 @@ $(NAME): $(OBJS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
 
 $(LIBFT):
 	@echo -e "$(call log_msg,Compiling libft...)"
-	make -C $(LIBFT_PATH) all
+	make -C $(LIBFT_PATH)
 
 $(LIBMLX):
 ifeq ($(shell uname), Darwin)

@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/22 22:34:58 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 10:23:13 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_token	*parse_number_token(t_tokenizer *tok)
 	{
 		tok->valid = false;
 		tok->pos += ft_strlen(numstr);
-		return (print_errmsg("unsigned float value expected"), NULL);
+		return (print_errmsg("unsigned float value expected", numstr), NULL);
 	}
 	token = malloc(sizeof(t_token));
 	nullcheck(token, "parse_number_token()");

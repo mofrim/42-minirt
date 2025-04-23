@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:08:06 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/19 00:09:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 10:21:18 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_scene	*parse_scene(char *scene_filename, t_mrt *mrt)
 
 	if (!has_rt_ext(scene_filename))
 	{
-		print_errmsg("invalid file extension. Expected '.rt'");
+		print_errmsg("invalid file extension. Expected '.rt'", NULL);
 		free_mrt_exit(mrt);
 	}
 	rtfile_content = read_scenefile(scene_filename);

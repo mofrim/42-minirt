@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/21 20:03:49 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 10:20:31 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ static void		handle_objects(t_scene *scene, t_tokenizer *tokenizer,
  * Checks if the token passed as param is a valid identifier. Then dispatches to
  * the corresponding parsing function which then tries to parse the complete
  * line according to the expected structure.
+ * NOTE: Because we always dispatch to the corresponding parsing functions for
+ * each keyword the structure of each line is determined by each parsing func!
+ * This means: the individual element-parsing functions like `parse__v3` or
+ * `parse_colr` get called in the expected order. This means if any error is
+ * encountered in a element-parsing func the scenefile is invalid.
+ * This has implications for the error messaging: We can always say "vector was
+ * expected" or "color was expected".
  */
 void	handle_token_keyword(t_scene *scene, t_tokenizer *tokenizer, char *key)
 {
@@ -34,7 +41,7 @@ void	handle_token_keyword(t_scene *scene, t_tokenizer *tokenizer, char *key)
 	else if (tok_is_object(key) == true)
 		handle_objects(scene, tokenizer, key);
 	else
-		print_errmsg("invalid keyword in scene file");
+		print_errmsg("invalid keyword in scene file", key);
 }
 
 /* Dispatch to the individual parsing functions for objects. */
