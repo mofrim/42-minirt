@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:52:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 10:35:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 10:47:55 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	print_errmsg(char *msg, char *elem)
 
 /* Convenience error printing to stderr. Prints "Error\n" followed by the msg
  * given as argument AND sets valid flag in tokenizer to false. */
-void	printerr_set_invalid(char *msg, t_tokenizer *tok)
+void	printerr_set_invalid(char *msg, bool *valid)
 {
 	if (!msg)
 		return ;
 	ft_dprintf(STDERR_FILENO, "Error\n-> %s\n", msg);
-	tok->valid = false;
+	*valid = false;
 }
 
 /* Print a errmsg to stderr, append a newline and exit with EXIT_FAILURE. */
