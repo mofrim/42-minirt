@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:17:05 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 14:09:57 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 14:29:43 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ t_alight	*parse_ambient_light(t_tokenizer *tok)
 	alight->bright = parse_pos_num(tok);
 	if (alight->bright > 1.0)
 		printerr_set_invalid("ambient light too bright", &tok->valid);
-	alight->colr = parse_color(tok);
-	alight->colr.i = alight->bright;
+	if (tok->valid)
+	{
+		alight->colr = parse_color(tok);
+		alight->colr.i = alight->bright;
+	}
 	return (alight);
 }
 
