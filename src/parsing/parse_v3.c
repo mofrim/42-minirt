@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 09:47:53 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 10:24:06 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 14:22:28 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_v3	parse_v3(t_tokenizer *tok)
 	if (!token || token->type != TOKEN_TYPE_V3)
 	{
 		if (token)
-			token_free(token);
+			token_free(&token);
 		print_errmsg("expected vector format x,y,z", NULL);
 		tok->valid = false;
 		return (v3);
@@ -32,12 +32,12 @@ t_v3	parse_v3(t_tokenizer *tok)
 	if (!validate_vector(parts, &tok->valid))
 	{
 		ft_freesplit(&parts);
-		token_free(token);
+		token_free(&token);
 		return (v3);
 	}
 	v3 = (t_v3){ft_atof(parts[0]), ft_atof(parts[1]), ft_atof(parts[2])};
 	ft_freesplit(&parts);
-	token_free(token);
+	token_free(&token);
 	return (v3);
 }
 

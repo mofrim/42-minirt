@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 11:53:53 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 14:21:27 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char		*get_tokstr(t_tokenizer *tok);
 
 t_tokenizer	*tokenizer_new(char *input);
 t_token		*get_next_token(t_tokenizer *tokenizer);
-void		token_free(t_token *token);
+void		token_free(t_token **token);
 
 // Token type parsers
 t_token		*parse_coordinate(t_tokenizer *tokenizer);

@@ -6,20 +6,18 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:17:05 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 10:48:18 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 14:09:57 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// TODO add checking functions in here!
-
 /**
  * Ambient light parsing func.
  *
  * Expected Structure:
- * - alight's intensity aka brightness
- * - alight's color
+ * - alight's intensity aka brightness (float)
+ * - alight's color (t_colr)
  *
  * Example: "A 0.3 255,255,255"
  * Rules: 0 <= bright <= 1, colr must be valid
@@ -38,14 +36,24 @@ t_alight	*parse_ambient_light(t_tokenizer *tok)
 	return (alight);
 }
 
+/**
+ * Parse the camera.
+ *
+ * Structure:
+ * - pos (t_v3)
+ * - orientation (t_v3)
+ * - field of view in degrees aka fov (float), with 0 < fov < 180
+ */
 t_camera	*parse_camera(t_tokenizer *tok)
 {
-	t_camera	*camera;
+	t_camera	*cam;
 
-	camera = malloc(sizeof(t_camera));
-	nullcheck(camera, "parse_camera");
-	camera->pos = parse_v3(tok);
-	camera->orient = parse_v3(tok);
-	camera->fov = parse_pos_num(tok);
-	return (camera);
+	cam = malloc(sizeof(t_camera));
+	nullcheck(cam, "parse_camera");
+	cam->pos = parse_v3(tok);
+	cam->orient = parse_v3(tok);
+	cam->fov = parse_pos_num(tok);
+	if (cam->fov <= 0 || 180 <= cam->fov)
+		printerr_set_invalid("cam fov not in range (0, 180)", &tok->valid);
+	return (cam);
 }

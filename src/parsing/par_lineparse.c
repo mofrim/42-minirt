@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 12:18:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 14:21:37 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static bool	parse_line(char *line, t_scene *scene);
  */
 int	lineparse_scenefile(char *file_content, t_scene *scene)
 {
-	bool		valid;
-	char		**lines;
-	int			i;
+	bool	valid;
+	char	**lines;
+	int		i;
 
 	valid = true;
 	lines = ft_split(file_content, '\n');
@@ -45,26 +45,27 @@ int	lineparse_scenefile(char *file_content, t_scene *scene)
 bool	parse_line(char *line, t_scene *scene)
 {
 	t_token		*token;
-	t_tokenizer	*line_tokenizer;
-	bool		valid;
+	t_tokenizer	*line_tok;
 
-	valid = true;
-	line_tokenizer = tokenizer_new(line);
-	token = get_next_token(line_tokenizer);
+	line_tok = tokenizer_new(line);
+	token = get_next_token(line_tok);
 	if (token && token->type == TOKEN_TYPE_KEYWORD)
 	{
-		handle_token_keyword(scene, line_tokenizer, token->u_value.str);
-		token_free(token);
-		token = get_next_token(line_tokenizer);
-		if (token)
-			printerr_set_invalid("malformed line in scenefile", &valid);
-		else
-			valid = line_tokenizer->valid;
+		handle_token_keyword(scene, line_tok, token->u_value.str);
+		token_free(&token);
+		if (line_tok->valid)
+		{
+			token = get_next_token(line_tok);
+			if (token)
+				printerr_set_invalid("malformed line in scenefile",
+					&line_tok->valid);
+		}
 	}
 	else
-		printerr_set_invalid("malformed line in scenefile", &valid);
+		printerr_set_invalid("malformed line in scenefile", &line_tok->valid);
 	if (token)
-		token_free(token);
-	free(line_tokenizer);
-	return (valid);
+		token_free(&token);
+	if (line_tok->valid)
+		return (free(line_tok), true);
+	return (free(line_tok), false);
 }

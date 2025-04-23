@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 10:23:13 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 14:22:14 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ float	parse_pos_num(t_tokenizer *tok)
 	if (!token)
 		return (0.0);
 	value = token->u_value.num;
-	token_free(token);
+	token_free(&token);
 	return (value);
 }

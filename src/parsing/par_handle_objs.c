@@ -6,17 +6,17 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 10:20:31 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/23 14:13:05 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static	bool	tok_is_object(char *key);
-static void		parse_object(t_objtype type, t_tokenizer *tok, t_scene *sc,
-					void *(*parse_func)(t_tokenizer *));
-static void		handle_objects(t_scene *scene, t_tokenizer *tokenizer,
-					char *key);
+static bool	tok_is_object(char *key);
+static void	parse_object(t_objtype type, t_tokenizer *tok, t_scene *sc,
+				void *(*parse_func)(t_tokenizer *));
+static void	handle_objects(t_scene *scene, t_tokenizer *tokenizer,
+				char *key);
 
 /**
  * Main keyword handler function.
@@ -32,14 +32,20 @@ static void		handle_objects(t_scene *scene, t_tokenizer *tokenizer,
  * This has implications for the error messaging: We can always say "vector was
  * expected" or "color was expected".
  */
-void	handle_token_keyword(t_scene *scene, t_tokenizer *tokenizer, char *key)
+void	handle_token_keyword(t_scene *scene, t_tokenizer *tok, char *key)
 {
 	if (ft_strcmp(key, "A") == 0)
-		scene->alight = parse_ambient_light(tokenizer);
+		if (scene->alight)
+			printerr_set_invalid("already got one ambient light", &tok->valid);
+		else
+			scene->alight = parse_ambient_light(tok);
 	else if (ft_strcmp(key, "C") == 0)
-		scene->cam = parse_camera(tokenizer);
+		if (scene->cam)
+			printerr_set_invalid("already got one cam", &tok->valid);
+		else
+			scene->cam = parse_camera(tok);
 	else if (tok_is_object(key) == true)
-		handle_objects(scene, tokenizer, key);
+		handle_objects(scene, tok, key);
 	else
 		print_errmsg("invalid keyword in scene file", key);
 }
@@ -62,7 +68,7 @@ void	handle_objects(t_scene *scene, t_tokenizer *tokenizer, char *key)
 }
 
 /* Check if current identifier is for an object we know. */
-static	bool	tok_is_object(char *key)
+bool	tok_is_object(char *key)
 {
 	if (ft_strlen(key) == 2 && (!ft_strcmp(key, "sp") || \
 		!ft_strcmp(key, "cy") || !ft_strcmp(key, "pl") || \
