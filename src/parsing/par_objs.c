@@ -6,27 +6,25 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 14:21:55 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 22:25:09 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_light	*parse_light(t_tokenizer *tokenizer)
+t_light	*parse_light(t_tokenizer *tok)
 {
 	t_light	*light;
-	t_token	*token;
+	float	bright;
 
 	light = malloc(sizeof(t_light));
 	nullcheck(light, "parse_light()");
-	light->pos = parse_v3(tokenizer);
-	token = get_next_token(tokenizer);
-	if (token && token->type == TOKEN_TYPE_NUM)
-		light->bright = token->u_value.num;
-	if (token)
-		token_free(&token);
-	light->colr = parse_color(tokenizer);
-	light->colr.i = light->bright;
+	light->pos = parse_v3(tok);
+	bright = parse_pos_num(tok);
+	if (bright > 1.0)
+		printerr_set_invalid("pointlight too bright", &tok->valid);
+	light->colr = parse_color(tok);
+	light->colr.i = bright;
 	return (light);
 }
 

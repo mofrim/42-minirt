@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 14:08:05 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 22:27:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	calc_diff_reflection(t_light light, t_v3 light_ray, t_v3 n,
 	ndotl = v3_dot(n, light_ray);
 	if (ndotl > 0)
 	{
-		ip = light.bright * ndotl / v3_norm(light_ray);
+		ip = light.colr.i * ndotl / v3_norm(light_ray);
 		light.colr.i = ip;
 		hp->fcolr = hp_add_pointlight(*hp, light.colr);
 		return (1);

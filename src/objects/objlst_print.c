@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:07:08 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 18:21:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 22:26:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	print_light(t_objlst obj)
 	printf("  [%2d] light { pos=(%.4f,%.4f,%.4f), colr=(%d,%d,%d),"
 			" intens=%.4f }\n",
 		id, l.pos.x, l.pos.y, l.pos.z,
-		l.colr.r, l.colr.g, l.colr.b, l.bright);
+		l.colr.r, l.colr.g, l.colr.b, l.colr.i);
 }
 
 static void print_sphere(t_objlst obj)

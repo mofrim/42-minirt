@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 10:56:45 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 14:22:10 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 22:23:28 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ t_colr	parse_color(t_tokenizer *tok)
 	{
 		if (token)
 			token_free(&token);
-		print_errmsg("expected color format r,g,b", NULL);
-		tok->valid = false;
+		printerr_set_invalid("expected color format r,g,b", &tok->valid);
 		return (colr);
 	}
 	parts = ft_split(token->u_value.str, ',');
