@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   v3_advanced_ops.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:13:45 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/10 09:43:41 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 15:06:31 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,18 @@ t_v3	v3_get_norm(t_v3 v)
 	if (norm == 0.0)
 		return ((t_v3){0, 0, 0});
 	return (v3_mult(v, 1.0/norm));
+}
+
+/*
+ * @brief Calculates the squared norm (squared magnitude) of a vector.
+ * This is equivalent to v3_dot(v, v) and avoids a square root calculation.
+ * ||v||^2 = x*x + y*y + z*z
+ * @param v The vector.
+ * @return The squared norm (double).
+ */
+double v3_norm_sq(t_v3 v)
+{
+    return (v3_dot(v, v));
+    // Or, equivalently:
+    // return (v.x * v.x + v.y * v.y + v.z * v.z);
 }

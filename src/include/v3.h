@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   v3.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:49:45 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/05 11:14:18 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 15:06:54 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ t_v3	v3_cross(t_v3 v, t_v3 w);
 double	v3_norm(t_v3 v);
 t_v3	v3_get_norm(t_v3 v);
 void	v3_print(t_v3 v, char *name);
+double	v3_norm_sq(t_v3 v);
 
 #endif

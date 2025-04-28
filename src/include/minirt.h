@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/19 01:23:22 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 14:58:43 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,11 @@ t_colr			circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hitpoint);
 double			triangle_intersect_ray(t_v3 origin, t_v3 ray_dir,
 					t_ray_minmax rp, t_triangle tri);
 t_colr			triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hitpoint);
+
+double			cylinder_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+					t_cylinder *cyl);
+
+t_colr			cylinder_get_colr(t_scene scene, t_objlst cylobj, t_v3 hitpoint);
 
 /********** Color stuff. **********/
 

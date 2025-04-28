@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
+#    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/19 01:10:10 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/28 15:07:29 by jroseiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,8 @@ SRCS		=	main.c \
 					circle.c \
 					kbd_other.c \
 					triangle.c \
+					cylinder.c \
+					plane.c \
 					colr_base_utils.c
 
 OBJDIR	=	obj

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/14 17:44:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 14:54:13 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,21 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_v3	center;
+	t_v3	p1;		//center of the first cap circle
+	t_v3	p2;		//center of the second cap circle
 	t_v3	axis;
-	double	radius;
-	double	height;
+	double	r;		//radius
+	double	r_squared;
+	double	height;	// p2 - p1 basically
 	t_colr	colr;
 }	t_cylinder;
+
+// Helper struct for quadratic equation results
+typedef struct s_quad_sol {
+    double t1;
+    double t2;
+    double disc; // Discriminant
+} t_quad_sol;
 
 /* pop = Point On Plane :) */
 typedef struct s_plane

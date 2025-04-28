@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 21:09:25 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/08 00:55:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 15:00:32 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,8 @@
 
 /* Read buffer size for reading scene file. */
 # define FILE_BUFSIZE 1000
+
+/* A small value for floating point comparisons (e.g., checking near-zero). */
+# define EPSILON 1e-6
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   par_objs2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/19 01:02:42 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 14:41:55 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,33 @@ t_plane	*parse_plane(t_tokenizer *tokenizer)
 	return (plane);
 }
 
-t_cylinder	*parse_cylinder(t_tokenizer *tokenizer)
+t_cylinder *parse_cylinder(t_tokenizer *tokenizer)
 {
-	t_cylinder	*cylinder;
-	bool		valid;
+	t_cylinder *cylinder;
+	bool        valid;
+	t_v3        half_h_vec; // Temporary vector for half height * axis
 
 	valid = true;
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (NULL);
 	cylinder->center = parse_v3(tokenizer, &valid);
-	cylinder->axis = parse_v3(tokenizer, &valid);
-	cylinder->radius = parse_number(tokenizer);
+	cylinder->axis = parse_v3(tokenizer, &valid); 
+	cylinder->axis = v3_get_norm(cylinder->axis);	// Ensure axis is normalized!
+	cylinder->r = parse_number(tokenizer); // Read radius (note: your code reads radius, sphere reads diameter / 2)
+	cylinder->r_squared = cylinder->r * cylinder->r; // Calculate radius squared
 	cylinder->height = parse_number(tokenizer);
 	cylinder->colr = parse_color(tokenizer, &valid);
+
+	// Calculate p1 and p2 (endpoints of the axis segment)
+	// Assuming 'center' is the midpoint of the height along the axis
+	half_h_vec = v3_mult(cylinder->axis, cylinder->height / 2.0);
+	cylinder->p1 = v3_minus_vec(cylinder->center, half_h_vec);
+	cylinder->p2 = v3_add_vec(cylinder->center, half_h_vec);
+
+	// TODO: Add validation checks for parsed values (radius > 0, height > 0, etc.)
+	// and handle the 'valid' flag properly.
+
 	return (cylinder);
 }
 
@@ -153,3 +166,4 @@ t_colr parse_color(t_tokenizer *tokenizer, bool *valid)
 	token_free(token);
 	return (color);
 }
+
