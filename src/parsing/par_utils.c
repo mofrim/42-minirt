@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 14:24:05 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 23:04:34 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	token_free(t_token **tok)
 		free(*tok);
 		*tok = NULL;
 	}
+}
+
+t_token	*get_null_token(void)
+{
+	t_token	*tok;
+
+	tok = malloc(sizeof(t_token));
+	nullcheck(tok, "get_null_token()");
+	tok->type = TOKEN_TYPE_NULL;
+	return (tok);
 }

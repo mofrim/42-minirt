@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 14:21:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/28 23:00:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum e_tokentype
 	TOKEN_TYPE_V3,
 	TOKEN_TYPE_COLR,
 	TOKEN_TYPE_NUM,
+	TOKEN_TYPE_NULL
 }	t_tokentype;
 
 // Define the structure of a token
@@ -89,6 +90,7 @@ char		*get_tokstr(t_tokenizer *tok);
 t_tokenizer	*tokenizer_new(char *input);
 t_token		*get_next_token(t_tokenizer *tokenizer);
 void		token_free(t_token **token);
+t_token		*get_null_token(void);
 
 // Token type parsers
 t_token		*parse_coordinate(t_tokenizer *tokenizer);
