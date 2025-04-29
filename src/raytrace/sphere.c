@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/14 22:28:52 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 14:53:58 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,14 @@ t_colr	sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hitpoint)
 	t_sphere	s;
 	t_v3		normal_vec;
 	t_colr		colr_at_hitpoint;
+	t_hp		hp;
 
 	s = *(t_sphere *)sobj.obj;
-	normal_vec = get_normal_sphere(hitpoint, s.center);
+	hp.scolr = s.colr;
+	hp.loc = hitpoint;
+	normal_vec = get_normal_sphere(hp.loc, s.center);
 	if (v3_norm(v3_minus_vec(scene.cam->pos, s.center)) < s.r)
 		normal_vec = v3_mult(normal_vec, -1);
-	colr_at_hitpoint = calculate_lights(scene, hitpoint, normal_vec, sobj);
+	colr_at_hitpoint = calculate_lights(scene, hp, sobj);
 	return (colr_at_hitpoint);
 }

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/14 15:10:38 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 14:55:57 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,12 @@ double	triangle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 t_colr	triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hitpoint)
 {
 	t_triangle	tri;
-	t_v3		normal_vec;
 	t_colr		colr_at_hitpoint;
+	t_hp		hp;
 
 	tri = *(t_triangle *)tobj.obj;
-	normal_vec = v3_get_norm(tri.normal);
-	colr_at_hitpoint = calculate_lights(scene, hitpoint, normal_vec, tobj);
+	hp.scolr = tri.colr;
+	hp.loc = hitpoint;
+	colr_at_hitpoint = calculate_lights(scene, hp, tobj);
 	return (colr_at_hitpoint);
 }

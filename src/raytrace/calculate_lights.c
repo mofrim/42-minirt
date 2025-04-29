@@ -6,29 +6,26 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/28 22:27:10 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 15:07:04 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int		calc_diff_reflection(t_light light, t_v3 light_ray, t_v3 n,
-					t_hpcolr *hp);
-static t_colr	get_colr_from_objlst(t_objlst obj);
+static int		calc_diff_reflection(t_light light, t_v3 light_ray,
+					t_objlst obj, t_hp *hp);
 
 /**
  * Calculate all light sources effect on the hipoint.
  *
  * Description: TODO
  */
-t_colr	calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n, t_objlst obj)
+t_colr	calculate_lights(t_scene scene, t_hp hp, t_objlst obj)
 {
-	t_hpcolr	hp;
 	t_objlst	*objs;
 	t_light		light;
 	t_v3		light_ray;
 
-	hp.scolr = get_colr_from_objlst(obj);
 	if (!scene.cam->is_inside_obj)
 		hp.fcolr = hp_add_alight(hp.scolr, scene.alight->colr);
 	else
@@ -39,10 +36,10 @@ t_colr	calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n, t_objlst obj)
 		if (objs->type == LIGHT)
 		{
 			light = *(t_light *)objs->obj;
-			light_ray = v3_minus_vec(light.pos, hitpoint);
-			if (intersect_ray_objs(hitpoint, light_ray, \
+			light_ray = v3_minus_vec(light.pos, hp.loc);
+			if (intersect_ray_objs(hp.loc, light_ray, \
 				(t_ray_minmax){0.00000001, 0.99999999}, scene.objects).t == INF)
-				calc_diff_reflection(light, light_ray, n, &hp);
+				calc_diff_reflection(light, light_ray, obj, &hp);
 		}
 		objs = objs->next;
 	}
@@ -56,14 +53,27 @@ t_colr	calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n, t_objlst obj)
  * like PovRay. The main how-to-add-light-to-the-object logic is implemented in
  * hp_add_pointlight. In PovRay there is als the `falloff` parameter which leads
  * to the edges of the light area on an object being less fuzzy.
+ *
+ * About logic: we do the normal calculation in here bc... it's normis fault! it
+ * is the 4 param limit :( otherwise it would make perfectly sense to pass the
+ * normal to calculate light (as we had it befor) but, we also need the obj type
+ * in here. this is due to the fact that we need to know if we are hitting a 2d
+ * obj with our light ray. in this case there is no 'inside'. but there is still
+ * a normal vector assigned to the obj. but for 2d objs it does not matter if
+ * the dot product of the normal and the light_ray is negative. this is why we
+ * take the fabs of it in that case. An explanatory example: with a circle and
+ * its normal (0,-1,0)  a light-ray coming from (0,1,0) would not reflect on
+ * this circle. This, we do not want!
  */
-static int	calc_diff_reflection(t_light light, t_v3 light_ray, t_v3 n,
-		t_hpcolr *hp)
+static int	calc_diff_reflection(t_light light, t_v3 light_ray, t_objlst obj,
+		t_hp *hp)
 {
 	double	ndotl;
 	double	ip;
 
-	ndotl = v3_dot(n, light_ray);
+	ndotl = v3_dot(get_normal_at_hp(obj, hp->loc), light_ray);
+	if (obj.type == TRIANGLE || obj.type == CIRCLE || obj.type == PLANE)
+		ndotl = fabs(ndotl);
 	if (ndotl > 0)
 	{
 		ip = light.colr.i * ndotl / v3_norm(light_ray);
@@ -72,19 +82,4 @@ static int	calc_diff_reflection(t_light light, t_v3 light_ray, t_v3 n,
 		return (1);
 	}
 	return (0);
-}
-
-t_colr	get_colr_from_objlst(t_objlst obj)
-{
-	if (obj.type == SPHERE)
-		return (((t_sphere *)obj.obj)->colr);
-	if (obj.type == PLANE)
-		return (((t_plane *)obj.obj)->colr);
-	if (obj.type == TRIANGLE)
-		return (((t_triangle *)obj.obj)->colr);
-	if (obj.type == CIRCLE)
-		return (((t_circle *)obj.obj)->colr);
-	if (obj.type == CYLINDER)
-		return (((t_cylinder *)obj.obj)->colr);
-	return ((t_colr){0, 0, 0, 0});
 }

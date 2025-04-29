@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 09:32:55 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/17 09:25:13 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 12:15:34 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_colr	hp_add_alight(t_colr sc, t_colr al)
 
 /* Add the contribution of a pointlight to the existing final color of a
  * hitpoint struct. */
-t_colr	hp_add_pointlight(t_hpcolr hp, t_colr light_colr)
+t_colr	hp_add_pointlight(t_hp hp, t_colr light_colr)
 {
 	return (colr_add_colr(hp.fcolr, colr_add_light(hp.scolr, light_colr)));
 }

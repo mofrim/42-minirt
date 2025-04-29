@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/29 12:11:48 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 14:54:19 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ double	circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 t_colr	circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hitpoint)
 {
 	t_circle	c;
-	t_v3		normal_vec;
 	t_colr		colr_at_hitpoint;
+	t_hp		hp;
 
 	c = *(t_circle *)cobj.obj;
-	normal_vec = v3_get_norm(c.normal);
-	colr_at_hitpoint = calculate_lights(scene, hitpoint, normal_vec, cobj);
+	hp.loc = hitpoint;
+	hp.scolr = c.colr;
+	colr_at_hitpoint = calculate_lights(scene, hp, cobj);
 	return (colr_at_hitpoint);
 }

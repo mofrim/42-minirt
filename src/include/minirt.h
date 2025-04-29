@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 10:48:05 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 15:08:02 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,17 @@ typedef enum e_dirs
 	BACK
 }	t_dirs;
 
-/* The hp = hitpoint struct. Holds the surfaces color (scolr) and the final
- * color (fcolr). The scolr is used in the calculations to determine which
- * wavelengths aka colors will be reflected from the surface. All contributions
- * by any lights will be saved in the fcolr member which is returned by
- * calculate_lights(). */
-typedef struct s_hpcolr
+/* The hp = hitpoint struct. Holds the hitpoint location vector, the surfaces
+ * color (scolr) and the final color (fcolr). The scolr is used in the
+ * calculations to determine which wavelengths aka colors will be reflected from
+ * the surface. All contributions by any lights will be saved in the fcolr
+ * member which is returned by calculate_lights(). */
+typedef struct s_hp
 {
+	t_v3	loc;
 	t_colr	scolr;
 	t_colr	fcolr;
-}	t_hpcolr;
+}	t_hp;
 
 /********** General functions. **********/
 
@@ -193,8 +194,8 @@ t_intersec		intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 					t_objlst *objs);
 t_colr			get_object_colr(t_scene scene, t_objlst *close_obj,
 					t_v3 hitpoint);
-t_colr			calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n,
-					t_objlst obj);
+t_colr			calculate_lights(t_scene scene, t_hp hp, t_objlst obj);
+t_v3			get_normal_at_hp(t_objlst obj, t_v3 hploc);
 
 double			sphere_intersect_ray(t_v3 cam_pos, t_v3 ray_dir,
 					t_ray_minmax rp, t_sphere *sphere);
@@ -216,7 +217,7 @@ t_colr			colr_add_light(t_colr c, t_colr l);
 t_colr			colr_get_darkest(t_colr c);
 t_colr			colr_apply_intns(t_colr c);
 t_colr			hp_add_alight(t_colr sc, t_colr al);
-t_colr			hp_add_pointlight(t_hpcolr hp, t_colr light_colr);
+t_colr			hp_add_pointlight(t_hp hp, t_colr light_colr);
 t_colr			colr_add_colr(t_colr c1, t_colr c2);
 
 /********** Do stuff. **********/
