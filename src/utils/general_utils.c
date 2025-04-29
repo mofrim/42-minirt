@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:52:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 14:30:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 18:09:47 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,11 @@ void	nullcheck(void *p, char *msg)
 {
 	if (!p)
 		error_exit(msg);
+}
+
+/* Free a pointer if != NULL. */
+void	free_if_nonnull(void *p)
+{
+	if (p)
+		free(p);
 }
