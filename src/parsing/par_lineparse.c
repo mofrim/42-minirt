@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:05:30 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/28 23:03:45 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 18:24:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int	lineparse_scenefile(char *file_content, t_scene *scene)
 	return (0);
 }
 
-/* Extracted routine for parsing one line from the scenefile. */
+/* Extracted routine for parsing one line from the scenefile. For each line we
+ * start a new tokenizer struct. The first token should be a keyword, if not:
+ * malformed line. If there is still a token other then TOKEN_TYPE_NULL (which
+ * means empty line or EOL) */
 bool	parse_line(char *line, t_scene *scene)
 {
 	t_token		*token;
@@ -56,16 +59,14 @@ bool	parse_line(char *line, t_scene *scene)
 		if (line_tok->valid)
 		{
 			token = get_next_token(line_tok);
-			if (token && token->type != TOKEN_TYPE_NULL)
+			if (!token || (token && token->type != TOKEN_TYPE_NULL))
 				printerr_set_invalid("malformed line in scenefile",
 					&line_tok->valid);
 		}
 	}
-	if (token)
-		token_free(&token);
 	else
 		printerr_set_invalid("malformed line in scenefile", &line_tok->valid);
 	if (line_tok->valid)
-		return (free(line_tok), true);
-	return (free(line_tok), false);
+		return (free_if_nonnull(token), free(line_tok), true);
+	return (free_if_nonnull(token), free(line_tok), false);
 }
