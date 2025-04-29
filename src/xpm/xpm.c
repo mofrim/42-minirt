@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 20:33:27 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/02 13:15:18 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 21:47:57 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
  * Once again: 'big endian' = most significant bit goes first, 'little endian' =
  * least significant bit first. I.e. 0x11223344 -> 11223344 in big endian mem
  * vs. 44332211 in little endian mem.
- * TODO: explain members, esp. `opp` and `bpp`
+ *
+ * On different screens and machines we could have different pixel densities.
+ * This is the significance of the 'bpp = bits per pixel' var. 'opp = octets per
+ * pixel' is a convenience var easily indexing the in memory canvas array.
  */
 t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx)
 {
@@ -48,7 +51,20 @@ t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx)
 /**
  * Put a pixel to the xpm in mem.
  *
- * TODO: comment this exhaustively!
+ * Well... ptr is first set to the correct vertical line in our xpm array in
+ * mem. in raytrace_xpm() we start at PIXEL_MINY with y coord. which is the min
+ * possible y-value visible on the canvas. On our canvas this corresponds to the
+ * line at the bottom. In mem, the xpm is saved in the computer graphics
+ * coordinate where the origin is the upper left corner of the screen. So with y
+ * == PIXEL_MINY we would end up at the last "row" of the xpm array. As the
+ * xpm array is just a 1d-array in mem we need the `xpm_line_len` in bytes to
+ * skip to the correct line.
+ * Finally our t_colr is converted back to int which then is mapped to
+ * mlx_get_color_value whose job it is to ensure the color is correctly
+ * converted according to the bpp we need on the system we are compiling on.
+ * Nowadays at least 24bit is standard everywhere.
+ * Most finally and most hackily the mem is set to the correct value indexing
+ * the 32bit int var as an unsigned char array ^^
  */
 int	put_pixel_xpm(t_xpm_canvas *xc, int x, int y, t_colr colr)
 {
