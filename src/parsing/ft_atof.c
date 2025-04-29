@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:20:48 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/17 22:27:18 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 17:28:25 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,3 @@ double	ft_atof(const char *str)
 	}
 	return (sign * (res + fract_part / fract_divisor));
 }
-

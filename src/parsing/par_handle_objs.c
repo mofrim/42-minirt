@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 14:13:05 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 17:30:51 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,19 @@ static void	handle_objects(t_scene *scene, t_tokenizer *tokenizer,
 void	handle_token_keyword(t_scene *scene, t_tokenizer *tok, char *key)
 {
 	if (ft_strcmp(key, "A") == 0)
+	{
 		if (scene->alight)
 			printerr_set_invalid("already got one ambient light", &tok->valid);
 		else
 			scene->alight = parse_ambient_light(tok);
+	}
 	else if (ft_strcmp(key, "C") == 0)
+	{
 		if (scene->cam)
 			printerr_set_invalid("already got one cam", &tok->valid);
 		else
 			scene->cam = parse_camera(tok);
+	}
 	else if (tok_is_object(key) == true)
 		handle_objects(scene, tok, key);
 	else
@@ -51,20 +55,20 @@ void	handle_token_keyword(t_scene *scene, t_tokenizer *tok, char *key)
 }
 
 /* Dispatch to the individual parsing functions for objects. */
-void	handle_objects(t_scene *scene, t_tokenizer *tokenizer, char *key)
+void	handle_objects(t_scene *scene, t_tokenizer *tok, char *key)
 {
 	if (ft_strcmp(key, "sp") == 0)
-		parse_object(SPHERE, tokenizer, scene, (void *)parse_sphere);
+		parse_object(SPHERE, tok, scene, (void *)parse_sphere);
 	else if (ft_strcmp(key, "L") == 0)
-		parse_object(LIGHT, tokenizer, scene, (void *)parse_light);
+		parse_object(LIGHT, tok, scene, (void *)parse_light);
 	else if (ft_strcmp(key, "pl") == 0)
-		parse_object(PLANE, tokenizer, scene, (void *)parse_plane);
+		parse_object(PLANE, tok, scene, (void *)parse_plane);
 	else if (ft_strcmp(key, "cy") == 0)
-		parse_object(CYLINDER, tokenizer, scene, (void *)parse_cylinder);
+		parse_object(CYLINDER, tok, scene, (void *)parse_cylinder);
 	else if (ft_strcmp(key, "tr") == 0)
-		parse_object(TRIANGLE, tokenizer, scene, (void *)parse_triangle);
+		parse_object(TRIANGLE, tok, scene, (void *)parse_triangle);
 	else if (ft_strcmp(key, "ci") == 0)
-		parse_object(CIRCLE, tokenizer, scene, (void *)parse_circle);
+		parse_object(CIRCLE, tok, scene, (void *)parse_circle);
 }
 
 /* Check if current identifier is for an object we know. */
