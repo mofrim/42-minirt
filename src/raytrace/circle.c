@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/14 15:11:28 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 12:11:48 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * 		<(O + t * R - C), n> = 0
  *
  * with <x,y> = scalar product, O = origin, R = ray_dir, C = center of circle, n
- * = circle normal is to be solved. This is all what is done in here.
+ * = circle normal is to be solved. This is all that is done in here.
  */
 double	circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_circle c)
@@ -31,7 +31,7 @@ double	circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	t = (v3_dot(c.normal, c.center) - v3_dot(origin, c.normal)) / \
 		v3_dot(ray_dir, c.normal);
 	x = v3_add_vec(origin, v3_mult(ray_dir, t));
-	if (v3_norm(v3_add_vec(x, v3_mult(c.center, -1))) > c.r)
+	if (v3_norm(v3_minus_vec(x, c.center)) > c.r)
 		return (INF);
 	if (rp.tmin <= t && t < rp.tmax)
 		return (t);
