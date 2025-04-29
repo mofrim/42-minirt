@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/23 10:37:09 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/04/29 11:07:17 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,8 +61,8 @@ SRCS		=	main.c \
 					par_alight_cam.c \
 					par_scene.c \
 					par_parse_coord_key.c \
-					par_objs.c \
-					par_objs2.c \
+					par_objs_3d.c \
+					par_objs_2d.c \
 					par_lineparse.c \
 					par_utils.c \
 					read_scenefile.c \

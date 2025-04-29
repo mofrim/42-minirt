@@ -6,39 +6,11 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 00:51:25 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 11:06:09 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_plane	*parse_plane(t_tokenizer *tokenizer)
-{
-	t_plane	*plane;
-
-	plane = malloc(sizeof(t_plane));
-	if (!plane)
-		return (NULL);
-	plane->pop = parse_v3(tokenizer);
-	plane->normal = parse_v3(tokenizer);
-	plane->colr = parse_color(tokenizer);
-	return (plane);
-}
-
-t_cylinder	*parse_cylinder(t_tokenizer *tokenizer)
-{
-	t_cylinder	*cylinder;
-
-	cylinder = malloc(sizeof(t_cylinder));
-	if (!cylinder)
-		return (NULL);
-	cylinder->center = parse_v3(tokenizer);
-	cylinder->axis = parse_v3(tokenizer);
-	cylinder->radius = parse_pos_num(tokenizer);
-	cylinder->height = parse_pos_num(tokenizer);
-	cylinder->colr = parse_color(tokenizer);
-	return (cylinder);
-}
 
 // FIXME: should we do the calculations in here? have a `setup` function for
 // every object?
@@ -80,3 +52,30 @@ t_circle	*parse_circle(t_tokenizer *tokenizer)
 	ci->normal = v3_get_norm(ci->normal);
 	return (ci);
 }
+
+/**
+ * Parse a plane.
+ *
+ * Expected Structure:
+ * - point on plane (t_v3)
+ * - normal vector (t_v3)
+ * - color (t_colr)
+ *
+ * Example: "pl 0,0,0 0,1,0 0,255,0"
+ * Rules: |norm| > 0
+ */
+t_plane	*parse_plane(t_tokenizer *tok)
+{
+	t_plane	*plane;
+
+	plane = malloc(sizeof(t_plane));
+	if (!plane)
+		return (NULL);
+	plane->pop = parse_v3(tok);
+	plane->normal = parse_v3(tok);
+	if (v3_norm(plane->normal) == 0)
+		printerr_set_invalid("plane normal norm == 0", &tok->valid);
+	plane->colr = parse_color(tok);
+	return (plane);
+}
+

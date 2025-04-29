@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/28 23:00:33 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 10:43:27 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ t_tokenizer	*tokenizer_new(char *input)
 	return (tokenizer);
 }
 
+/**
+ * Get the next token.
+ *
+ * Returns the next token (of any type we are aware of), except:
+ * - the next thing is not recognizable as any known token type. in this case
+ *   returns NULL
+ * - we have an empty or commented (with '#') line
+ */
 t_token	*get_next_token(t_tokenizer *tok)
 {
 	skip_whitespace(tok);

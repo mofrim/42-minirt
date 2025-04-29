@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:17:05 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 14:29:43 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 11:05:51 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,42 @@ t_alight	*parse_ambient_light(t_tokenizer *tok)
 }
 
 /**
+ * Parse a point light source.
+ *
+ * Expected Structure:
+ * - pos (t_v3)
+ * - brightness (float)
+ * - color (t_colr)
+ *
+ * Example: "L 0,0,0 0.5 255,255,255"
+ * Rules: 0 <= bright <= 1.0
+ */
+t_light	*parse_light(t_tokenizer *tok)
+{
+	t_light	*light;
+	float	bright;
+
+	light = malloc(sizeof(t_light));
+	nullcheck(light, "parse_light()");
+	light->pos = parse_v3(tok);
+	bright = parse_pos_num(tok);
+	if (bright > 1.0)
+		printerr_set_invalid("pointlight too bright", &tok->valid);
+	light->colr = parse_color(tok);
+	light->colr.i = bright;
+	return (light);
+}
+
+/**
  * Parse the camera.
  *
- * Structure:
+ * Expected Structure:
  * - pos (t_v3)
  * - orientation (t_v3)
  * - field of view in degrees aka fov (float), with 0 < fov < 180
+ *
+ * Example:	"C 0,0,1 0,0,-1 70"
+ * Rules:	|orient| > 0
  */
 t_camera	*parse_camera(t_tokenizer *tok)
 {
@@ -55,6 +85,8 @@ t_camera	*parse_camera(t_tokenizer *tok)
 	nullcheck(cam, "parse_camera");
 	cam->pos = parse_v3(tok);
 	cam->orient = parse_v3(tok);
+	if (v3_norm(cam->orient) == 0)
+		printerr_set_invalid("cam orient norm == 0", &tok->valid);
 	cam->fov = parse_pos_num(tok);
 	if (cam->fov <= 0 || 180 <= cam->fov)
 		printerr_set_invalid("cam fov not in range (0, 180)", &tok->valid);

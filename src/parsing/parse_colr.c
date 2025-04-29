@@ -6,12 +6,14 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 10:56:45 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/28 22:23:28 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/29 10:44:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+/* Parse a color. Also validates if the 3-tuple found is really a valid color.
+ * If not -> errmsg is printed and tok->valid is set to false. */
 t_colr	parse_color(t_tokenizer *tok)
 {
 	t_colr	colr;
