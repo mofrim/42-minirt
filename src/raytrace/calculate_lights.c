@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate_lights.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/17 08:45:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 14:42:39 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ t_colr	calculate_lights(t_scene scene, t_v3 hitpoint, t_v3 n, t_objlst obj)
 		{
 			light = *(t_light *)objs->obj;
 			light_ray = v3_minus_vec(light.pos, hitpoint);
-			if (intersect_ray_objs(hitpoint, light_ray, \
-				(t_ray_minmax){0.00000001, 0.99999999}, scene.objects).t == INF)
+			if (intersect_ray_objs(hitpoint, light_ray,
+					(t_ray_minmax){0.00000001, 0.99999999},
+				scene.objects).t == INF)
 				calc_diff_reflection(light, light_ray, n, &hp);
 		}
 		objs = objs->next;

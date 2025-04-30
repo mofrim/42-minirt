@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/28 14:58:43 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:09:18 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void			exit_with_errmsg(char *msg);
 void			nullcheck(void *p, char *msg);
 void			cleanup_mrt(t_mrt *mrt);
 double			ft_atof(const char *str);
+bool			is_within_bounds(t_cylinder *cyl, t_v3 q);
 
 /********** Math utils. **********/
 
@@ -172,6 +173,8 @@ t_mtrx			get_rotmtrx(t_v3 orient);
 t_mtrx			cam_get_new_rot(t_mtrx	oldrot, double x_ang, double y_ang);
 t_v3			cam_get_new_pos(t_camera *cam, t_dirs dir, double step);
 t_v3			cam_update_orient(t_camera cam);
+t_quad_sol		solve_quadratic(double a, double b, double c);
+
 
 /********** UI & Event Handlers. **********/
 
@@ -207,7 +210,6 @@ t_colr			triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hitpoint);
 
 double			cylinder_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 					t_cylinder *cyl);
-
 t_colr			cylinder_get_colr(t_scene scene, t_objlst cylobj, t_v3 hitpoint);
 
 /********** Color stuff. **********/

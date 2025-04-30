@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/04/28 15:07:29 by jroseiro         ###   ########.fr        #
+#    Updated: 2025/04/30 15:43:45 by jroseiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRCS		=	main.c \
 					kbd_other.c \
 					triangle.c \
 					cylinder.c \
+					cylinder_xtra.c \
 					plane.c \
 					colr_base_utils.c
 
