@@ -6,21 +6,20 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/29 15:07:04 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 17:42:03 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int		calc_diff_reflection(t_light light, t_v3 light_ray,
-					t_objlst obj, t_hp *hp);
+static int		calc_diff_reflection(t_light light, t_v3 light_ray, t_hp *hp);
 
 /**
  * Calculate all light sources effect on the hipoint.
  *
  * Description: TODO
  */
-t_colr	calculate_lights(t_scene scene, t_hp hp, t_objlst obj)
+t_colr	calculate_lights(t_scene scene, t_hp hp)
 {
 	t_objlst	*objs;
 	t_light		light;
@@ -39,7 +38,7 @@ t_colr	calculate_lights(t_scene scene, t_hp hp, t_objlst obj)
 			light_ray = v3_minus_vec(light.pos, hp.loc);
 			if (intersect_ray_objs(hp.loc, light_ray, \
 				(t_ray_minmax){0.00000001, 0.99999999}, scene.objects).t == INF)
-				calc_diff_reflection(light, light_ray, obj, &hp);
+				calc_diff_reflection(light, light_ray, &hp);
 		}
 		objs = objs->next;
 	}
@@ -65,15 +64,12 @@ t_colr	calculate_lights(t_scene scene, t_hp hp, t_objlst obj)
  * its normal (0,-1,0)  a light-ray coming from (0,1,0) would not reflect on
  * this circle. This, we do not want!
  */
-static int	calc_diff_reflection(t_light light, t_v3 light_ray, t_objlst obj,
-		t_hp *hp)
+static int	calc_diff_reflection(t_light light, t_v3 light_ray, t_hp *hp)
 {
 	double	ndotl;
 	double	ip;
 
-	ndotl = v3_dot(get_normal_at_hp(obj, hp->loc), light_ray);
-	if (obj.type == TRIANGLE || obj.type == CIRCLE || obj.type == PLANE)
-		ndotl = fabs(ndotl);
+	ndotl = v3_dot(hp->normal, light_ray);
 	if (ndotl > 0)
 	{
 		ip = light.colr.i * ndotl / v3_norm(light_ray);

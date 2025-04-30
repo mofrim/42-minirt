@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   par_objs2.c                                        :+:      :+:    :+:   */
+/*   par_objs_2d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/29 11:06:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 18:13:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_triangle	*parse_triangle(t_tokenizer *tokenizer)
 	tr->ab = v3_minus_vec(tr->b, tr->a);
 	tr->ac = v3_minus_vec(tr->c, tr->a);
 	tr->bc = v3_minus_vec(tr->c, tr->b);
-	tr->normal = v3_mult(v3_cross(tr->ab, tr->ac), -1); // FIXME eeehmm
+	tr->normal = v3_normalize(v3_cross(tr->ab, tr->ac));
 	tr->potdn = v3_dot(tr->a, tr->normal);
 	tr->area = 0.5 * v3_norm(v3_cross(tr->ab, tr->ac));
 
@@ -49,7 +49,7 @@ t_circle	*parse_circle(t_tokenizer *tokenizer)
 
 	// FIXME calculations / setup
 	ci->r2 = ci->r * ci->r;
-	ci->normal = v3_get_norm(ci->normal);
+	ci->normal = v3_normalize(ci->normal);
 	return (ci);
 }
 

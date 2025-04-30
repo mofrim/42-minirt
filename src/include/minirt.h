@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 13:37:02 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 18:12:15 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef enum e_dirs
 typedef struct s_hp
 {
 	t_v3	loc;
+	t_v3	normal;
 	t_colr	scolr;
 	t_colr	fcolr;
 }	t_hp;
@@ -155,7 +156,7 @@ void			exit_with_errmsg(char *msg);
 void			nullcheck(void *p, char *msg);
 void			cleanup_mrt(t_mrt *mrt);
 double			ft_atof(const char *str);
-char 			**split_whitespace(char *s);
+char			**split_whitespace(char *s);
 bool			is_numstr(char	*s);
 void			free_if_nonnull(void *p);
 
@@ -185,20 +186,20 @@ t_intersec		intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 					t_objlst *objs);
 t_colr			get_object_colr(t_scene scene, t_objlst *close_obj,
 					t_v3 hitpoint);
-t_colr			calculate_lights(t_scene scene, t_hp hp, t_objlst obj);
+t_colr			calculate_lights(t_scene scene, t_hp hp);
 t_v3			get_normal_at_hp(t_objlst obj, t_v3 hploc);
 
 double			sphere_intersect_ray(t_v3 cam_pos, t_v3 ray_dir,
 					t_ray_minmax rp, t_sphere *sphere);
-t_colr			sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hitpoint);
+t_colr			sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit);
 
 double			circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 					t_circle circle);
-t_colr			circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hitpoint);
+t_colr			circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hit);
 
 double			triangle_intersect_ray(t_v3 origin, t_v3 ray_dir,
 					t_ray_minmax rp, t_triangle tri);
-t_colr			triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hitpoint);
+t_colr			triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hit);
 
 /********** Color stuff. **********/
 
