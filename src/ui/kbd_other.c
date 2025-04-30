@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/16 23:18:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:29:24 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,15 @@ void	handle_objlst_print(int key, t_mrt mrt)
 	{
 		printf("current objects:\n");
 		objlst_print(mrt.scene->objects);
+	}
+}
+
+void	handle_export(int key, t_mrt mrt)
+{
+	if (key == KEY_E)
+	{
+		ft_printf("exporting to scene.xpm");
+		if (export_ppm(*mrt.xc) != -1)
+			ft_printf(" done!\n");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:23:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/29 22:00:01 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:31:01 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ t_colr	traceray(t_scene scene, t_v3 ray_dir);
  * faster to first collect the raytraced-scene in mem and then put it to the
  * screen all at once, rather then calling mlx_put_pixel again and again.
  * Another idea was, with the scene in mem we could "easily" implement
- * functionality to save stuff to a file on disk. But this is maybe future
- * music ;)
+ * functionality to save stuff to a file on disk.. done in `export_ppm()` :)
  */
 void	raytrace_xpm(t_mrt mrt)
 {

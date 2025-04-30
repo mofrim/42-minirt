@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/29 18:09:59 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:21:33 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ int				kbd_input_handler(int key, t_mrt *mrt);
 int				key_press_handler(int key, t_mrt *mrt);
 void			show_sidebar(t_mrt mrt);
 void			redraw_win(t_mrt mrt);
+int				export_ppm(t_xpm_canvas xc);
 
 /********** Trace the rays. **********/
 
@@ -220,6 +221,7 @@ t_colr			colr_apply_intns(t_colr c);
 t_colr			hp_add_alight(t_colr sc, t_colr al);
 t_colr			hp_add_pointlight(t_hp hp, t_colr light_colr);
 t_colr			colr_add_colr(t_colr c1, t_colr c2);
+char			*int_to_hexrgb(int c);
 
 /********** Do stuff. **********/
 
