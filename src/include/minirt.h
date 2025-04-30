@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 13:21:33 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:37:02 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,17 +135,6 @@ bool			is_cam_inside_obj(t_camera cam, t_scene scene);
 char			*read_file(char *filename);
 void			test_colors(void);
 t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx);
-
-/********** Debug functions. **********/
-
-void			debug_token(t_token *token, const char *message);
-void			debug_camera(t_camera *cam);
-void			debug_ambient_light(t_alight *alight);
-void			debug_sphere(t_sphere *sphere);
-void			debug_plane(t_plane *plane);
-void			debug_cylinder(t_cylinder *cylinder);
-void			debug_light(t_light *light);
-void			debug_objects(t_objlst *objects);
 
 /********** Utils. **********/
 
