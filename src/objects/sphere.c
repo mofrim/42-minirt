@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/29 14:53:58 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 16:58:28 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ double	sphere_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 /* Returns the normal vector on the sphere at a given hitpoint. */
 static t_v3	get_normal_sphere(t_v3	hitpoint, t_v3 center)
 {
-	return (v3_get_norm(v3_minus_vec(hitpoint, center)));
+	return (v3_normalize(v3_minus_vec(hitpoint, center)));
 }
 
 /* Returns the color of the sphere at the hitpoint. So far only for ambient and

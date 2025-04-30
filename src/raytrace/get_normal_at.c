@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:28:21 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/29 14:48:59 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 16:58:28 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ t_v3	get_normal_at_hp(t_objlst obj, t_v3 hploc)
 /* Returns the normal vector on the sphere at a given hitpoint. */
 t_v3	get_normal_hp_sphere(t_v3 hp, t_v3 center)
 {
-	return (v3_get_norm(v3_minus_vec(hp, center)));
+	return (v3_normalize(v3_minus_vec(hp, center)));
 }
