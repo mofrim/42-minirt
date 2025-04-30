@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:49:56 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/29 23:46:34 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:47:52 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	handle_export(int key, t_mrt mrt);
 
 int	kbd_input_handler(int key, t_mrt *mrt)
 {
-	printf("pressed key: %d\n", key);
 	handle_quit_destroy_keys(key, mrt);
 	handle_subsample(key, *mrt);
 	handle_fov(key, *mrt);
