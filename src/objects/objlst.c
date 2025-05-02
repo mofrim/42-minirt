@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:53:28 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 18:19:02 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/01 12:49:22 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_objlst	*objlst_new(t_objtype type, void *obj)
 		new->obj = (t_circle *)obj;
 	if (type == TRIANGLE)
 		new->obj = (t_triangle *)obj;
+	if (type == HYPER)
+		new->obj = (t_hyper *)obj;
 	return (new);
 }
 

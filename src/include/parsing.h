@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/28 23:00:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/01 10:25:50 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_plane		*parse_plane(t_tokenizer *tokenizer);
 t_cylinder	*parse_cylinder(t_tokenizer *tokenizer);
 t_triangle	*parse_triangle(t_tokenizer *tokenizer);
 t_circle	*parse_circle(t_tokenizer *tokenizer);
+t_hyper		*parse_hyper(t_tokenizer *tok);
 
 // Parser utilities
 t_v3		parse_v3(t_tokenizer *tok);

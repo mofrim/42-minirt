@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:07:08 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/28 22:26:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/01 11:30:48 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,28 @@ static void print_triangle(t_objlst obj)
 			t.colr.b);
 }
 
+static void print_hyper(t_objlst obj)
+{
+	t_hyper	h;
+
+	h = *((t_hyper *)obj.obj);
+	printf("  [%2d] hyper { c=(%.4f,%.4f,%.4f), axis=(%.4f,%.4f,%.4f), "
+			"ab=%.4f, c=%.4f, h=%.4f, colr=[%d,%d,%d] }\n",
+			obj.id,
+			h.center.x,
+			h.center.y,
+			h.center.z,
+			h.axis.x,
+			h.axis.y,
+			h.axis.z,
+			h.ab,
+			h.c,
+			h.h,
+			h.colr.r,
+			h.colr.g,
+			h.colr.b);
+}
+
 void	objlst_print(t_objlst *lst)
 {
 	while (lst)
@@ -104,6 +126,8 @@ void	objlst_print(t_objlst *lst)
 			print_circle(*lst);
 		if (lst->type == TRIANGLE)
 			print_triangle(*lst);
+		if (lst->type == HYPER)
+			print_hyper(*lst);
 		lst = lst->next;
 	}
 }

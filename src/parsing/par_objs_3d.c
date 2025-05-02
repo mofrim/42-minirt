@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   par_objs.c                                         :+:      :+:    :+:   */
+/*   par_objs_3d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/29 11:06:12 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/02 11:29:56 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,47 @@ t_cylinder	*parse_cylinder(t_tokenizer *tok)
 	cyl->height = parse_pos_num(tok);
 	cyl->colr = parse_color(tok);
 	return (cyl);
+}
+
+/**
+ * Parse a hyperboloid.
+ *
+ * Expected Structure:
+ * - center (t_v3)
+ * - axis (t_v3)
+ * - ab (float)
+ * - c (float)
+ * - h (float)
+ * - colr (t_colr)
+ *
+ * Example: "hy 0,0,0 0,1,0 2 4 10 0,255,0"
+ * Rules: |axis|, ab, c, h > 0
+ */
+
+// FIXME move to some header?!
+t_mtrx	get_rotmtrx_hyper(t_v3 axis, double ab, double c);
+
+t_hyper	*parse_hyper(t_tokenizer *tok)
+{
+	t_hyper	*hyp;
+
+	hyp = malloc(sizeof(t_hyper));
+	nullcheck(hyp, "parse_hyper()");
+	hyp->center = parse_v3(tok);
+	hyp->axis = parse_v3(tok);
+	hyp->ab = parse_pos_num(tok);
+	hyp->c = parse_pos_num(tok);
+	hyp->h = parse_pos_num(tok);
+	hyp->colr = parse_color(tok);
+	if (v3_norm(hyp->axis) == 0)
+		printerr_set_invalid("hyperboloid axis norm == 0", &tok->valid);
+	if (!hyp->ab || !hyp->c || !hyp->h)
+		printerr_set_invalid("hyperboloid ab, c or h == 0", &tok->valid);
+	hyp->axis = v3_normalize(hyp->axis);
+	// FIXME
+	// hyp->c = M_SQRT2 * sqrt(hyp->ab * hyp->ab);
+	hyp->rcaps = hyp->ab * sqrt(1 + hyp->h * hyp->h / (4 * hyp->c * hyp->c));
+	hyp->A = get_rotmtrx_hyper(hyp->axis, hyp->ab, hyp->c);
+	hyp->hby2 = hyp->h / 2;
+	return (hyp);
 }

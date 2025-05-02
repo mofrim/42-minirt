@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/28 22:24:23 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/02 10:40:50 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,30 @@ typedef enum e_obj
 	SPHERE,
 	CYLINDER,
 	CIRCLE,
-	TRIANGLE
+	TRIANGLE,
+	HYPER
 }	t_objtype;
 
-/* WARNING: the subject specifies that the *diameter* will be specified in the
- * scene.rt... still the radius is the number we will calculate with. this
- * means during parsing we need to devide the diameter read from the file by 2!
+/* We will only support a one-sheet hyperbolid of revolution, i.e. one that can
+ * be construted by rotating a hyperbola about the axis. This implies a == b in
+ * its formula:
+ *
+ * 		x**2/a**2 + y**2/b**2 - z**2/c**2 = 1
+ *
  */
+typedef struct s_hyper
+{
+	t_v3	center;
+	t_v3	axis;
+	t_mtrx	A;
+	double	ab;
+	double	c;
+	float	h;
+	float	rcaps;
+	double  hby2;
+	t_colr	colr;
+}	t_hyper;
+
 typedef struct s_sphere
 {
 	t_v3	center;

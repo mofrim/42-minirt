@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 18:12:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/01 11:24:04 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,10 @@ t_colr			circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hit);
 double			triangle_intersect_ray(t_v3 origin, t_v3 ray_dir,
 					t_ray_minmax rp, t_triangle tri);
 t_colr			triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hit);
+
+double			hyper_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+					t_hyper hyp);
+t_colr			hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit);
 
 /********** Color stuff. **********/
 
