@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:16:02 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/04 11:30:56 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/02 12:59:06 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_mtrx	get_rotmtrx(t_v3 orient)
 	t_mtrx	cross_matrix;
 	t_mtrx	rot;
 
-	rot_axis = v3_cross((t_v3){0, 0, 1}, orient);
+	rot_axis = v3_normalize(v3_cross((t_v3){0, 0, 1}, orient));
 	rot_angle = acos(v3_dot((t_v3){0, 0, 1}, orient));
 	id = mtrx_new((t_v3){1, 0, 0}, (t_v3){0, 1, 0}, (t_v3){0, 0, 1});
 	cross_matrix = mtrx_new((t_v3){0, rot_axis.z, -rot_axis.y},
