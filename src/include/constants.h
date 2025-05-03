@@ -6,12 +6,14 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 21:09:25 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/08 00:55:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/03 12:36:48 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
+
+# include <float.h>
 
 # ifdef RUBI
 #  define WINX 				1200
@@ -84,5 +86,17 @@
 
 /* Read buffer size for reading scene file. */
 # define FILE_BUFSIZE 1000
+
+/* Well this is our precision / threshold for use in comparisons because
+ * double precision floating point calculations never exactly give you the value
+ * you might ask for in a statement like
+ * 		if (x == 42)
+ * 			...
+ * With EPS this statement becomes
+ * 		if (fabs(x - 42) <= EPS)
+ * 			...
+ */
+// QUESTION is this enough
+#define	EPS 1e-12f
 
 #endif

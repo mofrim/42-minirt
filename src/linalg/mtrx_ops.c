@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:41:34 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/01 11:14:04 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/02 20:02:42 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_mtrx	mtrx_prod_mtrx(t_mtrx a, t_mtrx b)
 	return (c);
 }
 
+/* Transpose a 3x3 mtrx. */
 t_mtrx	mtrx_transpose(t_mtrx a)
 {
 	t_mtrx	r;
@@ -88,4 +89,17 @@ t_mtrx	mtrx_transpose(t_mtrx a)
 	r.m[2][1] = a.m[1][2];
 	r.m[2][2] = a.m[2][2];
 	return (r);
+}
+
+/* Calculate the determinant of a 3x3 mtrxt. */
+double	mtrx_det(t_mtrx a)
+{
+	double	d1;
+	double	d2;
+	double	d3;
+
+	d1 = a.m[0][0] * (a.m[1][1] * a.m[2][2] - a.m[2][1] * a.m[1][2]);
+	d2 = a.m[1][0] * (a.m[0][1] * a.m[2][2] - a.m[2][1] * a.m[0][2]);
+	d3 = a.m[2][0] * (a.m[0][1] * a.m[1][2] - a.m[1][1] * a.m[0][2]);
+	return (d1 - d2 + d3);
 }

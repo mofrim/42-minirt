@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mtrx.h                                             :+:      :+:    :+:   */
+/*   objlst_print_funcs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/09 19:20:13 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/02 20:01:12 by fmaurer          ###   ########.fr       */
+/*   Created: 2025/05/03 11:41:33 by fmaurer           #+#    #+#             */
+/*   Updated: 2025/05/03 11:41:52 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MTRX_H
-# define MTRX_H
+#include "minirt.h"
 
-# include "v3.h"
-
-typedef struct s_mtrx
+void	print_hyper(t_objlst obj)
 {
-	double	m[3][3];
-}	t_mtrx;
+	t_hyper	h;
 
-t_v3	mtrx_prod_vec(t_mtrx a, t_v3 v);
-t_mtrx	mtrx_add_mtrx(t_mtrx a, t_mtrx b);
-t_mtrx	mtrx_mult_scalar(t_mtrx a, double c);
-t_mtrx	mtrx_prod_mtrx(t_mtrx a, t_mtrx b);
-t_mtrx	mtrx_new(t_v3 c1, t_v3 c2, t_v3 c3);
-t_mtrx	mtrx_transpose(t_mtrx a);
-double	mtrx_det(t_mtrx a);
-void	mtrx_print(t_mtrx a);
-
-#endif
+	h = *((t_hyper *)obj.obj);
+	printf("  [%2d] hyper { c=(%.4f,%.4f,%.4f), axis=(%.4f,%.4f,%.4f), "
+		"a=%.4f, b=%.4f, h=%.4f, colr=[%d,%d,%d] }\n",
+		obj.id,
+		h.center.x,
+		h.center.y,
+		h.center.z,
+		h.axis.x,
+		h.axis.y,
+		h.axis.z,
+		h.a,
+		h.b,
+		h.h,
+		h.colr.r,
+		h.colr.g,
+		h.colr.b);
+}

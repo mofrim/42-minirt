@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/01 20:51:43 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/03 12:14:09 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,9 @@ SRCS		=	main.c \
 					get_normal_at.c \
 					export_ppm.c \
 					hyper.c \
-					hyper_mtrx_colr.c
+					hyper_mtrx_colr.c \
+					hyper_boloid_intersect.c \
+					objlst_print_funcs.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

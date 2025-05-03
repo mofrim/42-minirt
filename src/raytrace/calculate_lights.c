@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 17:42:03 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/03 12:26:14 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int		calc_diff_reflection(t_light light, t_v3 light_ray, t_hp *hp);
  *
  * Description: TODO
  */
+// QUESTION why starts the light_ray from the hitpoint?!
 t_colr	calculate_lights(t_scene scene, t_hp hp)
 {
 	t_objlst	*objs;

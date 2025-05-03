@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/02 11:29:56 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/03 11:37:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,6 @@ t_cylinder	*parse_cylinder(t_tokenizer *tok)
  * Example: "hy 0,0,0 0,1,0 2 4 10 0,255,0"
  * Rules: |axis|, ab, c, h > 0
  */
-
-// FIXME move to some header?!
-t_mtrx	get_rotmtrx_hyper(t_v3 axis, double ab, double c);
-
 t_hyper	*parse_hyper(t_tokenizer *tok)
 {
 	t_hyper	*hyp;
@@ -93,19 +89,18 @@ t_hyper	*parse_hyper(t_tokenizer *tok)
 	nullcheck(hyp, "parse_hyper()");
 	hyp->center = parse_v3(tok);
 	hyp->axis = parse_v3(tok);
-	hyp->ab = parse_pos_num(tok);
-	hyp->c = parse_pos_num(tok);
+	hyp->a = parse_pos_num(tok);
+	hyp->b = parse_pos_num(tok);
 	hyp->h = parse_pos_num(tok);
 	hyp->colr = parse_color(tok);
 	if (v3_norm(hyp->axis) == 0)
 		printerr_set_invalid("hyperboloid axis norm == 0", &tok->valid);
-	if (!hyp->ab || !hyp->c || !hyp->h)
+	if (hyp->a <= 0 || hyp->b <= 0 || hyp->h <= 0)
 		printerr_set_invalid("hyperboloid ab, c or h == 0", &tok->valid);
 	hyp->axis = v3_normalize(hyp->axis);
-	// FIXME
-	// hyp->c = M_SQRT2 * sqrt(hyp->ab * hyp->ab);
-	hyp->rcaps = hyp->ab * sqrt(1 + hyp->h * hyp->h / (4 * hyp->c * hyp->c));
-	hyp->A = get_rotmtrx_hyper(hyp->axis, hyp->ab, hyp->c);
+	hyp->c = sqrt(hyp->a * hyp->a + hyp->b * hyp->b);
+	hyp->rcaps = hyp->a * sqrt(1 + hyp->h * hyp->h / (4 * hyp->c * hyp->c));
+	hyp->A = get_rotmtrx_hyper(hyp->axis, hyp->a, hyp->b, hyp->c);
 	hyp->hby2 = hyp->h / 2;
 	return (hyp);
 }

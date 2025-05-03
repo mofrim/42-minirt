@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 10:21:00 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/09 10:25:40 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/02 13:45:22 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,26 @@
 /* Converts the floating point number INT_MIN <= d <= INT_MAX to a string.
  * Precision: 3 decimals.
  * WARNING: not suuper exact. F.ex. calling with 0.345 returns "0.344" :) */
+// FIXME normify .. do we still need this in miniRT ?!?!?
 char	*float_string(double d)
 {
 	char	*fstr;
 	char	*itoa_str;
 	int		i;
 
-	fstr = malloc(15);
+	fstr = malloc(16);
 	i = 0;
+	if (fabs(d) < 1 && d < 0)
+	{
+		fstr[0] = '-';
+		i++;
+	}
 	itoa_str = ft_itoa((int)d);
-	ft_strlcpy(fstr, itoa_str, ft_strlen(itoa_str) + 1);
+	ft_strlcpy(&fstr[i], itoa_str, ft_strlen(itoa_str) + 1);
+	i += ft_strlen(itoa_str);
 	free(itoa_str);
 	if (d < 0)
 		d *= -1;
-	i += ft_strlen(fstr);
 	fstr[i] = '.';
 	d -= (int)d;
 	d *= 10;

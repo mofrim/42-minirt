@@ -6,14 +6,13 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/02 10:40:50 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/03 12:37:26 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
-# include "vec3.h"
 # include "v3.h"
 # include "mtrx.h"
 # include <stdint.h>
@@ -56,7 +55,8 @@ typedef struct s_hyper
 	t_v3	center;
 	t_v3	axis;
 	t_mtrx	A;
-	double	ab;
+	double	a;
+	double	b;
 	double	c;
 	float	h;
 	float	rcaps;
@@ -96,6 +96,7 @@ typedef struct s_circle
 	t_v3	normal;
 	t_v3	center;
 	t_colr	colr;
+	bool	hycap;
 }	t_circle;
 
 /* potdn = PointOnTriangleDotN convenience variable to speed up intersection

@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/30 18:13:10 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/02 13:23:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_triangle	*parse_triangle(t_tokenizer *tokenizer)
 	return (tr);
 }
 
+/* Added is hycap flag for controlliong the normal treatment. */
+// FIXME comment refac
 t_circle	*parse_circle(t_tokenizer *tokenizer)
 {
 	t_circle	*ci;
@@ -50,6 +52,7 @@ t_circle	*parse_circle(t_tokenizer *tokenizer)
 	// FIXME calculations / setup
 	ci->r2 = ci->r * ci->r;
 	ci->normal = v3_normalize(ci->normal);
+	ci->hycap = false;
 	return (ci);
 }
 
