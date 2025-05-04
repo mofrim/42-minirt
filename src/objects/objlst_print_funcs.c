@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:41:33 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/03 11:41:52 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 14:35:34 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_hyper(t_objlst obj)
 
 	h = *((t_hyper *)obj.obj);
 	printf("  [%2d] hyper { c=(%.4f,%.4f,%.4f), axis=(%.4f,%.4f,%.4f), "
-		"a=%.4f, b=%.4f, h=%.4f, colr=[%d,%d,%d] }\n",
+		"ab=%.4f, c=%.4f, h=%.4f, colr=[%d,%d,%d] }\n",
 		obj.id,
 		h.center.x,
 		h.center.y,
@@ -26,8 +26,8 @@ void	print_hyper(t_objlst obj)
 		h.axis.x,
 		h.axis.y,
 		h.axis.z,
-		h.a,
-		h.b,
+		h.ab,
+		h.c,
 		h.h,
 		h.colr.r,
 		h.colr.g,

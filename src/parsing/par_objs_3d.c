@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/03 11:37:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 19:01:28 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,17 @@ t_hyper	*parse_hyper(t_tokenizer *tok)
 	nullcheck(hyp, "parse_hyper()");
 	hyp->center = parse_v3(tok);
 	hyp->axis = parse_v3(tok);
-	hyp->a = parse_pos_num(tok);
-	hyp->b = parse_pos_num(tok);
+	hyp->ab = parse_pos_num(tok);
+	hyp->c = parse_pos_num(tok);
 	hyp->h = parse_pos_num(tok);
 	hyp->colr = parse_color(tok);
 	if (v3_norm(hyp->axis) == 0)
 		printerr_set_invalid("hyperboloid axis norm == 0", &tok->valid);
-	if (hyp->a <= 0 || hyp->b <= 0 || hyp->h <= 0)
+	if (hyp->ab <= 0 || hyp->h <= 0)
 		printerr_set_invalid("hyperboloid ab, c or h == 0", &tok->valid);
 	hyp->axis = v3_normalize(hyp->axis);
-	hyp->c = sqrt(hyp->a * hyp->a + hyp->b * hyp->b);
-	hyp->rcaps = hyp->a * sqrt(1 + hyp->h * hyp->h / (4 * hyp->c * hyp->c));
-	hyp->A = get_rotmtrx_hyper(hyp->axis, hyp->a, hyp->b, hyp->c);
+	hyp->rcaps = hyp->ab * sqrt(1 + hyp->h * hyp->h / (4 * hyp->c * hyp->c));
+	hyp->A = get_rotmtrx_hyper(hyp->axis, hyp->ab, hyp->c);
 	hyp->hby2 = hyp->h / 2;
 	return (hyp);
 }

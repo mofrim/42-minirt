@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 20:50:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/03 12:29:43 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 17:36:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,12 @@ t_v3	get_normal_hyper(t_v3 hit, t_hyper hyp)
 
 	p = v3_minus_vec(hit, hyp.center);
 	pn = v3_norm(p);
-
-	// top cap
 	if (fabs(v3_dot(p, hyp.axis) - hyp.hby2) <= EPS && \
 			sqrt(pn*pn - (hyp.h*hyp.h/4)) <= hyp.rcaps)
 		return (hyp.axis);
-
-	// bottom cap
 	if (fabs(v3_dot(p, hyp.axis) + hyp.hby2) <= EPS && \
 			sqrt(pn*pn - (hyp.h*hyp.h/4)) <= hyp.rcaps)
 		return (v3_mult(hyp.axis, -1));
-
 	normal = v3_mult(mtrx_prod_vec(hyp.A, v3_minus_vec(hit, hyp.axis)), 2);
 	return (v3_normalize(normal));
 }
@@ -45,22 +40,13 @@ t_colr	hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit)
 	hp.scolr = h.colr;
 	hp.loc = hit;
 	hp.normal = get_normal_hyper(hp.loc, h);
-
-	// t_v3	p;
-	// double	pn;
-	// p = v3_minus_vec(hit, h.center);
-	// pn = v3_norm(p);
-	// if (fabs(v3_dot(p, h.axis) + h.hby2) <= EPS && \
-	// 		sqrt(pn*pn - (h.h*h.h/4)) <= h.rcaps)
-	// 	return ((t_colr){0, 255, 0, 1.0});
-
 	colr_at_hitpoint = calculate_lights(scene, hp);
 	return (colr_at_hitpoint);
 }
 
 /* Adjusted get_rotmtrx func assuming that the default orientation of a
  * hyperboloid was along the y axis, i.e. (0,1,0) */
-t_mtrx	get_rotmtrx_hyper(t_v3 axis, double a, double b, double c)
+t_mtrx	get_rotmtrx_hyper(t_v3 axis, double ab, double c)
 {
 	t_v3	rot_axis;
 	double	rot_angle;
@@ -80,7 +66,7 @@ t_mtrx	get_rotmtrx_hyper(t_v3 axis, double a, double b, double c)
 					1 - cos(rot_angle)));
 	return (mtrx_prod_mtrx(mtrx_prod_mtrx(rot,
 				mtrx_new(
-					(t_v3){1 / (a * a), 0, 0},
-				(t_v3){0, 1 / (b * b), 0},
+					(t_v3){1 / (ab * ab), 0, 0},
+				(t_v3){0, 1 / (ab * ab), 0},
 			(t_v3){0, 0, -1 / (c * c)})), mtrx_transpose(rot)));
 }

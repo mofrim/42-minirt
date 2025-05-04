@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/03 12:37:26 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 19:00:05 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,19 @@ typedef enum e_obj
 /* We will only support a one-sheet hyperbolid of revolution, i.e. one that can
  * be construted by rotating a hyperbola about the axis. This implies a == b in
  * its formula:
- *
  * 		x**2/a**2 + y**2/b**2 - z**2/c**2 = 1
- *
+ * if a != b the caps would be ellipses and not circles. this we will skip in
+ * our minirt.
  */
 typedef struct s_hyper
 {
 	t_v3	center;
 	t_v3	axis;
 	t_mtrx	A;
-	double	a;
-	double	b;
+	double	ab;
 	double	c;
-	float	h;
-	float	rcaps;
+	double	h;
+	double	rcaps;
 	double  hby2;
 	t_colr	colr;
 }	t_hyper;
