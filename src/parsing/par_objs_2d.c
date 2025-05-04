@@ -6,45 +6,76 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/04 19:03:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 20:09:24 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// FIXME: should we do the calculations in here? have a `setup` function for
-// every object?
-t_triangle	*parse_triangle(t_tokenizer *tokenizer)
+/**
+ * Parse a triangle.
+ *
+ * Expected Structure:
+ * - corner a (t_v3)
+ * - corner b (t_v3)
+ * - corner c (t_v3)
+ * - colr (t_colr)
+ *
+ * Example: "tr -1,0,0 0,1,0 0,0,1 0,255,0"
+ * Rules: a != b != c <=> ab,ac,bc != 0
+ *
+ * b - a != 0 => b != a
+ * c - a != 0 => c != a
+ * c - b != 0 => b != c
+ *
+ */
+t_triangle	*parse_triangle(t_tokenizer *tok)
 {
 	t_triangle	*tr;
 
 	tr = malloc(sizeof(t_triangle));
 	nullcheck(tr, "Error\nparse_triangle()");
-	tr->a = parse_v3(tokenizer);
-	tr->b = parse_v3(tokenizer);
-	tr->c = parse_v3(tokenizer);
-	tr->colr = parse_color(tokenizer);
+	tr->a = parse_v3(tok);
+	tr->b = parse_v3(tok);
+	tr->c = parse_v3(tok);
+	tr->colr = parse_color(tok);
 	tr->ab = v3_minus_vec(tr->b, tr->a);
 	tr->ac = v3_minus_vec(tr->c, tr->a);
 	tr->bc = v3_minus_vec(tr->c, tr->b);
+	if (v3_norm(tr->ab) * v3_norm(tr->ac) * v3_norm(tr->bc) == 0)
+		printerr_set_invalid("2 equal points in triangle def", &tok->valid);
 	tr->normal = v3_normalize(v3_cross(tr->ab, tr->ac));
 	tr->potdn = v3_dot(tr->a, tr->normal);
 	tr->area = 0.5 * v3_norm(v3_cross(tr->ab, tr->ac));
-
 	return (tr);
 }
 
-// FIXME comment refac
-t_circle	*parse_circle(t_tokenizer *tokenizer)
+/**
+ * Parse a circle.
+ *
+ * Expected Structure:
+ * - circle center (t_v3)
+ * - normal vector (t_v3)
+ * - diameter(!) (float)
+ * - colr (t_colr)
+ *
+ * Example: "ci 0,0,0 0,1,0 10 0,255,0"
+ * Rules: |norm|, r > 0
+ */
+t_circle	*parse_circle(t_tokenizer *tok)
 {
 	t_circle	*ci;
 
 	ci = malloc(sizeof(t_circle));
 	nullcheck(ci, "Error\nparse_circle()");
-	ci->center = parse_v3(tokenizer);
-	ci->normal = parse_v3(tokenizer);
-	ci->r = parse_pos_num(tokenizer) / 2.0;
-	ci->colr = parse_color(tokenizer);
+	ci->center = parse_v3(tok);
+	ci->normal = parse_v3(tok);
+	ci->r = parse_pos_num(tok) / 2.0;
+	ci->colr = parse_color(tok);
+	if (v3_norm(ci->normal) == 0)
+		printerr_set_invalid("circle normal norm == 0", &tok->valid);
+	if (ci->r == 0)
+		printerr_set_invalid("circle diameter == 0", &tok->valid);
 	ci->r2 = ci->r * ci->r;
 	ci->normal = v3_normalize(ci->normal);
 	return (ci);
@@ -75,4 +106,3 @@ t_plane	*parse_plane(t_tokenizer *tok)
 	plane->colr = parse_color(tok);
 	return (plane);
 }
-

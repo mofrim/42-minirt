@@ -6,19 +6,21 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 18:07:48 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 20:09:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// QUESTION: can this go wrong?
+/* Calculate triag area using cross product. See explanation in main triag
+ * intersect func. */
 static double	triag_area(t_v3 u, t_v3 v)
 {
 	return (0.5 * v3_norm(v3_cross(u, v)));
 }
 
-// QUESTION: can this go wrong?
+/* Calculate the sum of all subtriangles the corner points form with the point
+ * being checked for intersection. */
 static double	subtriag_area_sum(t_v3 x, t_triangle tri)
 {
 	double	ar1;
@@ -44,14 +46,18 @@ static double	subtriag_area_sum(t_v3 x, t_triangle tri)
  * on the plane (so f.ex. `tri.a` in the triangle case) and `n` is the planes
  * normal vec.
  *
+ * had a dirty numerical hack to limit the number of decimals being
+ * compared. otherwise stuff like
+ * 	v3-x with inf: (0.048371387560256, 0.188943859017517, -2.000000000000000)
+ * 	subtriag_area_sum(x, tri) = 32.000000000000007
+ * 	tri.area = 32.000000000000000
+ * will lead to INF being returned even though the point lies inside the
+ * triangle! Now using EPS.
  */
-// FIXME: dirty numerical hack to limit the number of decimals being
-// compared. otherwise stuff like
-// 	v3-x with inf: (0.048371387560256, 0.188943859017517, -2.000000000000000)
-// 	subtriag_area_sum(x, tri) = 32.000000000000007
-// 	tri.area = 32.000000000000000
-// will lead to INF being returned even though the point lies inside the
-// triangle!
+// IDEA possible little performance boost here would be to calculate the center
+// and the circumfering circle of the triangle then a quick first check for
+// intersection would be to calculate the distance from the triag center and
+// then compare to the circle radius.
 double	triangle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_triangle tri)
 {
@@ -64,14 +70,15 @@ double	triangle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		return (INF);
 	t = (tri.potdn - v3_dot(origin, tri.normal)) / rn;
 	x = v3_add_vec(origin, v3_mult(ray_dir, t));
-	if ((float)subtriag_area_sum(x, tri) > (float)tri.area)
+	// if ((float)subtriag_area_sum(x, tri) > (float)tri.area)
+	if (subtriag_area_sum(x, tri) - tri.area > EPS)
 		return (INF);
 	if (rp.tmin <= t && t < rp.tmax)
 		return (t);
 	return (INF);
 }
 
-/** Returns the color of the sphere at the hitpoint.
+/** Returns the color of the triangle at the hitpoint.
  *
  * Explanation for the normal treatment: for flat surfaces like the circle and
  * the triangle we have a normal calculated or read during parsing. now it can
