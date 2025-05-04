@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/04 19:01:28 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 19:53:24 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_hyper	*parse_hyper(t_tokenizer *tok)
 	hyp->colr = parse_color(tok);
 	if (v3_norm(hyp->axis) == 0)
 		printerr_set_invalid("hyperboloid axis norm == 0", &tok->valid);
-	if (hyp->ab <= 0 || hyp->h <= 0)
+	if (hyp->ab <= 0 || hyp->c <= 0 || hyp->h <= 0)
 		printerr_set_invalid("hyperboloid ab, c or h == 0", &tok->valid);
 	hyp->axis = v3_normalize(hyp->axis);
 	hyp->rcaps = hyp->ab * sqrt(1 + hyp->h * hyp->h / (4 * hyp->c * hyp->c));
