@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:41:08 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/03 12:25:05 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 19:03:14 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ double	hyper_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
  * We create the two caps as circle objs and then use our circle_intersect_ray
  * func to find a possible intersection. Smart, isn't it :)
  */
-// TODO do we really need the hycap flag?
 double	hyper_caps_intersect(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_hyper hyp)
 {
@@ -55,12 +54,10 @@ double	hyper_caps_intersect(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	c1.r = hyp.rcaps;
 	c1.r2 = c1.r * c1.r;
 	c1.normal = hyp.axis;
-	c1.hycap = true;
 	c2.center = v3_minus_vec(hyp.center, v3_mult(hyp.axis, hyp.hby2));
 	c2.r = c1.r;
 	c2.r2 = c1.r2;
 	c2.normal = v3_mult(hyp.axis, -1);
-	c2.hycap = true;
 	t1 = circle_intersect_ray(origin, ray_dir, rp, c1);
 	t2 = circle_intersect_ray(origin, ray_dir, rp, c2);
 	if (rp.tmin < t1 && t1 < rp.tmax && (t1 < t2 || \

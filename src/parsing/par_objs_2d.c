@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/02 13:23:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 19:03:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ t_triangle	*parse_triangle(t_tokenizer *tokenizer)
 	t_triangle	*tr;
 
 	tr = malloc(sizeof(t_triangle));
-	nullcheck(tr, "Error\nparse_circle()");
+	nullcheck(tr, "Error\nparse_triangle()");
 	tr->a = parse_v3(tokenizer);
 	tr->b = parse_v3(tokenizer);
 	tr->c = parse_v3(tokenizer);
 	tr->colr = parse_color(tokenizer);
-
-	// FIXME calculations / setup
 	tr->ab = v3_minus_vec(tr->b, tr->a);
 	tr->ac = v3_minus_vec(tr->c, tr->a);
 	tr->bc = v3_minus_vec(tr->c, tr->b);
@@ -36,7 +34,6 @@ t_triangle	*parse_triangle(t_tokenizer *tokenizer)
 	return (tr);
 }
 
-/* Added is hycap flag for controlliong the normal treatment. */
 // FIXME comment refac
 t_circle	*parse_circle(t_tokenizer *tokenizer)
 {
@@ -46,13 +43,10 @@ t_circle	*parse_circle(t_tokenizer *tokenizer)
 	nullcheck(ci, "Error\nparse_circle()");
 	ci->center = parse_v3(tokenizer);
 	ci->normal = parse_v3(tokenizer);
-	ci->r = parse_pos_num(tokenizer);
+	ci->r = parse_pos_num(tokenizer) / 2.0;
 	ci->colr = parse_color(tokenizer);
-
-	// FIXME calculations / setup
 	ci->r2 = ci->r * ci->r;
 	ci->normal = v3_normalize(ci->normal);
-	ci->hycap = false;
 	return (ci);
 }
 

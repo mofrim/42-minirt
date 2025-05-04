@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/04 19:00:05 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 19:02:45 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct s_circle
 	t_v3	normal;
 	t_v3	center;
 	t_colr	colr;
-	bool	hycap;
 }	t_circle;
 
 /* potdn = PointOnTriangleDotN convenience variable to speed up intersection
