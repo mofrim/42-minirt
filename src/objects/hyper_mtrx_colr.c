@@ -6,12 +6,25 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 20:50:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/04 17:36:11 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/04 22:50:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+/**
+ * Get the normal for the hyperbolo
+ *
+ * At this point we now the hitpoint is a valid intersection either with the
+ * caps or the main bolo. So in the first if statement we check wether the
+ * projection of the hitpoint onto the bolo axis is at h/2 (within EPS
+ * precission) if so, we want the normal of the top cap, so we return that. The
+ * other case checks for -h/2 -> bottom cap.
+ * The last case is a hit on the main bolo which leads to
+ * 		2 * A (hit - axis)
+ * being returned, which is the gradient at hitpoint of the bolo equation and in
+ * this case the normal.
+ */
 t_v3	get_normal_hyper(t_v3 hit, t_hyper hyp)
 {
 	t_v3	normal;
@@ -21,15 +34,16 @@ t_v3	get_normal_hyper(t_v3 hit, t_hyper hyp)
 	p = v3_minus_vec(hit, hyp.center);
 	pn = v3_norm(p);
 	if (fabs(v3_dot(p, hyp.axis) - hyp.hby2) <= EPS && \
-			sqrt(pn*pn - (hyp.h*hyp.h/4)) <= hyp.rcaps)
+			sqrt(pn * pn - (hyp.h * hyp.h / 4)) <= hyp.rcaps)
 		return (hyp.axis);
 	if (fabs(v3_dot(p, hyp.axis) + hyp.hby2) <= EPS && \
-			sqrt(pn*pn - (hyp.h*hyp.h/4)) <= hyp.rcaps)
+			sqrt(pn * pn - (hyp.h * hyp.h / 4)) <= hyp.rcaps)
 		return (v3_mult(hyp.axis, -1));
 	normal = v3_mult(mtrx_prod_vec(hyp.A, v3_minus_vec(hit, hyp.axis)), 2);
 	return (v3_normalize(normal));
 }
 
+/* Ahh, we couuuld generalize this function for all shapes... but, no. */
 t_colr	hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit)
 {
 	t_hyper	h;
@@ -45,7 +59,13 @@ t_colr	hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit)
 }
 
 /* Adjusted get_rotmtrx func assuming that the default orientation of a
- * hyperboloid was along the y axis, i.e. (0,1,0) */
+ * hyperboloid was along the z axis, i.e. (0,0,1). The final return value is 
+ * 		R A R^t
+ * where R is the rotation matrix to transform any v3 into a coordinate system
+ * where the bolos axis is again aligned with the z-axis. So, what we end up
+ * doing when we mtrx_prod with the returned matrix is: we transform the vector
+ * into this special bolo-coord-system then we apply the bolo matrix and
+ * afterwards we transform back the result. */
 t_mtrx	get_rotmtrx_hyper(t_v3 axis, double ab, double c)
 {
 	t_v3	rot_axis;
