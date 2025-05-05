@@ -8,6 +8,11 @@ minilibx_opengl.tgz
 minirt
 obj/
 compile_commands.json
+images/
+play/
+archive/
+Makefile.2
+
 
 core
 playground/chat
