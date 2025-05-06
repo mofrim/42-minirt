@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/03 12:14:09 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/06 19:23:00 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -228,6 +228,9 @@ fclean: clean
 
 fullre: fullfclean all
 
+fullbear: fullfclean
+	@bear -- make
+
 re: fclean all
 
-.PHONY: all fullclean clean fclean re mlx debug bonus setup help
+.PHONY: all fullclean clean fclean re mlx debug bonus setup help fullbear
