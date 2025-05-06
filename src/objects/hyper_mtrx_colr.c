@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 20:50:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/04 22:50:11 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:29:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ t_colr	hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit)
 	t_hp	hp;
 
 	h = *(t_hyper *)hobj.obj;
-	hp.scolr = h.colr;
 	hp.loc = hit;
+	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
+	hp.scolr = h.colr;
+	hp.spec = h.spec;
 	hp.normal = get_normal_hyper(hp.loc, h);
 	colr_at_hitpoint = calculate_lights(scene, hp);
 	return (colr_at_hitpoint);

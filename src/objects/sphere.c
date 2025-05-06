@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 18:11:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:28:45 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ t_colr	sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit)
 	t_hp		hp;
 
 	s = *(t_sphere *)sobj.obj;
-	hp.scolr = s.colr;
 	hp.loc = hit;
+	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
+	hp.scolr = s.colr;
+	hp.spec = s.spec;
 	hp.normal = get_normal_sphere(hp.loc, s.center);
 	if (v3_norm(v3_minus_vec(scene.cam->pos, s.center)) < s.r)
 		hp.normal = v3_mult(hp.normal, -1);

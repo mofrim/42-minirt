@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/04 19:02:45 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:39:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,14 @@ typedef struct s_hyper
 {
 	t_v3	center;
 	t_v3	axis;
-	t_mtrx	A;
+	t_mtrx	A; // FIXME captial A nor allowed. find new good name!
 	double	ab;
 	double	c;
 	double	h;
 	double	rcaps;
-	double  hby2;
+	double	hby2;
 	t_colr	colr;
+	float	spec;
 }	t_hyper;
 
 typedef struct s_sphere
@@ -69,6 +70,7 @@ typedef struct s_sphere
 	double	r;
 	double	r_squared;
 	t_colr	colr;
+	float	spec;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -78,6 +80,7 @@ typedef struct s_cylinder
 	double	radius;
 	double	height;
 	t_colr	colr;
+	float	spec;
 }	t_cylinder;
 
 /* pop = Point On Plane :) */
@@ -86,6 +89,7 @@ typedef struct s_plane
 	t_v3	pop;
 	t_v3	normal;
 	t_colr	colr;
+	float	spec;
 }	t_plane;
 
 typedef struct s_circle
@@ -95,6 +99,7 @@ typedef struct s_circle
 	t_v3	normal;
 	t_v3	center;
 	t_colr	colr;
+	float	spec;
 }	t_circle;
 
 /* potdn = PointOnTriangleDotN convenience variable to speed up intersection
@@ -112,6 +117,7 @@ typedef struct s_triangle
 	double	potdn;
 	double	area;
 	t_colr	colr;
+	float	spec;
 }	t_triangle;
 
 typedef struct s_alight
@@ -159,6 +165,30 @@ typedef struct s_ray_minmax
 	double	tmin;
 	double	tmax;
 }	t_ray_minmax;
+
+/* The hp = hitpoint struct.
+ *
+ * Members:
+ * - loc = hitpoint location vector
+ * - normal = surface normal at hit
+ * - cam2hp = cam to hit vec for specular refl calc
+ * - scolr = surfaces original color from scenefile
+ * - fcolr = surfaces final colr after calculate_lights
+ * - spec = the specular reflection exponent
+ *
+ * The scolr is used in the calculations to determine which wavelengths aka
+ * colors will be reflected from the surface. All contributions by any lights
+ * will be saved in the fcolr member which is returned by calculate_lights().
+ */
+typedef struct s_hp
+{
+	t_v3	loc;
+	t_v3	normal;
+	t_v3	cam2hp;
+	t_colr	scolr;
+	t_colr	fcolr;
+	float	spec;
+}	t_hp;
 
 /********** Objlst llist funcs. **********/
 

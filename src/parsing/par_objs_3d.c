@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/06 19:30:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:41:17 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
  * - center (t_v3)
  * - radius (float)
  * - color (t_colr)
+ * (- specular (float) maybe...)
  *
  * Example: "sp 0,0,0 10 255,0,0"
  * Rules: r > 0
@@ -34,6 +35,7 @@ t_sphere	*parse_sphere(t_tokenizer *tok)
 	sphere->r = parse_pos_num(tok) / 2.0;
 	sphere->r_squared = sphere->r * sphere->r;
 	sphere->colr = parse_color(tok);
+	sphere->spec = parse_pos_num_maybe(tok);
 	if (sphere->r <= 0)
 		printerr_set_invalid("sphere radius has to be > 0", &tok->valid);
 	return (sphere);
@@ -66,6 +68,7 @@ t_cylinder	*parse_cylinder(t_tokenizer *tok)
 	cyl->radius = parse_pos_num(tok);
 	cyl->height = parse_pos_num(tok);
 	cyl->colr = parse_color(tok);
+	cyl->spec = parse_pos_num_maybe(tok);
 	return (cyl);
 }
 
@@ -95,6 +98,7 @@ t_hyper	*parse_hyper(t_tokenizer *tok)
 	hyp->c = parse_pos_num(tok);
 	hyp->h = parse_pos_num(tok);
 	hyp->colr = parse_color(tok);
+	hyp->spec = parse_pos_num_maybe(tok);
 	if (v3_norm(hyp->axis) == 0)
 		printerr_set_invalid("hyperboloid axis norm == 0", &tok->valid);
 	if (hyp->ab <= 0 || hyp->c <= 0 || hyp->h <= 0)

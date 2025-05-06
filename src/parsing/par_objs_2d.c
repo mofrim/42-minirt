@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/04 20:09:24 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:48:25 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_triangle	*parse_triangle(t_tokenizer *tok)
 	tr->b = parse_v3(tok);
 	tr->c = parse_v3(tok);
 	tr->colr = parse_color(tok);
+	tr->spec = parse_pos_num_maybe(tok);
 	tr->ab = v3_minus_vec(tr->b, tr->a);
 	tr->ac = v3_minus_vec(tr->c, tr->a);
 	tr->bc = v3_minus_vec(tr->c, tr->b);
@@ -72,6 +73,7 @@ t_circle	*parse_circle(t_tokenizer *tok)
 	ci->normal = parse_v3(tok);
 	ci->r = parse_pos_num(tok) / 2.0;
 	ci->colr = parse_color(tok);
+	ci->spec = parse_pos_num_maybe(tok);
 	if (v3_norm(ci->normal) == 0)
 		printerr_set_invalid("circle normal norm == 0", &tok->valid);
 	if (ci->r == 0)
@@ -101,8 +103,9 @@ t_plane	*parse_plane(t_tokenizer *tok)
 		return (NULL);
 	plane->pop = parse_v3(tok);
 	plane->normal = parse_v3(tok);
+	plane->colr = parse_color(tok);
+	plane->spec = parse_pos_num_maybe(tok);
 	if (v3_norm(plane->normal) == 0)
 		printerr_set_invalid("plane normal norm == 0", &tok->valid);
-	plane->colr = parse_color(tok);
 	return (plane);
 }

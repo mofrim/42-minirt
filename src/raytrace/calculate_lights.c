@@ -6,13 +6,13 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/03 12:26:14 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:56:19 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int		calc_diff_reflection(t_light light, t_v3 light_ray, t_hp *hp);
+static void		calc_reflections(t_light light, t_v3 light_ray, t_hp *hp);
 
 /**
  * Calculate all light sources effect on the hipoint.
@@ -39,7 +39,7 @@ t_colr	calculate_lights(t_scene scene, t_hp hp)
 			light_ray = v3_minus_vec(light.pos, hp.loc);
 			if (intersect_ray_objs(hp.loc, light_ray, \
 				(t_ray_minmax){0.00000001, 0.99999999}, scene.objects).t == INF)
-				calc_diff_reflection(light, light_ray, &hp);
+				calc_reflections(light, light_ray, &hp);
 		}
 		objs = objs->next;
 	}
@@ -53,30 +53,25 @@ t_colr	calculate_lights(t_scene scene, t_hp hp)
  * like PovRay. The main how-to-add-light-to-the-object logic is implemented in
  * hp_add_pointlight. In PovRay there is als the `falloff` parameter which leads
  * to the edges of the light area on an object being less fuzzy.
- *
- * About logic: we do the normal calculation in here bc... it's normis fault! it
- * is the 4 param limit :( otherwise it would make perfectly sense to pass the
- * normal to calculate light (as we had it befor) but, we also need the obj type
- * in here. this is due to the fact that we need to know if we are hitting a 2d
- * obj with our light ray. in this case there is no 'inside'. but there is still
- * a normal vector assigned to the obj. but for 2d objs it does not matter if
- * the dot product of the normal and the light_ray is negative. this is why we
- * take the fabs of it in that case. An explanatory example: with a circle and
- * its normal (0,-1,0)  a light-ray coming from (0,1,0) would not reflect on
- * this circle. This, we do not want!
  */
-static int	calc_diff_reflection(t_light light, t_v3 light_ray, t_hp *hp)
+static void	calc_reflections(t_light light, t_v3 light_ray, t_hp *hp)
 {
 	double	ndotl;
+	double	rdotcam2hp;
 	double	ip;
+	t_v3	refl;
 
+	ip = 0;
 	ndotl = v3_dot(hp->normal, light_ray);
 	if (ndotl > 0)
+		ip += light.colr.i * ndotl / v3_norm(light_ray);
+	if (hp->spec > 0)
 	{
-		ip = light.colr.i * ndotl / v3_norm(light_ray);
-		light.colr.i = ip;
-		hp->fcolr = hp_add_pointlight(*hp, light.colr);
-		return (1);
+		refl = v3_minus_vec(v3_mult(hp->normal, 2 * ndotl), light_ray);
+		rdotcam2hp = v3_dot(refl, hp->cam2hp);
+		if (rdotcam2hp > 0)
+			ip += light.colr.i * pow(rdotcam2hp / v3_norm(refl), hp->spec);
 	}
-	return (0);
+	light.colr.i = ip;
+	hp->fcolr = hp_add_pointlight(*hp, light.colr);
 }

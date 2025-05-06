@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/30 13:37:35 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:45:03 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,35 @@ float	parse_pos_num(t_tokenizer *tok)
 	skip_whitespace(tok);
 	token = parse_number_token(tok);
 	if (!token)
-		return (0.0);
+		return (-1.0);
 	value = token->u_value.num;
 	token_free(&token);
+	return (value);
+}
+
+/**
+ * Maybe parse a positive float.
+ *
+ * This is used for parsing possible specular refelection values as the last
+ * token of an object defining line. If there is something after the colr of an
+ * obj but it is not a positive number this has to be a syntax error. this is
+ * why we do not advance the tok->pos in this case. By doing so the something
+ * will be detected as an error in `parse_line`, but we don't have to deal with
+ * it at all in here.
+ *
+ * Returns -1 if nothing valid is found. The float value otherwise.
+ */
+float parse_pos_num_maybe(t_tokenizer *tok)
+{
+	float	value;
+	char	*numstr;
+
+	skip_whitespace(tok);
+	numstr = get_tokstr(tok);
+	if (!ft_is_unumstr(numstr))
+		return (-1.0);
+	value = ft_atof(numstr);
+	tok->pos += ft_strlen(numstr);
+	free(numstr);
 	return (value);
 }

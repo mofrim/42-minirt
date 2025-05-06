@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/04 14:34:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:25:43 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,19 +110,6 @@ typedef enum e_dirs
 	FORTH,
 	BACK
 }	t_dirs;
-
-/* The hp = hitpoint struct. Holds the hitpoint location vector, the surfaces
- * color (scolr) and the final color (fcolr). The scolr is used in the
- * calculations to determine which wavelengths aka colors will be reflected from
- * the surface. All contributions by any lights will be saved in the fcolr
- * member which is returned by calculate_lights(). */
-typedef struct s_hp
-{
-	t_v3	loc;
-	t_v3	normal;
-	t_colr	scolr;
-	t_colr	fcolr;
-}	t_hp;
 
 /********** General functions. **********/
 

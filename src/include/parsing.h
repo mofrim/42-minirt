@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/01 10:25:50 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 19:50:12 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_hyper		*parse_hyper(t_tokenizer *tok);
 t_v3		parse_v3(t_tokenizer *tok);
 t_v3		parse_v3_from_parts(char **parts);
 float		parse_pos_num(t_tokenizer *tok);
+float		parse_pos_num_maybe(t_tokenizer *tok);
 char		*read_scenefile(char *filename);
 bool		has_rt_ext(char *filename);
 bool		validate_color(char **parts, bool *valid);

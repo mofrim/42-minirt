@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 18:05:59 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:29:42 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ t_colr	circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hit)
 	cam2hit = v3_minus_vec(hit, scene.cam->pos);
 	c = *(t_circle *)cobj.obj;
 	hp.loc = hit;
+	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
+	hp.spec = c.spec;
 	hp.scolr = c.colr;
 	if (v3_dot(c.normal, cam2hit) < 0)
 		hp.normal = c.normal;

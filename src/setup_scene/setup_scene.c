@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:35:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/02 21:36:49 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 19:21:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@ bool	is_cam_inside_obj(t_camera cam, t_scene scene);
 
 /**
  * This is the post parsing setup function.
- *
- * .
- * TODO:
- * - do the ambient light calculation for every object in here.
  */
 void	setup_scene(t_scene *scene)
 {
