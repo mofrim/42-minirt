@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/04 19:53:24 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/06 19:30:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * - color (t_colr)
  *
  * Example: "sp 0,0,0 10 255,0,0"
- * Rulse: all checked by parsing funcs
+ * Rules: r > 0
  */
 t_sphere	*parse_sphere(t_tokenizer *tok)
 {
@@ -34,6 +34,8 @@ t_sphere	*parse_sphere(t_tokenizer *tok)
 	sphere->r = parse_pos_num(tok) / 2.0;
 	sphere->r_squared = sphere->r * sphere->r;
 	sphere->colr = parse_color(tok);
+	if (sphere->r <= 0)
+		printerr_set_invalid("sphere radius has to be > 0", &tok->valid);
 	return (sphere);
 }
 
