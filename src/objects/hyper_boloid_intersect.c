@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 12:00:44 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/03 12:24:10 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:55:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ double	hyper_boloid_intersect(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	if (res.x1 == -42 && res.x2 == -42)
 		return (INF);
 	if (rp.tmin < res.x1 && res.x1 < rp.tmax && \
-			is_on_finite_hyper(origin, ray_dir, hyp, res.x1) && \
-			(res.x1 < res.x2 || !(rp.tmin < res.x2 && res.x2 < rp.tmax) || \
-			(is_on_finite_hyper(origin, ray_dir, hyp, res.x1) && \
-			!is_on_finite_hyper(origin, ray_dir, hyp, res.x2))))
+is_on_finite_hyper(origin, ray_dir, hyp, res.x1) && \
+(res.x1 < res.x2 || !(rp.tmin < res.x2 && res.x2 < rp.tmax) || \
+(is_on_finite_hyper(origin, ray_dir, hyp, res.x1) && \
+!is_on_finite_hyper(origin, ray_dir, hyp, res.x2))))
 		return (res.x1);
 	if (rp.tmin < res.x2 && res.x2 < rp.tmax && \
-			is_on_finite_hyper(origin, ray_dir, hyp, res.x2))
+is_on_finite_hyper(origin, ray_dir, hyp, res.x2))
 		return (res.x2);
 	return (INF);
 }
@@ -74,13 +74,13 @@ t_v2	solve_intersec_equ(t_v3 origin, t_v3 ray_dir, t_hyper hyp)
 	double	disc;
 	double	at;
 
-	at = v3_dot(ray_dir, mtrx_prod_vec(hyp.A, ray_dir));
+	at = v3_dot(ray_dir, mtrx_prod_v3(hyp.hym, ray_dir));
 	if (at == 0)
 		return ((t_v2){-42, -42});
 	oc = v3_minus_vec(origin, hyp.center);
-	p = (v3_dot(ray_dir, mtrx_prod_vec(hyp.A, oc)) \
-			+ v3_dot(oc, mtrx_prod_vec(hyp.A, ray_dir))) / at;
-	q = (v3_dot(oc, mtrx_prod_vec(hyp.A, oc)) - 1) / at;
+	p = (v3_dot(ray_dir, mtrx_prod_v3(hyp.hym, oc)) \
++ v3_dot(oc, mtrx_prod_v3(hyp.hym, ray_dir))) / at;
+	q = (v3_dot(oc, mtrx_prod_v3(hyp.hym, oc)) - 1) / at;
 	disc = p * p / 4 - q;
 	if (disc < 0)
 		return ((t_v2){-42, -42});

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/22 22:24:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 10:08:15 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ static void	show_mapinfo(t_mrt mrt, int *i)
 		print_mapinfo_float(mrt, "cam_pos.x : ", mrt.scene->cam->pos.x, i);
 		print_mapinfo_float(mrt, "cam_pos.y : ", mrt.scene->cam->pos.y, i);
 		print_mapinfo_float(mrt, "cam_pos.z : ", mrt.scene->cam->pos.z, i);
-		print_mapinfo_float(mrt, "cam_orient.x : ", mrt.scene->cam->orient.x, i);
-		print_mapinfo_float(mrt, "cam_orient.y : ", mrt.scene->cam->orient.y, i);
-		print_mapinfo_float(mrt, "cam_orient.z : ", mrt.scene->cam->orient.z, i);
+		print_mapinfo_float(mrt, "cam_orient.x: ", mrt.scene->cam->orient.x, i);
+		print_mapinfo_float(mrt, "cam_orient.y: ", mrt.scene->cam->orient.y, i);
+		print_mapinfo_float(mrt, "cam_orient.z: ", mrt.scene->cam->orient.z, i);
 	}
 }

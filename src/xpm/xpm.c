@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 20:33:27 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/29 21:47:57 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 10:09:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	put_pixel_xpm(t_xpm_canvas *xc, int x, int y, t_colr colr)
 	dec = xc->opp;
 	while (dec--)
 		*(ptr + (PIXEL_MAXX + x) * xc->opp + dec) = \
-			((unsigned char *)(&color))[dec];
+((unsigned char *)(&color))[dec];
 	return (0);
 }
 
@@ -105,7 +105,7 @@ int	put_pixel_xpm_arr(t_xpm_canvas *xc, int *xy)
 			dec = xc->opp;
 			while (dec--)
 				*(ptr + x * xc->opp + dec) = \
-				((unsigned char *)(&xy[x + CANVAS_WIDTH * (WINY - y)]))[dec];
+((unsigned char *)(&xy[x + CANVAS_WIDTH * (WINY - y)]))[dec];
 			y++;
 		}
 		x++;

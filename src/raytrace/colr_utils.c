@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 09:32:55 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/29 12:15:34 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:51:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ t_colr	colr_add_colr(t_colr c1, t_colr c2)
 {
 	t_colr	res;
 
-	res.r = (c1.r + c2.r > 255) * 255 + (c1.r + c2.r <= 255) \
-			* (uint8_t)(c1.r + c2.r);
-	res.g = (c1.g + c2.g > 255) * 255 + (c1.g + c2.g <= 255) \
-			* (uint8_t)(c1.g + c2.g);
-	res.b = (c1.b + c2.b > 255) * 255 + (c1.b + c2.b <= 255) \
-			* (uint8_t)(c1.b + c2.b);
+	res.r = (c1.r + c2.r > 255) * 255 + (c1.r + c2.r <= 255)
+		* (uint8_t)(c1.r + c2.r);
+	res.g = (c1.g + c2.g > 255) * 255 + (c1.g + c2.g <= 255)
+		* (uint8_t)(c1.g + c2.g);
+	res.b = (c1.b + c2.b > 255) * 255 + (c1.b + c2.b <= 255)
+		* (uint8_t)(c1.b + c2.b);
 	res.i = c1.i;
 	return (res);
 }

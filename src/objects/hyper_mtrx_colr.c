@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 20:50:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 09:10:51 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:55:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ sqrt(pn * pn - (hyp.h * hyp.h / 4)) <= hyp.rcaps)
 	if (fabs(v3_dot(p, hyp.axis) + hyp.hby2) <= EPS && \
 sqrt(pn * pn - (hyp.h * hyp.h / 4)) <= hyp.rcaps)
 		return (v3_mult(hyp.axis, -1));
-	normal = mtrx_prod_vec(hyp.A,
+	normal = mtrx_prod_v3(hyp.hym,
 			v3_minus_vec(v3_minus_vec(hit, hyp.center), hyp.axis));
 	return (v3_normalize(normal));
 }

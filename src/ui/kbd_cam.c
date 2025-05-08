@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:05:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/14 15:39:08 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 10:07:28 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	handle_cam_rot_keys(int key, t_mrt mrt)
  * TODO: add a `ang_step` and `dir_step` var to t_camera in order to be able to
  * control the correspopnding step sizes via other shortcuts.
  */
+// FIXME: normify!
 void	handle_cam_dir_keys(int key, t_mrt mrt)
 {
 	if (key == KEY_UP)

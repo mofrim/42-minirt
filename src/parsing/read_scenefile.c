@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:18:34 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/23 10:36:31 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:50:34 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	has_rt_ext(char *filename)
 	if (len < 3)
 		return (false);
 	if (filename[len - 3] != '.' || filename[len - 2] != 'r' || \
-			filename[len - 1] != 't')
+filename[len - 1] != 't')
 		return (false);
 	return (true);
 }

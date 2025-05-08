@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:22 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/01 10:26:54 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:48:21 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	handle_objects(t_scene *scene, t_tokenizer *tok, char *key)
 bool	tok_is_object(char *key)
 {
 	if (ft_strlen(key) == 2 && (!ft_strcmp(key, "sp") || \
-		!ft_strcmp(key, "cy") || !ft_strcmp(key, "pl") || \
-		!ft_strcmp(key, "sp") || !ft_strcmp(key, "tr") || \
-		!ft_strcmp(key, "ci") || !ft_strcmp(key, "hy")))
+!ft_strcmp(key, "cy") || !ft_strcmp(key, "pl") || \
+!ft_strcmp(key, "sp") || !ft_strcmp(key, "tr") || \
+!ft_strcmp(key, "ci") || !ft_strcmp(key, "hy")))
 		return (true);
 	else if (ft_strlen(key) == 1 && !ft_strcmp(key, "L"))
 		return (true);

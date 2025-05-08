@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:20:18 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/22 21:23:56 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:55:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_v3	cam_update_orient(t_camera cam)
 {
 	t_v3	new_orient;
 
-	new_orient = mtrx_prod_vec(cam.rot, (t_v3){0, 0, 1});
+	new_orient = mtrx_prod_v3(cam.rot, (t_v3){0, 0, 1});
 	return (new_orient);
 }
 

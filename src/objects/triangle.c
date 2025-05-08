@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/06 20:29:11 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:53:14 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ double	triangle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		return (INF);
 	t = (tri.potdn - v3_dot(origin, tri.normal)) / rn;
 	x = v3_add_vec(origin, v3_mult(ray_dir, t));
-	// if ((float)subtriag_area_sum(x, tri) > (float)tri.area)
 	if (subtriag_area_sum(x, tri) - tri.area > EPS)
 		return (INF);
 	if (rp.tmin <= t && t < rp.tmax)

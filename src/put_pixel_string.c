@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:18:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/08 14:09:17 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 10:10:04 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	put_pixel_canvas(t_mrt mrt, t_pxl pos, char *colr)
 	int	sy;
 
 	if (PIXEL_MINX < pos.x && pos.x < PIXEL_MAXX && PIXEL_MINY < pos.y && \
-			pos.y < PIXEL_MAXY)
+pos.y < PIXEL_MAXY)
 	{
 		sx = CANVAS_OFFSET_X + pos.x;
 		sy = CANVAS_OFFSET_Y - pos.y;
@@ -37,7 +37,7 @@ void	put_pixel_canvas_rt(t_mrt mrt, t_pxl pos, t_colr pxlcolr)
 	int	sy;
 
 	if (PIXEL_MINX < pos.x && pos.x < PIXEL_MAXX && PIXEL_MINY < pos.y && \
-			pos.y < PIXEL_MAXY)
+pos.y < PIXEL_MAXY)
 	{
 		sx = CANVAS_OFFSET_X + pos.x;
 		sy = CANVAS_OFFSET_Y - pos.y;
@@ -63,7 +63,7 @@ void	put_string(t_mrt mrt, t_pxl pos, char *colr, char *txt)
 	int	sx;
 	int	sy;
 
-	sx = WINX/2 + pos.x;
-	sy = WINY/2 - pos.y;
+	sx = WINX / 2 + pos.x;
+	sy = WINY / 2 - pos.y;
 	mlx_string_put(mrt.mlx, mrt.win, sx, sy, rgb_to_int(colr), txt);
 }

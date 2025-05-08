@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/06 19:23:00 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/08 09:56:57 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS		=	main.c \
 					v3_basic_ops.c \
 					v3_advanced_ops.c \
 					mtrx_ops.c \
+					mtrx_transp_det.c \
 					mtrx_new_print.c \
 					get_rotmtrx.c \
 					put_pixel_string.c \

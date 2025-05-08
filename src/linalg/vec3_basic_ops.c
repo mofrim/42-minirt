@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:33:53 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/06 17:36:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 10:03:55 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_vec3	add_vec(t_vec3 *self, t_vec3 w)
 	return (v);
 }
 
-t_vec3 add_vec_coords(t_vec3 *self, double x, double y, double z)
+t_vec3	add_vec_coords(t_vec3 *self, double x, double y, double z)
 {
 	t_vec3	v;
 
@@ -93,4 +93,3 @@ t_vec3	mult(t_vec3 *self, double d)
 // 	v->_mult(v, d);
 // 	return (v);
 // }
-

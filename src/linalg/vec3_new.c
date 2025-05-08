@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:33:53 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/08 14:28:43 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 10:04:38 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
  * the calculations with this.
  */
 
-t_vec3* vec3_new_alloc(double x, double y, double z)
+t_vec3	*vec3_new_alloc(double x, double y, double z)
 {
-    t_vec3	*p;
+	t_vec3	*p;
 
 	p = malloc(sizeof(t_vec3));
 	p->x = x;
@@ -37,14 +37,14 @@ t_vec3* vec3_new_alloc(double x, double y, double z)
 	p->mult = mult;
 	p->dot = dot;
 	p->cross = cross;
-    return (p);
+	return (p);
 }
 
 /* Make a new t_vec3 vector from xyz coords *without* allocation. For use in
  * direct assignments etc. */
-t_vec3 vec3_new(double x, double y, double z)
+t_vec3	vec3_new(double x, double y, double z)
 {
-    t_vec3	p;
+	t_vec3	p;
 
 	p.x = x;
 	p.y = y;
@@ -55,13 +55,13 @@ t_vec3 vec3_new(double x, double y, double z)
 	p.mult = mult;
 	p.dot = dot;
 	p.cross = cross;
-    return (p);
+	return (p);
 }
 
 /* Make a new t_vec3 from a t_v3 without allocation! */
-t_vec3 vec3_new_v3(t_v3 v)
+t_vec3	vec3_new_v3(t_v3 v)
 {
-    t_vec3	p;
+	t_vec3	p;
 
 	p.x = v.x;
 	p.y = v.y;
@@ -72,5 +72,5 @@ t_vec3 vec3_new_v3(t_v3 v)
 	p.mult = mult;
 	p.dot = dot;
 	p.cross = cross;
-    return (p);
+	return (p);
 }

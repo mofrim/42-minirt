@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/06 20:45:03 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:50:21 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ float	parse_pos_num(t_tokenizer *tok)
  *
  * Returns -1 if nothing valid is found. The float value otherwise.
  */
-float parse_pos_num_maybe(t_tokenizer *tok)
+float	parse_pos_num_maybe(t_tokenizer *tok)
 {
 	float	value;
 	char	*numstr;

@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/06 20:41:17 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:38:43 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ t_hyper	*parse_hyper(t_tokenizer *tok)
 		printerr_set_invalid("hyperboloid ab, c or h == 0", &tok->valid);
 	hyp->axis = v3_normalize(hyp->axis);
 	hyp->rcaps = hyp->ab * sqrt(1 + hyp->h * hyp->h / (4 * hyp->c * hyp->c));
-	hyp->A = get_rotmtrx_hyper(hyp->axis, hyp->ab, hyp->c);
+	hyp->hym = get_rotmtrx_hyper(hyp->axis, hyp->ab, hyp->c);
+	mtrx_print(hyp->hym);
 	hyp->hby2 = hyp->h / 2;
 	return (hyp);
 }

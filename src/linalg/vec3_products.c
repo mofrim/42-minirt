@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:13:45 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/06 09:47:32 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 10:04:56 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ double	dot(t_vec3 *self, t_vec3 w)
 {
 	return (self->x * w.x + self->y * w.y + self->z * w.z);
 }
-
 
 /* The dot product. Standalone function. Takes 2 Vec3's and returns their
  * dot-product. */
@@ -50,7 +49,6 @@ t_vec3	vec3_cross(t_vec3 u, t_vec3 w)
 	v.x = u.y * w.z - u.z * w.y;
 	v.y = u.z * w.x - u.x * w.z;
 	v.z = u.x * w.y - u.y * w.x;
-
 	return (v);
 }
 
@@ -67,4 +65,3 @@ t_vec3	*vec3_cross_alloc(t_vec3 u, t_vec3 w)
 	v->z = v->x * w.y - v->y * w.x;
 	return (v);
 }
-

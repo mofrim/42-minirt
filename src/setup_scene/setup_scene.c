@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:35:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/06 19:21:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 10:05:53 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	setup_scene(t_scene *scene)
 	scene->subsample = 10;
 }
 
-void setup_camera(t_camera *cam, t_scene scene)
+void	setup_camera(t_camera *cam, t_scene scene)
 {
 	if (!cam)
 		return ;
@@ -52,7 +52,8 @@ bool	is_cam_inside_obj(t_camera cam, t_scene scene)
 	objs = scene.objects;
 	while (objs)
 	{
-		if (objs->type == SPHERE && is_inside_sphere(cam.pos, *(t_sphere *)objs->obj))
+		if (objs->type == SPHERE && \
+is_inside_sphere(cam.pos, *(t_sphere *)objs->obj))
 			return (true);
 		objs = objs->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 11:19:02 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 13:36:33 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:49:43 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ int	is_coordinate(t_tokenizer *tok)
 	i = 0;
 	comma_count = 0;
 	if (!(ft_isdigit(tok->input[tok->pos]) || tok->input[tok->pos] == '-' || \
-				tok->input[tok->pos] == '+'))
+tok->input[tok->pos] == '+'))
 		return (0);
 	while ((tok->pos + i) < tok->len && !ft_isspace(tok->input[tok->pos + i]))
 	{
 		if (tok->input[tok->pos + i] == ',')
 			comma_count++;
 		else if (!ft_isdigit(tok->input[tok->pos + i]) && \
-				tok->input[tok->pos + i] != '.' && \
-				tok->input[tok->pos + i] != '-' && \
-				tok->input[tok->pos + i] != '+')
+tok->input[tok->pos + i] != '.' && \
+tok->input[tok->pos + i] != '-' && \
+tok->input[tok->pos + i] != '+')
 			return (0);
 		i++;
 	}

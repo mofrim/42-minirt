@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/29 10:43:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:50:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_token	*get_next_token(t_tokenizer *tok)
 static int	is_numeric(t_tokenizer *t)
 {
 	return (ft_isdigit(t->input[t->pos]) || t->input[t->pos] == '-' || \
-				t->input[t->pos] == '+' || t->input[t->pos] == '.');
+t->input[t->pos] == '+' || t->input[t->pos] == '.');
 }
 
 void	skip_whitespace(t_tokenizer *t)

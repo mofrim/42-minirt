@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/06 20:56:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:47:50 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_colr	calculate_lights(t_scene scene, t_hp hp)
 			light = *(t_light *)objs->obj;
 			light_ray = v3_minus_vec(light.pos, hp.loc);
 			if (intersect_ray_objs(hp.loc, light_ray, \
-				(t_ray_minmax){0.00000001, 0.99999999}, scene.objects).t == INF)
+(t_ray_minmax){0.00000001, 0.99999999}, scene.objects).t == INF)
 				calc_reflections(light, light_ray, &hp);
 		}
 		objs = objs->next;

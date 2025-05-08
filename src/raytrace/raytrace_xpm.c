@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:23:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/03 11:33:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:57:59 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	raytrace_xpm(t_mrt mrt)
 		while (cy < PIXEL_MAXY)
 		{
 			if (!(cy % mrt.scene->subsample) || cy == PIXEL_MINY || \
-					cx == PIXEL_MINX)
+cx == PIXEL_MINX)
 			{
 				ray_dir = canvas2viewport(cx, cy, *mrt.scene->cam);
 				px_colr = traceray(*mrt.scene, ray_dir);
@@ -78,7 +78,7 @@ t_v3	canvas2viewport(int cx, int cy, t_camera cam)
 	viewport_vec.x = (double)cx * cam.cvr;
 	viewport_vec.y = (double)cy * cam.cvr;
 	viewport_vec.z = VIEWZ;
-	return (mtrx_prod_vec(cam.rot, v3_normalize(viewport_vec)));
+	return (mtrx_prod_v3(cam.rot, v3_normalize(viewport_vec)));
 }
 
 /**
@@ -94,7 +94,7 @@ t_colr	traceray(t_scene scene, t_v3 ray_dir)
 	t_v3		hitpoint;
 	t_colr		colr_at_hitpoint;
 
-	intersec = intersect_ray_objs(scene.cam->pos, ray_dir, \
+	intersec = intersect_ray_objs(scene.cam->pos, ray_dir,
 			(t_ray_minmax){VIEWZ, INF}, scene.objects);
 	hitpoint = v3_add_vec(scene.cam->pos, v3_mult(ray_dir, intersec.t));
 	colr_at_hitpoint = get_object_colr(scene, intersec.obj, hitpoint);
