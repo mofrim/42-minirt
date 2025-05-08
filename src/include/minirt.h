@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 10:00:03 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 10:11:35 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,6 @@ t_intersec		intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 t_colr			get_object_colr(t_scene scene, t_objlst *close_obj,
 					t_v3 hitpoint);
 t_colr			calculate_lights(t_scene scene, t_hp hp);
-t_v3			get_normal_at_hp(t_objlst obj, t_v3 hploc);
 
 double			sphere_intersect_ray(t_v3 cam_pos, t_v3 ray_dir,
 					t_ray_minmax rp, t_sphere *sphere);

@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/08 09:56:57 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/08 10:11:53 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,6 @@ SRCS		=	main.c \
 					kbd_other.c \
 					triangle.c \
 					colr_base_utils.c \
-					get_normal_at.c \
 					export_ppm.c \
 					hyper.c \
 					hyper_mtrx_colr.c \
