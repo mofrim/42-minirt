@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 21:09:25 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/03 12:36:48 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:29:37 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@
 /* Infinity. Kind of. For now.... */
 # define INF	10000.0
 
-/* For now our viewport is fixed at z = 1.0 from camera. */
-# define VIEWZ	1.0
+/* For now our viewport is fixed at EPS from camera. */
+# define VIEWZ	EPS
 
 /* Read buffer size for reading scene file. */
 # define FILE_BUFSIZE 1000
@@ -96,7 +96,6 @@
  * 		if (fabs(x - 42) <= EPS)
  * 			...
  */
-// QUESTION is this enough
 #define	EPS 1e-12f
 
 #endif

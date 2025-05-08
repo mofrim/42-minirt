@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:17:05 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/29 11:05:51 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:46:54 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ t_light	*parse_light(t_tokenizer *tok)
  * Expected Structure:
  * - pos (t_v3)
  * - orientation (t_v3)
- * - field of view in degrees aka fov (float), with 0 < fov < 180
+ * - field (float)
  *
  * Example:	"C 0,0,1 0,0,-1 70"
- * Rules:	|orient| > 0
+ * Rules:	|orient| > 0, 0 < fov < 180
  */
 t_camera	*parse_camera(t_tokenizer *tok)
 {
@@ -85,10 +85,15 @@ t_camera	*parse_camera(t_tokenizer *tok)
 	nullcheck(cam, "parse_camera");
 	cam->pos = parse_v3(tok);
 	cam->orient = parse_v3(tok);
+	cam->fov = parse_pos_num(tok);
 	if (v3_norm(cam->orient) == 0)
 		printerr_set_invalid("cam orient norm == 0", &tok->valid);
-	cam->fov = parse_pos_num(tok);
 	if (cam->fov <= 0 || 180 <= cam->fov)
 		printerr_set_invalid("cam fov not in range (0, 180)", &tok->valid);
+	cam->fov = cam->fov * M_PI / 180.0;
+	cam->orient = v3_normalize(cam->orient);
+	cam->rot = get_rotmtrx(cam->orient);
+	cam->view_width = 2 * EPS * tan(cam->fov / 2);
+	cam->cvr = cam->view_width / CANVAS_WIDTH;
 	return (cam);
 }

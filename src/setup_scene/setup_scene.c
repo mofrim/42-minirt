@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:35:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/08 10:05:53 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:50:57 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,26 @@ bool	is_cam_inside_obj(t_camera cam, t_scene scene);
 
 /**
  * This is the post parsing setup function.
+ *
+ * The most important part in here is checking if the cam is inside some
+ * object. This implies there won't be alight added to the colors. We can only
+ * do it here because we need the whole scene to be parsed with all its objects
+ * for being able to check the insideness of the cam. But maybe we will decide
+ * to add other things or even all secondary calculations after parsing to this
+ * functions.
+ 
  */
 void	setup_scene(t_scene *scene)
 {
 	if (scene->cam)
-		setup_camera(scene->cam, *scene);
+		scene->cam->is_inside_obj = is_cam_inside_obj(*scene->cam, *scene);
 	if (!scene->objects)
 		ft_printf("Warning: No objects in scene!\n");
 	scene->subsample = 10;
 }
 
-void	setup_camera(t_camera *cam, t_scene scene)
-{
-	if (!cam)
-		return ;
-	cam->fov = cam->fov * M_PI / 180.0;
-	cam->orient = v3_normalize(cam->orient);
-	cam->rot = get_rotmtrx(cam->orient);
-	cam->view_width = 2 * tan(cam->fov / 2);
-	cam->cvr = cam->view_width / CANVAS_WIDTH;
-	cam->is_inside_obj = is_cam_inside_obj(*cam, scene);
-}
 
+/* Is the cam inside of a sphere? */
 static bool	is_inside_sphere(t_v3 pos, t_sphere sp)
 {
 	if (v3_norm(v3_minus_vec(pos, sp.center)) < sp.r)
@@ -45,6 +43,7 @@ static bool	is_inside_sphere(t_v3 pos, t_sphere sp)
 	return (false);
 }
 
+/* Loop over objlst and check for each object if the cam is inside of it. */
 bool	is_cam_inside_obj(t_camera cam, t_scene scene)
 {
 	t_objlst	*objs;
