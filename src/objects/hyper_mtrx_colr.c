@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 20:50:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/06 20:29:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/08 09:10:51 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@
  * precission) if so, we want the normal of the top cap, so we return that. The
  * other case checks for -h/2 -> bottom cap.
  * The last case is a hit on the main bolo which leads to
+ *
  * 		2 * A (hit - axis)
+ *
  * being returned, which is the gradient at hitpoint of the bolo equation and in
- * this case the normal.
+ * this case the normal. As 2 is only a stretching factor, we omit it here. Also
+ * the hit point has to be translated by the position of the center of the
+ * hyper in order to get the correct normal for a hyper which is not centered at
+ * (0,0,0).
  */
 t_v3	get_normal_hyper(t_v3 hit, t_hyper hyp)
 {
@@ -34,12 +39,13 @@ t_v3	get_normal_hyper(t_v3 hit, t_hyper hyp)
 	p = v3_minus_vec(hit, hyp.center);
 	pn = v3_norm(p);
 	if (fabs(v3_dot(p, hyp.axis) - hyp.hby2) <= EPS && \
-			sqrt(pn * pn - (hyp.h * hyp.h / 4)) <= hyp.rcaps)
+sqrt(pn * pn - (hyp.h * hyp.h / 4)) <= hyp.rcaps)
 		return (hyp.axis);
 	if (fabs(v3_dot(p, hyp.axis) + hyp.hby2) <= EPS && \
-			sqrt(pn * pn - (hyp.h * hyp.h / 4)) <= hyp.rcaps)
+sqrt(pn * pn - (hyp.h * hyp.h / 4)) <= hyp.rcaps)
 		return (v3_mult(hyp.axis, -1));
-	normal = v3_mult(mtrx_prod_vec(hyp.A, v3_minus_vec(hit, hyp.axis)), 2);
+	normal = mtrx_prod_vec(hyp.A,
+			v3_minus_vec(v3_minus_vec(hit, hyp.center), hyp.axis));
 	return (v3_normalize(normal));
 }
 
@@ -82,10 +88,10 @@ t_mtrx	get_rotmtrx_hyper(t_v3 axis, double ab, double c)
 	cross_matrix = mtrx_new((t_v3){0, rot_axis.z, -rot_axis.y},
 			(t_v3){-rot_axis.z, 0, rot_axis.x},
 			(t_v3){rot_axis.y, -rot_axis.x, 0});
-	rot = mtrx_add_mtrx(mtrx_add_mtrx(id, mtrx_mult_scalar(cross_matrix, \
-						sin(rot_angle))), \
-				mtrx_mult_scalar(mtrx_prod_mtrx(cross_matrix, cross_matrix), \
-					1 - cos(rot_angle)));
+	rot = mtrx_add_mtrx(mtrx_add_mtrx(id, mtrx_mult_scalar(cross_matrix,
+					sin(rot_angle))),
+			mtrx_mult_scalar(mtrx_prod_mtrx(cross_matrix, cross_matrix),
+				1 - cos(rot_angle)));
 	return (mtrx_prod_mtrx(mtrx_prod_mtrx(rot,
 				mtrx_new(
 					(t_v3){1 / (ab * ab), 0, 0},
