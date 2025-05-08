@@ -1,0 +1,21 @@
+# example file for the cone-hyperbolos param combinations.
+# a very small ab param leads to coniness.
+# if ab = c we have pi/4 cone
+# if ab > c we make the caps wider
+# if ab < c caps are narrower
+
+C 0,-1,-15 0,0,1 70
+A 0.5 255,255,255
+
+# the left standard one
+hy -6,-1.5,0 0,1,0 0.01 0.01 6 124,252,0
+L -6,-1.5,-4 0.5	255,255,255
+
+# the middle fat one
+hy 1,-1.5,4 0,1,0 0.02 0.01 6 0,191,255
+L 0,-2,0 0.5	255,255,255
+
+# the right slim one
+hy 6,-1.5,-2 0,1,0 0.01 0.03 6 255,99,71
+L 6,-1.5,-3 0.5	255,255,255
+
