@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 10:05:12 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:36:13 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,6 @@ char			*int_to_hexrgb(int c);
 /********** Do stuff. **********/
 
 void			draw_axis(t_mrt mrt);
-void			do_stuff(t_mrt mrt);
+void			launch_ui(t_mrt mrt);
 
 #endif

@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   launch_ui.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/14 17:01:16 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 10:37:19 by fmaurer          ###   ########.fr       */
+/*   Created: 2025/05/09 10:34:50 by fmaurer           #+#    #+#             */
+/*   Updated: 2025/05/09 10:38:40 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	main(int ac, char **av)
+/**
+ * Small but important: draw our minirt to the window!
+ *
+ * Aka `do_stuff`.
+ */
+void	launch_ui(t_mrt mrt)
 {
-	t_mrt		*mrt;
-
-	if (ac != 2)
-		exit_with_errmsg("Error\nUsage: ./miniRT <scene.rt>");
-	mrt = init_mrt(av[1]);
-	mlx_hook(mrt->win, KeyPress, KeyPressMask, kbd_press_handler, mrt);
-	mlx_hook(mrt->win, KeyRelease, KeyReleaseMask, kbd_release_handler, mrt);
-	mlx_hook(mrt->win, DestroyNotify, 0, close_btn_handler, mrt);
-	launch_ui(*mrt);
-	mlx_loop(mrt->mlx);
-	cleanup_mrt(mrt);
-	return (0);
+	show_sidebar(mrt);
+	print_scene(*mrt.scene);
+	if (mrt.scene->alight && mrt.scene->cam)
+	{
+		printf("doing the trace!\n");
+		raytrace_xpm(mrt);
+	}
 }
