@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 13:29:24 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:28:55 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	handle_export(int key, t_mrt mrt)
 {
 	if (key == KEY_E)
 	{
-		ft_printf("exporting to scene.xpm");
+		ft_printf("exporting to scene.ppm");
 		if (export_ppm(*mrt.xc) != -1)
 			ft_printf(" done!\n");
 	}

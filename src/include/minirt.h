@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 10:11:35 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:05:12 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ typedef struct s_mrt
 	t_win_list		*win;
 	t_scene			*scene;
 	t_xpm_canvas	*xc;
+	bool			autorep;
+	int				last_key;
 }	t_mrt;
 
 /* Directions for moving the camera. */
@@ -158,8 +160,8 @@ t_v3			cam_update_orient(t_camera cam);
 /********** UI & Event Handlers. **********/
 
 int				close_btn_handler(t_mrt *mrt);
-int				kbd_input_handler(int key, t_mrt *mrt);
-int				key_press_handler(int key, t_mrt *mrt);
+int				kbd_release_handler(int key, t_mrt *mrt);
+int				kbd_press_handler(int key, t_mrt *mrt);
 void			show_sidebar(t_mrt mrt);
 void			redraw_win(t_mrt mrt);
 int				export_ppm(t_xpm_canvas xc);

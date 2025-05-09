@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:05:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 10:07:28 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:28:23 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,25 @@
 // belong together and one does not make much sense wihtout the other.
 void	handle_cam_rot_keys(int key, t_mrt mrt)
 {
-	if (key == 119)
+	if (key == KEY_W)
 	{
 		mrt.scene->cam->rot = cam_get_new_rot(mrt.scene->cam->rot, 0.075, 0);
 		mrt.scene->cam->orient = cam_update_orient(*mrt.scene->cam);
 		redraw_win(mrt);
 	}
-	else if (key == 115)
-	{
-		mrt.scene->cam->rot = cam_get_new_rot(mrt.scene->cam->rot, -0.075, 0);
-		mrt.scene->cam->orient = cam_update_orient(*mrt.scene->cam);
-		redraw_win(mrt);
-	}
-	else if (key == 97)
+	else if (key == KEY_A)
 	{
 		mrt.scene->cam->rot = cam_get_new_rot(mrt.scene->cam->rot, 0, 0.075);
 		mrt.scene->cam->orient = cam_update_orient(*mrt.scene->cam);
 		redraw_win(mrt);
 	}
-	else if (key == 100)
+	else if (key == KEY_S)
+	{
+		mrt.scene->cam->rot = cam_get_new_rot(mrt.scene->cam->rot, -0.075, 0);
+		mrt.scene->cam->orient = cam_update_orient(*mrt.scene->cam);
+		redraw_win(mrt);
+	}
+	else if (key == KEY_D)
 	{
 		mrt.scene->cam->rot = cam_get_new_rot(mrt.scene->cam->rot, 0, -0.075);
 		mrt.scene->cam->orient = cam_update_orient(*mrt.scene->cam);
@@ -47,9 +47,6 @@ void	handle_cam_rot_keys(int key, t_mrt mrt)
 }
 
 /* Make the cam move into dir given via arrow keys: UP -> forth, LEFT -> left,
- * ...
- * TODO: add a `ang_step` and `dir_step` var to t_camera in order to be able to
- * control the correspopnding step sizes via other shortcuts.
  */
 // FIXME: normify!
 void	handle_cam_dir_keys(int key, t_mrt mrt)

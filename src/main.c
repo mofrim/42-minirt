@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:01:16 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/18 10:36:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:29:53 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,8 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		exit_with_errmsg("Error\nUsage: ./miniRT <scene.rt>");
 	mrt = init_mrt(av[1]);
-
-	// FIXME: Make seperate key handlers for keys that should use autorepeat and
-	// for those who shouldn't.
-	//
-	// mlx_key_hook(mrt->win, kbd_input_handler, mrt);
-
-	mlx_hook(mrt->win, KeyPress, KeyPressMask, kbd_input_handler, mrt);
+	mlx_hook(mrt->win, KeyPress, KeyPressMask, kbd_press_handler, mrt);
+	mlx_hook(mrt->win, KeyRelease, KeyReleaseMask, kbd_release_handler, mrt);
 	mlx_hook(mrt->win, DestroyNotify, 0, close_btn_handler, mrt);
 	do_stuff(*mrt);
 	mlx_loop(mrt->mlx);
