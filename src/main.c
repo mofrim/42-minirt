@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:01:16 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 10:37:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/09 11:01:38 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int ac, char **av)
 {
-	t_mrt		*mrt;
+	t_mrt	*mrt;
 
 	if (ac != 2)
 		exit_with_errmsg("Error\nUsage: ./miniRT <scene.rt>");

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:20:18 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 09:55:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:50:25 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * orient vector. The matrices specified for each condition is in the first case
  * a rotation matrix about the x-axis, and 2ndly for the y-axis.
  */
-t_mtrx	cam_get_new_rot(t_mtrx oldrot, double x_ang, double y_ang)
+static t_mtrx	cam_get_new_rot(t_mtrx oldrot, double x_ang, double y_ang)
 {
 	t_mtrx	rot;
 
@@ -36,19 +36,17 @@ t_mtrx	cam_get_new_rot(t_mtrx oldrot, double x_ang, double y_ang)
 }
 
 /**
- * Calculate late new orient vector from rot matrix.
+ * Update the cam rot matrix and orient v3.
  *
  * The assumption stays the same: originally orientation of camera was to look
  * at {0, 0, 1}. So in order to get the new orientation vector after the camera
  * was tilted, we simply compute the rotation of the {0,0,1} vector by the new
  * rot matrix.
  */
-t_v3	cam_update_orient(t_camera cam)
+void	update_cam_rot_orient(t_camera *cam, double x_ang, double y_ang)
 {
-	t_v3	new_orient;
-
-	new_orient = mtrx_prod_v3(cam.rot, (t_v3){0, 0, 1});
-	return (new_orient);
+	cam->rot = cam_get_new_rot(cam->rot, x_ang, y_ang);
+	cam->orient = mtrx_prod_v3(cam->rot, (t_v3){0, 0, 1});
 }
 
 /**

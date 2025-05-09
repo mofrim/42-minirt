@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 10:36:13 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:50:02 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,9 @@ void			free_if_nonnull(void *p);
 
 int				rad2deg_int(double rad);
 t_mtrx			get_rotmtrx(t_v3 orient);
-t_mtrx			cam_get_new_rot(t_mtrx	oldrot, double x_ang, double y_ang);
 t_v3			cam_get_new_pos(t_camera *cam, t_dirs dir, double step);
-t_v3			cam_update_orient(t_camera cam);
+void			update_cam_rot_orient(t_camera *cam, double x_ang,
+					double y_ang);
 
 /********** UI & Event Handlers. **********/
 
