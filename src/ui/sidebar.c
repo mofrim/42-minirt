@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 10:08:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/09 12:10:09 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@ void		print_menu_text(t_mrt mrt, int x, int y, char *txt);
 void		print_mapinfo_float(t_mrt mrt, const char *txt, double prop,
 				int *i);
 
+/**
+ * The sidebar.
+ *
+ * Sadly this just causes a lot memory garbage.. i think we should keep it
+ * umcommented for dev because it spoils the valgrind output. in the final
+ * version we can uncomment and explain that it is due to mlx issues:
+ *
+ * 		mlx_set_font(mrt.mlx, mrt.win, FONT_DEFAULT);
+ */
 void	show_sidebar(t_mrt mrt)
 {
 	int	i;
 
 	draw_sidebar_seperator(mrt);
-
-	/* Sadly this just causes a lot memory garbage.. i think we should keep it
-	 * umcommented for dev because it spoils the valgrind output. in the final
-	 * version we can uncomment and explain that it is due to mlx issues.
-	 *
-	 * 		mlx_set_font(mrt.mlx, mrt.win, FONT_DEFAULT);
-	 */
-
 	mlx_string_put(mrt.mlx, mrt.win, 15, 20, rgb_to_int("00ff00"),
 		"Jose's & Mofrim's miniRT");
 	i = 2;
@@ -40,7 +41,7 @@ void	show_sidebar(t_mrt mrt)
 	i += 2;
 	show_mapinfo(mrt, &i);
 	i += 2;
-	print_menu_text(mrt, 15, 20 + (++i) * 15, "-- current Map Params --");
+	print_menu_text(mrt, 15, 20 + (++i) * 15, "-- current map params --");
 	i++;
 	print_mapinfo(mrt, "subsample: ", mrt.scene->subsample, &i);
 	if (mrt.scene->alight)
@@ -61,17 +62,21 @@ static void	draw_sidebar_seperator(t_mrt mrt)
 
 static void	show_keys(t_mrt mrt, int *i)
 {
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- Shortcuts --");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- shortcuts --");
 	(*i)++;
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "esc = quit");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "][  = +/- subsample");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, ")(  = +/- fov");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-/=  = +/- abright");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "],[  = +/- subsample");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "9,0  = +/- fov");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-,=  = +/- abright");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "e  = export ppm");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "p  = print scene");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "wasd  = rot cam");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "->  = move cam");
 }
 
 static void	show_mapinfo(t_mrt mrt, int *i)
 {
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- Map Info --");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- map info --");
 	(*i)++;
 	print_mapinfo(mrt, "canvas width: ", CANVAS_WIDTH, i);
 	print_mapinfo(mrt, "canvas height: ", WINY, i);

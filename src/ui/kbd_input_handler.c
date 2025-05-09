@@ -6,13 +6,12 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:49:56 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 10:29:18 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/09 11:55:36 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "keycodes.h"
-#include "mlx_int.h"
 
 void	handle_quit_destroy_keys(int key, t_mrt *mrt);
 void	handle_subsample(int key, t_mrt mrt);
