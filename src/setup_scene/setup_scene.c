@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:35:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/10 12:00:17 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 19:24:48 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,17 @@ bool	is_cam_inside_obj(t_camera cam, t_scene scene);
  * to add other things or even all secondary calculations after parsing to this
  * functions.
  */
-void	setup_scene(t_scene *scene)
+void	setup_scene(t_mrt mrt)
 {
+	t_scene	*scene;
+
+	scene = mrt.scene;
 	if (scene->cam)
 		scene->cam->is_inside_obj = is_cam_inside_obj(*scene->cam, *scene);
 	if (!scene->objects)
 		ft_printf("Warning: No objects in scene!\n");
+	read_tex_nmap(mrt);
 }
-
 
 /* Is the cam inside of a sphere? */
 static bool	is_inside_sphere(t_v3 pos, t_sphere sp)

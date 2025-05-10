@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 09:53:04 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 19:26:15 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static t_v3	get_normal_sphere(t_v3	hitpoint, t_v3 center)
  * diffuse lighting.
  * ATM, we handle the situation where cam is inside the sphere by flipping the
  * normal... */
-// TODO justify! explain!
 t_colr	sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit)
 {
 	t_sphere	s;
@@ -63,7 +62,7 @@ t_colr	sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit)
 	s = *(t_sphere *)sobj.obj;
 	hp.loc = hit;
 	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
-	hp.scolr = s.colr;
+	hp.scolr = get_scolr_sphere(s, hp.loc);
 	hp.spec = s.spec;
 	hp.normal = get_normal_sphere(hp.loc, s.center);
 	if (v3_norm(v3_minus_vec(scene.cam->pos, s.center)) < s.r)

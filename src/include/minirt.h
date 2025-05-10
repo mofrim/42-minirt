@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 10:50:02 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 17:52:34 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,9 @@ typedef enum e_dirs
 
 t_mrt			*init_mrt(char *scene_filename);
 void			setup_camera(t_camera *cam, t_scene scene);
-void			setup_scene(t_scene *scene);
+void			setup_scene(t_mrt mrt);
 bool			is_cam_inside_obj(t_camera cam, t_scene scene);
+void			read_tex_nmap(t_mrt mrt);
 
 /********** File and Scene Handling **********/
 
@@ -180,6 +181,7 @@ t_colr			calculate_lights(t_scene scene, t_hp hp);
 double			sphere_intersect_ray(t_v3 cam_pos, t_v3 ray_dir,
 					t_ray_minmax rp, t_sphere *sphere);
 t_colr			sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit);
+t_colr			get_scolr_sphere(t_sphere s, t_v3 hp);
 
 double			circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 					t_circle circle);

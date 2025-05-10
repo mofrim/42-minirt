@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/09 10:36:45 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/10 19:21:35 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,11 @@ SRCS		=	main.c \
 					hyper.c \
 					hyper_mtrx_colr.c \
 					hyper_boloid_intersect.c \
-					objlst_print_funcs.c
+					objlst_print_funcs.c \
+					parse_texture.c \
+					show_xpm.c \
+					read_tex_nmap.c \
+					sphere_get_scolr.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

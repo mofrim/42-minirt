@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:53:28 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/01 12:49:22 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 12:57:42 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,45 @@ void	objlst_add_back(t_objlst **head, t_objlst *newend)
 	newend->id = last->id + 1;
 }
 
-void	objlst_clear(t_objlst *lst)
+/* NOTE for now we do not use mlx_destroy_image here because this only works for
+ * images that at least got displayed once. We don't do that i guess, bc we only
+ * need the xpm reading routine from mlx and after that we work with the image
+ * on our own. But i am not yet sure about that yet... */
+// FIXME if we really do not use mlx_destroy_image we do not need mrt as a param
+// here, fucking fuck
+static void	free_sphere(t_mrt mrt, t_sphere *s)
+{
+	(void)mrt;
+	if (s->tex_file)
+		free(s->tex_file);
+	if (s->nmap_file)
+		free(s->nmap_file);
+	if (s->tex_img)
+	{
+		// mlx_destroy_image(mrt.mlx, s->tex_img);
+		free(s->tex_img->image);
+		free(s->tex_img);
+	}
+	if (s->nmap_img)
+	{
+		// mlx_destroy_image(mrt.mlx, s->nmap_img);
+		free(s->nmap_img->image);
+		free(s->nmap_img);
+	}
+	free(s);
+}
+
+void	objlst_clear(t_mrt mrt, t_objlst *lst)
 {
 	t_objlst	*tmp;
 
 	while (lst)
 	{
 		tmp = lst->next;
-		free(lst->obj);
+		if (lst->type != SPHERE)
+			free(lst->obj);
+		else
+			free_sphere(mrt, lst->obj);
 		free(lst);
 		lst = tmp;
 	}

@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/08 09:38:43 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 12:43:42 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,15 @@ t_sphere	*parse_sphere(t_tokenizer *tok)
 	sphere = malloc(sizeof(t_sphere));
 	if (!sphere)
 		return (NULL);
+	sphere->tex_img = NULL;
+	sphere->nmap_img = NULL;
 	sphere->center = parse_v3(tok);
 	sphere->r = parse_pos_num(tok) / 2.0;
 	sphere->r_squared = sphere->r * sphere->r;
 	sphere->colr = parse_color(tok);
 	sphere->spec = parse_pos_num_maybe(tok);
+	sphere->tex_file = parse_texture_maybe(tok);
+	sphere->nmap_file = parse_nmap_maybe(tok);
 	if (sphere->r <= 0)
 		printerr_set_invalid("sphere radius has to be > 0", &tok->valid);
 	return (sphere);

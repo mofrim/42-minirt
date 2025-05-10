@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 09:39:33 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 11:38:36 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 # include "mtrx.h"
 # include <stdint.h>
 # include <stdbool.h>
+
+/* For t_img. */
+# include "../minilibx-linux/mlx_int.h"
+
+typedef struct s_mrt	t_mrt;
 
 /* The RGB color struct. I would like to use the l = brightness value like
  * according to the HSL = Hue Saturation Lightness - color model. This means:
@@ -74,6 +79,10 @@ typedef struct s_sphere
 	double	r_squared;
 	t_colr	colr;
 	float	spec;
+	char	*tex_file;
+	char	*nmap_file;
+	t_img	*tex_img;
+	t_img	*nmap_img;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -199,7 +208,7 @@ typedef struct s_hp
 t_objlst	*objlst_new(t_objtype type, void *obj);
 t_objlst	*objlst_last(t_objlst *head);
 void		objlst_add_back(t_objlst **head, t_objlst *newend);
-void		objlst_clear(t_objlst *lst);
+void		objlst_clear(t_mrt mrt, t_objlst *lst);
 void		objlst_print(t_objlst *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:08:06 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/23 11:54:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 12:39:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_scene	*parse_scene(char *scene_filename, t_mrt *mrt)
 		exit_with_errmsg("failed to parse scene");
 	}
 	free(rtfile_content);
-	setup_scene(scene);
 	return (scene);
 }
 
@@ -57,7 +56,7 @@ static void	free_mrt_exit(t_mrt *mrt)
 static void	cleanup_scene_mrt(t_mrt *mrt, t_scene *sc)
 {
 	if (sc->objects)
-		objlst_clear(sc->objects);
+		objlst_clear(*mrt, sc->objects);
 	if (sc->cam)
 		free(sc->cam);
 	if (sc->alight)

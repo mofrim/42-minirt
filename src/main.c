@@ -6,11 +6,13 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:01:16 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 11:01:38 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 19:25:29 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	show_xpm(t_mrt mrt);;
 
 int	main(int ac, char **av)
 {

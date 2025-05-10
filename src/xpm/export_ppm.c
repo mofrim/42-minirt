@@ -6,13 +6,13 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 22:08:59 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 13:29:58 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 18:20:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	get_intcolr_from_data(unsigned char *addr, int opp);
+int	get_intcolr_from_data(unsigned char *addr, int opp);
 static void	print_pxcolr_triplet(int fd, unsigned char *dat, int opp);
 
 /**
@@ -53,7 +53,7 @@ int	export_ppm(t_xpm_canvas xc)
  * hack as in the put_pixel_xpm func. Treating the 32bit integer as an usigned
  * char array so we can access the 4 bytes seperately. The highest significant
  * byte won't be touched. */
-static int	get_intcolr_from_data(unsigned char *addr, int opp)
+int	get_intcolr_from_data(unsigned char *addr, int opp)
 {
 	int	ret;
 

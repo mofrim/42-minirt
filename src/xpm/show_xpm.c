@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup_mrt.c                                      :+:      :+:    :+:   */
+/*   show_xpm.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/22 11:11:23 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/10 11:37:40 by fmaurer          ###   ########.fr       */
+/*   Created: 2025/05/10 10:07:36 by fmaurer           #+#    #+#             */
+/*   Updated: 2025/05/10 18:27:31 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	cleanup_mrt(t_mrt *mrt)
+void	show_xpm(t_mrt mrt)
 {
-	mlx_destroy_image(mrt->mlx, mrt->xc->img);
-	mlx_destroy_window(mrt->mlx, mrt->win);
-	mlx_destroy_display(mrt->mlx);
-	free(mrt->xc);
-	free(mrt->mlx);
-	objlst_clear(*mrt, mrt->scene->objects);
-	free(mrt->scene->cam);
-	free(mrt->scene->alight);
-	free(mrt->scene);
-	free(mrt);
+	t_img	*img;
+	int		width;
+	int		height;
+
+	img = mlx_xpm_file_to_image(mrt.mlx, "./images/snowflake.xpm", &width, &height);
+	if (img)
+		mlx_put_image_to_window(mrt.mlx, mrt.win, img, 0, 500);
 }
