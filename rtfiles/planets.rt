@@ -1,0 +1,11 @@
+# some planets
+# TODO: make it nicer
+A 1.0 255,255,255
+C 30.785,-4.79,-21.534 -0.746,0.048,0.664 70
+L 40,40,10 0.7 255,255,255
+
+# the planets
+sp 	-10,-10,10		30 255,0,0 10 tex ./images/earth.xpm
+sp 8,-2,18	10 255,0,0 10 tex ./images/moon.xpm
+sp 10,10,7		8 255,0,0 10 tex ./images/mars.xpm
+sp -10,14,10		8 255,0,0 10 tex ./images/earth.xpm
