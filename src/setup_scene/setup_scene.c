@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:35:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/08 14:50:57 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 12:00:17 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ bool	is_cam_inside_obj(t_camera cam, t_scene scene);
  * for being able to check the insideness of the cam. But maybe we will decide
  * to add other things or even all secondary calculations after parsing to this
  * functions.
- 
  */
 void	setup_scene(t_scene *scene)
 {
@@ -31,7 +30,6 @@ void	setup_scene(t_scene *scene)
 		scene->cam->is_inside_obj = is_cam_inside_obj(*scene->cam, *scene);
 	if (!scene->objects)
 		ft_printf("Warning: No objects in scene!\n");
-	scene->subsample = 10;
 }
 
 

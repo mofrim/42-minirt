@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 10:05:32 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 11:58:56 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	init_mlx_win(t_mrt *mrt)
 		exit_with_errmsg("Error\n!! mlx_new_window fail !!");
 }
 
-/* Intialize scene struct. If malloc fails -> errorexit! */
+/* Intialize scene struct. If malloc fails -> errorexit! Also setting subsample
+ * to 10 here for a fluent first look at the scene. */
 t_scene	*init_scene(void)
 {
 	t_scene	*scene;
@@ -49,5 +50,6 @@ t_scene	*init_scene(void)
 	scene->objects = NULL;
 	scene->alight = NULL;
 	scene->cam = NULL;
+	scene->subsample = 10;
 	return (scene);
 }
