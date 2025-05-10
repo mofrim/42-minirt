@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:18:34 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/08 09:50:34 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 11:53:53 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,13 @@ static void	append_from_file(char **file_content, char *buf)
 	free(temp);
 }
 
-/* Read the scene file from path. */
+/**
+ * Read the scene file from path.
+ *
+ * ft_callocing FILE_BUFSIZE + 1 is important here because, if there was a file
+ * that was bigger than FILE_BUFSIZE bytes buf would not be 0-terminated. This
+ * would lead to ft_strjoin reading past the end of allocated mem for buf.
+ * */
 char	*read_file(char *filename)
 {
 	int		fd;
@@ -64,7 +70,7 @@ char	*read_file(char *filename)
 	if (fd == -1)
 		return (NULL);
 	file_content = ft_strdup("");
-	buf = ft_calloc(FILE_BUFSIZE, sizeof(char));
+	buf = ft_calloc(FILE_BUFSIZE + 1, sizeof(char));
 	nullcheck(buf, "read_file()");
 	bytes_read = read(fd, buf, FILE_BUFSIZE);
 	if (bytes_read == -1)
