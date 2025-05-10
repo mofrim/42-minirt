@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xpm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 21:45:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/22 11:38:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 20:06:19 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ int				put_pixel_xpm(t_xpm_canvas *xc, int x, int y, t_colr colr);
 void			raytrace_xpm(t_mrt mrt);
 
 #endif
-

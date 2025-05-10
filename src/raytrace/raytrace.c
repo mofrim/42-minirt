@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:23:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/02 08:44:13 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/10 20:02:21 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_colr	traceray(t_scene scene, t_v3 ray_dir)
 	t_colr		colr_at_hitpoint;
 
 	intersec = intersect_ray_objs(scene.cam->pos, ray_dir, \
-			(t_ray_minmax){VIEWZ, INF}, scene.objects);
+(t_ray_minmax){VIEWZ, INF}, scene.objects);
 	hitpoint = v3_add_vec(scene.cam->pos, v3_mult(ray_dir, intersec.t));
 	colr_at_hitpoint = get_object_colr(scene, intersec.obj, hitpoint);
 	return (colr_at_hitpoint);

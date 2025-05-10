@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   circle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 14:40:53 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:01:26 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ double	circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	if (v3_dot(ray_dir, c.normal) == 0)
 		return (INF);
 	t = (v3_dot(c.normal, c.center) - v3_dot(origin, c.normal)) / \
-		v3_dot(ray_dir, c.normal);
+v3_dot(ray_dir, c.normal);
 	x = v3_add_vec(origin, v3_mult(ray_dir, t));
 	if (v3_norm(v3_add_vec(x, v3_mult(c.center, -1))) > c.r)
 		return (INF);

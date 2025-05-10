@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_ray_obj.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:29:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/28 14:56:05 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:41:14 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ double	intersect_ray_single_obj(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 				*(t_triangle *)obj->obj));
 	else if (obj->type == CYLINDER)
 		return (cylinder_intersect_ray(origin, ray_dir, rp, obj->obj));
-	// else if (obj->type == PLANE) // Make sure plane is handled if implemented
-		// return (plane_intersect_ray(origin, ray_dir, rp, obj->obj));
+	else if (obj->type == PLANE)
+		return (plane_intersect_ray(origin, ray_dir, rp, obj->obj));
 	return (0);
 }

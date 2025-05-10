@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 15:09:18 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:11:18 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ t_v3			cam_get_new_pos(t_camera *cam, t_dirs dir, double step);
 t_v3			cam_update_orient(t_camera cam);
 t_quad_sol		solve_quadratic(double a, double b, double c);
 
-
 /********** UI & Event Handlers. **********/
 
 int				close_btn_handler(t_mrt *mrt);
@@ -208,9 +207,14 @@ double			triangle_intersect_ray(t_v3 origin, t_v3 ray_dir,
 					t_ray_minmax rp, t_triangle tri);
 t_colr			triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hitpoint);
 
-double			cylinder_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
-					t_cylinder *cyl);
-t_colr			cylinder_get_colr(t_scene scene, t_objlst cylobj, t_v3 hitpoint);
+double			cylinder_intersect_ray(t_v3 origin, t_v3 ray_dir,
+					t_ray_minmax rp, t_cylinder *cyl);
+t_colr			cylinder_get_colr(t_scene scene, t_objlst cylobj,
+					t_v3 hitpoint);
+
+double			plane_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+					t_plane *plane);
+t_colr			plane_get_colr(t_scene scene, t_objlst pobj, t_v3 hitpoint);
 
 /********** Color stuff. **********/
 

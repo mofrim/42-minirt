@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_xtra.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:47:27 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/05 15:48:32 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:01:06 by zrz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,3 @@ bool	is_within_bounds(t_cylinder *cyl, t_v3 q)
 	proj = v3_dot(q_minus_p1, cyl->axis);
 	return (proj >= 0 && proj <= cyl->height);
 }
-
-	// Check if projection onto axis is between 0 and height
-	// Note: Using >= 0 and <= height includes hits exactly on the cap edges
-	// Use > 0 and < height if caps are handled entirely separately.
-	// The logic below assumes caps are handled separately, so use > and <.
-	// return (proj > EPSILON && proj < cyl->height - EPSILON); // Using epsilon
