@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 09:53:14 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/11 11:26:24 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,18 @@ static double	subtriag_area_sum(t_v3 x, t_triangle tri)
 // intersection would be to calculate the distance from the triag center and
 // then compare to the circle radius.
 double	triangle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
-		t_triangle tri)
+		t_triangle *tri)
 {
 	t_v3	x;
 	double	t;
 	double	rn;
 
-	rn = v3_dot(ray_dir, tri.normal);
+	rn = v3_dot(ray_dir, tri->normal);
 	if (rn == 0)
 		return (INF);
-	t = (tri.potdn - v3_dot(origin, tri.normal)) / rn;
+	t = (tri->potdn - v3_dot(origin, tri->normal)) / rn;
 	x = v3_add_vec(origin, v3_mult(ray_dir, t));
-	if (subtriag_area_sum(x, tri) - tri.area > EPS)
+	if (subtriag_area_sum(x, *tri) - tri->area > EPS)
 		return (INF);
 	if (rp.tmin <= t && t < rp.tmax)
 		return (t);

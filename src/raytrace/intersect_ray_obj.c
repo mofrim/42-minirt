@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:29:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/11 10:28:59 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/11 11:29:03 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,17 @@ t_intersec	intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 
 /* Generalized ray obj intersection function. Dispatches to the specific object
  * type intersection function. */
-// TODO homegenize func params (maybe all obj->obj)
 double	intersect_ray_single_obj(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_objlst *obj)
 {
 	if (obj->type == SPHERE)
 		return (sphere_intersect_ray(origin, ray_dir, rp, obj->obj));
 	else if (obj->type == CIRCLE)
-		return (circle_intersect_ray(origin, ray_dir, rp,
-				*(t_circle *)obj->obj));
+		return (circle_intersect_ray(origin, ray_dir, rp, obj->obj));
 	else if (obj->type == TRIANGLE)
-		return (triangle_intersect_ray(origin, ray_dir, rp,
-				*(t_triangle *)obj->obj));
+		return (triangle_intersect_ray(origin, ray_dir, rp, obj->obj));
 	else if (obj->type == HYPER)
-		return (hyper_intersect_ray(origin, ray_dir, rp,
-				*(t_hyper *)obj->obj));
+		return (hyper_intersect_ray(origin, ray_dir, rp, obj->obj));
 	else if (obj->type == CYLINDER)
 		return (cylinder_intersect_ray(origin, ray_dir, rp, obj->obj));
 	else if (obj->type == PLANE)

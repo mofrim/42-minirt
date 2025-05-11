@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:41:08 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 09:40:32 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/11 11:28:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ double	hyper_caps_intersect(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
  * returns the closer one.
  */
 double	hyper_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
-		t_hyper hyp)
+		t_hyper *hyp)
 {
 	double	t;
 	double	tcap;
 
-	t = hyper_boloid_intersect(origin, ray_dir, rp, hyp);
-	tcap = hyper_caps_intersect(origin, ray_dir, rp, hyp);
+	t = hyper_boloid_intersect(origin, ray_dir, rp, *hyp);
+	tcap = hyper_caps_intersect(origin, ray_dir, rp, *hyp);
 	if (tcap < t)
 		return (tcap);
 	return (t);
@@ -58,8 +58,8 @@ double	hyper_caps_intersect(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	c2.r = c1.r;
 	c2.r2 = c1.r2;
 	c2.normal = v3_mult(hyp.axis, -1);
-	t1 = circle_intersect_ray(origin, ray_dir, rp, c1);
-	t2 = circle_intersect_ray(origin, ray_dir, rp, c2);
+	t1 = circle_intersect_ray(origin, ray_dir, rp, &c1);
+	t2 = circle_intersect_ray(origin, ray_dir, rp, &c2);
 	if (rp.tmin < t1 && t1 < rp.tmax && (t1 < t2 || \
 !(rp.tmin < t2 && t2 < rp.tmax)))
 		return (t1);

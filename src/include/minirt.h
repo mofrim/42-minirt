@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/11 10:20:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/11 11:26:50 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,15 +184,15 @@ t_colr			sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit);
 t_colr			get_scolr_sphere(t_sphere s, t_v3 hp);
 
 double			circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
-					t_circle circle);
+					t_circle *circle);
 t_colr			circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hit);
 
 double			triangle_intersect_ray(t_v3 origin, t_v3 ray_dir,
-					t_ray_minmax rp, t_triangle tri);
+					t_ray_minmax rp, t_triangle *tri);
 t_colr			triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hit);
 
 double			hyper_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
-					t_hyper hyp);
+					t_hyper *hyp);
 t_colr			hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit);
 t_mtrx			get_rotmtrx_hyper(t_v3 axis, double ab, double c);
 

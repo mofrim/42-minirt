@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:02:15 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/10 19:57:00 by zrz              ###   ########.fr       */
+/*   Updated: 2025/05/11 11:30:03 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ double	intersect_caps_circles(t_cyl_intersect_params *params)
 
 	setup_cap_as_circle(&cap_circle_bottom, params, 0);
 	t_hit_bottom = circle_intersect_ray(params->origin, params->ray_dir, \
-params->rp, cap_circle_bottom);
+params->rp, &cap_circle_bottom);
 	setup_cap_as_circle(&cap_circle_top, params, 1);
 	t_hit_top = circle_intersect_ray(params->origin, params->ray_dir, \
-params->rp, cap_circle_top);
+params->rp, &cap_circle_top);
 	closest_t_cap = INF;
 	if (t_hit_bottom > params->rp.tmin && t_hit_bottom < params->rp.tmax)
 		closest_t_cap = t_hit_bottom;

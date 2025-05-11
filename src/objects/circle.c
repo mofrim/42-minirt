@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 09:52:41 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/11 11:28:35 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@
  * = circle normal is to be solved. This is all that is done in here.
  */
 double	circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
-		t_circle c)
+		t_circle *c)
 {
 	t_v3	x;
 	double	t;
 
-	if (v3_dot(ray_dir, c.normal) == 0)
+	if (v3_dot(ray_dir, c->normal) == 0)
 		return (INF);
-	t = (v3_dot(c.normal, c.center) - v3_dot(origin, c.normal)) / \
-v3_dot(ray_dir, c.normal);
+	t = (v3_dot(c->normal, c->center) - v3_dot(origin, c->normal)) / \
+v3_dot(ray_dir, c->normal);
 	x = v3_add_vec(origin, v3_mult(ray_dir, t));
-	if (v3_norm(v3_minus_vec(x, c.center)) > c.r)
+	if (v3_norm(v3_minus_vec(x, c->center)) > c->r)
 		return (INF);
 	if (rp.tmin <= t && t < rp.tmax)
 		return (t);
