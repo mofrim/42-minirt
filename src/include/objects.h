@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/10 11:38:36 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/11 10:21:58 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,23 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_v3	center;
+	t_v3	p1;		//center of the first cap circle
+	t_v3	p2;		//center of the second cap circle
 	t_v3	axis;
-	double	radius;
-	double	height;
+	double	r;		//radius
+	double	r_squared;
+	double	height;	// p2 - p1 basically
 	t_colr	colr;
 	float	spec;
 }	t_cylinder;
+
+// Helper struct for quadratic equation results
+typedef struct s_quad_sol
+{
+	double	t1;
+	double	t2;
+	double	disc;
+}	t_quad_sol;
 
 /* pop = Point On Plane :) */
 typedef struct s_plane
@@ -210,5 +221,50 @@ t_objlst	*objlst_last(t_objlst *head);
 void		objlst_add_back(t_objlst **head, t_objlst *newend);
 void		objlst_clear(t_mrt mrt, t_objlst *lst);
 void		objlst_print(t_objlst *lst);
+
+/********** Cylinder Utilities **********/
+
+// Parameters for cylinder intersection calculations.
+typedef struct s_cyl_intersect_params
+{
+	t_v3			origin;
+	t_v3			ray_dir;
+	t_cylinder		*cyl;
+	t_ray_minmax	rp;
+}	t_cyl_intersect_params;
+
+// Coefficients for the quadratic equation
+typedef struct s_quad_coeffs
+{
+	double	a;
+	double	b;
+	double	c;
+}	t_quad_coeffs;
+
+/*
+ * Structure to hold parameters for normal calculation at a hit point.
+ * cyl: Pointer to the cylinder object.
+ * hit_point: The 3D coordinate of the intersection.
+ * incident_ray_dir: Direction of the ray that hit the cylinder.
+ * is_cap_hit: Flag indicating if the hit was on a cap (useful for normal).
+ * cap_normal_idx: If is_cap_hit, indicates which cap (e.g., 0 for p1, 1 for p2).
+*/
+typedef struct s_cyl_normal_params
+{
+	t_cylinder	*cyl;
+	t_v3		hit_point;
+	t_v3		incident_ray_dir;
+	int			is_cap_hit;
+	int			cap_normal_idx;
+}	t_cyl_normal_params;
+
+/* From cylinder_body.c */
+double		calculate_body_intersection_t(t_cyl_intersect_params *params);
+
+/* From cylinder_caps.c */
+double		intersect_caps_circles(t_cyl_intersect_params *params);
+
+/* From cylinder_normal.c */
+t_v3		calculate_cylinder_normal_at_hit(t_cyl_normal_params *params);
 
 #endif

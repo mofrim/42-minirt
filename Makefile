@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/10 19:21:35 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/11 10:54:11 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,13 @@ SRCS		=	main.c \
 					parse_texture.c \
 					show_xpm.c \
 					read_tex_nmap.c \
-					sphere_get_scolr.c
+					sphere_get_scolr.c \
+					cylinder_body.c \
+					cylinder_caps.c \
+					cylinder_color.c \
+					cylinder_intersect.c \
+					cylinder_normal.c \
+					plane.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

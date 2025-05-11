@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/10 17:52:34 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/11 10:20:27 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,15 @@ double			hyper_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 					t_hyper hyp);
 t_colr			hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit);
 t_mtrx			get_rotmtrx_hyper(t_v3 axis, double ab, double c);
+
+double			cylinder_intersect_ray(t_v3 origin, t_v3 ray_dir,
+					t_ray_minmax rp, t_cylinder *cyl);
+t_colr			cylinder_get_colr(t_scene scene, t_objlst cylobj,
+					t_v3 hitpoint);
+
+double			plane_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+					t_plane *plane);
+t_colr			plane_get_colr(t_scene scene, t_objlst pobj, t_v3 hitpoint);
 
 /********** Color stuff. **********/
 

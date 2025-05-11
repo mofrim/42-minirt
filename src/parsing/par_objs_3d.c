@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   par_objs_3d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/10 12:43:42 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/11 11:11:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,27 @@ t_sphere	*parse_sphere(t_tokenizer *tok)
 t_cylinder	*parse_cylinder(t_tokenizer *tok)
 {
 	t_cylinder	*cyl;
+	t_v3		half_h_vec;
 
 	cyl = malloc(sizeof(t_cylinder));
 	if (!cyl)
 		return (NULL);
 	cyl->center = parse_v3(tok);
 	cyl->axis = parse_v3(tok);
-	if (v3_norm(cyl->axis) == 0)
-		printerr_set_invalid("cylinder axis norm == 0", &tok->valid);
-	cyl->radius = parse_pos_num(tok);
+	cyl->r = parse_pos_num(tok);
 	cyl->height = parse_pos_num(tok);
 	cyl->colr = parse_color(tok);
-	cyl->spec = parse_pos_num_maybe(tok);
+	cyl->axis = v3_normalize(cyl->axis);
+	half_h_vec = v3_mult(cyl->axis, cyl->height / 2.0);
+	cyl->p1 = v3_minus_vec(cyl->center, half_h_vec);
+	cyl->p2 = v3_add_vec(cyl->center, half_h_vec);
+	cyl->r_squared = cyl->r * cyl->r;
+	if (v3_norm(cyl->axis) == 0)
+		printerr_set_invalid("cylinder axis norm == 0", &tok->valid);
+	if (cyl->r <= 0)
+		printerr_set_invalid("cylinder radius <= 0", &tok->valid);
+	if (cyl->height <= 0)
+		printerr_set_invalid("cylinder height <= 0", &tok->valid);
 	return (cyl);
 }
 
