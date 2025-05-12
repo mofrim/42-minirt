@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/11 10:54:11 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/12 20:15:00 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,7 @@ SRCS		=	main.c \
 					show_xpm.c \
 					read_tex_nmap.c \
 					sphere_get_scolr.c \
+					sphere_get_normal.c \
 					cylinder_body.c \
 					cylinder_caps.c \
 					cylinder_color.c \
