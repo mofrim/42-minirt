@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/13 22:22:23 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/14 19:49:15 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_sphere
 	t_img	*tex_img;
 	t_img	*nmap_img;
 	bool	bump;
+	float	bumpiness;
 }	t_sphere;
 
 typedef struct s_cylinder

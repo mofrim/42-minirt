@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 22:34:40 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/14 19:39:50 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/14 19:50:48 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,13 @@ t_v3	sphere_bump(t_v3 n, t_sphere s)
 	double	dhdv;
 	double	u;
 	double	v;
-	double	bump_strength;
 
 	n = v3_normalize(v3_minus_vec(n, s.center));
 	u = (atan2(n.z, n.x) + M_PI) / (2 * M_PI);
 	v = acos(n.y) / M_PI;
-	bump_strength = 0.05;
-	dhdu = bump_strength * s.tex_img->width * \
+	dhdu = s.bumpiness * s.tex_img->width * \
 (h(u + 1.0 / s.tex_img->width, v, s) - h(u, v, s));
-	dhdv = bump_strength * s.tex_img->height * \
+	dhdv = s.bumpiness * s.tex_img->height * \
 (h(u, v + 1.0 / s.tex_img->height, s) - h(u, v, s));
 	return (get_bumped_normal(n, dhdu, dhdv));
 }
@@ -94,14 +92,13 @@ t_v3	sphere_bump(t_v3 n, t_sphere s)
 // 	double	v;
 // 	double	dhdu;
 // 	double	dhdv;
-// 	double	bump_strength = 0.5;
 //
 // 	hp = v3_normalize(v3_minus_vec(hp, s.center));
 // 	u = (atan2(hp.z, hp.x) + M_PI) / (2 * M_PI);
 // 	v = acos(hp.y) / M_PI;
-// 	dhdu = bump_strength * s.tex_img->width *
+// 	dhdu = s.bumpiness * s.tex_img->width *
 // 	h(u + 1.0 / s.tex_img->width, v, s) - h(u, v, s);
-// 	dhdv = bump_strength * s.tex_img->height *
+// 	dhdv = s.bumpiness * s.tex_img->height *
 // 	h(u, v + 1.0 / s.tex_img->height, s) - h(u, v, s);
 // 	t_v3 tangent = get_tangent(hp);
 // 	t_v3 bitangent = v3_normalize(v3_cross(hp, tangent));
