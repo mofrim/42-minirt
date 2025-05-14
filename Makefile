@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/12 20:15:00 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/13 23:27:57 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,8 @@ SRCS		=	main.c \
 					cylinder_color.c \
 					cylinder_intersect.c \
 					cylinder_normal.c \
-					plane.c
+					plane.c \
+					sphere_bump.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

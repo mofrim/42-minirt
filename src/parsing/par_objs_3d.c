@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/11 11:11:07 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/13 22:24:42 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
  * - radius (float)
  * - color (t_colr)
  * (- specular (float) maybe...)
+ * (- bump tex tex_file_path)
+ * (- tex tex_file_path)
+ * (- nmap nmap_file_path)
+ * (- tex tex_file_path nmap nmap_file_path)
+ * (- bump tex tex_file_path nmap nmap_file_path)
  *
  * Example: "sp 0,0,0 10 255,0,0"
  * Rules: r > 0
@@ -38,6 +43,7 @@ t_sphere	*parse_sphere(t_tokenizer *tok)
 	sphere->r_squared = sphere->r * sphere->r;
 	sphere->colr = parse_color(tok);
 	sphere->spec = parse_pos_num_maybe(tok);
+	sphere->bump = parse_bump_maybe(tok);
 	sphere->tex_file = parse_texture_maybe(tok);
 	sphere->nmap_file = parse_nmap_maybe(tok);
 	if (sphere->r <= 0)

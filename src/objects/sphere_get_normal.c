@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 19:45:26 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/13 20:49:26 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/14 19:13:04 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_v3	get_normal_sphere(t_v3	hp, t_sphere s)
 	t_v3			normal;
 	t_img			*img;
 
+	if (s.bump && s.tex_img)
+		return (sphere_bump(hp, s));
 	if (!s.nmap_img)
 		return (v3_normalize(v3_minus_vec(hp, s.center)));
 	img = s.nmap_img;
@@ -51,7 +53,7 @@ static t_v3	colr_to_normal(t_colr ncolr)
 /* Simpler version avoiding trigo functions but still producing a valid tangent.
  * Should also work. The idea is that the cross prod with any vector not
  * parallel to the normal, will be in tangent space. That's it. */
-t_v3	get_tangent(t_v3 sphere_normal)
+t_v3	sphere_get_tangent(t_v3 sphere_normal)
 {
 	t_v3	vec;
 
@@ -68,7 +70,7 @@ t_v3	get_tangent_space_normal(t_v3 nmap_normal, t_v3 sphere_normal)
 	t_v3	binormal;
 	t_v3	tnormal;
 
-	tangent = v3_normalize(get_tangent(sphere_normal));
+	tangent = v3_normalize(sphere_get_tangent(sphere_normal));
 	binormal = v3_normalize(v3_cross(sphere_normal, tangent));
 	tangent = v3_mult(tangent, nmap_normal.x);
 	binormal = v3_mult(binormal, nmap_normal.y);

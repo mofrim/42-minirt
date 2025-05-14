@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:07:08 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/10 11:27:28 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/13 22:28:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	print_sphere(t_objlst obj)
 	id = obj.id;
 	s = *((t_sphere *)obj.obj);
 	printf("  [%2d] sphere { center=(%.4f,%.4f,%.4f), r=%.4f, r**2=%.4f"
-		" colr=[%d,%d,%d], tex='%p', nmap='%p' }\n",
+		" colr=[%d,%d,%d], tex='%s', nmap='%s', bump='%d' }\n",
 		id,
 		s.center.x,
 		s.center.y,
@@ -70,7 +70,8 @@ void	print_sphere(t_objlst obj)
 		s.colr.g,
 		s.colr.b,
 		s.tex_file,
-		s.nmap_file);
+		s.nmap_file,
+		s.bump);
 }
 
 void	print_circle(t_objlst obj)

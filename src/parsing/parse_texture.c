@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 10:20:54 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/10 12:50:04 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/13 22:21:31 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,23 @@ toksplit[1])
 	if (toksplit)
 		ft_freesplit(&toksplit);
 	return (NULL);
+}
+
+/* Only parse "bump" if followed by "tex". */
+bool	parse_bump_maybe(t_tokenizer *tok)
+{
+	char	**toksplit;
+
+	toksplit = get_tokstr_split(tok);
+	if (toksplit && toksplit[0] && !ft_strcmp("bump", toksplit[0]) && \
+toksplit[1] && !ft_strcmp("tex", toksplit[1]))
+	{
+		skip_whitespace(tok);
+		tok->pos += ft_strlen(toksplit[0]);
+		ft_freesplit(&toksplit);
+		return (true);
+	}
+	if (toksplit)
+		ft_freesplit(&toksplit);
+	return (false);
 }

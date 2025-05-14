@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/10 10:49:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/13 22:21:57 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ t_token		*parse_keyword(t_tokenizer *tokenizer);
 t_token		*parse_number_token(t_tokenizer *tokenizer);
 char		*parse_texture_maybe(t_tokenizer *tok);
 char		*parse_nmap_maybe(t_tokenizer *tok);
+bool		parse_bump_maybe(t_tokenizer *tok);
 
 // Helper functions for tokenizing
 void		skip_whitespace(t_tokenizer *tokenizer);
