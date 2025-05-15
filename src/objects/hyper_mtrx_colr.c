@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 20:50:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 09:55:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 10:31:19 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_colr	hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit)
  * doing when we mtrx_prod with the returned matrix is: we transform the vector
  * into this special bolo-coord-system then we apply the bolo matrix and
  * afterwards we transform back the result. */
-t_mtrx	get_rotmtrx_hyper(t_v3 axis, double ab, double c)
+t_mtrx	hyper_get_rotmtrx(t_v3 axis, double ab, double c)
 {
 	t_v3	rot_axis;
 	double	rot_angle;

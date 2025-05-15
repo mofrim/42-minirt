@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 10:20:54 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/14 19:55:40 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 10:34:37 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ toksplit[1])
 	return (NULL);
 }
 
-/* Only parse "bump" if followed by "tex". */
+/* Only parse "bump" if followed by the "bumpiness" float number and "tex". */
 bool	parse_bump_maybe(t_tokenizer *tok)
 {
 	char	**toksplit;

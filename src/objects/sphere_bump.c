@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 22:34:40 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/14 19:50:48 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 10:29:01 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ t_colr	get_colr_uv(double u, double v, t_img *img)
 	return (c);
 }
 
-/* Our height function atm Different stuff is thinkable here. */
-double	h(double u, double v, t_sphere s)
+/* Our height function atm Different stuff is thinkable here. This just adds up
+ * all RGB values and normalizes the result to [0,1]. */
+double	get_height(double u, double v, t_sphere s)
 {
 	t_colr	c;
 
@@ -51,6 +52,7 @@ double	h(double u, double v, t_sphere s)
 	return ((c.r + c.g + c.b) / (3 * 255.0f));
 }
 
+/* Get the pertubated normal */
 static t_v3	get_bumped_normal(t_v3 n, double dhdu, double dhdv)
 {
 	t_v3	tangent;
@@ -66,7 +68,8 @@ static t_v3	get_bumped_normal(t_v3 n, double dhdu, double dhdv)
 }
 
 /* The main bump mapping function using the surface normal pertubation through
- * simple substraction of scaled tangent and bitangent. */
+ * simple substraction of scaled tangent and bitangent. The scale factor is the
+ * "derivative" of the height function in u and v dir. */
 t_v3	sphere_bump(t_v3 n, t_sphere s)
 {
 	double	dhdu;
@@ -78,9 +81,9 @@ t_v3	sphere_bump(t_v3 n, t_sphere s)
 	u = (atan2(n.z, n.x) + M_PI) / (2 * M_PI);
 	v = acos(n.y) / M_PI;
 	dhdu = s.bumpiness * s.tex_img->width * \
-(h(u + 1.0 / s.tex_img->width, v, s) - h(u, v, s));
+(get_height(u + 1.0 / s.tex_img->width, v, s) - get_height(u, v, s));
 	dhdv = s.bumpiness * s.tex_img->height * \
-(h(u, v + 1.0 / s.tex_img->height, s) - h(u, v, s));
+(get_height(u, v + 1.0 / s.tex_img->height, s) - get_height(u, v, s));
 	return (get_bumped_normal(n, dhdu, dhdv));
 }
 

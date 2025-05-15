@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_get_scolr_normal.c                          :+:      :+:    :+:   */
+/*   sphere_get_scolr.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 17:49:22 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/12 19:49:59 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 10:29:25 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  *
  * Here all the u/v trafo is happening among other things.
  */
-t_colr	get_scolr_sphere(t_sphere s, t_v3 hp)
+t_colr	sphere_get_scolr(t_sphere s, t_v3 hp)
 {
 	double			u;
 	double			v;
