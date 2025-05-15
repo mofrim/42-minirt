@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:31:00 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/03 14:18:21 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 15:52:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #ifndef COLORS_H
 # define COLORS_H
+
+# include <stdint.h>
 
 # define ALICE_BLUE           "#f0f8ff" // 240,248,255
 # define ANTIQUE_WHITE        "#faebd7" // 250,235,215
@@ -161,5 +163,22 @@
 # define WHITE_SMOKE          "#f5f5f5" // 245,245,245
 # define YELLOW               "#ffff00" // 255,255,0
 # define YELLOW_GREEN         "#9acd32" // 154,205,50
+
+typedef struct s_colr
+{
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+	float	i;
+}	t_colr;
+
+/* Colr struct which can hold bigger values. For accumulating colr f.ex. */
+typedef struct s_colr_int
+{
+	int		r;
+	int		g;
+	int		b;
+	float	i;
+}	t_colr_int;
 
 #endif

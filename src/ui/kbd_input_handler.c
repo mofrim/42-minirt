@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:49:56 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 11:55:36 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 15:39:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	handle_cam_dir_keys(int key, t_mrt mrt);
 void	handle_amb_bright(int key, t_mrt mrt);
 void	handle_objlst_print(int key, t_mrt mrt);
 void	handle_export(int key, t_mrt mrt);
+void	handle_hq(int key, t_mrt mrt);
 
+// FIXME explain!!!
 static bool	is_autorep_key(int key)
 {
 	if (key == KEY_LCBRACE || key == KEY_RCBRACE || key == KEY_1 || \
@@ -32,6 +34,7 @@ key == KEY_W || key == KEY_S || key == KEY_A || key == KEY_D)
 	return (false);
 }
 
+// FIXME comment!!!
 int	kbd_press_handler(int key, t_mrt *mrt)
 {
 	if (is_autorep_key(key))
@@ -49,6 +52,7 @@ int	kbd_press_handler(int key, t_mrt *mrt)
 	handle_quit_destroy_keys(key, mrt);
 	handle_export(key, *mrt);
 	handle_objlst_print(key, *mrt);
+	handle_hq(key, *mrt);
 	return (0);
 }
 

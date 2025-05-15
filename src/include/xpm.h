@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 21:45:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/22 11:38:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 15:45:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_xpm_canvas
 t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx);
 int				put_pixel_xpm(t_xpm_canvas *xc, int x, int y, t_colr colr);
 void			raytrace_xpm(t_mrt mrt);
+void			raytrace_xpm_aa(t_mrt mrt);
 
 #endif
 

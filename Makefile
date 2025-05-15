@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/13 23:27:57 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/15 15:45:19 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,7 +97,9 @@ SRCS		=	main.c \
 					cylinder_intersect.c \
 					cylinder_normal.c \
 					plane.c \
-					sphere_bump.c
+					sphere_bump.c \
+					raytrace_aa.c \
+					canvas2viewport_traceray.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

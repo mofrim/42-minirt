@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 10:28:55 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 15:45:32 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,16 @@ void	handle_export(int key, t_mrt mrt)
 		ft_printf("exporting to scene.ppm");
 		if (export_ppm(*mrt.xc) != -1)
 			ft_printf(" done!\n");
+	}
+}
+
+void	handle_hq(int key, t_mrt mrt)
+{
+	if (key == KEY_H)
+	{
+		ft_printf("-> antialiasing");
+		mlx_clear_window(mrt.mlx, mrt.win);
+		show_sidebar(mrt);
+		raytrace_xpm_aa(mrt);
 	}
 }

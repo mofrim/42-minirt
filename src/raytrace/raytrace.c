@@ -6,13 +6,13 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:23:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/02 18:25:02 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 10:54:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_v3	canvas2viewport(int cx, int cy, t_camera cam);
+t_v3	canvas2viewport(double cx, double cy, t_camera cam);
 t_colr	traceray(t_scene scene, t_v3 ray_dir);
 
 /**

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/14 19:49:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 15:10:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "v3.h"
 # include "mtrx.h"
-# include <stdint.h>
+# include "colors.h"
 # include <stdbool.h>
 
 /* For t_img. */
@@ -28,14 +28,6 @@ typedef struct s_mrt	t_mrt;
  * - l = 0 -> color is black
  * - 0 < l <= 0.5 -> colr is darker or at normal brightness at l = 0.5
  * - 0.5 < l <= 1.0 -> colr is brighter with being white at l = 1.0 */
-typedef struct s_colr
-{
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	float	i;
-}	t_colr;
-
 /* Object structs */
 typedef enum e_obj
 {
@@ -260,6 +252,7 @@ typedef struct s_cyl_normal_params
 	int			cap_normal_idx;
 }	t_cyl_normal_params;
 
+// FIXME: move all object funcs in here
 /* From cylinder_body.c */
 double		calculate_body_intersection_t(t_cyl_intersect_params *params);
 

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/10 12:41:18 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 15:20:42 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,8 @@ t_scene	*init_scene(void)
 	scene->alight = NULL;
 	scene->cam = NULL;
 	scene->subsample = 10;
+	scene->supersample = false;
+	scene->samples_ppx = 4;
+	scene->samples_ppx_half = 2;
 	return (scene);
 }

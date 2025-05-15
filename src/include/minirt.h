@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 10:31:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 15:32:54 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ typedef struct s_scene
 	t_alight	*alight;
 	t_objlst	*objects;
 	int			subsample;
+	bool		supersample;
+	int			samples_ppx;
+	int			samples_ppx_half;
 }	t_scene;
 
 /* A pixel on our screen. */
@@ -170,6 +173,8 @@ int				export_ppm(t_xpm_canvas xc);
 /********** Trace the rays. **********/
 
 void			raytrace(t_mrt mrt);
+t_colr			traceray(t_scene scene, t_v3 ray_dir);
+t_v3			canvas2viewport(double cx, double cy, t_camera cam);
 double			intersect_ray_single_obj(t_v3 origin, t_v3 ray_dir,
 					t_ray_minmax rp, t_objlst *obj);
 t_intersec		intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
