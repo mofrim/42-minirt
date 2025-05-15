@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 15:32:54 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 16:40:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_mrt
 	t_xpm_canvas	*xc;
 	bool			autorep;
 	int				last_key;
+	int				std_text_colr;
 }	t_mrt;
 
 /* Directions for moving the camera. */

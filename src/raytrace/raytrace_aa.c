@@ -6,13 +6,13 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:23:55 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 15:45:02 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 17:19:14 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void	supersample_px(t_colr_int *acc, double x, double y, t_scene scene)
+static void	accumulate_colr(t_colr_int *acc, double x, double y, t_scene scene)
 {
 	t_v3	ray_dir;
 	t_colr	px_colr;
@@ -42,13 +42,14 @@ static t_colr	supersample_pixel(int cx, int cy, t_scene scene)
 		{
 			x_setoff = cx + (double)i / scene.samples_ppx;
 			y_setoff = cy + (double)j / scene.samples_ppx;
-			supersample_px(&acc, x_setoff, y_setoff, scene);
+			accumulate_colr(&acc, x_setoff, y_setoff, scene);
 		}
 	}
-	acc.r /= (scene.samples_ppx + 1) * (scene.samples_ppx + 1);
-	acc.g /= (scene.samples_ppx + 1) * (scene.samples_ppx + 1);
-	acc.b /= (scene.samples_ppx + 1) * (scene.samples_ppx + 1);
-	acc.i /= (scene.samples_ppx + 1) * (scene.samples_ppx + 1);
+	i = (scene.samples_ppx + 1) * (scene.samples_ppx + 1);
+	acc.r /= i;
+	acc.g /= i;
+	acc.b /= i;
+	acc.i /= i;
 	return ((t_colr){acc.r, acc.g, acc.b, acc.i});
 }
 

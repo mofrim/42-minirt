@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:35:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/15 16:26:51 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 16:49:31 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	setup_scene(t_mrt mrt)
 	if (!scene->objects)
 		ft_printf("Warning: No objects in scene!\n");
 	mlx_string_put(mrt.mlx, mrt.win, WINX / 2 - 100, WINY / 2,
-		rgb_to_int("00ff00"), "Loading Jose's & Mofrim's miniRT...");
+		rgb_to_int(GREEN), "Loading Jose's & Mofrim's miniRT...");
 	read_tex_nmap(mrt);
 }
 

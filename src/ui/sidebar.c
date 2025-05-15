@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 12:10:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 16:45:25 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,18 @@ void	show_sidebar(t_mrt mrt)
 	int	i;
 
 	draw_sidebar_seperator(mrt);
-	mlx_string_put(mrt.mlx, mrt.win, 15, 20, rgb_to_int("00ff00"),
+	mlx_string_put(mrt.mlx, mrt.win, 15, 20, rgb_to_int(GREEN),
 		"Jose's & Mofrim's miniRT");
 	i = 2;
 	show_keys(mrt, &i);
 	i += 2;
 	show_mapinfo(mrt, &i);
 	i += 2;
-	print_menu_text(mrt, 15, 20 + (++i) * 15, "-- current map params --");
+	print_menu_text(mrt, 15, 20 + (++i) * 15, "-- current scene params --");
 	i++;
 	print_mapinfo(mrt, "subsample: ", mrt.scene->subsample, &i);
+	if (mrt.scene->supersample)
+		print_mapinfo(mrt, "supersample: ", mrt.scene->samples_ppx, &i);
 	if (mrt.scene->alight)
 		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->colr.i, &i);
 }
@@ -55,8 +57,8 @@ static void	draw_sidebar_seperator(t_mrt mrt)
 	i = -1;
 	while (++i < WINY)
 	{
-		put_pixel_win(mrt, (t_pxl){SIDEBAR_AREA_X, i}, "00aa00");
-		put_pixel_win(mrt, (t_pxl){SIDEBAR_AREA_X - 1, i}, "00aa00");
+		put_pixel_win(mrt, (t_pxl){SIDEBAR_AREA_X, i}, "#00aa00");
+		put_pixel_win(mrt, (t_pxl){SIDEBAR_AREA_X - 1, i}, "#00aa00");
 	}
 }
 

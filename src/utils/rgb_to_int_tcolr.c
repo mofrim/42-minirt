@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 09:00:16 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/14 15:49:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 17:22:14 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	hexchar_to_int(char c)
 	return (-1);
 }
 
-/* Converts a RGB string given as parameter f.ex. like "RRGGBB" to an integer
+/* Converts a RGB string given as parameter f.ex. like "#RRGGBB" to an integer
  * where the least siginifcant byte (the right most 8 bits) represents the
  * Blue-value,... The left-most byte is all zeroes.
  *
@@ -37,22 +37,11 @@ int	rgb_to_int(char *rgbstr)
 	int	green;
 	int	blue;
 
-	if (!ft_strlen(rgbstr) || ft_strlen(rgbstr) % 2)
+	if (ft_strlen(rgbstr) != 7)
 		return (0);
-	if (ft_strlen(rgbstr) == 2)
-	{
-		red = hexchar_to_int(rgbstr[0]) * 16 + hexchar_to_int(rgbstr[1]);
-		return (red << 16);
-	}
-	if (ft_strlen(rgbstr) == 4)
-	{
-		red = hexchar_to_int(rgbstr[0]) * 16 + hexchar_to_int(rgbstr[1]);
-		green = hexchar_to_int(rgbstr[2]) * 16 + hexchar_to_int(rgbstr[3]);
-		return (red << 16 | green << 8);
-	}
-	red = hexchar_to_int(rgbstr[0]) * 16 + hexchar_to_int(rgbstr[1]);
-	green = hexchar_to_int(rgbstr[2]) * 16 + hexchar_to_int(rgbstr[3]);
-	blue = hexchar_to_int(rgbstr[4]) * 16 + hexchar_to_int(rgbstr[5]);
+	red = hexchar_to_int(rgbstr[1]) * 16 + hexchar_to_int(rgbstr[2]);
+	green = hexchar_to_int(rgbstr[3]) * 16 + hexchar_to_int(rgbstr[4]);
+	blue = hexchar_to_int(rgbstr[5]) * 16 + hexchar_to_int(rgbstr[6]);
 	return (red << 16 | green << 8 | blue);
 }
 
