@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 17:07:28 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 17:21:47 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 21:57:33 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	reset_sidebar(t_mrt *mrt)
 	mrt->std_text_colr = old_colr;
 }
 
-void	handle_supersample_setting(int key, t_mrt *mrt)
+void	handle_supersample_ppx(int key, t_mrt *mrt)
 {
 	if (key == KEY_2)
 	{
@@ -49,6 +49,26 @@ void	handle_supersample_setting(int key, t_mrt *mrt)
 	}
 }
 
+void	handle_supersample_step(int key, t_mrt *mrt)
+{
+	if (key == KEY_4)
+	{
+		reset_sidebar(mrt);
+		mrt->scene->supersample = true;
+		if (mrt->scene->sample_step >= 2)
+			mrt->scene->sample_step--;
+		show_sidebar(*mrt);
+	}
+	if (key == KEY_5)
+	{
+		reset_sidebar(mrt);
+		mrt->scene->supersample = true;
+		if (mrt->scene->sample_step <= 99)
+			mrt->scene->sample_step++;
+		show_sidebar(*mrt);
+	}
+}
+
 void	handle_hq(int key, t_mrt *mrt)
 {
 	if (key == KEY_H)
@@ -56,6 +76,7 @@ void	handle_hq(int key, t_mrt *mrt)
 		ft_printf("-> antialiasing");
 		mrt->scene->supersample = true;
 		mlx_clear_window(mrt->mlx, mrt->win);
+		mlx_do_sync(mrt->mlx);
 		show_sidebar(*mrt);
 		raytrace_xpm_aa(*mrt);
 	}

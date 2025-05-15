@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 16:59:48 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 21:40:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static void	init_mlx_win(t_mrt *mrt)
 }
 
 /* Intialize scene struct. If malloc fails -> errorexit! Also setting subsample
- * to 10 here for a fluent first look at the scene. */
+ * to 10 here for a fluent first look at the scene. The supersampling settings
+ * are initalized to 4 and 2 which makes a good start. */
 t_scene	*init_scene(void)
 {
 	t_scene	*scene;
@@ -56,5 +57,6 @@ t_scene	*init_scene(void)
 	scene->supersample = false;
 	scene->samples_ppx = 4;
 	scene->samples_ppx_half = 2;
+	scene->sample_step = 1;
 	return (scene);
 }

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 16:40:11 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 21:40:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_scene
 	bool		supersample;
 	int			samples_ppx;
 	int			samples_ppx_half;
+	int			sample_step;
 }	t_scene;
 
 /* A pixel on our screen. */

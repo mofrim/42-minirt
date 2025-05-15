@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:23:55 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 17:19:14 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 21:40:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static t_colr	supersample_pixel(int cx, int cy, t_scene scene)
 		j = -scene.samples_ppx_half - 1;
 		while (++j <= scene.samples_ppx_half)
 		{
-			x_setoff = cx + (double)i / scene.samples_ppx;
-			y_setoff = cy + (double)j / scene.samples_ppx;
+			x_setoff = cx + scene.sample_step * (double)i / scene.samples_ppx;
+			y_setoff = cy + scene.sample_step * (double)j / scene.samples_ppx;
 			accumulate_colr(&acc, x_setoff, y_setoff, scene);
 		}
 	}
@@ -69,7 +69,7 @@ void	raytrace_xpm_aa(t_mrt mrt)
 			put_pixel_xpm(mrt.xc, cx, cy, pxcolr);
 			cy++;
 		}
-		if (!(cx % 100))
+		if (!(cx % 30))
 			ft_printf(".");
 		cx++;
 	}

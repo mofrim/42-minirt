@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 16:45:25 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 22:00:25 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	draw_sidebar_seperator(t_mrt mrt);
 static void	show_keys(t_mrt mrt, int *i);
 static void	show_mapinfo(t_mrt mrt, int *i);
+static void	show_mapparams(t_mrt mrt, int *i);
 void		print_mapinfo(t_mrt mrt, const char *txt, int prop, int *i);
 void		print_menu_text(t_mrt mrt, int x, int y, char *txt);
 void		print_mapinfo_float(t_mrt mrt, const char *txt, double prop,
@@ -41,13 +42,7 @@ void	show_sidebar(t_mrt mrt)
 	i += 2;
 	show_mapinfo(mrt, &i);
 	i += 2;
-	print_menu_text(mrt, 15, 20 + (++i) * 15, "-- current scene params --");
-	i++;
-	print_mapinfo(mrt, "subsample: ", mrt.scene->subsample, &i);
-	if (mrt.scene->supersample)
-		print_mapinfo(mrt, "supersample: ", mrt.scene->samples_ppx, &i);
-	if (mrt.scene->alight)
-		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->colr.i, &i);
+	show_mapparams(mrt, &i);
 }
 
 static void	draw_sidebar_seperator(t_mrt mrt)
@@ -95,4 +90,20 @@ static void	show_mapinfo(t_mrt mrt, int *i)
 		print_mapinfo_float(mrt, "cam_orient.y: ", mrt.scene->cam->orient.y, i);
 		print_mapinfo_float(mrt, "cam_orient.z: ", mrt.scene->cam->orient.z, i);
 	}
+}
+
+static void	show_mapparams(t_mrt mrt, int *i)
+{
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- current scene params --");
+	(*i)++;
+	print_mapinfo(mrt, "subsample: ", mrt.scene->subsample, i);
+	if (mrt.scene->supersample)
+	{
+		print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "supersample:");
+		print_mapinfo(mrt, "  ppx: ", mrt.scene->samples_ppx, i);
+		print_mapinfo(mrt, "  step: ", mrt.scene->sample_step, i);
+	}
+	if (mrt.scene->alight)
+		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->colr.i, i);
+
 }

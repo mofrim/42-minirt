@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:49:56 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 17:21:56 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/15 21:52:23 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,23 @@ void	handle_amb_bright(int key, t_mrt mrt);
 void	handle_objlst_print(int key, t_mrt mrt);
 void	handle_export(int key, t_mrt mrt);
 void	handle_hq(int key, t_mrt *mrt);
-void	handle_supersample_setting(int key, t_mrt *mrt);
+void	handle_supersample_ppx(int key, t_mrt *mrt);
+void	handle_supersample_step(int key, t_mrt *mrt);
 
-// FIXME explain!!!
+/* This function checks if the key pressed is one where autorepeat should be
+ * enabled for. */
 static bool	is_autorep_key(int key)
 {
 	if (key == KEY_LCBRACE || key == KEY_RCBRACE || key == KEY_1 || \
 key == KEY_9 || key == KEY_0 || key == KEY_EQUAL || key == KEY_MINUS || \
 key == KEY_UP || key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT || \
 key == KEY_W || key == KEY_S || key == KEY_A || key == KEY_D || \
-key == KEY_2 || key == KEY_3)
+key == KEY_2 || key == KEY_3 || key == KEY_4 || key == KEY_5)
 		return (true);
 	return (false);
 }
 
-// FIXME comment!!!
+/* All the UI key handlers. */
 int	kbd_press_handler(int key, t_mrt *mrt)
 {
 	if (is_autorep_key(key))
@@ -55,10 +57,26 @@ int	kbd_press_handler(int key, t_mrt *mrt)
 	handle_export(key, *mrt);
 	handle_objlst_print(key, *mrt);
 	handle_hq(key, mrt);
-	handle_supersample_setting(key, mrt);
+	handle_supersample_ppx(key, mrt);
+	handle_supersample_step(key, mrt);
 	return (0);
 }
 
+/**
+ * Hacky kbd release handler.
+ *
+ * Why? We wanted some keys to be auto-repeatable, f.ex. the keys for moving
+ * around in the scene. Other keys like the export key should not be
+ * auto-repeatable (only for UX reasons, which means, for saving the users from
+ * themselves ;) The problem is: when auto-repeat is activated one might think
+ * that just setting autorepeat off in a handler for a key that should not be
+ * autorepeatable would suffice. But, for some deeper X11 reasons, the
+ * autorepeatoff flag is not set before you lift the finger again once from the
+ * key. That means, for the first time you hold down a no-autorepeat key it will
+ * auto-repeat and only after release the key the autorepeatoff flag will be
+ * set. This is very disappointing. So we made up this hacky system for ensuring
+ * that non-autorep funcs won't get executed a 2nd time in a row.
+ */
 int	kbd_release_handler(int key, t_mrt *mrt)
 {
 	if (!is_autorep_key(key) && key != mrt->last_key)
