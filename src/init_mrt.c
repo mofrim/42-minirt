@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 21:40:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/18 14:23:29 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_mrt	*init_mrt(char *scene_filename)
 	mrt->autorep = false;
 	mrt->last_key = 0;
 	mrt->std_text_colr = rgb_to_int(YELLOW_GREEN);
+	mrt->rtfunc = RT_XPM;
 	return (mrt);
 }
 

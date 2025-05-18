@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 10:34:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 10:56:47 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/18 21:05:55 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	launch_ui(t_mrt mrt)
 	if (mrt.scene->alight && mrt.scene->cam)
 	{
 		printf("doing the 1st trace!\n");
-		raytrace_xpm(mrt);
+		launch_raytrace(mrt);
 		printf("done!\n");
 	}
 }

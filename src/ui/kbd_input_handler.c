@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:49:56 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 21:52:23 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/18 21:34:01 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	handle_export(int key, t_mrt mrt);
 void	handle_hq(int key, t_mrt *mrt);
 void	handle_supersample_ppx(int key, t_mrt *mrt);
 void	handle_supersample_step(int key, t_mrt *mrt);
+void	handle_rtfunc(int key, t_mrt *mrt);
 
 /* This function checks if the key pressed is one where autorepeat should be
  * enabled for. */
@@ -59,6 +60,7 @@ int	kbd_press_handler(int key, t_mrt *mrt)
 	handle_hq(key, mrt);
 	handle_supersample_ppx(key, mrt);
 	handle_supersample_step(key, mrt);
+	handle_rtfunc(key, mrt);
 	return (0);
 }
 
@@ -89,11 +91,17 @@ int	kbd_release_handler(int key, t_mrt *mrt)
 }
 
 /* Redraw window content after changes to scene have been made. */
-void	redraw_win(t_mrt mrt)
+void	redraw_win(t_mrt mrt, bool print_msg)
 {
 	mlx_clear_window(mrt.mlx, mrt.win);
 	show_sidebar(mrt);
-	raytrace_xpm(mrt);
+	if (print_msg)
+	{
+		mlx_string_put(mrt.mlx, mrt.win, WINX / 2 + 50, WINY / 2,
+			rgb_to_int(GREEN), "tracing rays...");
+		mlx_do_sync(mrt.mlx);
+	}
+	launch_raytrace(mrt);
 }
 
 void	handle_quit_destroy_keys(int key, t_mrt *mrt)

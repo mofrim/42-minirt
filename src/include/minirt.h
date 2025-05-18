@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 21:40:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/18 21:22:03 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,13 @@ typedef struct s_pxl
 	int	y;
 }	t_pxl;
 
+typedef enum e_rtfunc
+{
+	RT_PIXELPUT,
+	RT_XPM,
+	RT_PTHREAD
+}	t_rtfunc;
+
 /* The MiniRT master-struct holding all nesessary data and pointers to struct
  * needed throughout the program. */
 typedef struct s_mrt
@@ -107,6 +114,7 @@ typedef struct s_mrt
 	bool			autorep;
 	int				last_key;
 	int				std_text_colr;
+	t_rtfunc		rtfunc;
 }	t_mrt;
 
 /* Directions for moving the camera. */
@@ -169,11 +177,12 @@ int				close_btn_handler(t_mrt *mrt);
 int				kbd_release_handler(int key, t_mrt *mrt);
 int				kbd_press_handler(int key, t_mrt *mrt);
 void			show_sidebar(t_mrt mrt);
-void			redraw_win(t_mrt mrt);
+void			redraw_win(t_mrt mrt, bool print_msg);
 int				export_ppm(t_xpm_canvas xc);
 
 /********** Trace the rays. **********/
 
+void			launch_raytrace(t_mrt mrt);
 void			raytrace(t_mrt mrt);
 t_colr			traceray(t_scene scene, t_v3 ray_dir);
 t_v3			canvas2viewport(double cx, double cy, t_camera cam);

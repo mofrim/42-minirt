@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:05:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 10:59:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/18 21:24:33 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ void	handle_cam_rot_keys(int key, t_mrt mrt)
 	if (key == KEY_W)
 	{
 		update_cam_rot_orient(mrt.scene->cam, 0.075, 0);
-		redraw_win(mrt);
+		redraw_win(mrt, false);
 	}
 	else if (key == KEY_A)
 	{
 		update_cam_rot_orient(mrt.scene->cam, 0, 0.075);
-		redraw_win(mrt);
+		redraw_win(mrt, false);
 	}
 	else if (key == KEY_S)
 	{
 		update_cam_rot_orient(mrt.scene->cam, -0.075, 0);
-		redraw_win(mrt);
+		redraw_win(mrt, false);
 	}
 	else if (key == KEY_D)
 	{
 		update_cam_rot_orient(mrt.scene->cam, 0, -0.075);
-		redraw_win(mrt);
+		redraw_win(mrt, false);
 	}
 }
 
@@ -55,21 +55,21 @@ void	handle_cam_dir_keys(int key, t_mrt mrt)
 	if (key == KEY_UP)
 	{
 		move_cam_pos(*mrt.scene, FORTH, 0.4);
-		redraw_win(mrt);
+		redraw_win(mrt, false);
 	}
 	else if (key == KEY_DOWN)
 	{
 		move_cam_pos(*mrt.scene, BACK, 0.4);
-		redraw_win(mrt);
+		redraw_win(mrt, false);
 	}
 	else if (key == KEY_LEFT)
 	{
 		move_cam_pos(*mrt.scene, LEFT, 0.4);
-		redraw_win(mrt);
+		redraw_win(mrt, false);
 	}
 	else if (key == KEY_RIGHT)
 	{
 		move_cam_pos(*mrt.scene, RIGHT, 0.4);
-		redraw_win(mrt);
+		redraw_win(mrt, false);
 	}
 }

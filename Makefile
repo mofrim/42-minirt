@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/15 17:10:41 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/18 14:05:37 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -194,7 +194,10 @@ else
 	make -C ./minilibx-linux/
 endif
 
-bonus: $(NAME)
+# bonus: $(NAME)
+THREAD_NUM = $(shell cat /proc/cpuinfo | grep processor | wc -l)
+bonus:
+	echo $(THREAD_NUM)
 
 mlx: $(LIBMLX)
 

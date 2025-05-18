@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 17:12:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/18 21:35:05 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	handle_amb_bright(int key, t_mrt mrt)
 	if (key == KEY_EQUAL && mrt.scene->alight->colr.i + 0.1 <= 1.0)
 	{
 		mrt.scene->alight->colr.i += 0.1;
-		redraw_win(mrt);
+		redraw_win(mrt, false);
 	}
 	if (key == KEY_MINUS && mrt.scene->alight->colr.i - 0.1 >= 0)
 	{
 		mrt.scene->alight->colr.i -= 0.1;
-		redraw_win(mrt);
+		redraw_win(mrt, false);
 	}
 }
 
@@ -44,4 +44,24 @@ void	handle_export(int key, t_mrt mrt)
 		if (export_ppm(*mrt.xc) != -1)
 			ft_printf(" done!\n");
 	}
+}
+
+void	handle_rtfunc(int key, t_mrt *mrt)
+{
+	if (key == KEY_Z)
+	{
+		printf("-> changing rtfunc to raytrace.\n");
+		mrt->rtfunc = RT_PIXELPUT;
+	}
+	if (key == KEY_X)
+	{
+		printf("-> changing rtfunc to raytrace_xpm.\n");
+		mrt->rtfunc = RT_XPM;
+	}
+	if (BONUS && key == KEY_C)
+	{
+		printf("-> changing rtfunc to raytrace.\n");
+		mrt->rtfunc = RT_PTHREAD;
+	}
+
 }
