@@ -6,12 +6,16 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/18 21:22:03 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/19 23:34:43 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+
+# ifdef BONUS
+#  include "bonus.h"
+# endif
 
 /* all the math... */
 # include <math.h>
@@ -98,9 +102,10 @@ typedef struct s_pxl
 
 typedef enum e_rtfunc
 {
-	RT_PIXELPUT,
+	RT_PXPUT,
 	RT_XPM,
-	RT_PTHREAD
+	RT_PTHREAD_XPM,
+	RT_PTHREAD_PXPUT
 }	t_rtfunc;
 
 /* The MiniRT master-struct holding all nesessary data and pointers to struct

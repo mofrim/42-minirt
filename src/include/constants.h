@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 21:09:25 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/18 14:33:01 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/18 21:53:41 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@
 # ifndef BONUS
 #  define BONUS 0
 # endif
-# ifndef THREADNO
-#  define THREADNO 1
+# ifndef THREADS
+#  define THREADS 1
 # endif
 
 #endif

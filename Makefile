@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/18 14:05:37 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/19 23:32:52 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -194,10 +194,11 @@ else
 	make -C ./minilibx-linux/
 endif
 
-# bonus: $(NAME)
-THREAD_NUM = $(shell cat /proc/cpuinfo | grep processor | wc -l)
-bonus:
-	echo $(THREAD_NUM)
+# multithreaded raytracing as a bonus-bonus...
+THREADS = $(shell cat /proc/cpuinfo | grep processor | wc -l)
+BONUS_SRC = ./src/raytrace/raytrace_pthread_bonus.c ./src/raytrace/raytrace_thread_funcs_bonus.c
+bonus: $(SRCS) $(BONUS_SRC)
+	$(CC) -D$(BHOST) -DTHREADS=$(THREADS) -DBONUS $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $^ $(LDFLAGS) $(LIBS) -pthread
 
 mlx: $(LIBMLX)
 

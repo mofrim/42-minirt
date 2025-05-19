@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:23:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/18 21:04:58 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/19 23:39:52 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,16 @@ void	raytrace(t_mrt mrt)
 	}
 }
 
+void	raytrace_pthread(t_mrt mrt);
+
 /* Dispatch the raytracing to the function that is currently asked. */
 void	launch_raytrace(t_mrt mrt)
 {
 	if (mrt.rtfunc == RT_XPM)
 		raytrace_xpm(mrt);
-	else if (mrt.rtfunc == RT_PIXELPUT)
+	else if (mrt.rtfunc == RT_PXPUT)
 		raytrace(mrt);
-	else if (BONUS && mrt.rtfunc == RT_PTHREAD)
-		;
+	else if (THREADS > 1 && (mrt.rtfunc == RT_PTHREAD_PXPUT || \
+mrt.rtfunc == RT_PTHREAD_XPM))
+		raytrace_pthread(mrt);
 }
