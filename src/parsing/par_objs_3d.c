@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/15 10:41:20 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/19 23:51:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_sphere	*parse_sphere(t_tokenizer *tok)
  * - radius (t_colr)
  * - height (float)
  * - colr (t_colr)
+ * (- spec (float))
  *
  * Example: "cy 0,0,0 0,1,0 2 10 0,255,0"
  * Rules: |axis| > 0
@@ -79,6 +80,7 @@ t_cylinder	*parse_cylinder(t_tokenizer *tok)
 	cyl->r = parse_pos_num(tok);
 	cyl->height = parse_pos_num(tok);
 	cyl->colr = parse_color(tok);
+	cyl->spec = parse_pos_num_maybe(tok);
 	cyl->axis = v3_normalize(cyl->axis);
 	half_h_vec = v3_mult(cyl->axis, cyl->height / 2.0);
 	cyl->p1 = v3_minus_vec(cyl->center, half_h_vec);
