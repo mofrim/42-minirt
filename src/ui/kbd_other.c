@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/19 06:59:32 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/21 08:10:53 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,18 @@ void	handle_rtfunc(int key, t_mrt *mrt)
 		printf("-> changing rtfunc to raytrace_pthread_pxput.\n");
 		mrt->rtfunc = RT_PTHREAD_PXPUT;
 	}
+}
 
+void	handle_bump_nmap(int key, t_mrt *mrt)
+{
+	if (key == KEY_B)
+	{
+		mrt->scene->bump = !mrt->scene->bump;
+		redraw_win(*mrt, false);
+	}
+	if (key == KEY_N)
+	{
+		mrt->scene->nmap = !mrt->scene->nmap;
+		redraw_win(*mrt, false);
+	}
 }

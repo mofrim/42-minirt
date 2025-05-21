@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 19:45:26 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 10:29:45 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/21 08:08:57 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_v3	colr_to_normal(t_colr ncolr);
 t_v3		get_tangent_space_normal(t_v3 nmap_normal, t_v3 sphere_normal);
 
 /* Returns the normal vector on the sphere at a given hitpoint. */
-t_v3	sphere_get_normal(t_v3	hp, t_sphere s)
+t_v3	sphere_get_normal(t_v3	hp, t_sphere s, t_scene scene)
 {
 	double			u;
 	double			v;
@@ -24,9 +24,9 @@ t_v3	sphere_get_normal(t_v3	hp, t_sphere s)
 	t_v3			normal;
 	t_img			*img;
 
-	if (s.bump && s.tex_img)
+	if (scene.bump && s.bump && s.tex_img)
 		return (sphere_bump(hp, s));
-	if (!s.nmap_img)
+	if (!s.nmap_img || !scene.nmap)
 		return (v3_normalize(v3_minus_vec(hp, s.center)));
 	img = s.nmap_img;
 	hp = v3_normalize(v3_minus_vec(hp, s.center));

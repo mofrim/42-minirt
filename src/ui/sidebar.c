@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/18 21:10:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/21 08:11:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void	show_keys(t_mrt mrt, int *i)
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "wasd  = rot cam");
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "->  = move cam");
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "z,x,c  = choose rtfunc");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "b/n  = toggle bump/nmap");
 }
 
 static void	show_mapinfo(t_mrt mrt, int *i)
