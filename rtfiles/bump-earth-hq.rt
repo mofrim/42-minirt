@@ -1,0 +1,7 @@
+# the earth in HQ (kind of...) with nmap and bumpmap activated. good for showing
+# the differences via toggling on/off bump and nmap
+A 0.2 255,255,255
+C 25,0,5 -1,0,0 50
+L 20,0,5 0.5 255,255,255
+L 20,0,-5 0.4 255,255,255
+sp 0,0,0 10 255,255,255 50 bump 0.001 tex ./xpms/earth-hq.xpm nmap ./xpms/earth-hq-nmap.xpm

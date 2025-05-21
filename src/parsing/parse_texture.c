@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 10:20:54 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 10:34:37 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/21 23:52:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,25 @@ bool	parse_bump_maybe(t_tokenizer *tok)
 	if (toksplit && toksplit[0] && !ft_strcmp("bump", toksplit[0]) && \
 toksplit[1] && ft_is_unumstr(toksplit[1]) && toksplit[2] && \
 !ft_strcmp("tex", toksplit[2]))
+	{
+		skip_whitespace(tok);
+		tok->pos += ft_strlen(toksplit[0]);
+		ft_freesplit(&toksplit);
+		return (true);
+	}
+	if (toksplit)
+		ft_freesplit(&toksplit);
+	return (false);
+}
+
+/* Only parse "bump" if followed by the "bumpiness" float number and "tex". */
+bool	parse_checker_maybe(t_tokenizer *tok)
+{
+	char	**toksplit;
+
+	toksplit = get_tokstr_split(tok);
+	if (toksplit && toksplit[0] && !ft_strcmp("checker", toksplit[0]) && \
+toksplit[1] && ft_is_unumstr(toksplit[1]))
 	{
 		skip_whitespace(tok);
 		tok->pos += ft_strlen(toksplit[0]);

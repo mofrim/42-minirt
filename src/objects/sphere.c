@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/21 08:09:20 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 00:54:53 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,16 @@ t_colr	sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit)
 		hp.normal = v3_mult(hp.normal, -1);
 	colr_at_hitpoint = calculate_lights(scene, hp);
 	return (colr_at_hitpoint);
+}
+
+/* The standard u/v transformation for the sphere. The + M_PI in the atan2
+ * params is needed here because the value range of atan2 is [-pi, pi]. */
+t_uv	sphere_get_uv(t_v3 hp, t_sphere s)
+{
+	t_uv	res;
+
+	hp = v3_normalize(v3_minus_vec(hp, s.center));
+	res.u = (atan2(hp.z, hp.x) + M_PI) / (2 * M_PI);
+	res.v = acos(hp.y) / M_PI;
+	return (res);
 }

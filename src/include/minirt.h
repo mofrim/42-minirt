@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/21 08:09:12 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 00:40:54 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,21 @@ typedef struct s_v2
 	double	x2;
 }	t_v2;
 
+/* A pixel on our screen. */
+typedef struct s_pxl
+{
+	int	x;
+	int	y;
+}	t_pxl;
+
+/* The u/v coordinates. Technically the same as above two but for expressiveness
+ * sake they deserve an extra struct. */
+typedef struct s_uv
+{
+	double	u;
+	double	v;
+}	t_uv;
+
 /* The scene master struct. */
 typedef struct s_scene
 {
@@ -94,13 +109,6 @@ typedef struct s_scene
 	bool		bump;
 	bool		nmap;
 }	t_scene;
-
-/* A pixel on our screen. */
-typedef struct s_pxl
-{
-	int	x;
-	int	y;
-}	t_pxl;
 
 typedef enum e_rtfunc
 {
@@ -208,6 +216,7 @@ t_colr			sphere_get_scolr(t_sphere s, t_v3 hp);
 t_v3			sphere_get_normal(t_v3	hitpoint, t_sphere s, t_scene scene);
 t_v3			sphere_get_tangent(t_v3 sphere_normal);
 t_v3			sphere_bump(t_v3 hp, t_sphere s);
+t_uv			sphere_get_uv(t_v3 hp, t_sphere s);
 
 double			circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 					t_circle *circle);

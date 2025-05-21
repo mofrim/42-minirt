@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/19 23:51:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 00:09:28 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ t_sphere	*parse_sphere(t_tokenizer *tok)
 	sphere->r_squared = sphere->r * sphere->r;
 	sphere->colr = parse_color(tok);
 	sphere->spec = parse_pos_num_maybe(tok);
+	sphere->checker = parse_checker_maybe(tok);
+	if (sphere->checker)
+		sphere->checker_scale = parse_pos_num(tok);
 	sphere->bump = parse_bump_maybe(tok);
 	if (sphere->bump)
 		sphere->bumpiness = parse_pos_num(tok);
