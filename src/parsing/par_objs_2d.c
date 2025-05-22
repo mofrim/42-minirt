@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:11:41 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/11 11:11:42 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 01:33:25 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ t_plane	*parse_plane(t_tokenizer *tok)
 	plane->normal = parse_v3(tok);
 	plane->colr = parse_color(tok);
 	plane->spec = parse_pos_num_maybe(tok);
+	plane->checker = parse_checker_maybe(tok);
+	if (plane->checker)
+		plane->checker_scale = parse_pos_num(tok);
 	if (v3_norm(plane->normal) == 0)
 		printerr_set_invalid("plane normal norm == 0", &tok->valid);
 	return (plane);

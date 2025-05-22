@@ -6,13 +6,13 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 17:49:22 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/22 01:04:29 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 12:09:51 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_colr	sphere_get_checker(t_sphere s, t_v3 hp);
+t_colr	sphere_get_checker_colr(t_sphere s, t_v3 hp);
 t_colr	sphere_get_tex_colr(t_sphere s, t_v3 hp);
 
 /**
@@ -25,7 +25,7 @@ t_colr	sphere_get_scolr(t_sphere s, t_v3 hp)
 	if (!s.tex_img && !s.checker)
 		return (s.colr);
 	if (s.checker)
-		return (sphere_get_checker(s, hp));
+		return (sphere_get_checker_colr(s, hp));
 	return (sphere_get_tex_colr(s, hp));
 }
 
@@ -46,7 +46,7 @@ img->size_line + (int)(img->width * uv.u) * img->bpp / 8];
 }
 
 /* Return checker pattern color. */
-t_colr	sphere_get_checker(t_sphere s, t_v3 hp)
+t_colr	sphere_get_checker_colr(t_sphere s, t_v3 hp)
 {
 	t_uv	uv;
 	int		checker_u;
@@ -56,6 +56,6 @@ t_colr	sphere_get_checker(t_sphere s, t_v3 hp)
 	checker_u = floor(s.checker_scale * uv.u);
 	checker_v = floor(s.checker_scale * uv.v / 2);
 	if (((checker_u + checker_v) % 2) == 0)
-		return ((t_colr){255, 0, 0, 1.0});
-	return ((t_colr){0, 255, 0, 1.0});
+		return (colr_get_darker(s.colr));
+	return (colr_get_brightest(s.colr));
 }

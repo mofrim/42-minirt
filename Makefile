@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/19 23:32:52 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/22 01:42:04 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,7 +100,8 @@ SRCS		=	main.c \
 					sphere_bump.c \
 					raytrace_aa.c \
 					canvas2viewport_traceray.c \
-					kbd_handle_hq.c
+					kbd_handle_hq.c \
+					plane_get_scolr.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

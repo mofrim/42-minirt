@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 08:47:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/17 08:50:48 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 12:01:59 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,6 @@ void	colr_print(t_colr c, char *name)
 	printf("colr-%s: [%d, %d, %d]\n", name, c.r, c.g, c.b);
 }
 
-/* Returns the colr multiplied by its intensity. */
-t_colr	colr_apply_intns(t_colr c)
-{
-	c.r = (uint8_t)fmin(255, c.r * c.i);
-	c.g = (uint8_t)fmin(255, c.g * c.i);
-	c.b = (uint8_t)fmin(255, c.b * c.i);
-	return (c);
-}
-
 static uint8_t	min3(uint8_t x, uint8_t y, uint8_t z)
 {
 	if (x != 0 && (x < y || y == 0) && (x < z || z == 0))
@@ -47,17 +38,38 @@ static uint8_t	min3(uint8_t x, uint8_t y, uint8_t z)
 	return (z);
 }
 
-/* Get the darkest possible version of the color c. */
-t_colr	colr_get_darkest(t_colr c)
+/* Get a darker version of the color c. */
+t_colr	colr_get_darker(t_colr c)
 {
 	float	min;
 
 	min = min3(c.r, c.g, c.b) - 1;
-	if (min < 0)
-		min = 0;
-	c.r = (uint8_t)(c.r * 1 / min);
-	c.g = (uint8_t)(c.g * 1 / min);
-	c.b = (uint8_t)(c.b * 1 / min);
+	if (min <= 0)
+		min = 1;
+	c.r = (uint8_t)(c.r * 0.4);
+	c.g = (uint8_t)(c.g * 0.4);
+	c.b = (uint8_t)(c.b * 0.4);
+	c.i = 1.0;
+	return (c);
+}
+
+/* Get brightest version of a color c. Kind of... */
+t_colr	colr_get_brightest(t_colr c)
+{
+	float	min;
+	float	factor;
+	int		tmp[3];
+
+	min = min3(c.r, c.g, c.b);
+	if (min <= 0)
+		min = 1;
+	factor = 255 / min;
+	tmp[0] = c.r * factor;
+	tmp[1] = c.g * factor;
+	tmp[2] = c.b * factor;
+	c.r = tmp[0] * (tmp[0] <= 255) + 255 * (tmp[0] > 255);
+	c.g = tmp[1] * (tmp[1] <= 255) + 255 * (tmp[1] > 255);
+	c.b = tmp[2] * (tmp[2] <= 255) + 255 * (tmp[2] > 255);
 	c.i = 1.0;
 	return (c);
 }

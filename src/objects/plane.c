@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:05:01 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/11 10:56:50 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 01:42:35 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_colr	plane_get_colr(t_scene scene, t_objlst pobj, t_v3 hit)
 	p = *(t_plane *)pobj.obj;
 	hp.loc = hit;
 	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
-	hp.scolr = p.colr;
+	hp.scolr = plane_get_scolr(p, hp.loc);
 	hp.spec = p.spec;
 	hp.normal = p.normal;
 	colr_at_hitpoint = calculate_lights(scene, hp);

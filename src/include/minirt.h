@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/22 00:40:54 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 12:01:47 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,14 +239,15 @@ t_colr			cylinder_get_colr(t_scene scene, t_objlst cylobj,
 double			plane_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 					t_plane *plane);
 t_colr			plane_get_colr(t_scene scene, t_objlst pobj, t_v3 hitpoint);
+t_colr			plane_get_scolr(t_plane p, t_v3 hp);
 
 /********** Color stuff. **********/
 
 void			colr_print(t_colr c, char *name);
 t_colr			colr_mult(t_colr c, double i);
 t_colr			colr_add_light(t_colr c, t_colr l);
-t_colr			colr_get_darkest(t_colr c);
-t_colr			colr_apply_intns(t_colr c);
+t_colr			colr_get_darker(t_colr c);
+t_colr			colr_get_brightest(t_colr c);
 t_colr			hp_add_alight(t_colr sc, t_colr al);
 t_colr			hp_add_pointlight(t_hp hp, t_colr light_colr);
 t_colr			colr_add_colr(t_colr c1, t_colr c2);

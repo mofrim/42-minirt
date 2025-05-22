@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/22 00:10:59 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 01:32:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,9 @@ typedef struct s_plane
 	t_v3	normal;
 	t_colr	colr;
 	float	spec;
+	bool	checker;
+	float	checker_scale;
+
 }	t_plane;
 
 typedef struct s_circle
