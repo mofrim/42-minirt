@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raytrace_aa.c                                      :+:      :+:    :+:   */
+/*   raytrace_hq.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:23:55 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 21:40:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 23:47:04 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	accumulate_colr(t_colr_int *acc, double x, double y, t_scene scene)
 	acc->i += px_colr.i;
 }
 
-static t_colr	supersample_pixel(int cx, int cy, t_scene scene)
+t_colr	supersample_pixel(int cx, int cy, t_scene scene)
 {
 	int			i;
 	int			j;
@@ -53,7 +53,7 @@ static t_colr	supersample_pixel(int cx, int cy, t_scene scene)
 	return ((t_colr){acc.r, acc.g, acc.b, acc.i});
 }
 
-void	raytrace_xpm_aa(t_mrt mrt)
+void	raytrace_xpm_hq(t_mrt mrt)
 {
 	int		cx;
 	int		cy;

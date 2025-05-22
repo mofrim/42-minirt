@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 17:07:28 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/18 21:37:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 00:01:59 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,21 @@ void	handle_hq(int key, t_mrt *mrt)
 {
 	if (key == KEY_H)
 	{
-		ft_printf("-> supersampling");
 		mrt->scene->supersample = true;
 		mlx_clear_window(mrt->mlx, mrt->win);
 		show_sidebar(*mrt);
 		mlx_string_put(mrt->mlx, mrt->win, WINX / 2 + 50, WINY / 2,
 			rgb_to_int(GREEN), "supersampling the scene...");
 		mlx_do_sync(mrt->mlx);
-		raytrace_xpm_aa(*mrt);
+		if (BONUS)
+		{
+			ft_printf("\n-> supersampling using %d threads", THREADS);
+			raytrace_hq_pthread(*mrt);
+		}
+		else
+		{
+			ft_printf("-> supersampling");
+			raytrace_xpm_hq(*mrt);
+		}
 	}
 }

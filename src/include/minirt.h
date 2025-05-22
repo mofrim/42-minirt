@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/22 14:42:57 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 23:47:42 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ int				export_ppm(t_xpm_canvas xc);
 
 void			launch_raytrace(t_mrt mrt);
 void			raytrace(t_mrt mrt);
+t_colr			supersample_pixel(int cx, int cy, t_scene scene);
 t_colr			traceray(t_scene scene, t_v3 ray_dir);
 t_v3			canvas2viewport(double cx, double cy, t_camera cam);
 double			intersect_ray_single_obj(t_v3 origin, t_v3 ray_dir,
