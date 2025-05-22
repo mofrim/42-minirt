@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 08:47:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/22 12:01:59 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 14:09:56 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ t_colr	colr_get_darker(t_colr c)
 /* Get brightest version of a color c. Kind of... */
 t_colr	colr_get_brightest(t_colr c)
 {
-	float	min;
+	float	max;
 	float	factor;
 	int		tmp[3];
 
-	min = min3(c.r, c.g, c.b);
-	if (min <= 0)
-		min = 1;
-	factor = 255 / min;
+	max = fmaxf(c.r, fmaxf(c.g, c.b));
+	if (max <= 0)
+		max = 1;
+	factor = 255 / max;
 	tmp[0] = c.r * factor;
 	tmp[1] = c.g * factor;
 	tmp[2] = c.b * factor;

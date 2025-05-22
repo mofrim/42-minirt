@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/22 01:42:04 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/22 14:42:18 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,8 @@ SRCS		=	main.c \
 					colr_base_utils.c \
 					export_ppm.c \
 					hyper.c \
-					hyper_mtrx_colr.c \
+					hyper_mtrx_normal.c \
+					hyper_get_colr.c \
 					hyper_boloid_intersect.c \
 					objlst_print_funcs.c \
 					parse_texture.c \

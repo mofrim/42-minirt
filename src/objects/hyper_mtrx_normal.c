@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hyper_mtrx_colr.c                                  :+:      :+:    :+:   */
+/*   hyper_mtrx_normal.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 20:50:10 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 10:31:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 14:42:57 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
  * hyper in order to get the correct normal for a hyper which is not centered at
  * (0,0,0).
  */
-t_v3	get_normal_hyper(t_v3 hit, t_hyper hyp)
+t_v3	hyper_get_normal(t_v3 hit, t_hyper hyp)
 {
 	t_v3	normal;
 	t_v3	p;
@@ -47,23 +47,6 @@ sqrt(pn * pn - (hyp.h * hyp.h / 4)) <= hyp.rcaps)
 	normal = mtrx_prod_v3(hyp.hym,
 			v3_minus_vec(v3_minus_vec(hit, hyp.center), hyp.axis));
 	return (v3_normalize(normal));
-}
-
-/* Ahh, we couuuld generalize this function for all shapes... but, no. */
-t_colr	hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit)
-{
-	t_hyper	h;
-	t_colr	colr_at_hitpoint;
-	t_hp	hp;
-
-	h = *(t_hyper *)hobj.obj;
-	hp.loc = hit;
-	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
-	hp.scolr = h.colr;
-	hp.spec = h.spec;
-	hp.normal = get_normal_hyper(hp.loc, h);
-	colr_at_hitpoint = calculate_lights(scene, hp);
-	return (colr_at_hitpoint);
 }
 
 /* Adjusted get_rotmtrx func assuming that the default orientation of a

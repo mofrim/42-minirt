@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 10:20:54 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/21 23:52:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/22 14:37:17 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ toksplit[1] && ft_is_unumstr(toksplit[1]) && toksplit[2] && \
 	return (false);
 }
 
-/* Only parse "bump" if followed by the "bumpiness" float number and "tex". */
+/* Only parse "checker" if followed by the "checker_scale" float number and
+ * "tex". */
 bool	parse_checker_maybe(t_tokenizer *tok)
 {
 	char	**toksplit;
@@ -95,4 +96,30 @@ toksplit[1] && ft_is_unumstr(toksplit[1]))
 	if (toksplit)
 		ft_freesplit(&toksplit);
 	return (false);
+}
+
+/* Only parse hypercheker if followed by the "checker_scale" float number and
+ * "tex". */
+int	parse_hyperchecker_maybe(t_tokenizer *tok)
+{
+	char	**toksplit;
+
+	toksplit = get_tokstr_split(tok);
+	if (toksplit && toksplit[0] && (!ft_strcmp("checker", toksplit[0]) || \
+!ft_strcmp("stripechecker", toksplit[0]) || \
+!ft_strcmp("spacechecker", toksplit[0])) && \
+toksplit[1] && ft_is_unumstr(toksplit[1]))
+	{
+		skip_whitespace(tok);
+		tok->pos += ft_strlen(toksplit[0]);
+		if (!ft_strcmp("checker", toksplit[0]))
+			return (ft_freesplit(&toksplit), 1);
+		if (!ft_strcmp("stripechecker", toksplit[0]))
+			return (ft_freesplit(&toksplit), 2);
+		if (!ft_strcmp("spacechecker", toksplit[0]))
+			return (ft_freesplit(&toksplit), 3);
+	}
+	if (toksplit)
+		ft_freesplit(&toksplit);
+	return (0);
 }
