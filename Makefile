@@ -6,7 +6,7 @@
 #    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/22 14:42:18 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/22 23:54:01 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,7 +99,7 @@ SRCS		=	main.c \
 					cylinder_normal.c \
 					plane.c \
 					sphere_bump.c \
-					raytrace_aa.c \
+					raytrace_hq.c \
 					canvas2viewport_traceray.c \
 					kbd_handle_hq.c \
 					plane_get_scolr.c
@@ -198,7 +198,9 @@ endif
 
 # multithreaded raytracing as a bonus-bonus...
 THREADS = $(shell cat /proc/cpuinfo | grep processor | wc -l)
-BONUS_SRC = ./src/raytrace/raytrace_pthread_bonus.c ./src/raytrace/raytrace_thread_funcs_bonus.c
+BONUS_SRC = ./src/raytrace/raytrace_pthread_bonus.c \
+						./src/raytrace/raytrace_thread_funcs_bonus.c \
+						./src/raytrace/raytrace_hq_bonus.c
 bonus: $(SRCS) $(BONUS_SRC)
 	$(CC) -D$(BHOST) -DTHREADS=$(THREADS) -DBONUS $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $^ $(LDFLAGS) $(LIBS) -pthread
 
