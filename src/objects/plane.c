@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:05:01 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/22 01:42:35 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 00:59:12 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ double	plane_intersect_ray(
 	{
 		p0_l0 = v3_minus_vec(plane->pop, origin);
 		t = v3_dot(p0_l0, plane->normal) / denominator;
-		if (t > rp.tmin && t < rp.tmax)
+		if (rp.tmin <= t && t < rp.tmax)
 			return (t);
 	}
 	return (INF);
