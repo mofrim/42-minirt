@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/23 14:24:00 by jroseiro         ###   ########.fr        #
+#    Updated: 2025/05/23 14:51:22 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -157,10 +157,12 @@ log_msg = $(MSGOPN) $(1) $(MSGEND)
 # Control preproc consts in constants.h based on build host:
 
 HOST = $(shell hostname)
+ECHO = "echo -e"
 ifeq ($(findstring rubi,$(HOST)), rubi)
 	BHOST = RUBI
 else ifeq ($(findstring wolfsburg,$(HOST)), wolfsburg)
 	BHOST = SCHOOL
+	ECHO = "echo"
 else
 	BHOST = DEFAULT
 endif
@@ -169,29 +171,29 @@ all: $(NAME)
 
 $(OBJDIR)/%.o : %.c $(MINRT_HDRS)
 	@mkdir -p $(OBJDIR)
-	@echo -e "$(call log_msg,Compiling: $<)"
+	@$(ECHO) "$(call log_msg,Compiling: $<)"
 	@$(CC) -D$(BHOST) $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
-	@echo -e "$(call log_msg,Compiling minirt...)"
-	@echo -e "$(call log_msg,For host $(HOST)!)"
+	@$(ECHO) "$(call log_msg,Compiling minirt...)"
+	@$(ECHO) "$(call log_msg,For host $(HOST)!)"
 	$(CC) -D$(BHOST) $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(OBJS) $(LDFLAGS) $(LIBS)
 
 $(LIBFT):
-	@echo -e "$(call log_msg,Compiling libft...)"
+	@$(ECHO) "$(call log_msg,Compiling libft...)"
 	make -C $(LIBFT_PATH)
 
 $(LIBMLX):
 ifeq ($(shell uname), Darwin)
-	@echo -e "$(call log_msg,Compiling MLX for macOS...)"
+	@$(ECHO) "$(call log_msg,Compiling MLX for macOS...)"
 	make -C ./minilibx-linux/
 endif
 ifeq ($(NIX11),)
-	@echo -e "$(call log_msg,Compiling MLX the normal way!)"
+	@$(ECHO) "$(call log_msg,Compiling MLX the normal way!)"
 	make -C ./minilibx-linux/
 else
 	echo "NIX11 = $(NIX11)"
-	@echo -e "$(call log_msg,Compiling MLX the Nix way!)"
+	@$(ECHO) "$(call log_msg,Compiling MLX the Nix way!)"
 	sed -i 's/local xlib_inc="$$(get_xlib_include_path)"/local xlib_inc="$$NIX11"/g' ./minilibx-linux/configure
 	sed -i 's/mlx_int_anti_resize_win/\/\/mlx_int_anti_resize_win/g' ./minilibx-linux/mlx_new_window.c
 	make -C ./minilibx-linux/
@@ -203,6 +205,7 @@ BONUS_SRC = ./src/raytrace/raytrace_pthread_bonus.c \
 						./src/raytrace/raytrace_thread_funcs_bonus.c \
 						./src/raytrace/raytrace_hq_bonus.c
 bonus: $(SRCS) $(BONUS_SRC)
+	$(ECHO) "$(call log_msg,Compiling the multithreading bonus ^^)"
 	$(CC) -D$(BHOST) -DTHREADS=$(THREADS) -DBONUS $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $^ $(LDFLAGS) $(LIBS) -pthread
 
 mlx: $(LIBMLX)
@@ -211,9 +214,9 @@ debug: $(SRCS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
 	$(CC) -g $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(SRCS) $(LIBS)
 
 setup:
-	@echo -e "$(call log_msg,Setting things up...)"
+	@$(ECHO) "$(call log_msg,Setting things up...)"
 	@rm -rf ./minilibx-linux ./test_maps
-	@echo -e "$(call log_msg,Downloading mlx...)"
+	@$(ECHO) "$(call log_msg,Downloading mlx...)"
 	@wget -c https://cdn.intra.42.fr/document/document/34406/minilibx-linux.tgz 2> /dev/null
 	@wget -c https://cdn.intra.42.fr/document/document/34407/minilibx_macos_opengl.tgz 2> /dev/null
 	@echo	-e "$(call log_msg,Unpacking mlx...)"
@@ -222,32 +225,32 @@ setup:
 	@echo	-e "$(call log_msg,Cloning libft submodule...)"
 	@git submodule update --init
 	@sleep 1s
-	@echo -e "$(call log_msg,There you go!)"
+	@$(ECHO) "$(call log_msg,There you go!)"
 
 fullclean:
-	@echo -e "$(call log_msg,Removing libft objs.)"
+	@$(ECHO) "$(call log_msg,Removing libft objs.)"
 	@make -s -C $(LIBFT_PATH) clean
-	@echo -e "$(call log_msg,Removing libmlx objs.)"
+	@$(ECHO) "$(call log_msg,Removing libmlx objs.)"
 	@make -s -C $(LIBMLX_PATH) clean
-	@echo -e "$(call log_msg,Removing minirt objs.)"
+	@$(ECHO) "$(call log_msg,Removing minirt objs.)"
 	@rm -rf $(OBJDIR)
 
 clean:
-	@echo -e "$(call log_msg,Removing minirt objs.)"
+	@$(ECHO) "$(call log_msg,Removing minirt objs.)"
 	@rm -rf $(OBJDIR)
 
 fullfclean:
-	@echo -e "$(call log_msg,fcleaning libft.)"
+	@$(ECHO) "$(call log_msg,fcleaning libft.)"
 	@make -s -C $(LIBFT_PATH) fclean
-	@echo -e "$(call log_msg,fcleaning libmlx.)"
+	@$(ECHO) "$(call log_msg,fcleaning libmlx.)"
 	@make -s -C $(LIBMLX_PATH) clean
-	@echo -e "$(call log_msg,Removing minirt objs.)"
+	@$(ECHO) "$(call log_msg,Removing minirt objs.)"
 	@rm -rf $(OBJDIR)
-	@echo -e "$(call log_msg,Removing $(NAME) binary.)"
+	@$(ECHO) "$(call log_msg,Removing $(NAME) binary.)"
 	@rm -f $(NAME)
 
 fclean: clean
-	@echo -e "$(call log_msg,Removing $(NAME) binary.)"
+	@$(ECHO) "$(call log_msg,Removing $(NAME) binary.)"
 	@rm -f $(NAME)
 
 fullre: fullfclean all
