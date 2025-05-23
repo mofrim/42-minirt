@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:16:02 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 16:59:33 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 00:31:54 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,37 @@
 /**
  * Get the rotation from the given orientation vector
  *
- * Our assumption is that the original camera orientation was to be aligned with
- * xy-axes and to look at (0, 0, 1) which is positive z-dir. In here we use the
- * Rodrigues formula to calc the rotation matrix from this assumption.
- * Orient has to be normalized!
+ * Actually functioning version... the idea is simple: the orientation vector
+ * read from scenefile is supposed to be the new forth-direction. So we
+ * construct a new coordinate system using the world-axes ensuring that (0,1,0)
+ * is still the up direction in the new coordinate system. There is one
+ * edge-case where forth is almost parallel to (0,1,0). in this case we need to
+ * construct a right vector using x- or z-axis (could also be any other vector
+ * not parallel to axis). Finally the transformation matrix from world to camera
+ * coordinates is contructed.
  */
+t_mtrx	get_rotmtrx(t_v3 orient)
+{
+	t_v3	world_up;
+	t_v3	right;
+	t_v3	up;
+	t_mtrx	rot;
+
+	world_up = (t_v3){0, 1, 0};
+	if (fabs(v3_dot(orient, world_up)) > 0.999)
+	{
+		right = v3_normalize(v3_cross(orient, (t_v3){1, 0, 0}));
+		if (v3_norm(right) < 0.001)
+			right = v3_normalize(v3_cross(orient, (t_v3){0, 0, 1}));
+	}
+	else
+		right = v3_normalize(v3_cross(orient, world_up));
+	up = v3_cross(right, orient);
+	rot = mtrx_new(v3_mult(right, -1), up, orient);
+	return (rot);
+}
+
+/* Old flawed version using Rodrigues formula. */
 // t_mtrx	get_rotmtrx(t_v3 orient)
 // {
 // 	t_v3	rot_axis;
@@ -28,49 +54,16 @@
 // 	t_mtrx	cross_matrix;
 // 	t_mtrx	rot;
 //
-// 	if (orient.x == 0 && orient.y == 0 && orient.z == -1)
-// 	{
-// 		rot = mtrx_new((t_v3){-1, 0, 0}, (t_v3){0, 1, 0}, (t_v3){0, 0, -1});
-// 		return (rot);
-// 	}
 // 	rot_axis = v3_normalize(v3_cross((t_v3){0, 0, 1}, orient));
 // 	rot_angle = acos(v3_dot((t_v3){0, 0, 1}, orient));
-// 	printf("rot_angle: %f\n", rot_angle);
-// 	v3_print(rot_axis, "rot axis");
 // 	id = mtrx_new((t_v3){1, 0, 0}, (t_v3){0, 1, 0}, (t_v3){0, 0, 1});
-// 	cross_matrix = mtrx_new((t_v3){0, rot_axis.z, -rot_axis.y},
+// 	cross_matrix = mtrx_new(
+// 			(t_v3){0, rot_axis.z, -rot_axis.y},
 // 			(t_v3){-rot_axis.z, 0, rot_axis.x},
 // 			(t_v3){rot_axis.y, -rot_axis.x, 0});
 // 	rot = mtrx_add_mtrx(mtrx_add_mtrx(id, mtrx_mult_scalar(cross_matrix,
 // 					sin(rot_angle))),
 // 			mtrx_mult_scalar(mtrx_prod_mtrx(cross_matrix, cross_matrix),
 // 				1 - cos(rot_angle)));
-// 	rot_angle = 1.31;
-// 	t_mtrx rot2 = mtrx_new((t_v3){cos(rot_angle), sin(rot_angle), 0}, (t_v3){-sin(rot_angle), cos(rot_angle), 0}, (t_v3){0, 0, 1});
-// 	rot = mtrx_prod_mtrx(rot, rot2);
 // 	return (rot);
 // }
-
-t_mtrx	get_rotmtrx(t_v3 orient)
-{
-	t_mtrx	rot;
-
-	if (orient.x == 0 && orient.y == 0 && orient.z == -1)
-	{
-		rot = mtrx_new((t_v3){-1, 0, 0}, (t_v3){0, 1, 0}, (t_v3){0, 0, -1});
-		return (rot);
-	}
-	double x_ang = asin(orient.y);
-	printf("x_ang = %f\n", x_ang);
-	t_mtrx rotx = mtrx_new((t_v3){1, 0, 0}, (t_v3){0, cos(x_ang), -sin(x_ang)},
-			(t_v3){0, sin(x_ang), cos(x_ang)});
-	double y_ang = asin(orient.x / sin(x_ang));
-	if (x_ang == 0)
-		y_ang = 0;
-	printf("y_ang = %f\n", y_ang);
-	// t_mtrx rotz = mtrx_new((t_v3){cos(y_ang), sin(y_ang), 0}, (t_v3){-sin(y_ang), cos(y_ang), 0}, (t_v3){0, 0, 1});
-	t_mtrx rotz = mtrx_new((t_v3){cos(y_ang), 0, sin(y_ang)}, (t_v3){0, 1, 0},
-			(t_v3){-sin(y_ang), 0, cos(y_ang)});
-	rot = mtrx_prod_mtrx(rotz, rotx);
-	return (rot);
-}
