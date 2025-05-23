@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hyper_get_colr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:39:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 13:18:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 14:35:20 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,4 @@ t_colr	hyper_get_tex_colr(t_hyper h, t_v3 hp)
 img->size_line + (int)(img->width * uv.u) * img->bpp / 8];
 	texel = int_to_tcolr(get_intcolr_from_data(colr_addr, img->bpp / 8));
 	return (texel);
-
 }
