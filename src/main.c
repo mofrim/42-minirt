@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:01:16 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/10 19:25:29 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 14:26:07 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	show_xpm(t_mrt mrt);;
 
 int	main(int ac, char **av)
 {

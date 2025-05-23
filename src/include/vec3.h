@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:38:39 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/03/24 15:14:01 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 14:13:47 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
  * 		v = v.add_scalar(&v, 5);
  */
 
-typedef struct s_vec3 {
+typedef struct s_vec3
+{
 	double			x;
 	double			y;
 	double			z;
@@ -44,7 +45,6 @@ t_vec3	add_scalar(t_vec3 *self, double d);
 t_vec3	add_vec(t_vec3 *self, t_vec3 w);
 t_vec3	add_vec_coords(t_vec3 *self, double x, double y, double z);
 t_vec3	mult(t_vec3 *self, double d);
-
 
 /* Dot and cross products. */
 /* Class functions. */

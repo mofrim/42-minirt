@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export_ppm.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 22:08:59 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/10 18:20:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 14:27:58 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	get_intcolr_from_data(unsigned char *addr, int opp);
+int			get_intcolr_from_data(unsigned char *addr, int opp);
 static void	print_pxcolr_triplet(int fd, unsigned char *dat, int opp);
 
 /**

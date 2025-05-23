@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   v3.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:49:45 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/30 16:58:28 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 14:12:06 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_v3	v3_new(double x, double y, double z);
 /* Ops. */
 t_v3	v3_add_scalar(t_v3 v, double d);
 t_v3	v3_add_vec(t_v3 v, t_v3 w);
-t_v3	v3_minus_vec(t_v3 v, t_v3 w); // TODO: use this func in other
-									  // calculations!
+t_v3	v3_minus_vec(t_v3 v, t_v3 w);
+// TODO: use this func in other calculations!
 t_v3	v3_add_vec_coords(t_v3 v, double x, double y, double z);
 t_v3	v3_mult(t_v3 v, double d);
 double	v3_dot(t_v3 v, t_v3 w);

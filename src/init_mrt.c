@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mrt.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/21 08:09:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 14:26:35 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ static void	init_mlx_win(t_mrt *mrt)
 		exit_with_errmsg("Error\n!! mlx_new_window fail !!");
 }
 
-/* Intialize scene struct. If malloc fails -> errorexit! Also setting subsample
- * to 10 here for a fluent first look at the scene. The supersampling settings
+/* Intialize scene struct. If malloc fails -> errorexit! 
+ * Also setting subsample
+ * to 10 here for a fluent first look at the scene. 
+ * The supersampling settings
  * are initalized to 4 and 2 which makes a good start.
- * Another design decision: if bump/normal mapping is wanted for any object, it will by
+ * Another design decision: if bump/normal mapping 
+ * is wanted for any object, it will by
  * done per default. Can be deactivated later via 'B' key. */
 t_scene	*init_scene(void)
 {

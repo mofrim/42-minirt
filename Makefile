@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+         #
+#    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/22 23:54:01 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/23 14:24:00 by jroseiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS		=	main.c \
 					colr_utils.c \
 					launch_ui.c \
 					general_utils.c \
+					error_utils.c \
 					ft_atof.c \
 					par_handle_objs.c \
 					par_alight_cam.c \
@@ -213,11 +214,11 @@ setup:
 	@echo -e "$(call log_msg,Setting things up...)"
 	@rm -rf ./minilibx-linux ./test_maps
 	@echo -e "$(call log_msg,Downloading mlx...)"
-	@wget -c https://cdn.intra.42.fr/document/document/31543/minilibx-linux.tgz 2> /dev/null
-	@wget -c https://cdn.intra.42.fr/document/document/31544/minilibx_opengl.tgz 2> /dev/null
+	@wget -c https://cdn.intra.42.fr/document/document/34406/minilibx-linux.tgz 2> /dev/null
+	@wget -c https://cdn.intra.42.fr/document/document/34407/minilibx_macos_opengl.tgz 2> /dev/null
 	@echo	-e "$(call log_msg,Unpacking mlx...)"
 	@tar xzf ./minilibx-linux.tgz > /dev/null
-	@tar xzf ./minilibx_opengl.tgz > /dev/null
+	@tar xzf ./minilibx_macos_opengl.tgz > /dev/null
 	@echo	-e "$(call log_msg,Cloning libft submodule...)"
 	@git submodule update --init
 	@sleep 1s

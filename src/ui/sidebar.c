@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sidebar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
+/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/21 08:11:08 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 14:21:31 by jroseiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,4 @@ static void	show_mapparams(t_mrt mrt, int *i)
 	}
 	if (mrt.scene->alight)
 		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->colr.i, i);
-
 }
