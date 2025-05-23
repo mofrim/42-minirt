@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/22 14:37:50 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 00:12:37 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ t_hyper	*parse_hyper(t_tokenizer *tok)
 	hyp->checker = parse_hyperchecker_maybe(tok);
 	if (hyp->checker)
 		hyp->checker_scale = parse_pos_num(tok);
+	hyp->tex_file = parse_texture_maybe(tok);
 	if (v3_norm(hyp->axis) == 0)
 		printerr_set_invalid("hyperboloid axis norm == 0", &tok->valid);
 	if (hyp->ab <= 0 || hyp->c <= 0 || hyp->h <= 0)

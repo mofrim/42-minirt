@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/22 14:31:01 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 00:13:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_hyper
 	float	spec;
 	int		checker;
 	float	checker_scale;
+	char	*tex_file;
+	t_img	*tex_img;
 }	t_hyper;
 
 typedef struct s_sphere

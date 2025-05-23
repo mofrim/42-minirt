@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 17:49:22 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/22 12:09:51 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/23 00:11:32 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_colr	sphere_get_tex_colr(t_sphere s, t_v3 hp)
 	t_img			*img;
 
 	img = s.tex_img;
-	uv = sphere_get_uv(hp, s);
+	uv = sphere_get_uv(s, hp);
 	colr_addr = (unsigned char *)&img->data[(int)(img->height * uv.v) * \
 img->size_line + (int)(img->width * uv.u) * img->bpp / 8];
 	texel = int_to_tcolr(get_intcolr_from_data(colr_addr, img->bpp / 8));
@@ -52,7 +52,7 @@ t_colr	sphere_get_checker_colr(t_sphere s, t_v3 hp)
 	int		checker_u;
 	int		checker_v;
 
-	uv = sphere_get_uv(hp, s);
+	uv = sphere_get_uv(s, hp);
 	checker_u = floor(s.checker_scale * uv.u);
 	checker_v = floor(s.checker_scale * uv.v / 2);
 	if (((checker_u + checker_v) % 2) == 0)
