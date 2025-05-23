@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/23 14:51:22 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/23 18:05:51 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -157,12 +157,12 @@ log_msg = $(MSGOPN) $(1) $(MSGEND)
 # Control preproc consts in constants.h based on build host:
 
 HOST = $(shell hostname)
-ECHO = "echo -e"
+ECHO = echo -e
 ifeq ($(findstring rubi,$(HOST)), rubi)
 	BHOST = RUBI
 else ifeq ($(findstring wolfsburg,$(HOST)), wolfsburg)
 	BHOST = SCHOOL
-	ECHO = "echo"
+	ECHO = echo
 else
 	BHOST = DEFAULT
 endif
