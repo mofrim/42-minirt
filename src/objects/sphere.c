@@ -6,18 +6,13 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 00:10:50 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 09:03:55 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /* Intersect ray with the sphere. */
-// QUESTION: is returning the smaller of both solutions a good approach? It
-// might also be possible that one of them is smaller than 0, thus it it is
-// invalid and the other, even though it is greater, is the correct one!
-// ANSWER: mitigated this for now by checking inside of this function, but maybe
-// it have to think about this more later....
 double	sphere_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 		t_sphere *sphere)
 {

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 17:49:22 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 00:11:32 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 01:07:48 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ t_colr	sphere_get_checker_colr(t_sphere s, t_v3 hp)
 	int		checker_v;
 
 	uv = sphere_get_uv(s, hp);
-	checker_u = floor(s.checker_scale * uv.u);
-	checker_v = floor(s.checker_scale * uv.v / 2);
+	checker_u = floor(s.checker_scale * uv.u + EPS);
+	checker_v = floor(s.checker_scale * uv.v / 2 + EPS);
 	if (((checker_u + checker_v) % 2) == 0)
 		return (colr_get_darker(s.colr));
 	return (colr_get_brightest(s.colr));

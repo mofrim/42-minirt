@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 01:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 01:02:59 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 09:03:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_colr	plane_get_scolr(t_plane p, t_v3 hp)
 
 /* Return the checker pattern colr for the plane. Needed to add EPS inside the
  * floor function because floor can be numerical unstable for numbers close to
- * integer boundaries. */
+ * integer boundaries, i.e. (4.99999999999999 == 5.0) you know. */
 t_colr	plane_get_checker_colr(t_plane p, t_v3 hp)
 {
 	int	x;

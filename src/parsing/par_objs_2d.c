@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:11:41 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 00:58:18 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 09:05:16 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ t_circle	*parse_circle(t_tokenizer *tok)
  * - point on plane (t_v3)
  * - normal vector (t_v3)
  * - color (t_colr)
+ * (- "checker" checker_scale (float))
  *
- * Example: "pl 0,0,0 0,1,0 0,255,0"
+ * Example: "pl 0,0,0 0,1,0 0,255,0 (checker checker_scale)"
  * Rules: |norm| > 0
  */
 t_plane	*parse_plane(t_tokenizer *tok)

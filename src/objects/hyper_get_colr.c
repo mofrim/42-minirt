@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:39:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 14:35:20 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/05/24 09:10:20 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_colr	hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit)
 }
 
 /* Get the surface color for the hyper. */
-// TODO add texture support here.
 t_colr	hyper_get_scolr(t_hyper h, t_v3 hp)
 {
 	if (!h.tex_img && !h.checker)
@@ -44,7 +43,12 @@ t_colr	hyper_get_scolr(t_hyper h, t_v3 hp)
 	return (hyper_get_tex_colr(h, hp));
 }
 
-// TODO comment
+/**
+ * The hyper u/v transform.
+ *
+ * Using the parametric representation x = a * cosh(v) * cos(t), y = b * cosh(v)
+ * * sin(t), z = c * sinh(t), the u/v mapping is calculated.
+ */
 t_uv	hyper_get_uv(t_hyper h, t_v3 hp)
 {
 	t_uv	res;
@@ -75,7 +79,6 @@ t_uv	hyper_get_uv(t_hyper h, t_v3 hp)
 }
 
 /* Return checker pattern color. */
-// in principle also generalizable
 t_colr	hyper_get_checker_colr(t_hyper h, t_v3 hp)
 {
 	t_uv	uv;
@@ -83,13 +86,14 @@ t_colr	hyper_get_checker_colr(t_hyper h, t_v3 hp)
 	int		checker_v;
 
 	uv = hyper_get_uv(h, hp);
-	checker_u = floor(h.checker_scale * uv.u);
-	checker_v = floor(h.checker_scale * uv.v);
+	checker_u = floor(h.checker_scale * uv.u + EPS);
+	checker_v = floor(h.checker_scale * uv.v + EPS);
 	if (((checker_u + checker_v) % 2) == 0)
 		return (colr_get_darker(h.colr));
 	return (colr_get_brightest(h.colr));
 }
 
+/* Map the texture onto the hyper. */
 t_colr	hyper_get_tex_colr(t_hyper h, t_v3 hp)
 {
 	t_uv			uv;
