@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/24 09:43:17 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/24 10:07:30 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ VPATH	=	./src ./src/linalg ./src/objects ./src/ui ./src/utils ./src/raytrace \
 # list all source files here
 SRCS		=	main.c \
 					close_btn_handler.c \
-					init_mrt.c \
+					init_mrt_scene.c \
 					kbd_input_handler.c \
 					kbd_handle_fov_sub.c \
 					rgb_to_int_tcolr.c \
