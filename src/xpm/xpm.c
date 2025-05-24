@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 20:33:27 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 16:39:25 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 18:15:35 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	put_pixel_xpm(t_mrt mrt, int x, int y, t_colr colr)
 	int				dec;
 	int				color;
 	unsigned char	*ptr;
-	t_xpm_canvas 	*xc;
+	t_xpm_canvas	*xc;
 	t_canvas_params	cp;
 
 	xc = mrt.xc;

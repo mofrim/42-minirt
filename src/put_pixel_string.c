@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:18:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 16:43:43 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 18:15:12 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	put_pixel_canvas_rt(t_mrt mrt, t_pxl pos, t_colr pxlcolr)
 	t_canvas_params	cp;
 
 	cp = mrt.can_params;
-	if (cp.pixel_minx < pos.x && pos.x < cp.pixel_maxx && cp.pixel_miny < pos.y && \
-pos.y < cp.pixel_maxy)
+	if (cp.pixel_minx < pos.x && pos.x < cp.pixel_maxx && \
+cp.pixel_miny < pos.y && pos.y < cp.pixel_maxy)
 	{
 		sx = cp.canvas_offset_x + pos.x;
 		sy = cp.canvas_offset_y - pos.y;

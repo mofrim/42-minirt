@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 10:21:00 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 17:39:49 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 18:16:31 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_menu_text(t_mrt mrt, int x, int y, char *txt)
 /* Print a menu header line. */
 void	print_menu_header(t_mrt mrt, int x, int y, char *txt)
 {
-		mlx_string_put(mrt.mlx, mrt.win, x, y, mrt.side_thm.head_colr, txt);
+	mlx_string_put(mrt.mlx, mrt.win, x, y, mrt.side_thm.head_colr, txt);
 }
 
 void	print_mapinfo_float(t_mrt mrt, const char *txt, double prop, int *i)
