@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 21:45:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:56:26 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 21:53:09 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void			raytrace_xpm_hq(t_mrt mrt);
 t_colr			supersample_pixel(int cx, int cy, t_scene scene);
 
 # ifdef BONUS
+
 void			raytrace_hq_pthread(t_mrt mrt);
+
 # endif
 
 #endif
