@@ -12,6 +12,8 @@ images/
 play/
 archive/
 Makefile.2
+xpms/xpm-archive
+scene.ppm
 
 
 core
