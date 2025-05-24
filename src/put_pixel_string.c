@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:18:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 10:10:04 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 10:11:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ void	put_pixel_win(t_mrt	mrt, t_pxl pos, char *colr)
 	mlx_pixel_put(mrt.mlx, mrt.win, sx, sy, rgb_to_int(colr));
 }
 
-/* Wrapper around the mlx strin put function. */
-void	put_string(t_mrt mrt, t_pxl pos, char *colr, char *txt)
+/* Wrapper around the mlx string put function. Origin is OURs which is at the
+ * center of the canvas. */
+void	put_string_canvas(t_mrt mrt, t_pxl pos, char *colr, char *txt)
 {
 	int	sx;
 	int	sy;

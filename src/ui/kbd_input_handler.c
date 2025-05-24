@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:49:56 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 10:00:42 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 10:16:27 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ void	redraw_win(t_mrt mrt, bool print_msg)
 	show_sidebar(mrt);
 	if (print_msg)
 	{
-		mlx_string_put(mrt.mlx, mrt.win, WINX / 2 + 50, WINY / 2,
-			rgb_to_int(GREEN), "tracing rays...");
+		put_string_canvas(mrt, (t_pxl){100, 0}, GREEN, "tracing rays...");
 		mlx_do_sync(mrt.mlx);
 	}
 	launch_raytrace(mrt);

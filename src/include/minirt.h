@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 09:55:06 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 10:11:23 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void			int_to_rgb(int rgb_arr[3], int rgb_num);
 void			put_pixel_win(t_mrt	mrt, t_pxl pos, char *colr);
 void			put_pixel_canvas(t_mrt	mrt, t_pxl pos, char *colr);
 void			put_pixel_canvas_rt(t_mrt mrt, t_pxl pos, t_colr pxlcolr);
-void			put_string(t_mrt mrt, t_pxl pos, char *colr, char *txt);
+void			put_string_canvas(t_mrt mrt, t_pxl pos, char *colr, char *txt);
 void			print_scene(t_scene scene);
 int				tcolr_to_int(t_colr colr);
 t_colr			int_to_tcolr(int int_colr);
