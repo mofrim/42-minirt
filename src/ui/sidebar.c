@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   sidebar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 09:51:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:34:09 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "ui.h"
 
 static void	draw_sidebar_seperator(t_mrt mrt);
 static void	show_keys(t_mrt mrt, int *i);
@@ -21,6 +22,7 @@ void		print_menu_text(t_mrt mrt, int x, int y, char *txt);
 void		print_mapinfo_float(t_mrt mrt, const char *txt, double prop,
 				int *i);
 void		print_mapinfo_bool(t_mrt mrt, const char *txt, bool prop, int *i);
+void		print_menu_header(t_mrt mrt, int x, int y, char *txt);
 
 /**
  * The sidebar.
@@ -36,7 +38,7 @@ void	show_sidebar(t_mrt mrt)
 	int	i;
 
 	draw_sidebar_seperator(mrt);
-	mlx_string_put(mrt.mlx, mrt.win, 15, 20, rgb_to_int(GREEN),
+	mlx_string_put(mrt.mlx, mrt.win, 15, 20, mrt.side_thm.title_colr,
 		"Jose's & Mofrim's miniRT");
 	i = 2;
 	show_keys(mrt, &i);
@@ -53,14 +55,16 @@ static void	draw_sidebar_seperator(t_mrt mrt)
 	i = -1;
 	while (++i < WINY)
 	{
-		put_pixel_win(mrt, (t_pxl){SIDEBAR_AREA_X, i}, "#00aa00");
-		put_pixel_win(mrt, (t_pxl){SIDEBAR_AREA_X - 1, i}, "#00aa00");
+		put_pixel_win(mrt, (t_pxl){SIDEBAR_AREA_X - 1, i},
+			mrt.side_thm.sep_colr);
+		put_pixel_win(mrt, (t_pxl){SIDEBAR_AREA_X - 2, i},
+			mrt.side_thm.sep_colr);
 	}
 }
 
 static void	show_keys(t_mrt mrt, int *i)
 {
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- shortcuts --");
+	print_menu_header(mrt, 15, 20 + (++(*i)) * 15, "-- shortcuts --");
 	(*i)++;
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "esc = quit");
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "],[  = +/- subsample");
@@ -72,18 +76,20 @@ static void	show_keys(t_mrt mrt, int *i)
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "->  = move cam");
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "z,x,c,v  = choose rtfunc");
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "b/n  = toggle bump/nmap");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "2,3  = +/- supersample ppx");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "4,5  = +/- supersample step");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "1,2  = subsample 1/10");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "3,4  = +/- supersample ppx");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "5,6  = +/- supersample step");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "/ = toggle sidebar");
 }
 
 static void	show_mapinfo(t_mrt mrt, int *i)
 {
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- map info --");
+	print_menu_header(mrt, 15, 20 + (++(*i)) * 15, "-- map info --");
 	(*i)++;
-	print_mapinfo(mrt, "canvas width: ", CANVAS_WIDTH, i);
+	print_mapinfo(mrt, "canvas width: ", mrt.can_params.canvas_width, i);
 	print_mapinfo(mrt, "canvas height: ", WINY, i);
 	(*i)++;
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- cam params --");
+	print_menu_header(mrt, 15, 20 + (++(*i)) * 15, "-- cam params --");
 	(*i)++;
 	if (mrt.scene->cam)
 	{
@@ -99,7 +105,8 @@ static void	show_mapinfo(t_mrt mrt, int *i)
 
 static void	show_mapparams(t_mrt mrt, int *i)
 {
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- current scene params --");
+	print_menu_header(mrt, 15, 20 + (++(*i)) * 15,
+		"-- current scene params --");
 	(*i)++;
 	if (mrt.scene->alight)
 		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->colr.i, i);
@@ -112,5 +119,4 @@ static void	show_mapparams(t_mrt mrt, int *i)
 	}
 	print_mapinfo_bool(mrt, "nmapping: ", mrt.scene->nmap, i);
 	print_mapinfo_bool(mrt, "bumpmapping: ", mrt.scene->bump, i);
-
 }

@@ -6,12 +6,11 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:05:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 10:00:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 16:09:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "keycodes.h"
 
 static void	do_cam_rot(t_mrt mrt, double x_ang, double y_ang, double z_ang)
 {

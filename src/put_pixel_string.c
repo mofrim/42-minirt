@@ -6,55 +6,41 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:18:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 10:11:07 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 16:43:43 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /* Put a pixel to the screen. The origin for xy-coords is the center of the
- * window. Only puts the pixels if pixel is still on canvas! */
-void	put_pixel_canvas(t_mrt mrt, t_pxl pos, char *colr)
-{
-	int	sx;
-	int	sy;
-
-	if (PIXEL_MINX < pos.x && pos.x < PIXEL_MAXX && PIXEL_MINY < pos.y && \
-pos.y < PIXEL_MAXY)
-	{
-		sx = CANVAS_OFFSET_X + pos.x;
-		sy = CANVAS_OFFSET_Y - pos.y;
-		mlx_pixel_put(mrt.mlx, mrt.win, sx, sy, rgb_to_int(colr));
-	}
-}
-
-/* Put a pixel to the screen. The origin for xy-coords is the center of the
  * window. Only puts the pixels if pixel is still on canvas! The color is
  * specified using our t_colr type. */
 void	put_pixel_canvas_rt(t_mrt mrt, t_pxl pos, t_colr pxlcolr)
 {
-	int	sx;
-	int	sy;
+	int				sx;
+	int				sy;
+	t_canvas_params	cp;
 
-	if (PIXEL_MINX < pos.x && pos.x < PIXEL_MAXX && PIXEL_MINY < pos.y && \
-pos.y < PIXEL_MAXY)
+	cp = mrt.can_params;
+	if (cp.pixel_minx < pos.x && pos.x < cp.pixel_maxx && cp.pixel_miny < pos.y && \
+pos.y < cp.pixel_maxy)
 	{
-		sx = CANVAS_OFFSET_X + pos.x;
-		sy = CANVAS_OFFSET_Y - pos.y;
+		sx = cp.canvas_offset_x + pos.x;
+		sy = cp.canvas_offset_y - pos.y;
 		mlx_pixel_put(mrt.mlx, mrt.win, sx, sy, tcolr_to_int(pxlcolr));
 	}
 }
 
 /* Put a pixel to the window.. the coordinate system here has its origin in the
  * lower left corner of the window. */
-void	put_pixel_win(t_mrt	mrt, t_pxl pos, char *colr)
+void	put_pixel_win(t_mrt	mrt, t_pxl pos, int colr)
 {
 	int	sx;
 	int	sy;
 
 	sx = pos.x;
 	sy = WINY - pos.y;
-	mlx_pixel_put(mrt.mlx, mrt.win, sx, sy, rgb_to_int(colr));
+	mlx_pixel_put(mrt.mlx, mrt.win, sx, sy, colr);
 }
 
 /* Wrapper around the mlx string put function. Origin is OURs which is at the

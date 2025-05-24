@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:23:55 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/22 23:47:04 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:09:43 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	raytrace_xpm_hq(t_mrt mrt)
 	int		cy;
 	t_colr	pxcolr;
 
-	cx = PIXEL_MINX;
-	while (cx < PIXEL_MAXX)
+	cx = mrt.can_params.pixel_minx;
+	while (cx < mrt.can_params.pixel_maxx)
 	{
-		cy = PIXEL_MINY;
-		while (cy < PIXEL_MAXY)
+		cy = mrt.can_params.pixel_miny;
+		while (cy < mrt.can_params.pixel_maxy)
 		{
 			pxcolr = supersample_pixel(cx, cy, *mrt.scene);
-			put_pixel_xpm(mrt.xc, cx, cy, pxcolr);
+			put_pixel_xpm(mrt, cx, cy, pxcolr);
 			cy++;
 		}
 		if (!(cx % 30))
@@ -74,5 +74,6 @@ void	raytrace_xpm_hq(t_mrt mrt)
 		cx++;
 	}
 	ft_printf(" done.\n");
-	mlx_put_image_to_window(mrt.mlx, mrt.win, mrt.xc->img, SIDEBAR_AREA_X, 0);
+	mlx_put_image_to_window(mrt.mlx, mrt.win, mrt.xc->img,
+		mrt.can_params.sidebarx, 0);
 }

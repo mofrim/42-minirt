@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 10:11:23 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:07:50 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@
 
 # include "xpm.h"
 
+/********** UI. **********/
+
+# include "ui.h"
+
 /********** Structs. **********/
 
 /* In principle a 2d vector... */
@@ -118,6 +122,18 @@ typedef enum e_rtfunc
 	RT_PTHREAD_PXPUT
 }	t_rtfunc;
 
+typedef struct s_canvas_params
+{
+	int	canvas_width;
+	int	pixel_minx;
+	int	pixel_maxx;
+	int	pixel_miny;
+	int	pixel_maxy;
+	int	canvas_offset_x;
+	int	canvas_offset_y;
+	int	sidebarx;
+}	t_canvas_params;
+
 /* The MiniRT master-struct holding all nesessary data and pointers to struct
  * needed throughout the program. */
 typedef struct s_mrt
@@ -128,8 +144,11 @@ typedef struct s_mrt
 	t_xpm_canvas	*xc;
 	bool			autorep;
 	int				last_key;
-	int				std_text_colr;
+	bool			show_sidebar;
 	t_rtfunc		rtfunc;
+	t_sidebar_theme	side_thm;
+	t_canvas_params	can_params;
+
 }	t_mrt;
 
 /* Directions for moving the camera. */
@@ -153,14 +172,13 @@ void			read_tex_nmap(t_mrt mrt);
 
 char			*read_file(char *filename);
 void			test_colors(void);
-t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx);
 
 /********** Utils. **********/
 
 int				rgb_to_int(char *rgbstr);
 t_colr			rgb_to_tcolr(char *rgbstr);
 void			int_to_rgb(int rgb_arr[3], int rgb_num);
-void			put_pixel_win(t_mrt	mrt, t_pxl pos, char *colr);
+void			put_pixel_win(t_mrt	mrt, t_pxl pos, int colr);
 void			put_pixel_canvas(t_mrt	mrt, t_pxl pos, char *colr);
 void			put_pixel_canvas_rt(t_mrt mrt, t_pxl pos, t_colr pxlcolr);
 void			put_string_canvas(t_mrt mrt, t_pxl pos, char *colr, char *txt);
@@ -185,15 +203,6 @@ t_mtrx			get_rotmtrx(t_v3 orient);
 t_v3			cam_get_new_pos(t_camera *cam, t_dirs dir, double step);
 void			update_cam_rot_orient(t_camera *cam, double x_ang,
 					double y_ang, double z_ang);
-
-/********** UI & Event Handlers. **********/
-
-int				close_btn_handler(t_mrt *mrt);
-int				kbd_release_handler(int key, t_mrt *mrt);
-int				kbd_press_handler(int key, t_mrt *mrt);
-void			show_sidebar(t_mrt mrt);
-void			redraw_win(t_mrt mrt, bool print_msg);
-int				export_ppm(t_xpm_canvas xc);
 
 /********** Trace the rays. **********/
 
@@ -255,10 +264,5 @@ t_colr			hp_add_pointlight(t_hp hp, t_colr light_colr);
 t_colr			colr_add_colr(t_colr c1, t_colr c2);
 char			*int_to_hexrgb(int c);
 int				get_intcolr_from_data(unsigned char *addr, int opp);
-
-/********** Do stuff. **********/
-
-void			draw_axis(t_mrt mrt);
-void			launch_ui(t_mrt mrt);
 
 #endif

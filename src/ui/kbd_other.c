@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 10:01:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 16:36:15 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	handle_export(int key, t_mrt mrt)
 	if (key == KEY_O)
 	{
 		ft_printf("exporting to scene.ppm");
-		if (export_ppm(*mrt.xc) != -1)
+		if (export_ppm(*mrt.xc, mrt.can_params.canvas_width) != -1)
 			ft_printf(" done!\n");
 	}
 }

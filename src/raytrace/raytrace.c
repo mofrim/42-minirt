@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:23:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/19 23:39:52 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 16:45:58 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	raytrace(t_mrt mrt)
 	t_v3	ray_dir;
 	t_colr	px_colr;
 
-	cx = PIXEL_MINX;
+	cx = mrt.can_params.pixel_minx;
 	px_colr = mrt.scene->alight->colr;
-	while (cx < PIXEL_MAXX)
+	while (cx < mrt.can_params.pixel_maxx)
 	{
-		cy = PIXEL_MINY;
-		while (cy < PIXEL_MAXY)
+		cy = mrt.can_params.pixel_miny;
+		while (cy < mrt.can_params.pixel_maxy)
 		{
 			ray_dir = canvas2viewport(cx, cy, *mrt.scene->cam);
 			if (!(cy % mrt.scene->subsample))

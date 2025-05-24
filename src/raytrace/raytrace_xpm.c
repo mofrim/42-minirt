@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:23:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 11:27:54 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:12:02 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,24 @@ void	raytrace_xpm(t_mrt mrt)
 	t_v3			ray_dir;
 	t_colr			px_colr;
 
-	cx = PIXEL_MINX;
+	cx = mrt.can_params.pixel_minx;
 	px_colr = mrt.scene->alight->colr;
-	while (cx < PIXEL_MAXX)
+	while (cx < mrt.can_params.pixel_maxx)
 	{
-		cy = PIXEL_MINY;
-		while (cy < PIXEL_MAXY)
+		cy = mrt.can_params.pixel_miny;
+		while (cy < mrt.can_params.pixel_maxy)
 		{
-			if (!(cy % mrt.scene->subsample) || cy == PIXEL_MINY || \
-cx == PIXEL_MINX)
+			if (!(cy % mrt.scene->subsample) || \
+cy == mrt.can_params.pixel_miny || cx == mrt.can_params.pixel_minx)
 			{
 				ray_dir = canvas2viewport(cx, cy, *mrt.scene->cam);
 				px_colr = traceray(*mrt.scene, ray_dir);
 			}
-			put_pixel_xpm(mrt.xc, cx, cy, px_colr);
+			put_pixel_xpm(mrt, cx, cy, px_colr);
 			cy++;
 		}
 		cx++;
 	}
-	mlx_put_image_to_window(mrt.mlx, mrt.win, mrt.xc->img, SIDEBAR_AREA_X, 0);
+	mlx_put_image_to_window(mrt.mlx, mrt.win, mrt.xc->img,
+		mrt.can_params.sidebarx, 0);
 }

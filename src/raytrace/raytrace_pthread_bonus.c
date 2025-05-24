@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 21:46:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/19 23:44:48 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:21:17 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@
 void	put_pixel_canvas_pthread(t_mrt mrt, t_pxl pos, t_colr pxlcolr,
 		pthread_mutex_t *mlx_lock)
 {
-	int	sx;
-	int	sy;
+	int				sx;
+	int				sy;
+	t_canvas_params	cp;
 
-	if (PIXEL_MINX < pos.x && pos.x < PIXEL_MAXX && PIXEL_MINY < pos.y && \
-pos.y < PIXEL_MAXY)
+	cp = mrt.can_params;
+	if (cp.pixel_minx < pos.x && pos.x < cp.pixel_maxx && cp.pixel_miny < pos.y && \
+pos.y < cp.pixel_maxy)
 	{
-		sx = CANVAS_OFFSET_X + pos.x;
-		sy = CANVAS_OFFSET_Y - pos.y;
+		sx = cp.canvas_offset_x + pos.x;
+		sy = cp.canvas_offset_y - pos.y;
 		pthread_mutex_lock(mlx_lock);
 		mlx_pixel_put(mrt.mlx, mrt.win, sx, sy, tcolr_to_int(pxlcolr));
 		pthread_mutex_unlock(mlx_lock);
@@ -43,7 +45,7 @@ void	raytrace_pthread_xpm(t_mrt mrt, int step, int last_step,
 	t_thread_args	*params;
 
 	params = malloc(sizeof(t_thread_args) * THREADS);
-	j = PIXEL_MINX;
+	j = mrt.can_params.pixel_minx;
 	i = 0;
 	while (i < THREADS - 1)
 	{
@@ -54,13 +56,11 @@ void	raytrace_pthread_xpm(t_mrt mrt, int step, int last_step,
 	}
 	params[i] = (t_thread_args){&mrt, j, j + last_step, NULL};
 	pthread_create(&threads[i], NULL, rt_thread_xpm, &params[i]);
-	i = 0;
-	while (i < THREADS)
-	{
+	i = -1;
+	while (++i < THREADS)
 		pthread_join(threads[i], NULL);
-		i++;
-	}
-	mlx_put_image_to_window(mrt.mlx, mrt.win, mrt.xc->img, SIDEBAR_AREA_X, 0);
+	mlx_put_image_to_window(mrt.mlx, mrt.win, mrt.xc->img,
+		mrt.can_params.sidebarx, 0);
 	free(params);
 }
 
@@ -75,7 +75,7 @@ void	raytrace_pthread_pxput(t_mrt mrt, int step, int last_step,
 	mlx_lock = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(mlx_lock, NULL);
 	params = malloc(sizeof(t_thread_args) * THREADS);
-	j = PIXEL_MINX;
+	j = mrt.can_params.pixel_minx;
 	i = -1;
 	while (++i < THREADS - 1)
 	{
@@ -97,12 +97,14 @@ void	raytrace_pthread(t_mrt mrt)
 	int				step;
 	int				last_step;
 	pthread_t		threads[THREADS];
+	t_canvas_params	cp;
 
-	step = CANVAS_WIDTH / THREADS;
-	if (THREADS * step < CANVAS_WIDTH)
-		last_step = step - CANVAS_WIDTH % THREADS + 1;
+	cp = mrt.can_params;
+	step = cp.canvas_width / THREADS;
+	if (THREADS * step < cp.canvas_width)
+		last_step = step - cp.canvas_width % THREADS + 1;
 	else
-		last_step = step + CANVAS_WIDTH % THREADS;
+		last_step = step + cp.canvas_width % THREADS;
 	if (mrt.rtfunc == RT_PTHREAD_XPM)
 		raytrace_pthread_xpm(mrt, step, last_step, threads);
 	else

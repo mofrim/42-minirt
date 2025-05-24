@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_ppm.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 22:08:59 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 14:27:58 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/05/24 17:33:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	print_pxcolr_triplet(int fd, unsigned char *dat, int opp);
  * Quick and dirty but it works. `scene.ppm` will be overwritten without
  * asking! PPM tunred out to be the easiest image format.
  */
-int	export_ppm(t_xpm_canvas xc)
+int	export_ppm(t_xpm_canvas xc, int canvas_width)
 {
 	int		fd;
 	int		x;
@@ -30,16 +30,16 @@ int	export_ppm(t_xpm_canvas xc)
 	fd = open("./scene.ppm", O_RDWR | O_CREAT | O_TRUNC, 0660);
 	if (fd == -1)
 		return (printf("can't create/open scene.ppm\n"), -1);
-	ft_dprintf(fd, "P3\n%d %d\n255\n", CANVAS_WIDTH, WINY);
+	ft_dprintf(fd, "P3\n%d %d\n255\n", canvas_width, WINY);
 	y = -1;
 	while (++y < WINY)
 	{
 		x = -1;
-		while (++x < CANVAS_WIDTH)
+		while (++x < canvas_width)
 		{
 			print_pxcolr_triplet(fd,
 				&xc.data[y * xc.xpm_line_len + x * xc.opp], xc.opp);
-			if (x != CANVAS_WIDTH - 1)
+			if (x != canvas_width - 1)
 				ft_dprintf(fd, "\t");
 		}
 		if (!(y % 20))

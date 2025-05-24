@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mrt.c                                         :+:      :+:    :+:   */
+/*   init_mrt_scene.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 14:26:35 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/05/24 17:33:38 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,15 @@ t_mrt	*init_mrt(char *scene_filename)
 	mrt->scene = parse_scene(scene_filename, mrt);
 	init_mlx_win(mrt);
 	setup_scene(*mrt);
-	mrt->xc = init_xpm_canvas(mrt->mlx);
+	mrt->xc = init_xpm_canvas(mrt->mlx, CANVAS_WIDTH, WINY);
 	nullcheck(mrt->xc, "Error\nxc in init_mrt()");
 	mrt->autorep = false;
 	mrt->last_key = 0;
-	mrt->std_text_colr = rgb_to_int(YELLOW_GREEN);
+	mrt->side_thm = set_sidethm_default();
+	mrt->show_sidebar = true;
+	mrt->can_params = (t_canvas_params){
+		CANVAS_WIDTH, PIXEL_MINX, PIXEL_MAXX, PIXEL_MINY, PIXEL_MAXY,
+		CANVAS_OFFSET_X, CANVAS_OFFSET_Y, SIDEBAR_AREA_X};
 	mrt->rtfunc = RT_XPM;
 	return (mrt);
 }

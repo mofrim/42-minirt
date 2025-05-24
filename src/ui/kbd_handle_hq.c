@@ -6,28 +6,24 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 17:07:28 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 00:01:59 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 16:10:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "keycodes.h"
 
-static void	reset_sidebar(t_mrt *mrt)
+void	clear_sidebar(t_mrt *mrt)
 {
-	int	old_colr;
-
-	old_colr = mrt->std_text_colr;
-	mrt->std_text_colr = rgb_to_int(BLACK);
+	mrt->side_thm = set_sidethm_black();
 	show_sidebar(*mrt);
-	mrt->std_text_colr = old_colr;
+	mrt->side_thm = set_sidethm_default();
 }
 
 void	handle_supersample_ppx(int key, t_mrt *mrt)
 {
-	if (key == KEY_2)
+	if (key == KEY_3)
 	{
-		reset_sidebar(mrt);
+		clear_sidebar(mrt);
 		mrt->scene->supersample = true;
 		if (mrt->scene->samples_ppx >= 4)
 		{
@@ -36,9 +32,9 @@ void	handle_supersample_ppx(int key, t_mrt *mrt)
 		}
 		show_sidebar(*mrt);
 	}
-	if (key == KEY_3)
+	if (key == KEY_4)
 	{
-		reset_sidebar(mrt);
+		clear_sidebar(mrt);
 		mrt->scene->supersample = true;
 		if (mrt->scene->samples_ppx <= 62)
 		{
@@ -51,17 +47,17 @@ void	handle_supersample_ppx(int key, t_mrt *mrt)
 
 void	handle_supersample_step(int key, t_mrt *mrt)
 {
-	if (key == KEY_4)
+	if (key == KEY_5)
 	{
-		reset_sidebar(mrt);
+		clear_sidebar(mrt);
 		mrt->scene->supersample = true;
 		if (mrt->scene->sample_step >= 2)
 			mrt->scene->sample_step--;
 		show_sidebar(*mrt);
 	}
-	if (key == KEY_5)
+	if (key == KEY_6)
 	{
-		reset_sidebar(mrt);
+		clear_sidebar(mrt);
 		mrt->scene->supersample = true;
 		if (mrt->scene->sample_step <= 99)
 			mrt->scene->sample_step++;

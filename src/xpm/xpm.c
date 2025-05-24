@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 20:33:27 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 10:09:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 16:39:25 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * This is the significance of the 'bpp = bits per pixel' var. 'opp = octets per
  * pixel' is a convenience var easily indexing the in memory canvas array.
  */
-t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx)
+t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx, int width, int height)
 {
 	t_xpm_canvas	*xcanv;
 	int				bpp;
@@ -34,7 +34,7 @@ t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx)
 
 	xcanv = malloc(sizeof(t_xpm_canvas));
 	xcanv->mlx = mlx;
-	xcanv->img = mlx_new_image(mlx, CANVAS_WIDTH, WINY);
+	xcanv->img = mlx_new_image(mlx, width, height);
 	xcanv->data = (unsigned char *)mlx_get_data_addr(xcanv->img, &bpp, &xl,
 			&endian);
 	xcanv->bpp = bpp;
@@ -66,49 +66,23 @@ t_xpm_canvas	*init_xpm_canvas(t_xvar *mlx)
  * Most finally and most hackily the mem is set to the correct value indexing
  * the 32bit int var as an unsigned char array ^^
  */
-int	put_pixel_xpm(t_xpm_canvas *xc, int x, int y, t_colr colr)
+int	put_pixel_xpm(t_mrt mrt, int x, int y, t_colr colr)
 {
 	int				dec;
 	int				color;
 	unsigned char	*ptr;
+	t_xpm_canvas 	*xc;
+	t_canvas_params	cp;
 
-	if (x > PIXEL_MAXX || y > PIXEL_MAXY)
+	xc = mrt.xc;
+	cp = mrt.can_params;
+	if (x > cp.pixel_maxx || y > cp.pixel_maxy)
 		return (-1);
-	ptr = &xc->data[(PIXEL_MAXY - y) * xc->xpm_line_len];
+	ptr = &xc->data[(cp.pixel_maxy - y) * xc->xpm_line_len];
 	color = mlx_get_color_value(xc->mlx, tcolr_to_int(colr));
 	dec = xc->opp;
 	while (dec--)
-		*(ptr + (PIXEL_MAXX + x) * xc->opp + dec) = \
+		*(ptr + (cp.pixel_maxx + x) * xc->opp + dec) = \
 ((unsigned char *)(&color))[dec];
-	return (0);
-}
-
-/**
- * Put a pixel to the xpm in mem. Using the array approach...
- *
- * INFO: Keep this for later maybe.
- */
-int	put_pixel_xpm_arr(t_xpm_canvas *xc, int *xy)
-{
-	int				dec;
-	unsigned char	*ptr;
-	int				x;
-	int				y;
-
-	x = 0;
-	while (x < CANVAS_WIDTH)
-	{
-		y = 0;
-		while (y < WINY)
-		{
-			ptr = &xc->data[y * xc->xpm_line_len];
-			dec = xc->opp;
-			while (dec--)
-				*(ptr + x * xc->opp + dec) = \
-((unsigned char *)(&xy[x + CANVAS_WIDTH * (WINY - y)]))[dec];
-			y++;
-		}
-		x++;
-	}
 	return (0);
 }

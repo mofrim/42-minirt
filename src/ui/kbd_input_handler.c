@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:49:56 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 10:16:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 16:22:37 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	handle_supersample_ppx(int key, t_mrt *mrt);
 void	handle_supersample_step(int key, t_mrt *mrt);
 void	handle_rtfunc(int key, t_mrt *mrt);
 void	handle_bump_nmap(int key, t_mrt *mrt);
+void	handle_toggle_sidebar(int key, t_mrt *mrt);
 
 /* This function checks if the key pressed is one where autorepeat should be
  * enabled for. */
@@ -36,7 +37,8 @@ key == KEY_9 || key == KEY_0 || key == KEY_EQUAL || key == KEY_MINUS || \
 key == KEY_UP || key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT || \
 key == KEY_W || key == KEY_S || key == KEY_A || key == KEY_D || \
 key == KEY_2 || key == KEY_3 || key == KEY_4 || key == KEY_5 || \
-key == KEY_B || key == KEY_N || key == KEY_E || key == KEY_Q)
+key == KEY_B || key == KEY_N || key == KEY_E || key == KEY_Q || \
+key == KEY_6 || key == KEY_SLASH)
 		return (true);
 	return (false);
 }
@@ -64,6 +66,7 @@ int	kbd_press_handler(int key, t_mrt *mrt)
 	handle_supersample_step(key, mrt);
 	handle_rtfunc(key, mrt);
 	handle_bump_nmap(key, mrt);
+	handle_toggle_sidebar(key, mrt);
 	return (0);
 }
 
@@ -96,13 +99,14 @@ int	kbd_release_handler(int key, t_mrt *mrt)
 /* Redraw window content after changes to scene have been made. */
 void	redraw_win(t_mrt mrt, bool print_msg)
 {
-	mlx_clear_window(mrt.mlx, mrt.win);
-	show_sidebar(mrt);
-	if (print_msg)
+	if (print_msg || mrt.scene->subsample <= 5)
 	{
 		put_string_canvas(mrt, (t_pxl){100, 0}, GREEN, "tracing rays...");
 		mlx_do_sync(mrt.mlx);
 	}
+	mlx_clear_window(mrt.mlx, mrt.win);
+	if (mrt.show_sidebar)
+		show_sidebar(mrt);
 	launch_raytrace(mrt);
 }
 

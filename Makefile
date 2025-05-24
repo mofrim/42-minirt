@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/24 10:07:30 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/24 15:45:48 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,7 +104,9 @@ SRCS		=	main.c \
 					raytrace_hq.c \
 					canvas2viewport_traceray.c \
 					kbd_handle_hq.c \
-					plane_get_scolr.c
+					plane_get_scolr.c \
+					kbd_toggle_sidebar.c \
+					sidebar_theme.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
@@ -134,7 +136,8 @@ MINRT_HDRS	= $(INC_DIR)/minirt.h \
 							$(INC_DIR)/objects.h \
 							$(INC_DIR)/mtrx.h \
 							$(INC_DIR)/parsing.h \
-							$(INC_DIR)/keycodes.h
+							$(INC_DIR)/keycodes.h \
+							$(INC_DIR)/ui.h
 
 # FIXME: change this back to 'cc' @school for eval
 CC			=	clang

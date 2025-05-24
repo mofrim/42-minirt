@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 10:21:00 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 09:46:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 15:43:37 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 char	*get_float_string(double d);
 
+/* Wrapper around mlx_string_put for applying our color. */
 void	print_menu_text(t_mrt mrt, int x, int y, char *txt)
 {
-	mlx_string_put(mrt.mlx, mrt.win, x, y, mrt.std_text_colr, txt);
+	mlx_string_put(mrt.mlx, mrt.win, x, y, mrt.side_thm.txt_colr, txt);
+}
+
+/* Print a menu header line. */
+void	print_menu_header(t_mrt mrt, int x, int y, char *txt)
+{
+		mlx_string_put(mrt.mlx, mrt.win, x, y, mrt.side_thm.head_colr, txt);
 }
 
 void	print_mapinfo_float(t_mrt mrt, const char *txt, double prop, int *i)
