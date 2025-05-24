@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 14:21:31 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/05/24 09:51:19 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		print_mapinfo(t_mrt mrt, const char *txt, int prop, int *i);
 void		print_menu_text(t_mrt mrt, int x, int y, char *txt);
 void		print_mapinfo_float(t_mrt mrt, const char *txt, double prop,
 				int *i);
+void		print_mapinfo_bool(t_mrt mrt, const char *txt, bool prop, int *i);
 
 /**
  * The sidebar.
@@ -69,8 +70,10 @@ static void	show_keys(t_mrt mrt, int *i)
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "p  = print scene");
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "wasd  = rot cam");
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "->  = move cam");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "z,x,c  = choose rtfunc");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "z,x,c,v  = choose rtfunc");
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "b/n  = toggle bump/nmap");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "2,3  = +/- supersample ppx");
+	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "4,5  = +/- supersample step");
 }
 
 static void	show_mapinfo(t_mrt mrt, int *i)
@@ -98,13 +101,16 @@ static void	show_mapparams(t_mrt mrt, int *i)
 {
 	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-- current scene params --");
 	(*i)++;
+	if (mrt.scene->alight)
+		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->colr.i, i);
 	print_mapinfo(mrt, "subsample: ", mrt.scene->subsample, i);
+	print_mapinfo_bool(mrt, "supersample: ", mrt.scene->supersample, i);
 	if (mrt.scene->supersample)
 	{
-		print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "supersample:");
 		print_mapinfo(mrt, "  ppx: ", mrt.scene->samples_ppx, i);
 		print_mapinfo(mrt, "  step: ", mrt.scene->sample_step, i);
 	}
-	if (mrt.scene->alight)
-		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->colr.i, i);
+	print_mapinfo_bool(mrt, "nmapping: ", mrt.scene->nmap, i);
+	print_mapinfo_bool(mrt, "bumpmapping: ", mrt.scene->bump, i);
+
 }

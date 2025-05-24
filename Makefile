@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/23 18:05:51 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/24 09:43:17 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS		=	main.c \
 					put_pixel_string.c \
 					sidebar.c \
 					sidebar_print_text.c \
+					get_float_string.c \
 					ui-utils.c \
 					objlst.c \
 					objlst_print.c \
