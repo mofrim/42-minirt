@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/21 08:10:53 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 10:01:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	handle_objlst_print(int key, t_mrt mrt)
 
 void	handle_export(int key, t_mrt mrt)
 {
-	if (key == KEY_E)
+	if (key == KEY_O)
 	{
 		ft_printf("exporting to scene.ppm");
 		if (export_ppm(*mrt.xc) != -1)

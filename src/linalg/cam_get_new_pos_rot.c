@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:20:18 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/09 10:50:25 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 10:05:47 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,20 @@
  * orient vector. The matrices specified for each condition is in the first case
  * a rotation matrix about the x-axis, and 2ndly for the y-axis.
  */
-static t_mtrx	cam_get_new_rot(t_mtrx oldrot, double x_ang, double y_ang)
+static t_mtrx	cam_get_new_rot(t_mtrx oldrot, double x_ang, double y_ang,
+					double z_ang)
 {
 	t_mtrx	rot;
 
-	if (y_ang == 0)
+	if (x_ang)
 		rot = mtrx_new((t_v3){1, 0, 0}, (t_v3){0, cos(x_ang), -sin(x_ang)},
 				(t_v3){0, sin(x_ang), cos(x_ang)});
-	else
+	else if (y_ang)
 		rot = mtrx_new((t_v3){cos(y_ang), 0, sin(y_ang)}, (t_v3){0, 1, 0},
 				(t_v3){-sin(y_ang), 0, cos(y_ang)});
+	else
+		rot = mtrx_new((t_v3){cos(z_ang), -sin(z_ang), 0},
+				(t_v3){sin(z_ang), cos(z_ang), 0}, (t_v3){0, 0, 1});
 	return (mtrx_prod_mtrx(oldrot, rot));
 }
 
@@ -43,9 +47,10 @@ static t_mtrx	cam_get_new_rot(t_mtrx oldrot, double x_ang, double y_ang)
  * was tilted, we simply compute the rotation of the {0,0,1} vector by the new
  * rot matrix.
  */
-void	update_cam_rot_orient(t_camera *cam, double x_ang, double y_ang)
+void	update_cam_rot_orient(t_camera *cam, double x_ang, double y_ang,
+			double z_ang)
 {
-	cam->rot = cam_get_new_rot(cam->rot, x_ang, y_ang);
+	cam->rot = cam_get_new_rot(cam->rot, x_ang, y_ang, z_ang);
 	cam->orient = mtrx_prod_v3(cam->rot, (t_v3){0, 0, 1});
 }
 
