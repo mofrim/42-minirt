@@ -6,22 +6,22 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:05:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 16:09:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 20:45:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void	do_cam_rot(t_mrt mrt, double x_ang, double y_ang, double z_ang)
+static void	do_cam_rot(t_mrt *mrt, double x_ang, double y_ang, double z_ang)
 {
-	update_cam_rot_orient(mrt.scene->cam, x_ang, y_ang, z_ang);
+	update_cam_rot_orient(mrt->scene->cam, x_ang, y_ang, z_ang);
 	redraw_win(mrt, false);
 }
 
 /* Handle the camera rotations via `wasd` keys. First the new roation matrix is
  * calculated and then the orient vector is updated correspopndingly. For
  * calculation details see those functions. */
-void	handle_cam_rot_keys(int key, t_mrt mrt)
+void	handle_cam_rot_keys(int key, t_mrt *mrt)
 {
 	if (key == KEY_W)
 		do_cam_rot(mrt, 0.075, 0, 0);
@@ -47,26 +47,26 @@ static void	move_cam_pos(t_scene scene, t_dirs dir, float step)
 
 /* Make the cam move into dir given via arrow keys: UP -> forth, LEFT -> left,
  */
-void	handle_cam_dir_keys(int key, t_mrt mrt)
+void	handle_cam_dir_keys(int key, t_mrt *mrt)
 {
 	if (key == KEY_UP)
 	{
-		move_cam_pos(*mrt.scene, FORTH, 0.4);
+		move_cam_pos(*mrt->scene, FORTH, 0.4);
 		redraw_win(mrt, false);
 	}
 	else if (key == KEY_DOWN)
 	{
-		move_cam_pos(*mrt.scene, BACK, 0.4);
+		move_cam_pos(*mrt->scene, BACK, 0.4);
 		redraw_win(mrt, false);
 	}
 	else if (key == KEY_LEFT)
 	{
-		move_cam_pos(*mrt.scene, LEFT, 0.4);
+		move_cam_pos(*mrt->scene, LEFT, 0.4);
 		redraw_win(mrt, false);
 	}
 	else if (key == KEY_RIGHT)
 	{
-		move_cam_pos(*mrt.scene, RIGHT, 0.4);
+		move_cam_pos(*mrt->scene, RIGHT, 0.4);
 		redraw_win(mrt, false);
 	}
 }

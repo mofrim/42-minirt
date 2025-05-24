@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 10:55:02 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 18:34:33 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 21:00:54 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	handle_toggle_sidebar(int key, t_mrt *mrt)
 		mrt->show_sidebar = !mrt->show_sidebar;
 		if (mrt->show_sidebar == false)
 		{
-			mlx_clear_window(mrt->mlx, mrt->win);
 			mlx_destroy_image(mrt->mlx, mrt->xc->img);
 			set_canvas_full_winwidth(mrt);
 			launch_raytrace(*mrt);
@@ -54,8 +53,8 @@ void	handle_toggle_sidebar(int key, t_mrt *mrt)
 			mlx_clear_window(mrt->mlx, mrt->win);
 			mlx_destroy_image(mrt->mlx, mrt->xc->img);
 			set_canvas_with_sidebar(mrt);
+			show_sidebar(*mrt, true);
 			launch_raytrace(*mrt);
-			show_sidebar(*mrt);
 		}
 	}
 }

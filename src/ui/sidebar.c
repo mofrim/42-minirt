@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 17:39:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 20:20:41 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ void		print_menu_header(t_mrt mrt, int x, int y, char *txt);
  *
  * 		mlx_set_font(mrt.mlx, mrt.win, FONT_DEFAULT);
  */
-void	show_sidebar(t_mrt mrt)
+void	show_sidebar(t_mrt mrt, bool draw_sep)
 {
 	int	i;
 
-	draw_sidebar_seperator(mrt);
+	if (draw_sep)
+		draw_sidebar_seperator(mrt);
 	mlx_string_put(mrt.mlx, mrt.win, 30, 20, mrt.side_thm.title_colr,
 		"Jose's & Mofrim's miniRT");
 	i = 2;

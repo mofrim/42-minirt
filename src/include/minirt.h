@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 17:07:50 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 20:34:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_mrt
 	t_win_list		*win;
 	t_scene			*scene;
 	t_xpm_canvas	*xc;
+	t_xpm_canvas	*sidebar;
 	bool			autorep;
 	int				last_key;
 	bool			show_sidebar;

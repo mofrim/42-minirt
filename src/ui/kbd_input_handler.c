@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:49:56 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 16:22:37 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 20:18:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "keycodes.h"
 
 void	handle_quit_destroy_keys(int key, t_mrt *mrt);
-void	handle_subsample(int key, t_mrt mrt);
-void	handle_fov(int key, t_mrt mrt);
-void	handle_cam_rot_keys(int key, t_mrt mrt);
+void	handle_subsample(int key, t_mrt *mrt);
+void	handle_fov(int key, t_mrt *mrt);
+void	handle_cam_rot_keys(int key, t_mrt *mrt);
 void	handle_cam_dir_keys(int key, t_mrt mrt);
-void	handle_amb_bright(int key, t_mrt mrt);
+void	handle_amb_bright(int key, t_mrt *mrt);
 void	handle_objlst_print(int key, t_mrt mrt);
 void	handle_export(int key, t_mrt mrt);
 void	handle_hq(int key, t_mrt *mrt);
@@ -53,11 +53,11 @@ int	kbd_press_handler(int key, t_mrt *mrt)
 	}
 	if (!is_autorep_key(key) && key == mrt-> last_key && !mrt->autorep)
 		return (0);
-	handle_subsample(key, *mrt);
-	handle_fov(key, *mrt);
-	handle_cam_rot_keys(key, *mrt);
+	handle_subsample(key, mrt);
+	handle_fov(key, mrt);
+	handle_cam_rot_keys(key, mrt);
 	handle_cam_dir_keys(key, *mrt);
-	handle_amb_bright(key, *mrt);
+	handle_amb_bright(key, mrt);
 	handle_quit_destroy_keys(key, mrt);
 	handle_export(key, *mrt);
 	handle_objlst_print(key, *mrt);
@@ -94,20 +94,6 @@ int	kbd_release_handler(int key, t_mrt *mrt)
 	}
 	mrt->last_key = key;
 	return (0);
-}
-
-/* Redraw window content after changes to scene have been made. */
-void	redraw_win(t_mrt mrt, bool print_msg)
-{
-	if (print_msg || mrt.scene->subsample <= 5)
-	{
-		put_string_canvas(mrt, (t_pxl){100, 0}, GREEN, "tracing rays...");
-		mlx_do_sync(mrt.mlx);
-	}
-	mlx_clear_window(mrt.mlx, mrt.win);
-	if (mrt.show_sidebar)
-		show_sidebar(mrt);
-	launch_raytrace(mrt);
 }
 
 void	handle_quit_destroy_keys(int key, t_mrt *mrt)

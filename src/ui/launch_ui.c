@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 10:34:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/18 21:05:55 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 20:21:50 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  */
 void	launch_ui(t_mrt mrt)
 {
-	show_sidebar(mrt);
+	show_sidebar(mrt, true);
 	print_scene(*mrt.scene);
 	if (mrt.scene->alight && mrt.scene->cam)
 	{

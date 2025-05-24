@@ -6,23 +6,23 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 16:36:15 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 20:11:06 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "keycodes.h"
 
-void	handle_amb_bright(int key, t_mrt mrt)
+void	handle_amb_bright(int key, t_mrt *mrt)
 {
-	if (key == KEY_EQUAL && mrt.scene->alight->colr.i + 0.1 <= 1.0)
+	if (key == KEY_EQUAL && mrt->scene->alight->colr.i + 0.1 <= 1.0)
 	{
-		mrt.scene->alight->colr.i += 0.1;
+		mrt->scene->alight->colr.i += 0.1;
 		redraw_win(mrt, false);
 	}
-	if (key == KEY_MINUS && mrt.scene->alight->colr.i - 0.1 >= 0)
+	if (key == KEY_MINUS && mrt->scene->alight->colr.i - 0.1 >= 0)
 	{
-		mrt.scene->alight->colr.i -= 0.1;
+		mrt->scene->alight->colr.i -= 0.1;
 		redraw_win(mrt, false);
 	}
 }
@@ -75,11 +75,11 @@ void	handle_bump_nmap(int key, t_mrt *mrt)
 	if (key == KEY_B)
 	{
 		mrt->scene->bump = !mrt->scene->bump;
-		redraw_win(*mrt, false);
+		redraw_win(mrt, false);
 	}
 	if (key == KEY_N)
 	{
 		mrt->scene->nmap = !mrt->scene->nmap;
-		redraw_win(*mrt, false);
+		redraw_win(mrt, false);
 	}
 }

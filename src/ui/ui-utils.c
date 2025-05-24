@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 19:33:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/14 15:50:11 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 20:57:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,26 @@ void	draw_axis(t_mrt mrt)
 		put_pixel_canvas_rt(mrt, (t_pxl){0, i}, c);
 		put_pixel_canvas_rt(mrt, (t_pxl){0, -i}, c);
 	}
+}
+
+/* Put a black img over the sidebar area to clear it and then draw everything
+ * again. Not the most efficient way to do it, but it works. */
+void	update_sidebar(t_mrt *mrt)
+{
+	mlx_put_image_to_window(mrt->mlx, mrt->win, mrt->sidebar->img,
+		20, 0);
+	show_sidebar(*mrt, false);
+}
+
+/* Redraw window content after changes to scene have been made. */
+void	redraw_win(t_mrt *mrt, bool print_msg)
+{
+	if (mrt->show_sidebar)
+		update_sidebar(mrt);
+	if (print_msg || mrt->scene->subsample <= 6)
+	{
+		put_string_canvas(*mrt, (t_pxl){100, 0}, GREEN, "tracing rays...");
+		mlx_do_sync(mrt->mlx);
+	}
+	launch_raytrace(*mrt);
 }
