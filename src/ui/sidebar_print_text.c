@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 10:21:00 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 15:43:37 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:39:49 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	print_mapinfo_float(t_mrt mrt, const char *txt, double prop, int *i)
 
 	prop_str = get_float_string(prop);
 	msg = ft_strjoin(txt, prop_str);
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, msg);
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, msg);
 	free(msg);
 	free(prop_str);
 }
@@ -45,7 +45,7 @@ void	print_mapinfo(t_mrt mrt, const char *txt, int prop, int *i)
 
 	prop_str = ft_itoa(prop);
 	msg = ft_strjoin(txt, prop_str);
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, msg);
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, msg);
 	free(msg);
 	free(prop_str);
 }
@@ -60,7 +60,7 @@ void	print_mapinfo_bool(t_mrt mrt, const char *txt, bool prop, int *i)
 	else
 		prop_str = ft_strdup("false");
 	msg = ft_strjoin(txt, prop_str);
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, msg);
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, msg);
 	free(msg);
 	free(prop_str);
 }

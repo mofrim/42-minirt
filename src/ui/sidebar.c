@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 17:34:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:39:15 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	show_sidebar(t_mrt mrt)
 	int	i;
 
 	draw_sidebar_seperator(mrt);
-	mlx_string_put(mrt.mlx, mrt.win, 15, 20, mrt.side_thm.title_colr,
+	mlx_string_put(mrt.mlx, mrt.win, 30, 20, mrt.side_thm.title_colr,
 		"Jose's & Mofrim's miniRT");
 	i = 2;
 	show_keys(mrt, &i);
@@ -64,32 +64,32 @@ static void	draw_sidebar_seperator(t_mrt mrt)
 
 static void	show_keys(t_mrt mrt, int *i)
 {
-	print_menu_header(mrt, 15, 20 + (++(*i)) * 15, "-- shortcuts --");
+	print_menu_header(mrt, 30, 20 + (++(*i)) * 15, "-- shortcuts --");
 	(*i)++;
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "esc = quit");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "],[  = +/- subsample");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "9,0  = +/- fov");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "-,=  = +/- abright");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "e  = export ppm");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "p  = print scene");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "wasd  = rot cam");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "->  = move cam");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "z,x,c,v  = choose rtfunc");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "b/n  = toggle bump/nmap");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "1,2  = subsample 1/10");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "3,4  = +/- supersample ppx");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "5,6  = +/- supersample step");
-	print_menu_text(mrt, 15, 20 + (++(*i)) * 15, "/ = toggle sidebar");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "esc = quit");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "],[  = +/- subsample");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "9,0  = +/- fov");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "-,=  = +/- abright");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "e  = export ppm");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "p  = print scene");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "wasd  = rot cam");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "->  = move cam");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "z,x,c,v  = choose rtfunc");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "b/n  = toggle bump/nmap");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "1,2  = subsample 1/10");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "3,4  = +/- supersample ppx");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "5,6  = +/- supersample step");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "/ = toggle sidebar");
 }
 
 static void	show_mapinfo(t_mrt mrt, int *i)
 {
-	print_menu_header(mrt, 15, 20 + (++(*i)) * 15, "-- map info --");
+	print_menu_header(mrt, 30, 20 + (++(*i)) * 15, "-- map info --");
 	(*i)++;
 	print_mapinfo(mrt, "canvas width: ", mrt.can_params.canvas_width, i);
 	print_mapinfo(mrt, "canvas height: ", WINY, i);
 	(*i)++;
-	print_menu_header(mrt, 15, 20 + (++(*i)) * 15, "-- cam params --");
+	print_menu_header(mrt, 30, 20 + (++(*i)) * 15, "-- cam params --");
 	(*i)++;
 	if (mrt.scene->cam)
 	{
@@ -105,7 +105,7 @@ static void	show_mapinfo(t_mrt mrt, int *i)
 
 static void	show_mapparams(t_mrt mrt, int *i)
 {
-	print_menu_header(mrt, 15, 20 + (++(*i)) * 15,
+	print_menu_header(mrt, 30, 20 + (++(*i)) * 15,
 		"-- current scene params --");
 	(*i)++;
 	if (mrt.scene->alight)
