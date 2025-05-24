@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/11 11:26:24 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/24 21:45:31 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,13 @@ t_colr	triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hit)
 	t_triangle	tri;
 	t_colr		colr_at_hitpoint;
 	t_hp		hp;
-	t_v3		cam2hit;
 
-	cam2hit = v3_minus_vec(hit, scene.cam->pos);
 	tri = *(t_triangle *)tobj.obj;
 	hp.loc = hit;
 	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
 	hp.scolr = tri.colr;
 	hp.spec = tri.spec;
-	if (v3_dot(tri.normal, cam2hit) < 0)
+	if (v3_dot(tri.normal, v3_mult(hp.cam2hp, -1)) < 0)
 		hp.normal = tri.normal;
 	else
 		hp.normal = v3_mult(tri.normal, -1);
