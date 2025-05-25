@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:08:06 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/10 12:39:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:23:32 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	free_mrt_exit(t_mrt *mrt)
 static void	cleanup_scene_mrt(t_mrt *mrt, t_scene *sc)
 {
 	if (sc->objects)
-		objlst_clear(*mrt, sc->objects);
+		objlst_clear(sc->objects);
 	if (sc->cam)
 		free(sc->cam);
 	if (sc->alight)

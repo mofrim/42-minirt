@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/25 00:55:05 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/25 19:22:37 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS		=	main.c \
 					get_float_string.c \
 					ui-utils.c \
 					objlst.c \
+					objlst_clear.c \
 					objlst_print.c \
 					print_scene.c \
 					tcolr_to_int.c \

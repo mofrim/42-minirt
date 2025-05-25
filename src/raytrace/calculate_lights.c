@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 18:59:07 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 19:14:09 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ static void		calc_reflections(t_light light, t_v3 light_ray, t_hp *hp);
 /**
  * Calculate all light sources effect on the hipoint.
  *
- * Description: TODO
+ * As a proof-of-concept we implemented detection if the cam is inside an object
+ * (only implemented for the sphere). if so, there is no ambient light effect
+ * added to the light initially. Afterwards for every light source in the scene
+ * it is calculated if the ray from the hitpoint reaches the light. if so, add
+ * the lights color & intesity to the pixels final color value.
  */
-// QUESTION why starts the light_ray from the hitpoint?!
 t_colr	calculate_lights(t_scene scene, t_hp hp)
 {
 	t_objlst	*objs;

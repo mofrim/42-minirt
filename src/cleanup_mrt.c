@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 11:11:23 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:57:16 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:23:17 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	cleanup_mrt(t_mrt *mrt)
 	free(mrt->xc);
 	free(mrt->sidebar);
 	free(mrt->mlx);
-	objlst_clear(*mrt, mrt->scene->objects);
+	objlst_clear(mrt->scene->objects);
 	free(mrt->scene->cam);
 	free(mrt->scene->alight);
 	free(mrt->scene);

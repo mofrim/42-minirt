@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:20:48 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/04/29 17:28:25 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 19:15:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static double	parse_integer_part(const char *str, size_t *i, int *sign)
 	return (res);
 }
 
-// FIXME: or maybe not... but what about DBL_MIN and DBL_MAX checking?
+/* Ascii to float. Not bullet proof but good enough for the moment. */
 double	ft_atof(const char *str)
 {
 	double	res;

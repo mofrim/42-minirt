@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 12:28:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:23:24 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ typedef struct s_hp
 t_objlst	*objlst_new(t_objtype type, void *obj);
 t_objlst	*objlst_last(t_objlst *head);
 void		objlst_add_back(t_objlst **head, t_objlst *newend);
-void		objlst_clear(t_mrt mrt, t_objlst *lst);
+void		objlst_clear(t_objlst *lst);
 void		objlst_print(t_objlst *lst);
 
 /********** Cylinder Utilities **********/
