@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:18:34 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/10 11:53:53 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:56:13 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	*read_file(char *filename)
 	if (fd == -1)
 		return (NULL);
 	file_content = ft_strdup("");
+	nullcheck(file_content, "read_file()");
 	buf = ft_calloc(FILE_BUFSIZE + 1, sizeof(char));
 	nullcheck(buf, "read_file()");
 	bytes_read = read(fd, buf, FILE_BUFSIZE);
