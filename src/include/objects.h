@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 23:36:12 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 23:51:20 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@
 /* For t_img. */
 # include "../minilibx-linux/mlx_int.h"
 
+/* Forward declarations. */
 typedef struct s_mrt	t_mrt;
+typedef struct s_uv		t_uv;
+typedef struct s_scene	t_scene;
 
 /* The RGB color struct. I would like to use the l = brightness value like
  * according to the HSL = Hue Saturation Lightness - color model. This means:
@@ -215,14 +218,6 @@ typedef struct s_hp
 	float	spec;
 }	t_hp;
 
-/********** Objlst llist funcs. **********/
-
-t_objlst	*objlst_new(t_objtype type, void *obj);
-t_objlst	*objlst_last(t_objlst *head);
-void		objlst_add_back(t_objlst **head, t_objlst *newend);
-void		objlst_clear(t_objlst *lst);
-void		objlst_print(t_objlst *lst);
-
 /********** Cylinder Utilities **********/
 
 // Parameters for cylinder intersection calculations.
@@ -259,11 +254,49 @@ typedef struct s_cyl_normal_params
 	int			cap_normal_idx;
 }	t_cyl_normal_params;
 
-// FIXME: move all object funcs in here
-/* From cylinder_body.c */
-double		calculate_body_intersection_t(t_cyl_intersect_params *params);
+/********** Objlst llist funcs. **********/
 
-/* From cylinder_normal.c */
+t_objlst	*objlst_new(t_objtype type, void *obj);
+t_objlst	*objlst_last(t_objlst *head);
+void		objlst_add_back(t_objlst **head, t_objlst *newend);
+void		objlst_clear(t_objlst *lst);
+void		objlst_print(t_objlst *lst);
+
+/********** All obj related funcs. **********/
+
+double		sphere_intersect_ray(t_v3 cam_pos, t_v3 ray_dir,
+				t_ray_minmax rp, t_sphere *sphere);
+t_colr		sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit);
+t_colr		sphere_get_scolr(t_sphere s, t_v3 hp);
+t_v3		sphere_get_normal(t_v3	hitpoint, t_sphere s, t_scene scene);
+t_v3		sphere_get_tangent(t_v3 sphere_normal);
+t_v3		sphere_bump(t_v3 hp, t_sphere s);
+t_uv		sphere_get_uv(t_sphere s, t_v3 hp);
+
+double		circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+				t_circle *circle);
+t_colr		circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hit);
+
+double		triangle_intersect_ray(t_v3 origin, t_v3 ray_dir,
+				t_ray_minmax rp, t_triangle *tri);
+t_colr		triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hit);
+
+double		hyper_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+				t_hyper *hyp);
+t_colr		hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit);
+t_mtrx		hyper_get_rotmtrx(t_v3 axis, double ab, double c);
+t_v3		hyper_get_normal(t_v3 hit, t_hyper hyp);
+
+double		cylinder_intersect_ray(t_v3 origin, t_v3 ray_dir,
+				t_ray_minmax rp, t_cylinder *cyl);
+t_colr		cylinder_get_colr(t_scene scene, t_objlst cylobj,
+				t_v3 hitpoint);
+double		calculate_body_intersection_t(t_cyl_intersect_params *params);
 t_v3		calculate_cylinder_normal_at_hit(t_cyl_normal_params *params);
+
+double		plane_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
+				t_plane *plane);
+t_colr		plane_get_colr(t_scene scene, t_objlst pobj, t_v3 hitpoint);
+t_colr		plane_get_scolr(t_plane p, t_v3 hp);
 
 #endif
