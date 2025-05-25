@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/25 22:52:58 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/25 23:36:37 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,6 @@ SRCS		=	main.c \
 					sphere_get_scolr.c \
 					sphere_get_normal.c \
 					cylinder_body.c \
-					cylinder_caps.c \
 					cylinder_color.c \
 					cylinder_intersect.c \
 					cylinder_normal.c \

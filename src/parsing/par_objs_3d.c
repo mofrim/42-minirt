@@ -6,13 +6,14 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/25 23:11:11 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 23:36:17 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 void	do_hyper_calculations(t_hyper *hyp);
+void	do_cyl_calculations(t_cylinder *cyl);
 
 /**
  * Parse a sphere.
@@ -75,7 +76,6 @@ t_sphere	*parse_sphere(t_tokenizer *tok)
 t_cylinder	*parse_cylinder(t_tokenizer *tok)
 {
 	t_cylinder	*cyl;
-	t_v3		half_h_vec;
 
 	cyl = malloc(sizeof(t_cylinder));
 	if (!cyl)
@@ -87,17 +87,34 @@ t_cylinder	*parse_cylinder(t_tokenizer *tok)
 	cyl->colr = parse_color(tok);
 	cyl->spec = parse_pos_num_maybe(tok);
 	cyl->axis = v3_normalize(cyl->axis);
-	half_h_vec = v3_mult(cyl->axis, cyl->height / 2.0);
-	cyl->p1 = v3_minus_v3(cyl->center, half_h_vec);
-	cyl->p2 = v3_add_v3(cyl->center, half_h_vec);
-	cyl->r_squared = cyl->r * cyl->r;
 	if (v3_norm(cyl->axis) == 0)
 		printerr_set_invalid("cylinder axis norm == 0", &tok->valid);
 	if (cyl->r <= 0)
 		printerr_set_invalid("cylinder radius <= 0", &tok->valid);
 	if (cyl->height <= 0)
 		printerr_set_invalid("cylinder height <= 0", &tok->valid);
+	do_cyl_calculations(cyl);
 	return (cyl);
+}
+
+void	do_cyl_calculations(t_cylinder *cyl)
+{
+	t_v3		half_h_vec;
+
+	half_h_vec = v3_mult(cyl->axis, cyl->height / 2.0);
+	cyl->p1 = v3_minus_v3(cyl->center, half_h_vec);
+	cyl->p2 = v3_add_v3(cyl->center, half_h_vec);
+	cyl->r_squared = cyl->r * cyl->r;
+	cyl->cap1.center = cyl->p1;
+	cyl->cap1.r = cyl->r;
+	cyl->cap1.r2 = cyl->r_squared;
+	cyl->cap1.normal = cyl->axis;
+	cyl->cap1.cdotn = v3_dot(cyl->cap1.normal, cyl->cap1.center);
+	cyl->cap2.center = cyl->p2;
+	cyl->cap2.r = cyl->r;
+	cyl->cap2.r2 = cyl->r_squared;
+	cyl->cap2.normal = v3_mult(cyl->axis, -1);
+	cyl->cap2.cdotn = v3_dot(cyl->cap2.normal, cyl->cap2.center);
 }
 
 /**
