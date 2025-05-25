@@ -1,0 +1,20 @@
+# yet another testing for correct lighting if inside objs testscene
+A 0.2 255,255,255
+C 0,0,-20.1 0,0,1 70
+
+# big sphere outside world
+L -40,40,-20 0.7 255,165,0
+L 40,40,-20 0.7 255,0,0
+L 0,-40,-20 0.7 0,0,255
+sp 0,0,0 20 255,255,255 90
+
+# the 1st sphere inside the big one
+sp 0,0,0 5 255,255,255 120
+L 3,4,-4 0.3 255,165,0
+L -3,4,-4 0.3 0,0,255
+
+# the hyper inside
+hy 0,0,0 0,1,0 0.1 0.1 0.5 255,255,0 tex ./xpms/deep3.xpm
+L 0,0,-1.5	0.9 255,165,0
+L 1,0,-1.5	0.9 0,0,255
+L -1,0,-1.5	0.9 255,255,255
