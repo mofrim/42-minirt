@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:43:57 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/04/19 01:26:06 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 14:44:20 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 static void	print_cam(t_camera cam)
 {
-	printf("  [-1] cam { pos=(%f,%f,%f), orient=(%f,%f,%f), fov=%f }\n",
+	printf("  [-1] cam  pos=(%f,%f,%f), orient=(%f,%f,%f), fov=%f }\n",
 		cam.pos.x, cam.pos.y, cam.pos.z,
 		cam.orient.x, cam.orient.y, cam.orient.z, cam.fov);
+	printf("            %.2f,%.2f,%.2f %.2f,%.2f,%.2f %d\n",
+		cam.pos.x, cam.pos.y, cam.pos.z,
+		cam.orient.x, cam.orient.y, cam.orient.z, rad2deg_int(cam.fov));
 }
 
 void	print_scene(t_scene sc)

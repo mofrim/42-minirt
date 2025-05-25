@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 12:47:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 14:40:19 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ void	handle_amb_bright(int key, t_mrt *mrt)
 void	handle_objlst_print(int key, t_mrt mrt)
 {
 	if (key == KEY_P)
-	{
-		printf("current objects:\n");
-		objlst_print(mrt.scene->objects);
-	}
+		print_scene(*mrt.scene);
 }
 
 void	handle_export(int key, t_mrt mrt)
