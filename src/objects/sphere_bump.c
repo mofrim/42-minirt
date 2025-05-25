@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 22:34:40 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 10:29:01 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_v3	sphere_bump(t_v3 n, t_sphere s)
 	double	u;
 	double	v;
 
-	n = v3_normalize(v3_minus_vec(n, s.center));
+	n = v3_normalize(v3_minus_v3(n, s.center));
 	u = (atan2(n.z, n.x) + M_PI) / (2 * M_PI);
 	v = acos(n.y) / M_PI;
 	dhdu = s.bumpiness * s.tex_img->width * \

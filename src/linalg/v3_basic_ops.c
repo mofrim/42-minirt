@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:33:53 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/02 09:25:28 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 19:00:14 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ t_v3	v3_add_scalar(t_v3 v, double d)
 }
 
 /* Add 2 t_v3's component-wise. Returns result. */
-// FIXME rename -> v3_add_v3
-t_v3	v3_add_vec(t_v3 v, t_v3 w)
+t_v3	v3_add_v3(t_v3 v, t_v3 w)
 {
 	v.x += w.x;
 	v.y += w.y;
@@ -31,22 +30,12 @@ t_v3	v3_add_vec(t_v3 v, t_v3 w)
 	return (v);
 }
 
-// FIXME rename -> v3_minus_v3
-t_v3	v3_minus_vec(t_v3 v, t_v3 w)
+/* Substract to v3's. */
+t_v3	v3_minus_v3(t_v3 v, t_v3 w)
 {
 	v.x -= w.x;
 	v.y -= w.y;
 	v.z -= w.z;
-	return (v);
-}
-
-/* Add components specified as params to a t_v3. Returns result. */
-// FIXME rename -> v3_addv3_coords
-t_v3	v3_add_vec_coords(t_v3 v, double x, double y, double z)
-{
-	v.x += x;
-	v.y += y;
-	v.z += z;
 	return (v);
 }
 

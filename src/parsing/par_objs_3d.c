@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/23 00:12:37 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ t_cylinder	*parse_cylinder(t_tokenizer *tok)
 	cyl->spec = parse_pos_num_maybe(tok);
 	cyl->axis = v3_normalize(cyl->axis);
 	half_h_vec = v3_mult(cyl->axis, cyl->height / 2.0);
-	cyl->p1 = v3_minus_vec(cyl->center, half_h_vec);
-	cyl->p2 = v3_add_vec(cyl->center, half_h_vec);
+	cyl->p1 = v3_minus_v3(cyl->center, half_h_vec);
+	cyl->p2 = v3_add_v3(cyl->center, half_h_vec);
 	cyl->r_squared = cyl->r * cyl->r;
 	if (v3_norm(cyl->axis) == 0)
 		printerr_set_invalid("cylinder axis norm == 0", &tok->valid);

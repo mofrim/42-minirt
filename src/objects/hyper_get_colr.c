@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:39:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 09:10:20 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_colr	hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit)
 
 	h = *(t_hyper *)hobj.obj;
 	hp.loc = hit;
-	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
+	hp.cam2hp = v3_normalize(v3_minus_v3(scene.cam->pos, hit));
 	hp.scolr = hyper_get_scolr(h, hp.loc);
 	hp.spec = h.spec;
 	hp.normal = hyper_get_normal(hp.loc, h);
@@ -57,9 +57,9 @@ t_uv	hyper_get_uv(t_hyper h, t_v3 hp)
 	double	r_xz;
 
 	if (h.checker == 1 || h.checker == 0)
-		hp = v3_minus_vec(hp, h.center);
+		hp = v3_minus_v3(hp, h.center);
 	if (h.checker == 2 || h.checker == 3)
-		hp = v3_normalize(v3_minus_vec(hp, h.center));
+		hp = v3_normalize(v3_minus_v3(hp, h.center));
 	res.u = atan2(hp.z / h.ab, hp.x / h.ab) + M_PI;
 	if (h.checker == 3)
 		res.u = atan2(hp.y / h.ab, hp.x / h.ab) + M_PI;

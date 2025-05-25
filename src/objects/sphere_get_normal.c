@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 19:45:26 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/21 08:08:57 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ t_v3	sphere_get_normal(t_v3	hp, t_sphere s, t_scene scene)
 	if (scene.bump && s.bump && s.tex_img)
 		return (sphere_bump(hp, s));
 	if (!s.nmap_img || !scene.nmap)
-		return (v3_normalize(v3_minus_vec(hp, s.center)));
+		return (v3_normalize(v3_minus_v3(hp, s.center)));
 	img = s.nmap_img;
-	hp = v3_normalize(v3_minus_vec(hp, s.center));
+	hp = v3_normalize(v3_minus_v3(hp, s.center));
 	u = (atan2(hp.z, hp.x) + M_PI) / (2 * M_PI);
 	v = acos(hp.y) / M_PI;
 	colr_addr = (unsigned char *)&img->data[(int)(img->height * v) * \
@@ -75,7 +75,7 @@ t_v3	get_tangent_space_normal(t_v3 nmap_normal, t_v3 sphere_normal)
 	tangent = v3_mult(tangent, nmap_normal.x);
 	binormal = v3_mult(binormal, nmap_normal.y);
 	tnormal = v3_mult(sphere_normal, nmap_normal.z);
-	return (v3_normalize(v3_add_vec(tangent, v3_add_vec(binormal, tnormal))));
+	return (v3_normalize(v3_add_v3(tangent, v3_add_v3(binormal, tnormal))));
 }
 
 /* A first version of the get tangent function. Somehow this produced glitches,

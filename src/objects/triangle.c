@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 21:45:31 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static double	subtriag_area_sum(t_v3 x, t_triangle tri)
 	double	ar2;
 	double	ar3;
 
-	ar1 = triag_area(v3_minus_vec(x, tri.b), v3_minus_vec(x, tri.a));
-	ar2 = triag_area(v3_minus_vec(x, tri.c), v3_minus_vec(x, tri.a));
-	ar3 = triag_area(v3_minus_vec(x, tri.c), v3_minus_vec(x, tri.b));
+	ar1 = triag_area(v3_minus_v3(x, tri.b), v3_minus_v3(x, tri.a));
+	ar2 = triag_area(v3_minus_v3(x, tri.c), v3_minus_v3(x, tri.a));
+	ar3 = triag_area(v3_minus_v3(x, tri.c), v3_minus_v3(x, tri.b));
 	return (ar1 + ar2 + ar3);
 }
 
@@ -69,7 +69,7 @@ double	triangle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	if (rn == 0)
 		return (INF);
 	t = (tri->potdn - v3_dot(origin, tri->normal)) / rn;
-	x = v3_add_vec(origin, v3_mult(ray_dir, t));
+	x = v3_add_v3(origin, v3_mult(ray_dir, t));
 	if (subtriag_area_sum(x, *tri) - tri->area > EPS)
 		return (INF);
 	if (rp.tmin <= t && t < rp.tmax)
@@ -95,7 +95,7 @@ t_colr	triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hit)
 
 	tri = *(t_triangle *)tobj.obj;
 	hp.loc = hit;
-	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
+	hp.cam2hp = v3_normalize(v3_minus_v3(scene.cam->pos, hit));
 	hp.scolr = tri.colr;
 	hp.spec = tri.spec;
 	if (v3_dot(tri.normal, v3_mult(hp.cam2hp, -1)) < 0)

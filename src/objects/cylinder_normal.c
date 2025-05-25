@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:27:23 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/11 10:53:54 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	is_on_cap_surface_internal(
 		cap_center = params->cyl->p1;
 	else
 		cap_center = params->cyl->p2;
-	vec_to_hit = v3_minus_vec(params->hit_point, cap_center);
+	vec_to_hit = v3_minus_v3(params->hit_point, cap_center);
 	dist_to_plane = v3_dot(vec_to_hit, params->cyl->axis);
 	if (fabs(dist_to_plane) < EPS)
 	{
@@ -57,11 +57,11 @@ static t_v3	get_body_normal_geometric(t_cyl_normal_params *params)
 	t_v3	point_on_axis;
 	t_v3	normal;
 
-	cp_vec = v3_minus_vec(params->hit_point, params->cyl->p1);
+	cp_vec = v3_minus_v3(params->hit_point, params->cyl->p1);
 	projection_len = v3_dot(cp_vec, params->cyl->axis);
-	point_on_axis = v3_add_vec(params->cyl->p1, \
+	point_on_axis = v3_add_v3(params->cyl->p1, \
 v3_mult(params->cyl->axis, projection_len));
-	normal = v3_minus_vec(params->hit_point, point_on_axis);
+	normal = v3_minus_v3(params->hit_point, point_on_axis);
 	normal = v3_normalize(normal);
 	return (normal);
 }

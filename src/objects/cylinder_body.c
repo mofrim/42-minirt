@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:17:17 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/11 10:44:29 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	calculate_body_quadratic_coeffs(
 	double	dot_co_axis;
 	double	r_sq;
 
-	co = v3_minus_vec(params->origin, params->cyl->p1);
+	co = v3_minus_v3(params->origin, params->cyl->p1);
 	dot_rd_axis = v3_dot(params->ray_dir, params->cyl->axis);
 	dot_co_axis = v3_dot(co, params->cyl->axis);
 	r_sq = params->cyl->r_squared;
@@ -70,7 +70,7 @@ static double	solve_and_get_valid_t_body(\
 	{
 		if (t_hits[i] > params->rp.tmin && t_hits[i] < params->rp.tmax)
 		{
-			hit_point = v3_add_vec(params->origin, \
+			hit_point = v3_add_v3(params->origin, \
 v3_mult(params->ray_dir, t_hits[i]));
 			if (is_within_bounds(params->cyl, hit_point))
 				if (t_hits[i] < closest_t)
@@ -128,7 +128,7 @@ bool	is_within_bounds(t_cylinder *cyl, t_v3 q)
 	t_v3	q_minus_p1;
 	double	proj;
 
-	q_minus_p1 = v3_minus_vec(q, cyl->p1);
+	q_minus_p1 = v3_minus_v3(q, cyl->p1);
 	proj = v3_dot(q_minus_p1, cyl->axis);
 	return (proj >= 0 && proj <= cyl->height);
 }

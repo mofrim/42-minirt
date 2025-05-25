@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:26:22 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/15 11:26:34 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:58:50 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_colr	traceray(t_scene scene, t_v3 ray_dir)
 
 	intersec = intersect_ray_objs(scene.cam->pos, ray_dir,
 			(t_ray_minmax){VIEWZ, INF}, scene.objects);
-	hitpoint = v3_add_vec(scene.cam->pos, v3_mult(ray_dir, intersec.t));
+	hitpoint = v3_add_v3(scene.cam->pos, v3_mult(ray_dir, intersec.t));
 	colr_at_hitpoint = get_object_colr(scene, intersec.obj, hitpoint);
 	return (colr_at_hitpoint);
 }

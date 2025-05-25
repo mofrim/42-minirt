@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:05:01 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/24 21:44:14 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double	plane_intersect_ray(
 	denominator = v3_dot(ray_dir, plane->normal);
 	if (fabs(denominator) > EPS)
 	{
-		p0_l0 = v3_minus_vec(plane->pop, origin);
+		p0_l0 = v3_minus_v3(plane->pop, origin);
 		t = v3_dot(p0_l0, plane->normal) / denominator;
 		if (rp.tmin <= t && t < rp.tmax)
 			return (t);
@@ -63,7 +63,7 @@ t_colr	plane_get_colr(t_scene scene, t_objlst pobj, t_v3 hit)
 
 	p = *(t_plane *)pobj.obj;
 	hp.loc = hit;
-	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
+	hp.cam2hp = v3_normalize(v3_minus_v3(scene.cam->pos, hit));
 	hp.scolr = plane_get_scolr(p, hp.loc);
 	hp.spec = p.spec;
 	if (v3_dot(p.normal, v3_mult(hp.cam2hp, -1)) < 0)

@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:35:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/25 14:05:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	setup_scene(t_mrt mrt)
 /* Is the cam inside of a sphere? */
 static bool	is_inside_sphere(t_v3 pos, t_sphere sp)
 {
-	if (v3_norm(v3_minus_vec(pos, sp.center)) <= sp.r)
+	if (v3_norm(v3_minus_v3(pos, sp.center)) <= sp.r)
 		return (true);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:41:08 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/11 11:28:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ double	hyper_caps_intersect(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	double		t1;
 	double		t2;
 
-	c1.center = v3_add_vec(hyp.center, v3_mult(hyp.axis, hyp.hby2));
+	c1.center = v3_add_v3(hyp.center, v3_mult(hyp.axis, hyp.hby2));
 	c1.r = hyp.rcaps;
 	c1.r2 = c1.r * c1.r;
 	c1.normal = hyp.axis;
-	c2.center = v3_minus_vec(hyp.center, v3_mult(hyp.axis, hyp.hby2));
+	c2.center = v3_minus_v3(hyp.center, v3_mult(hyp.axis, hyp.hby2));
 	c2.r = c1.r;
 	c2.r2 = c1.r2;
 	c2.normal = v3_mult(hyp.axis, -1);

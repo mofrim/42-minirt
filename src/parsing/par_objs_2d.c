@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:11:41 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 09:05:16 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ t_triangle	*parse_triangle(t_tokenizer *tok)
 	tr->c = parse_v3(tok);
 	tr->colr = parse_color(tok);
 	tr->spec = parse_pos_num_maybe(tok);
-	tr->ab = v3_minus_vec(tr->b, tr->a);
-	tr->ac = v3_minus_vec(tr->c, tr->a);
-	tr->bc = v3_minus_vec(tr->c, tr->b);
+	tr->ab = v3_minus_v3(tr->b, tr->a);
+	tr->ac = v3_minus_v3(tr->c, tr->a);
+	tr->bc = v3_minus_v3(tr->c, tr->b);
 	if (v3_norm(tr->ab) * v3_norm(tr->ac) * v3_norm(tr->bc) == 0)
 		printerr_set_invalid("2 equal points in triangle def", &tok->valid);
 	tr->normal = v3_normalize(v3_cross(tr->ab, tr->ac));

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 13:59:27 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ double	sphere_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	t_v3	abc;
 	double	disc;
 
-	co = v3_minus_vec(origin, sphere->center);
+	co = v3_minus_v3(origin, sphere->center);
 	abc.x = v3_dot(ray_dir, ray_dir);
 	abc.y = 2 * v3_dot(co, ray_dir);
 	abc.z = v3_dot(co, co) - sphere->r_squared;
@@ -47,7 +47,7 @@ t_colr	sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit)
 
 	s = *(t_sphere *)sobj.obj;
 	hp.loc = hit;
-	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
+	hp.cam2hp = v3_normalize(v3_minus_v3(scene.cam->pos, hit));
 	hp.scolr = sphere_get_scolr(s, hp.loc);
 	hp.spec = s.spec;
 	hp.normal = sphere_get_normal(hp.loc, s, scene);
@@ -61,7 +61,7 @@ t_uv	sphere_get_uv(t_sphere s, t_v3 hp)
 {
 	t_uv	res;
 
-	hp = v3_normalize(v3_minus_vec(hp, s.center));
+	hp = v3_normalize(v3_minus_v3(hp, s.center));
 	res.u = (atan2(hp.z, hp.x) + M_PI) / (2 * M_PI);
 	res.v = acos(hp.y) / M_PI;
 	return (res);

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:20:18 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 10:05:47 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:58:50 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	update_cam_rot_orient(t_camera *cam, double x_ang, double y_ang,
  * aka the rotation of the x-axis by rot_mtrx. And that is simply the first
  * column of rot_mtrx!
  */
-// TODO: make step size controllable from the outside.
 t_v3	cam_get_new_pos(t_camera *cam, t_dirs dir, double step)
 {
 	t_v3	x;
@@ -75,12 +74,12 @@ t_v3	cam_get_new_pos(t_camera *cam, t_dirs dir, double step)
 	new_pos = cam->pos;
 	x = (t_v3){cam->rot.m[0][0], cam->rot.m[1][0], cam->rot.m[2][0]};
 	if (dir == LEFT)
-		new_pos = v3_add_vec(cam->pos, v3_mult(x, -step));
+		new_pos = v3_add_v3(cam->pos, v3_mult(x, -step));
 	if (dir == RIGHT)
-		new_pos = v3_add_vec(cam->pos, v3_mult(x, step));
+		new_pos = v3_add_v3(cam->pos, v3_mult(x, step));
 	if (dir == FORTH)
-		new_pos = v3_add_vec(cam->pos, v3_mult(cam->orient, step));
+		new_pos = v3_add_v3(cam->pos, v3_mult(cam->orient, step));
 	if (dir == BACK)
-		new_pos = v3_add_vec(cam->pos, v3_mult(cam->orient, -step));
+		new_pos = v3_add_v3(cam->pos, v3_mult(cam->orient, -step));
 	return (new_pos);
 }

@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:28:23 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/11 10:51:18 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	setup_normal_params(
 {
 	norm_p->cyl = (t_cylinder *)cylobj.obj;
 	norm_p->hit_point = hitpoint;
-	norm_p->incident_ray_dir = v3_normalize(v3_minus_vec(hitpoint,
+	norm_p->incident_ray_dir = v3_normalize(v3_minus_v3(hitpoint,
 				scene.cam->pos));
 	norm_p->is_cap_hit = 0;
 	norm_p->cap_normal_idx = 0;
@@ -55,7 +55,7 @@ t_colr	cylinder_get_colr(t_scene scene, t_objlst cylobj, t_v3 hit)
 
 	c = *(t_cylinder *)cylobj.obj;
 	hp.loc = hit;
-	hp.cam2hp = v3_normalize(v3_minus_vec(scene.cam->pos, hit));
+	hp.cam2hp = v3_normalize(v3_minus_v3(scene.cam->pos, hit));
 	hp.scolr = c.colr;
 	hp.spec = c.spec;
 	setup_normal_params(&normal_params, scene, cylobj, hit);

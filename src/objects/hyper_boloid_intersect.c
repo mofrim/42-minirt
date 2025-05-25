@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 12:00:44 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 09:55:39 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ bool	is_on_finite_hyper(t_v3 orig, t_v3 ray, t_hyper hyp, double res)
 {
 	t_v3	hit;
 
-	hit = v3_add_vec(orig, v3_mult(ray, res));
-	if (fabs(v3_dot(v3_minus_vec(hit, hyp.center), hyp.axis)) > hyp.hby2)
+	hit = v3_add_v3(orig, v3_mult(ray, res));
+	if (fabs(v3_dot(v3_minus_v3(hit, hyp.center), hyp.axis)) > hyp.hby2)
 		return (false);
 	return (true);
 }
@@ -77,7 +77,7 @@ t_v2	solve_intersec_equ(t_v3 origin, t_v3 ray_dir, t_hyper hyp)
 	at = v3_dot(ray_dir, mtrx_prod_v3(hyp.hym, ray_dir));
 	if (at == 0)
 		return ((t_v2){-42, -42});
-	oc = v3_minus_vec(origin, hyp.center);
+	oc = v3_minus_v3(origin, hyp.center);
 	p = (v3_dot(ray_dir, mtrx_prod_v3(hyp.hym, oc)) \
 + v3_dot(oc, mtrx_prod_v3(hyp.hym, ray_dir))) / at;
 	q = (v3_dot(oc, mtrx_prod_v3(hyp.hym, oc)) - 1) / at;
