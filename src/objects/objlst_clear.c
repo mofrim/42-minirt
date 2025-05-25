@@ -6,16 +6,21 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 19:21:42 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 20:25:35 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:36:40 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/* NOTE for now we do not use mlx_destroy_image here because this only works for
- * images that at least got displayed once. We don't do that i guess, bc we only
- * need the xpm reading routine from mlx and after that we work with the image
- * on our own. But i am not yet sure about that yet... */
+/**
+ * Free a sphere obj.
+ *
+ * We don't use mlx_destroy_image here, because this only works for images
+ * created with mlx_new_image. This function uses X shared mem, which has to be
+ * freed differently. We are only interested in storing the data somewhere. But
+ * it would be an intersting point to investigate, if using shared mem has some
+ * advantage..
+ */
 static void	free_sphere(t_sphere *s)
 {
 	if (s->tex_file)
@@ -35,6 +40,7 @@ static void	free_sphere(t_sphere *s)
 	free(s);
 }
 
+/* Free a hyper. */
 static void	free_hyper(t_hyper *h)
 {
 	if (h->tex_file)
@@ -47,6 +53,7 @@ static void	free_hyper(t_hyper *h)
 	free(h);
 }
 
+/* Clear the objlst. */
 void	objlst_clear(t_objlst *lst)
 {
 	t_objlst	*tmp;

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 11:04:09 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 20:18:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:29:03 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	sphere_get_texnmap_imgs_from_file(t_mrt mrt, t_sphere *s)
 	}
 }
 
+/* Read a tex-file for the hyper. */
 static void	hyper_get_tex_img_from_file(t_mrt mrt, t_hyper *h)
 {
 	int	width;
@@ -53,8 +54,7 @@ static void	hyper_get_tex_img_from_file(t_mrt mrt, t_hyper *h)
 /**
  * Read the nmap/texture files specified in scenefile.
  *
- * So far only for the sphere. The tex_file / nmap_file pointer will be replaced
- * by pointers pointing to the file_content if file could successfully be read.
+ * Implemeted so far only for sphere and hyper.
  */
 void	read_tex_nmap(t_mrt mrt)
 {
