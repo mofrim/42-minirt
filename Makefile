@@ -221,15 +221,14 @@ debug: $(SRCS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
 
 setup:
 	@$(ECHO) "$(call log_msg,Setting things up...)"
-	@rm -rf ./minilibx-linux ./test_maps
+	@rm -rf ./minilibx-linux
 	@$(ECHO) "$(call log_msg,Downloading mlx...)"
 	@wget -c https://cdn.intra.42.fr/document/document/34406/minilibx-linux.tgz 2> /dev/null
-	@wget -c https://cdn.intra.42.fr/document/document/34407/minilibx_macos_opengl.tgz 2> /dev/null
 	@echo	-e "$(call log_msg,Unpacking mlx...)"
 	@tar xzf ./minilibx-linux.tgz > /dev/null
-	@tar xzf ./minilibx_macos_opengl.tgz > /dev/null
+	@rm ./minilibx-linux.tgz > /dev/null
 	@echo	-e "$(call log_msg,Cloning libft submodule...)"
-	@git submodule update --init
+	@git submodule update --init --recursive
 	@sleep 1s
 	@$(ECHO) "$(call log_msg,There you go!)"
 
