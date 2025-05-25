@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:41:08 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 23:02:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ double	hyper_caps_intersect(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	c1.r = hyp.rcaps;
 	c1.r2 = c1.r * c1.r;
 	c1.normal = hyp.axis;
+	c1.cdotn = v3_dot(c1.normal, c1.center);
 	c2.center = v3_minus_v3(hyp.center, v3_mult(hyp.axis, hyp.hby2));
 	c2.r = c1.r;
 	c2.r2 = c1.r2;
 	c2.normal = v3_mult(hyp.axis, -1);
+	c2.cdotn = v3_dot(c2.normal, c2.center);
 	t1 = circle_intersect_ray(origin, ray_dir, rp, &c1);
 	t2 = circle_intersect_ray(origin, ray_dir, rp, &c2);
 	if (rp.tmin < t1 && t1 < rp.tmax && (t1 < t2 || \
