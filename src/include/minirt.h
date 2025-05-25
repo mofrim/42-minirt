@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:34:44 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:32:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ typedef struct s_uv
 typedef struct s_scene
 {
 	t_camera	*cam;
-	t_alight	*alight;
 	t_objlst	*objects;
+	t_colr		*alight;
 	int			subsample;
 	bool		supersample;
 	int			samples_ppx;

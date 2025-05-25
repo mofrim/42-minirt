@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 00:13:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:28:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,6 @@ typedef struct s_triangle
 	t_colr	colr;
 	float	spec;
 }	t_triangle;
-
-typedef struct s_alight
-{
-	double	bright;
-	t_colr	colr;
-}	t_alight;
 
 typedef struct s_light
 {

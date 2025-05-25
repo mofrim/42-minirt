@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:35:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/24 10:15:06 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:58:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,17 @@ void	setup_scene(t_mrt mrt)
 		scene->cam->is_inside_obj = is_cam_inside_obj(*scene->cam, *scene);
 	if (!scene->objects)
 		ft_printf("Warning: No objects in scene!\n");
-	put_string_canvas(mrt, (t_pxl){0, 0}, GREEN,
-		"Loading Jose's & Mofrim's miniRT...");
+	if (!scene->alight)
+	{
+		scene->alight = malloc(sizeof(t_colr));
+		*scene->alight = (t_colr){255, 255, 255, 0};
+	}
+	if (!scene->cam)
+		put_string_canvas(mrt, (t_pxl){0, 0}, GREEN,
+			"No cam specified... so there is nothing to be seen ;)");
+	else
+		put_string_canvas(mrt, (t_pxl){0, 0}, GREEN,
+			"Loading Jose's & Mofrim's miniRT...");
 	read_tex_nmap(mrt);
 }
 

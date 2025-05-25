@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:17:05 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 14:46:54 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:57:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@
  * Example: "A 0.3 255,255,255"
  * Rules: 0 <= bright <= 1, colr must be valid
  */
-t_alight	*parse_ambient_light(t_tokenizer *tok)
+t_colr	*parse_ambient_light(t_tokenizer *tok)
 {
-	t_alight	*alight;
+	t_colr	*alight;
+	double	bright;
 
-	alight = malloc(sizeof(t_alight));
-	nullcheck(alight, "parse_ambient_light()");
-	alight->bright = parse_pos_num(tok);
-	if (alight->bright > 1.0)
-		printerr_set_invalid("ambient light too bright", &tok->valid);
+	alight = malloc(sizeof(t_colr));
+	bright = parse_pos_num(tok);
+	if (bright > 1.0)
+		printerr_set_invalid("ambient light bright incorrect", &tok->valid);
 	if (tok->valid)
 	{
-		alight->colr = parse_color(tok);
-		alight->colr.i = alight->bright;
+		*alight = parse_color(tok);
+		alight->i = bright;
 	}
 	return (alight);
 }

@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:22:49 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/22 14:37:38 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:32:01 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		handle_token_keyword(t_scene *scene, t_tokenizer *tokenizer,
 				char *key);
 
 // Object parsers
-t_alight	*parse_ambient_light(t_tokenizer *tokenizer);
+t_colr		*parse_ambient_light(t_tokenizer *tokenizer);
 t_camera	*parse_camera(t_tokenizer *tokenizer);
 t_light		*parse_light(t_tokenizer *tokenizer);
 t_colr		parse_color(t_tokenizer *tokenizer);

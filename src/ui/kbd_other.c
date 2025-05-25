@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:11:06 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:47:19 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,20 @@
 
 void	handle_amb_bright(int key, t_mrt *mrt)
 {
-	if (key == KEY_EQUAL && mrt->scene->alight->colr.i + 0.1 <= 1.0)
+	if (key == KEY_EQUAL)
 	{
-		mrt->scene->alight->colr.i += 0.1;
+		if (mrt->scene->alight->i + 0.1 <= 1.0)
+			mrt->scene->alight->i += 0.1;
+		else
+			mrt->scene->alight->i = 1.0;
 		redraw_win(mrt, false);
 	}
-	if (key == KEY_MINUS && mrt->scene->alight->colr.i - 0.1 >= 0)
+	if (key == KEY_MINUS)
 	{
-		mrt->scene->alight->colr.i -= 0.1;
+		if (mrt->scene->alight->i - 0.1 >= 0)
+			mrt->scene->alight->i -= 0.1;
+		else
+			mrt->scene->alight->i = 0;
 		redraw_win(mrt, false);
 	}
 }

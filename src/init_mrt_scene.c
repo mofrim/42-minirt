@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:41:42 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:35:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,11 @@ static void	init_mlx_win(t_mrt *mrt)
 		exit_with_errmsg("Error\n!! mlx_new_window fail !!");
 }
 
-/* Intialize scene struct. If malloc fails -> errorexit! 
- * Also setting subsample
- * to 10 here for a fluent first look at the scene. 
- * The supersampling settings
- * are initalized to 4 and 2 which makes a good start.
- * Another design decision: if bump/normal mapping 
- * is wanted for any object, it will by
- * done per default. Can be deactivated later via 'B' key. */
+/* Intialize scene struct. If malloc fails -> errorexit! Also setting subsample
+ * to 10 here for a fluent first look at the scene. The supersampling settings
+ * are initalized to 4 and 2 which makes a good start. Another design decision:
+ * if bump/normal mapping is wanted for any object, it will by done per default.
+ * Can be deactivated later via 'B' key. */
 t_scene	*init_scene(void)
 {
 	t_scene	*scene;

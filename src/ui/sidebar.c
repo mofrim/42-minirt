@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:20:41 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:38:40 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static void	show_mapparams(t_mrt mrt, int *i)
 		"-- current scene params --");
 	(*i)++;
 	if (mrt.scene->alight)
-		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->colr.i, i);
+		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->i, i);
 	print_mapinfo(mrt, "subsample: ", mrt.scene->subsample, i);
 	print_mapinfo_bool(mrt, "supersample: ", mrt.scene->supersample, i);
 	if (mrt.scene->supersample)

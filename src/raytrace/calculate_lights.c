@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:01:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/08 09:47:50 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:39:04 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_colr	calculate_lights(t_scene scene, t_hp hp)
 	t_v3		light_ray;
 
 	if (!scene.cam->is_inside_obj)
-		hp.fcolr = hp_add_alight(hp.scolr, scene.alight->colr);
+		hp.fcolr = hp_add_alight(hp.scolr, *scene.alight);
 	else
 		hp.fcolr = (t_colr){0, 0, 0, 0};
 	objs = scene.objects;

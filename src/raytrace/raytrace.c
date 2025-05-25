@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:23:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 16:45:58 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:35:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	raytrace(t_mrt mrt)
 	t_colr	px_colr;
 
 	cx = mrt.can_params.pixel_minx;
-	px_colr = mrt.scene->alight->colr;
+	px_colr = *mrt.scene->alight;
 	while (cx < mrt.can_params.pixel_maxx)
 	{
 		cy = mrt.can_params.pixel_miny;

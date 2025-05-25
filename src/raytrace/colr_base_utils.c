@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 08:47:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/22 14:09:56 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 12:42:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_colr	colr_mult(t_colr c, double i)
 /* Print a colr var and its name. */
 void	colr_print(t_colr c, char *name)
 {
-	printf("colr-%s: [%d, %d, %d]\n", name, c.r, c.g, c.b);
+	printf("colr-%s: [%d, %d, %d, %.2f]\n", name, c.r, c.g, c.b, c.i);
 }
 
 static uint8_t	min3(uint8_t x, uint8_t y, uint8_t z)
