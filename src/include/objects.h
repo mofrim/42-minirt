@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 20:23:24 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:44:45 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,11 @@ typedef struct s_circle
 	t_v3	center;
 	t_colr	colr;
 	float	spec;
+	double	cdotn;
 }	t_circle;
 
-/* potdn = PointOnTriangleDotN convenience variable to speed up intersection
- * calc. */
-// TODO: also do this for circles and planes.
+/* The triangle. pdotn = PointOnTriangleDotN convenience variable to speed up
+ * intersection calc. */
 typedef struct s_triangle
 {
 	t_v3	a;
@@ -140,7 +140,7 @@ typedef struct s_triangle
 	t_v3	ac;
 	t_v3	bc;
 	t_v3	normal;
-	double	potdn;
+	double	pdotn;
 	double	area;
 	t_colr	colr;
 	float	spec;

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:11:41 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:41:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_triangle	*parse_triangle(t_tokenizer *tok)
 	if (v3_norm(tr->ab) * v3_norm(tr->ac) * v3_norm(tr->bc) == 0)
 		printerr_set_invalid("2 equal points in triangle def", &tok->valid);
 	tr->normal = v3_normalize(v3_cross(tr->ab, tr->ac));
-	tr->potdn = v3_dot(tr->a, tr->normal);
+	tr->pdotn = v3_dot(tr->a, tr->normal);
 	tr->area = 0.5 * v3_norm(v3_cross(tr->ab, tr->ac));
 	return (tr);
 }
@@ -80,6 +80,7 @@ t_circle	*parse_circle(t_tokenizer *tok)
 		printerr_set_invalid("circle diameter == 0", &tok->valid);
 	ci->r2 = ci->r * ci->r;
 	ci->normal = v3_normalize(ci->normal);
+	ci->cdotn = v3_dot(ci->normal, ci->center);
 	return (ci);
 }
 

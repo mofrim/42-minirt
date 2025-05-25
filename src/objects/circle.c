@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:22:32 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 18:59:07 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:41:33 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 
 	if (v3_dot(ray_dir, c->normal) == 0)
 		return (INF);
-	t = (v3_dot(c->normal, c->center) - v3_dot(origin, c->normal)) / \
+	t = (c->cdotn - v3_dot(origin, c->normal)) / \
 v3_dot(ray_dir, c->normal);
 	x = v3_add_v3(origin, v3_mult(ray_dir, t));
 	if (v3_norm(v3_minus_v3(x, c->center)) > c->r)
