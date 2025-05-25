@@ -1,0 +1,5 @@
+# light behind triangle should not lighten the side facing the cam
+A		0.3 255,255,255
+C		0,0,-10 0,0,1 50
+L		0,0,4	0.4	255,255,255
+tr	-3,-3,3 3,-3,3 0,3,3 255,165,0

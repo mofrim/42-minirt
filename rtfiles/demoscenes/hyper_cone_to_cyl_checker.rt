@@ -1,0 +1,26 @@
+# example file for the cone-hyperbolos param combinations.
+# a very small ab param leads to coniness.
+# if ab = c we have pi/4 cone
+# if ab > c we make the caps wider
+# if ab < c caps are narrower
+
+# C 0,-1,-15 0,0,1 70
+C -5.4,-1,-13.8 0.366,0,0.93 70
+A 0.5 255,255,255
+
+# the cone
+hy -6,-1.5,0 0,1,0 0.01 0.01 6 0,191,255 80 checker 10
+L -6,-1.5,-4 0.5	255,255,255
+
+# the true bolo
+hy -0.5,-1.5,3 0,1,0 1 1 6 0,191,255 200 checker 10
+L 0,-1.5,1 0.5	255,255,255
+
+# the bolo with wider taille
+hy 3,-1.5,-2 0,1,0 1 2 6 0,191,255 10 checker 10
+L 3,-1.5,-4 0.5	255,255,255
+
+# the cylinder
+hy 6,-1.5,-4 0,1,0 1 100 6 0,191,255 100 checker 10
+
+

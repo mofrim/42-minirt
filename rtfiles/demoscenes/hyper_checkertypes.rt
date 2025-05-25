@@ -1,0 +1,11 @@
+# showcase of different checkertypes on the bolo.
+A 0.6 255,255,255
+C 0,15,-30 0,-0.45,0.86 60
+L 0,0,-2 0.5 255,255,255
+L 5,8,0 0.5 255,255,255
+
+hy -11,0,0 0,1,0 1 1 10 255,0,0 100 stripechecker 32
+hy 0,0,0 0,1,0 1 1 10 255,0,0 100 spacechecker 32
+hy 11,0,0 0,1,0 1 1 10 255,0,0 100 checker 32
+
+pl 0,-10,0 0,1,0 135,206,250 10 checker 0.1 

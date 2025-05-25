@@ -1,3 +1,4 @@
+# demonstrate correct behavior of light behind a 2d obj
 A 0.2 255,255,255
 C 0,0,-8 0,0,1 70
 L 0,0,6 0.3 255,255,255

@@ -1,0 +1,7 @@
+# looking at the himalayas
+A 0.9 255,255,255
+C 2.154,6.630,25.121 -0.075,0.399,-0.913 70
+L -5.028,2.359,26.634 0.5 255,255,255
+
+# the earth
+sp 0,0,0 40 255,255,255 20 tex ./xpms/earth-hq.xpm nmap ./xpms/earth-hq-nmap.xpm

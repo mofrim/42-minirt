@@ -1,7 +1,6 @@
-# this is the first space scene.
-
+# eehhm, yellow ball inside colored rings
 A 0.5 255,255,255
-C		0,5,-18 0,-0.6,1 70
+C		0,5,-8 0,-0.6,1 70
 L		0,0.5,-4	0.6	255,140,0
 L	  -4,0.5,0	0.6	255,140,0
 L	  4,0.5,0	0.6	255,140,0

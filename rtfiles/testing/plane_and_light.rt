@@ -1,0 +1,7 @@
+# one light and one plane. the light should only lighten the side of the plane
+# where it is on. if you move to the other side, there should be no light effect
+# visible on the plane
+A 0.5 255,255,255
+C 0,5,-10 0,-0.4,1 70
+L 0,2,0 0.5 255,255,255
+pl 0,-1,0 0,1,0 255,125,25 checker 0.5
