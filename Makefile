@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/25 21:49:52 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/25 22:09:39 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ SRCS		=	main.c \
 					circle.c \
 					kbd_other.c \
 					triangle.c \
-					colr_base_utils.c \
+					colr_more_utils.c \
 					export_ppm.c \
 					hyper.c \
 					hyper_mtrx_normal.c \
