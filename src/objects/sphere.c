@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:33:38 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 09:03:55 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 13:59:27 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ double	sphere_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 	return (INF);
 }
 
-/* Returns the color of the sphere at the hitpoint. So far only for ambient and
- * diffuse lighting.
- * ATM, we handle the situation where cam is inside the sphere by flipping the
- * normal... */
+/* Returns the color of the sphere at the hitpoint. */
 t_colr	sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit)
 {
 	t_sphere	s;
@@ -54,8 +51,6 @@ t_colr	sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit)
 	hp.scolr = sphere_get_scolr(s, hp.loc);
 	hp.spec = s.spec;
 	hp.normal = sphere_get_normal(hp.loc, s, scene);
-	if (v3_norm(v3_minus_vec(scene.cam->pos, s.center)) < s.r)
-		hp.normal = v3_mult(hp.normal, -1);
 	colr_at_hitpoint = calculate_lights(scene, hp);
 	return (colr_at_hitpoint);
 }
