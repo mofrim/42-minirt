@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 23:26:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 17:17:38 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 13:30:13 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*rt_thread_xpm(void *args)
 
 	ta = (t_thread_args *)args;
 	cx = ta->x_start - 1;
-	px_colr = ta->mrt->scene->alight->colr;
+	px_colr = *ta->mrt->scene->alight;
 	while (++cx <= ta->x_end)
 	{
 		cy = ta->mrt->can_params.pixel_miny - 1;
@@ -53,7 +53,7 @@ void	*rt_thread_pxput(void *args)
 
 	ta = (t_thread_args *)args;
 	cx = ta->x_start - 1;
-	px_colr = ta->mrt->scene->alight->colr;
+	px_colr = *ta->mrt->scene->alight;
 	while (++cx <= ta->x_end)
 	{
 		cy = ta->mrt->can_params.pixel_miny - 1;
