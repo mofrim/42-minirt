@@ -14,6 +14,7 @@
 # quick and dirty tester for invalid minirt scenefiles
 
 TESTDIR=./rtfiles/testing/malformed-rtfiles
+SOMETHINGWRONG=0
 
 if [ ! -e ./minirt ]; then
 	echo ">>> minirt not found!"
@@ -32,14 +33,19 @@ fi
 
 for i in $(ls -1 $TESTDIR); do
 	if [ ! "$(echo $i | cut -f 1 -d '_')" = "TEMPLATE" ]; then
-		echo ">>> testing file $TESTDIR/$i:"
-		echo "---"
+		echo -e "\e[38;5;106m>>> testing file \e[38;5;111m$TESTDIR/$i:\e[0m"
+		echo -e "\e[38;5;106m---\e[0m"
 		./minirt $TESTDIR/$i > /dev/null
-		echo "---"
-		echo ">>> done testing file $i."
+		if [ $? -ne 1 ]; then
+			SOMETHINGWRONG=1
+		fi
+		echo -e "\e[38;5;106m---\e[0m"
+		echo -e "\e[38;5;106m>>> done testing file \e[38;5;111m$i.\e[0m"
 		read -r
 	fi
 done
 
-
+if [ $SOMETHINGWRONG -eq 0 ]; then
+		echo -e "\e[38;5;106m>>> finy fine!\e[0m"
+fi
 
