@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 12:32:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 22:41:53 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@
 
 /********** LinalAlg headers. **********/
 
-# include "vec3.h"
 # include "v3.h"
 # include "mtrx.h"
 

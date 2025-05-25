@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:49:45 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 19:26:33 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 22:52:39 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ typedef struct s_v3
 	double	y;
 	double	z;
 }	t_v3;
-
-/* Creation. */
-t_v3	*v3_new_alloc(double x, double y, double z);
-t_v3	v3_new(double x, double y, double z);
 
 /* Ops. */
 t_v3	v3_add_scalar(t_v3 v, double d);

@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/25 22:09:39 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/25 22:52:58 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,6 @@ SRCS		=	main.c \
 					kbd_input_handler.c \
 					kbd_handle_fov_sub.c \
 					rgb_to_int_tcolr.c \
-					vec3_new.c \
-					vec3_basic_ops.c \
-					vec3_products.c \
-					v3_new.c \
 					v3_basic_ops.c \
 					v3_advanced_ops.c \
 					mtrx_ops.c \
@@ -130,15 +126,16 @@ LIBS 			= -lmlx -lXext -lX11 -lm -lft
 INC_DIR			= $(SRC_DIR)/include
 INC					= -I$(INC_DIR) -I$(LIBMLX_PATH) -I$(LIBFT_PATH)
 
-MINRT_HDRS	= $(INC_DIR)/minirt.h \
-							$(INC_DIR)/vec3.h \
-							$(INC_DIR)/v3.h \
+MINRT_HDRS	= $(INC_DIR)/colors.h \
 							$(INC_DIR)/constants.h \
-							$(INC_DIR)/objects.h \
-							$(INC_DIR)/mtrx.h \
-							$(INC_DIR)/parsing.h \
 							$(INC_DIR)/keycodes.h \
-							$(INC_DIR)/ui.h
+							$(INC_DIR)/minirt.h \
+							$(INC_DIR)/mtrx.h \
+							$(INC_DIR)/objects.h \
+							$(INC_DIR)/parsing.h \
+							$(INC_DIR)/ui.h \
+							$(INC_DIR)/v3.h \
+							$(INC_DIR)/xpm.h
 
 # FIXME: change this back to 'cc' @school for eval
 CC			=	clang
