@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 22:41:53 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 23:47:54 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,39 +218,6 @@ t_intersec		intersect_ray_objs(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
 t_colr			get_object_colr(t_scene scene, t_objlst *close_obj,
 					t_v3 hitpoint);
 t_colr			calculate_lights(t_scene scene, t_hp hp);
-
-double			sphere_intersect_ray(t_v3 cam_pos, t_v3 ray_dir,
-					t_ray_minmax rp, t_sphere *sphere);
-t_colr			sphere_get_colr(t_scene scene, t_objlst sobj, t_v3 hit);
-t_colr			sphere_get_scolr(t_sphere s, t_v3 hp);
-t_v3			sphere_get_normal(t_v3	hitpoint, t_sphere s, t_scene scene);
-t_v3			sphere_get_tangent(t_v3 sphere_normal);
-t_v3			sphere_bump(t_v3 hp, t_sphere s);
-t_uv			sphere_get_uv(t_sphere s, t_v3 hp);
-
-double			circle_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
-					t_circle *circle);
-t_colr			circle_get_colr(t_scene scene, t_objlst cobj, t_v3 hit);
-
-double			triangle_intersect_ray(t_v3 origin, t_v3 ray_dir,
-					t_ray_minmax rp, t_triangle *tri);
-t_colr			triangle_get_colr(t_scene scene, t_objlst tobj, t_v3 hit);
-
-double			hyper_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
-					t_hyper *hyp);
-t_colr			hyper_get_colr(t_scene scene, t_objlst hobj, t_v3 hit);
-t_mtrx			hyper_get_rotmtrx(t_v3 axis, double ab, double c);
-t_v3			hyper_get_normal(t_v3 hit, t_hyper hyp);
-
-double			cylinder_intersect_ray(t_v3 origin, t_v3 ray_dir,
-					t_ray_minmax rp, t_cylinder *cyl);
-t_colr			cylinder_get_colr(t_scene scene, t_objlst cylobj,
-					t_v3 hitpoint);
-
-double			plane_intersect_ray(t_v3 origin, t_v3 ray_dir, t_ray_minmax rp,
-					t_plane *plane);
-t_colr			plane_get_colr(t_scene scene, t_objlst pobj, t_v3 hitpoint);
-t_colr			plane_get_scolr(t_plane p, t_v3 hp);
 
 /********** Color stuff. **********/
 
