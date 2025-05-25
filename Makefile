@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/24 15:45:48 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/25 00:55:05 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -196,7 +196,7 @@ ifeq ($(NIX11),)
 	@$(ECHO) "$(call log_msg,Compiling MLX the normal way!)"
 	make -C ./minilibx-linux/
 else
-	echo "NIX11 = $(NIX11)"
+	@echo "NIX11 = $(NIX11)"
 	@$(ECHO) "$(call log_msg,Compiling MLX the Nix way!)"
 	sed -i 's/local xlib_inc="$$(get_xlib_include_path)"/local xlib_inc="$$NIX11"/g' ./minilibx-linux/configure
 	sed -i 's/mlx_int_anti_resize_win/\/\/mlx_int_anti_resize_win/g' ./minilibx-linux/mlx_new_window.c
@@ -209,7 +209,7 @@ BONUS_SRC = ./src/raytrace/raytrace_pthread_bonus.c \
 						./src/raytrace/raytrace_thread_funcs_bonus.c \
 						./src/raytrace/raytrace_hq_bonus.c
 bonus: $(SRCS) $(BONUS_SRC)
-	$(ECHO) "$(call log_msg,Compiling the multithreading bonus ^^)"
+	@$(ECHO) "$(call log_msg,Compiling the multithreading bonus ^^)"
 	$(CC) -D$(BHOST) -DTHREADS=$(THREADS) -DBONUS $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $^ $(LDFLAGS) $(LIBS) -pthread
 
 mlx: $(LIBMLX)
