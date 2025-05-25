@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/25 19:22:37 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/25 21:49:52 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -210,7 +210,8 @@ BONUS_SRC = ./src/raytrace/raytrace_pthread_bonus.c \
 						./src/raytrace/raytrace_thread_funcs_bonus.c \
 						./src/raytrace/raytrace_hq_bonus.c
 bonus: $(SRCS) $(BONUS_SRC)
-	@$(ECHO) "$(call log_msg,Compiling the multithreading bonus ^^)"
+	@$(ECHO) "$(call log_msg,Compiling the multithreading bonus)"
+	@$(ECHO) "$(call log_msg,...for $(THREADS) threads ^^)"
 	$(CC) -D$(BHOST) -DTHREADS=$(THREADS) -DBONUS $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $^ $(LDFLAGS) $(LIBS) -pthread
 
 mlx: $(LIBMLX)
@@ -265,4 +266,4 @@ fullbear: fullfclean
 
 re: fclean all
 
-.PHONY: all fullclean clean fclean re mlx debug bonus setup help fullbear
+.PHONY: all fullclean clean fclean re mlx debug bonus setup help fullbear fullre
