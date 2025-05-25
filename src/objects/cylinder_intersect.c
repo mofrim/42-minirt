@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:15:36 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/10 19:59:04 by zrz              ###   ########.fr       */
+/*   Updated: 2025/05/25 23:37:46 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,32 @@ static double	intersect_cylinder_body_main(t_cyl_intersect_params *params)
 
 	t_body_hit = calculate_body_intersection_t(params);
 	return (t_body_hit);
+}
+
+/*
+** Intersects the ray with both circular caps of the cylinder.
+** It configures two t_circle structures, one for each cap, and then calls
+** `circle_intersect_ray` for each. It returns the smallest valid 't' value
+** from these two potential intersections. If neither cap is hit within the
+** valid ray range (rp.tmin, rp.tmax), it returns INF.
+*/
+static double	intersect_caps_circles(t_cyl_intersect_params *params)
+{
+	double		t_hit_bottom;
+	double		t_hit_top;
+	double		closest_t_cap;
+
+	t_hit_bottom = circle_intersect_ray(params->origin, params->ray_dir, \
+params->rp, &params->cyl->cap2);
+	t_hit_top = circle_intersect_ray(params->origin, params->ray_dir, \
+params->rp, &params->cyl->cap1);
+	closest_t_cap = INF;
+	if (t_hit_bottom > params->rp.tmin && t_hit_bottom < params->rp.tmax)
+		closest_t_cap = t_hit_bottom;
+	if (t_hit_top > params->rp.tmin && t_hit_top < params->rp.tmax)
+		if (t_hit_top < closest_t_cap)
+			closest_t_cap = t_hit_top;
+	return (closest_t_cap);
 }
 
 /*
@@ -72,8 +98,11 @@ t_ray_minmax rp)
 ** body and caps. Finally, it returns the smallest positive 't' value
 ** (distance) to a valid intersection, or INF if no intersection occurs.
 */
-double	cylinder_intersect_ray(\
-	t_v3 origin, t_v3 ray_dir, t_ray_minmax rp, t_cylinder *cyl)
+double	cylinder_intersect_ray(
+	t_v3 origin,
+	t_v3 ray_dir,
+	t_ray_minmax rp,
+	t_cylinder *cyl)
 {
 	t_cyl_intersect_params	params;
 	double					t_body_hit;

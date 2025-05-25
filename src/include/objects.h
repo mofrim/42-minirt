@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 23:07:47 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 23:36:12 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,15 +137,17 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
-	t_v3	center;
-	t_v3	p1;		//center of the first cap circle
-	t_v3	p2;		//center of the second cap circle
-	t_v3	axis;
-	double	r;		//radius
-	double	r_squared;
-	double	height;	// p2 - p1 basically
-	t_colr	colr;
-	float	spec;
+	t_v3		center;
+	t_v3		p1;
+	t_v3		p2;
+	t_v3		axis;
+	double		r;
+	double		r_squared;
+	double		height;
+	t_colr		colr;
+	float		spec;
+	t_circle	cap1;
+	t_circle	cap2;
 }	t_cylinder;
 
 typedef struct s_light
@@ -260,9 +262,6 @@ typedef struct s_cyl_normal_params
 // FIXME: move all object funcs in here
 /* From cylinder_body.c */
 double		calculate_body_intersection_t(t_cyl_intersect_params *params);
-
-/* From cylinder_caps.c */
-double		intersect_caps_circles(t_cyl_intersect_params *params);
 
 /* From cylinder_normal.c */
 t_v3		calculate_cylinder_normal_at_hit(t_cyl_normal_params *params);
