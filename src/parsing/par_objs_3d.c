@@ -6,11 +6,13 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:06:13 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/25 18:59:08 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 23:11:11 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	do_hyper_calculations(t_hyper *hyp);
 
 /**
  * Parse a sphere.
@@ -133,9 +135,24 @@ t_hyper	*parse_hyper(t_tokenizer *tok)
 		printerr_set_invalid("hyperboloid axis norm == 0", &tok->valid);
 	if (hyp->ab <= 0 || hyp->c <= 0 || hyp->h <= 0)
 		printerr_set_invalid("hyperboloid ab, c or h == 0", &tok->valid);
+	do_hyper_calculations(hyp);
+	return (hyp);
+}
+
+void	do_hyper_calculations(t_hyper *hyp)
+{
 	hyp->axis = v3_normalize(hyp->axis);
 	hyp->rcaps = hyp->ab * sqrt(1 + hyp->h * hyp->h / (4 * hyp->c * hyp->c));
 	hyp->hym = hyper_get_rotmtrx(hyp->axis, hyp->ab, hyp->c);
 	hyp->hby2 = hyp->h / 2;
-	return (hyp);
+	hyp->cap1.center = v3_add_v3(hyp->center, v3_mult(hyp->axis, hyp->hby2));
+	hyp->cap1.r = hyp->rcaps;
+	hyp->cap1.r2 = hyp->cap1.r * hyp->cap1.r;
+	hyp->cap1.normal = hyp->axis;
+	hyp->cap1.cdotn = v3_dot(hyp->cap1.normal, hyp->cap1.center);
+	hyp->cap2.center = v3_minus_v3(hyp->center, v3_mult(hyp->axis, hyp->hby2));
+	hyp->cap2.r = hyp->cap1.r;
+	hyp->cap2.r2 = hyp->cap1.r2;
+	hyp->cap2.normal = v3_mult(hyp->axis, -1);
+	hyp->cap2.cdotn = v3_dot(hyp->cap2.normal, hyp->cap2.center);
 }

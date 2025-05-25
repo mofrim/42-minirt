@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 20:44:45 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/25 23:07:47 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,54 @@ typedef enum e_obj
 	HYPER
 }	t_objtype;
 
+// Helper struct for quadratic equation results
+typedef struct s_quad_sol
+{
+	double	t1;
+	double	t2;
+	double	disc;
+}	t_quad_sol;
+
+/* pop = Point On Plane :) */
+typedef struct s_plane
+{
+	t_v3	pop;
+	t_v3	normal;
+	t_colr	colr;
+	float	spec;
+	bool	checker;
+	float	checker_scale;
+
+}	t_plane;
+
+/* The triangle. pdotn = PointOnTriangleDotN convenience variable to speed up
+ * intersection calc. */
+typedef struct s_triangle
+{
+	t_v3	a;
+	t_v3	b;
+	t_v3	c;
+	t_v3	ab;
+	t_v3	ac;
+	t_v3	bc;
+	t_v3	normal;
+	double	pdotn;
+	double	area;
+	t_colr	colr;
+	float	spec;
+}	t_triangle;
+
+typedef struct s_circle
+{
+	double	r;
+	double	r2;
+	t_v3	normal;
+	t_v3	center;
+	t_colr	colr;
+	float	spec;
+	double	cdotn;
+}	t_circle;
+
 /* We will only support a one-sheet hyperbolid of revolution, i.e. one that can
  * be construted by rotating a hyperbola about the axis. This implies a == b in
  * its formula:
@@ -52,20 +100,22 @@ typedef enum e_obj
  */
 typedef struct s_hyper
 {
-	t_v3	center;
-	t_v3	axis;
-	t_mtrx	hym;
-	double	ab;
-	double	c;
-	double	h;
-	double	rcaps;
-	double	hby2;
-	t_colr	colr;
-	float	spec;
-	int		checker;
-	float	checker_scale;
-	char	*tex_file;
-	t_img	*tex_img;
+	t_v3		center;
+	t_v3		axis;
+	t_mtrx		hym;
+	double		ab;
+	double		c;
+	double		h;
+	double		rcaps;
+	double		hby2;
+	t_circle	cap1;
+	t_circle	cap2;
+	t_colr		colr;
+	float		spec;
+	int			checker;
+	float		checker_scale;
+	char		*tex_file;
+	t_img		*tex_img;
 }	t_hyper;
 
 typedef struct s_sphere
@@ -97,54 +147,6 @@ typedef struct s_cylinder
 	t_colr	colr;
 	float	spec;
 }	t_cylinder;
-
-// Helper struct for quadratic equation results
-typedef struct s_quad_sol
-{
-	double	t1;
-	double	t2;
-	double	disc;
-}	t_quad_sol;
-
-/* pop = Point On Plane :) */
-typedef struct s_plane
-{
-	t_v3	pop;
-	t_v3	normal;
-	t_colr	colr;
-	float	spec;
-	bool	checker;
-	float	checker_scale;
-
-}	t_plane;
-
-typedef struct s_circle
-{
-	double	r;
-	double	r2;
-	t_v3	normal;
-	t_v3	center;
-	t_colr	colr;
-	float	spec;
-	double	cdotn;
-}	t_circle;
-
-/* The triangle. pdotn = PointOnTriangleDotN convenience variable to speed up
- * intersection calc. */
-typedef struct s_triangle
-{
-	t_v3	a;
-	t_v3	b;
-	t_v3	c;
-	t_v3	ab;
-	t_v3	ac;
-	t_v3	bc;
-	t_v3	normal;
-	double	pdotn;
-	double	area;
-	t_colr	colr;
-	float	spec;
-}	t_triangle;
 
 typedef struct s_light
 {
