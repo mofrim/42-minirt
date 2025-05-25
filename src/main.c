@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:01:16 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/23 14:26:07 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:41:07 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 	t_mrt	*mrt;
 
 	if (ac != 2)
-		exit_with_errmsg("Error\nUsage: ./miniRT <scene.rt>");
+		exit_with_errmsg("Usage: ./miniRT <scene.rt>");
 	mrt = init_mrt(av[1]);
 	mlx_hook(mrt->win, KeyPress, KeyPressMask, kbd_press_handler, mrt);
 	mlx_hook(mrt->win, KeyRelease, KeyReleaseMask, kbd_release_handler, mrt);
