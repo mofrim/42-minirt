@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 11:04:09 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 20:29:03 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 10:05:03 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	sphere_get_texnmap_imgs_from_file(t_mrt mrt, t_sphere *s)
 		if (!s->tex_img)
 			printf("-> no valid tex image found! nevermind.\n");
 	}
+	else
+		s->tex_img = NULL;
 	if (s->nmap_file)
 	{
 		ft_printf("-> reading nmap_file \n");
@@ -33,6 +35,8 @@ static void	sphere_get_texnmap_imgs_from_file(t_mrt mrt, t_sphere *s)
 		if (!s->nmap_img)
 			printf("-> no valid nmap image found! nevermind.\n");
 	}
+	else
+		s->nmap_img = NULL;
 }
 
 /* Read a tex-file for the hyper. */
@@ -49,6 +53,8 @@ static void	hyper_get_tex_img_from_file(t_mrt mrt, t_hyper *h)
 		if (!h->tex_img)
 			printf("-> no valid tex image found! nevermind.\n");
 	}
+	else
+		h->tex_img = NULL;
 }
 
 /**
