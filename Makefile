@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/25 23:36:37 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/26 09:09:37 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -168,23 +168,41 @@ else
 	BHOST = DEFAULT
 endif
 
+SETUP_DONE = $(shell ls ./minilibx-linux 2>&1 | cut -d ' ' -f2)
+
 all: $(NAME)
 
 $(OBJDIR)/%.o : %.c $(MINRT_HDRS)
+ifeq ($(SETUP_DONE),cannot)
+	@exit 0
+else
 	@mkdir -p $(OBJDIR)
 	@$(ECHO) "$(call log_msg,Compiling: $<)"
 	@$(CC) -D$(BHOST) $(CFLAGS) $(INC) -c $< -o $@
+endif
 
 $(NAME): $(OBJS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
-	@$(ECHO) "$(call log_msg,Compiling minirt...)"
-	@$(ECHO) "$(call log_msg,For host $(HOST)!)"
-	$(CC) -D$(BHOST) $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(OBJS) $(LDFLAGS) $(LIBS)
+ifeq ($(SETUP_DONE),cannot)
+	@exit 0
+else
+		@$(ECHO) "$(call log_msg,Compiling minirt...)"
+		@$(ECHO) "$(call log_msg,For host $(HOST)!)"
+		$(CC) -D$(BHOST) $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(OBJS) $(LDFLAGS) $(LIBS)
+endif
 
 $(LIBFT):
+ifeq ($(SETUP_DONE),cannot)
+	@exit 0
+else
 	@$(ECHO) "$(call log_msg,Compiling libft...)"
 	make -C $(LIBFT_PATH)
+endif
 
 $(LIBMLX):
+ifeq ($(SETUP_DONE),cannot)
+	@$(ECHO) "$(call log_msg,Please call 'make setup' first!)"
+	@exit 0
+else
 ifeq ($(shell uname), Darwin)
 	@$(ECHO) "$(call log_msg,Compiling MLX for macOS...)"
 	make -C ./minilibx-linux/
@@ -193,11 +211,11 @@ ifeq ($(NIX11),)
 	@$(ECHO) "$(call log_msg,Compiling MLX the normal way!)"
 	make -C ./minilibx-linux/
 else
-	@echo "NIX11 = $(NIX11)"
 	@$(ECHO) "$(call log_msg,Compiling MLX the Nix way!)"
 	sed -i 's/local xlib_inc="$$(get_xlib_include_path)"/local xlib_inc="$$NIX11"/g' ./minilibx-linux/configure
 	sed -i 's/mlx_int_anti_resize_win/\/\/mlx_int_anti_resize_win/g' ./minilibx-linux/mlx_new_window.c
 	make -C ./minilibx-linux/
+endif
 endif
 
 # multithreaded raytracing as a bonus-bonus...
@@ -206,9 +224,14 @@ BONUS_SRC = ./src/raytrace/raytrace_pthread_bonus.c \
 						./src/raytrace/raytrace_thread_funcs_bonus.c \
 						./src/raytrace/raytrace_hq_bonus.c
 bonus: $(SRCS) $(BONUS_SRC)
+ifeq ($(SETUP_DONE),cannot)
+	@$(ECHO) "$(call log_msg,Please call 'make setup' first!)"
+	@exit 0
+else
 	@$(ECHO) "$(call log_msg,Compiling the multithreading bonus)"
 	@$(ECHO) "$(call log_msg,...for $(THREADS) threads ^^)"
 	$(CC) -D$(BHOST) -DTHREADS=$(THREADS) -DBONUS $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $^ $(LDFLAGS) $(LIBS) -pthread
+endif
 
 mlx: $(LIBMLX)
 
@@ -216,17 +239,22 @@ debug: $(SRCS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
 	$(CC) -g $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(SRCS) $(LIBS)
 
 setup:
+ifeq ($(SETUP_DONE),cannot)
+	@$(ECHO) "$(call log_msg,Setup not yet done!)"
 	@$(ECHO) "$(call log_msg,Setting things up...)"
 	@rm -rf ./minilibx-linux
 	@$(ECHO) "$(call log_msg,Downloading mlx...)"
 	@wget -c https://cdn.intra.42.fr/document/document/34406/minilibx-linux.tgz 2> /dev/null
 	@echo	-e "$(call log_msg,Unpacking mlx...)"
 	@tar xzf ./minilibx-linux.tgz > /dev/null
-	@rm ./minilibx-linux.tgz > /dev/null
+	@rm -f ./minilibx-linux.tgz > /dev/null
 	@echo	-e "$(call log_msg,Cloning libft submodule...)"
 	@git submodule update --init --recursive
 	@sleep 1s
 	@$(ECHO) "$(call log_msg,There you go!)"
+else
+	@$(ECHO) "$(call log_msg,Setup already done -> compile!)"
+endif
 
 fullclean:
 	@$(ECHO) "$(call log_msg,Removing libft objs.)"
