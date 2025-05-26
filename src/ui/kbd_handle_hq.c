@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 17:07:28 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:56:13 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 21:13:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	handle_hq(int key, t_mrt *mrt)
 		mrt->scene->supersample = true;
 		if (mrt->show_sidebar)
 			update_sidebar(mrt);
-		mlx_string_put(mrt->mlx, mrt->win, WINX / 2 + 50, WINY / 2,
-			rgb_to_int(GREEN), "supersampling scene...");
+		put_string_canvas(*mrt, (t_pxl){-50, 0}, GREEN,
+			"supersampling scene...");
 		mlx_do_sync(mrt->mlx);
 		if (BONUS)
 		{
