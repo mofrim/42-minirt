@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:18:17 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 18:15:12 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 20:31:15 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	put_string_canvas(t_mrt mrt, t_pxl pos, char *colr, char *txt)
 	int	sx;
 	int	sy;
 
-	sx = WINX / 2 + pos.x;
+	sx = mrt.can_params.canvas_offset_x + pos.x;
 	sy = WINY / 2 - pos.y;
 	mlx_string_put(mrt.mlx, mrt.win, sx, sy, rgb_to_int(colr), txt);
 }

@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 12:38:40 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 20:26:30 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ void		print_menu_header(t_mrt mrt, int x, int y, char *txt);
 /**
  * The sidebar.
  *
- * Sadly this just causes a lot memory garbage.. i think we should keep it
- * umcommented for dev because it spoils the valgrind output. in the final
- * version we can uncomment and explain that it is due to mlx issues:
- *
- * 		mlx_set_font(mrt.mlx, mrt.win, FONT_DEFAULT);
+ * What a feature!!!
  */
 void	show_sidebar(t_mrt mrt, bool draw_sep)
 {
@@ -43,9 +39,9 @@ void	show_sidebar(t_mrt mrt, bool draw_sep)
 		"Jose's & Mofrim's miniRT");
 	i = 2;
 	show_keys(mrt, &i);
-	i += 2;
+	i += 1;
 	show_mapinfo(mrt, &i);
-	i += 2;
+	i += 1;
 	show_mapparams(mrt, &i);
 }
 
@@ -71,15 +67,15 @@ static void	show_keys(t_mrt mrt, int *i)
 	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "],[  = +/- subsample");
 	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "9,0  = +/- fov");
 	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "-,=  = +/- abright");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "e  = export ppm");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "o  = export ppm");
 	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "p  = print scene");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "wasd  = rot cam");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "w,a,s,d,e,q  = rot cam");
 	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "->  = move cam");
 	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "z,x,c,v  = choose rtfunc");
 	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "b/n  = toggle bump/nmap");
 	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "1,2  = subsample 1/10");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "3,4  = +/- supersample ppx");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "5,6  = +/- supersample step");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "3,4  = +/- supers. ppx");
+	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "5,6  = +/- supers. step");
 	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "/ = toggle sidebar");
 }
 

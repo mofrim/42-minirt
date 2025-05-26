@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 19:33:36 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:57:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 20:24:05 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	redraw_win(t_mrt *mrt, bool print_msg)
 		update_sidebar(mrt);
 	if (print_msg || mrt->scene->subsample <= 6)
 	{
-		put_string_canvas(*mrt, (t_pxl){100, 0}, GREEN, "tracing rays...");
+		put_string_canvas(*mrt, (t_pxl){-50, 0}, GREEN, "tracing rays...");
 		mlx_do_sync(mrt->mlx);
 	}
 	launch_raytrace(*mrt);

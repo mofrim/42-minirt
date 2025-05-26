@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:29:07 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 12:35:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 20:31:00 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_mrt	*init_mrt(char *scene_filename)
 	nullcheck(mrt, "Error\nmrt in init_mrt()");
 	mrt->scene = parse_scene(scene_filename, mrt);
 	init_mlx_win(mrt);
-	setup_scene(*mrt);
 	mrt->xc = init_xpm_canvas(mrt->mlx, CANVAS_WIDTH, WINY);
 	mrt->sidebar = init_xpm_canvas(mrt->mlx, SIDEBAR_AREA_X - 40, WINY);
 	nullcheck(mrt->xc, "Error\nxc in init_mrt()");
@@ -34,6 +33,7 @@ t_mrt	*init_mrt(char *scene_filename)
 		CANVAS_WIDTH, PIXEL_MINX, PIXEL_MAXX, PIXEL_MINY, PIXEL_MAXY,
 		CANVAS_OFFSET_X, CANVAS_OFFSET_Y, SIDEBAR_AREA_X};
 	mrt->rtfunc = RT_XPM;
+	setup_scene(*mrt);
 	return (mrt);
 }
 
