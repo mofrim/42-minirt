@@ -32,8 +32,8 @@ You gotta stop implementing features at some point... :)
 
 ## A little showcase...
 
-- A mystical hyper:
-![a mystical hyper](/images/mystical-hyper.png)
+- All our objs:
+![all our objs](/images/all-objs.png)
 
 - 3 degrees of hyper-checkerdness:
 ![3deg of checker](/images/3-degrees-of-checkerdness.png)
@@ -41,5 +41,5 @@ You gotta stop implementing features at some point... :)
 - The different shapes of a hyperbolo:
 ![different shapes of a hyperbolo](/images/cone-to-cyl.png)
 
-- All our objs:
-![all our objs](/images/all-objs.png)
+- A mystical hyper:
+![a mystical hyper](/images/mystical-hyper.png)
