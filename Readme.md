@@ -15,7 +15,7 @@
 - Interactive UI with ability to move through the scene and control over scene
   parameters like cam fov, ambient light brightness, sub- and supersampling
   level and some more.
-- Toggable sidebar for info display
+- Toggable sidebar for info display.
 - Objects: plane, sphere, cylinder, triangle, circle, hyperboloid (also gives
   the cone).
 - Texture / Bump / Normal mapping: Fully implemented for the sphere, for the
@@ -24,7 +24,12 @@
 - Switchable raytracing method: direct single pixel drawing to he canvas,
   drawing via xpm, multithreaded variants.
 - Multithreading is also available for supersampling.
+- Export the current scene to ppm.
 
 ## Learnings
 
 You gotta stop implementing features at some point... :)
+
+## Some nice scenes
+
+![a mystical hyper][images/mystical-hyper.png]
