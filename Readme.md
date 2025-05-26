@@ -40,3 +40,6 @@ You gotta stop implementing features at some point... :)
 
 - The different shapes of a hyperbolo:
 ![different shapes of a hyperbolo](/images/cone-to-cyl.png)
+
+- All our objs:
+![all our objs](/images/all-objs.png)
