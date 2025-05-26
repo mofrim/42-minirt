@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:43:57 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 14:44:20 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 10:46:42 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,4 @@ void	print_scene(t_scene sc)
 	if (sc.cam)
 		print_cam(*sc.cam);
 	objlst_print(sc.objects);
-}
-
-void	debug_token(t_token *token, const char *message)
-{
-	if (!token)
-	{
-		printf("DEBUG TOKEN %s: NULL token\n", message);
-		return ;
-	}
-	if (token->type == TOKEN_TYPE_KEYWORD)
-		printf("DEBUG TOKEN %s: KEYWORD: '%s'\n", message, token->u_value.str);
-	else if (token->type == TOKEN_TYPE_NUM)
-		printf("DEBUG TOKEN %s: NUMBER: %f\n", message, token->u_value.num);
-	else if (token->type == TOKEN_TYPE_V3)
-		printf("DEBUG TOKEN %s: V3: '%s'\n", message, token->u_value.str);
-	else
-		printf("DEBUG TOKEN %s: UNKNOWN TYPE\n", message);
 }
