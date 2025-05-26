@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/26 18:30:39 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/26 19:50:48 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC_DIR		=	./src
 # https://makefiletutorial.com/#the-vpath-directive
 #
 # TLDR; this will make make find the correct source file `./src/exec/bla.c` for
-# any ob called `ob/bla.o`
+# any obj called `ob/bla.o`
 VPATH	=	./src ./src/linalg ./src/objects ./src/ui ./src/utils ./src/raytrace \
 				./src/parsing ./src/xpm ./src/setup_scene
 
@@ -107,10 +107,6 @@ SRCS		=	main.c \
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 
-X11_PATH = $(shell brew --prefix libx11)
-XORG_PATH = $(shell brew --prefix xorgproto)
-XEXT_PATH = $(shell brew --prefix libxext)
-
 LIBFT_PATH	= ./libft
 LIBFT				= $(LIBFT_PATH)/libft.a
 
@@ -123,6 +119,7 @@ LIBS 			= -lmlx -lXext -lX11 -lm -lft
 INC_DIR			= $(SRC_DIR)/include
 INC					= -I$(INC_DIR) -I$(LIBMLX_PATH) -I$(LIBFT_PATH)
 
+# all headers
 MINRT_HDRS	= $(INC_DIR)/colors.h \
 							$(INC_DIR)/constants.h \
 							$(INC_DIR)/keycodes.h \
@@ -136,11 +133,14 @@ MINRT_HDRS	= $(INC_DIR)/colors.h \
 
 # change this back to 'cc' @school for eval
 CC			=	clang
-CFLAGS	=	-g -Werror -Wall -Wextra
+
+# std cflags
+CFLAGS	=	-Werror -Wall -Wextra
 
 # special nix compilation support for mlx. see LIBMLX rule.
 NIX11 = $(shell echo $$NIX11)
 
+# some colors for the log msgs
 GRN = \033[38;5;40m
 RED = \033[1;31m
 WHT = \033[1;37m
@@ -149,7 +149,7 @@ YLW = \033[38;5;3m
 MSGOPN = $(YLW)[[$(GRN)
 MSGEND = $(YLW)]]$(EOC)
 
-# this is a makefile function defn !!!
+# this is really a makefile function defn !!! not exactly necessary but fancy.
 log_msg = $(MSGOPN) $(1) $(MSGEND)
 
 # Control preproc consts in constants.h based on build host:
@@ -163,9 +163,21 @@ else ifeq ($(findstring wolfsburg,$(HOST)), wolfsburg)
 else
 	BHOST = DEFAULT
 endif
+CFLAGS += -D$(BHOST)
 
 # is their something inside the mlx dir? <=> submodules have been cloned?
 SETUP_DONE = $(shell ls ./mlx/mlx.h 2>&1 | cut -d ' ' -f2)
+
+# multithreaded raytracing as a bonus-bonus...
+THREADS = $(shell cat /proc/cpuinfo | grep processor | wc -l)
+BONUS_SRCS	= raytrace_pthread_bonus.c \
+							raytrace_thread_funcs_bonus.c \
+							raytrace_hq_bonus.c
+BONUS_YES	=	$(shell cat 2> /dev/null .bonus)
+ifeq ($(BONUS_YES),yes)
+	CFLAGS	+= -DBONUS -DTHREADS=$(THREADS)
+	OBJS		+=	$(patsubst %.c,$(OBJDIR)/%.o,$(BONUS_SRCS))
+endif
 
 all: $(NAME)
 
@@ -175,7 +187,7 @@ ifeq ($(SETUP_DONE),cannot)
 else
 	@mkdir -p $(OBJDIR)
 	@$(ECHO) "$(call log_msg,Compiling: $<)"
-	@$(CC) -D$(BHOST) $(CFLAGS) $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 endif
 
 $(NAME): $(OBJS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
@@ -183,8 +195,11 @@ ifeq ($(SETUP_DONE),cannot)
 	@exit 0
 else
 		@$(ECHO) "$(call log_msg,Compiling minirt...)"
-		@$(ECHO) "$(call log_msg,For host $(HOST)!)"
-		$(CC) -D$(BHOST) $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(OBJS) $(LDFLAGS) $(LIBS)
+		@$(ECHO) "$(call log_msg,... for host $(HOST)!)"
+ifeq ($(BONUS_YES),yes)
+	@$(ECHO) "$(call log_msg,... minirt will be powered by $(THREADS) threads ^^)"
+endif
+		$(CC) $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(OBJS) $(LDFLAGS) $(LIBS)
 endif
 
 $(LIBFT):
@@ -204,6 +219,8 @@ ifeq ($(NIX11),)
 	@$(ECHO) "$(call log_msg,Compiling MLX the normal way!)"
 	make -C ./mlx/
 else
+	# patch mlx for running with hyperland, which does not like anti-resizable
+	# windows
 	@$(ECHO) "$(call log_msg,Compiling MLX the Nix way!)"
 	sed -i 's/local xlib_inc="$$(get_xlib_include_path)"/local xlib_inc="$$NIX11"/g' ./mlx/configure
 	sed -i 's/mlx_int_anti_resize_win/\/\/mlx_int_anti_resize_win/g' ./mlx/mlx_new_window.c
@@ -211,25 +228,16 @@ else
 endif
 endif
 
-# multithreaded raytracing as a bonus-bonus...
-THREADS = $(shell cat /proc/cpuinfo | grep processor | wc -l)
-BONUS_SRC = ./src/raytrace/raytrace_pthread_bonus.c \
-						./src/raytrace/raytrace_thread_funcs_bonus.c \
-						./src/raytrace/raytrace_hq_bonus.c
-bonus: $(SRCS) $(BONUS_SRC)
-ifeq ($(SETUP_DONE),cannot)
-	@$(ECHO) "$(call log_msg,Please call 'make setup' first!)"
-	@exit 0
-else
-	@$(ECHO) "$(call log_msg,Compiling the multithreading bonus)"
-	@$(ECHO) "$(call log_msg,...for $(THREADS) threads ^^)"
-	$(CC) -D$(BHOST) -DTHREADS=$(THREADS) -DBONUS $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $^ $(LDFLAGS) $(LIBS) -pthread
-endif
+.bonus:
+	@echo "yes" > .bonus
+
+bonus: .bonus
+	@$(ECHO) "$(call log_msg,Bonus compilation is activated.)"
 
 mlx: $(LIBMLX)
 
-debug: $(SRCS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
-	$(CC) -g $(CFLAGS) $(INC) $(LIB_PATHS) -o $(NAME) $(SRCS) $(LIBS)
+debug: CFLAGS += -g
+debug: clean $(NAME)
 
 setup:
 ifeq ($(SETUP_DONE),cannot)
@@ -269,6 +277,7 @@ fullfclean:
 fclean: clean
 	@$(ECHO) "$(call log_msg,Removing $(NAME) binary.)"
 	@rm -f $(NAME)
+	@rm -f .bonus
 
 fullre: fullfclean all
 
