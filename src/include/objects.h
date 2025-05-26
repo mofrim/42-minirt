@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:36:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 23:51:20 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 18:32:45 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdbool.h>
 
 /* For t_img. */
-# include "../minilibx-linux/mlx_int.h"
+# include "../mlx/mlx_int.h"
 
 /* Forward declarations. */
 typedef struct s_mrt	t_mrt;

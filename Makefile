@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/26 09:09:37 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/26 18:30:39 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,8 +107,6 @@ SRCS		=	main.c \
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 
-# X11 MAC
-#X11_FIX_PATH = ~/x11_include_fix
 X11_PATH = $(shell brew --prefix libx11)
 XORG_PATH = $(shell brew --prefix xorgproto)
 XEXT_PATH = $(shell brew --prefix libxext)
@@ -116,8 +114,8 @@ XEXT_PATH = $(shell brew --prefix libxext)
 LIBFT_PATH	= ./libft
 LIBFT				= $(LIBFT_PATH)/libft.a
 
-LIBMLX_PATH = ./minilibx-linux
-LIBMLX 			= ./minilibx-linux/libmlx.a
+LIBMLX_PATH = ./mlx
+LIBMLX 			= ./mlx/libmlx.a
 
 LIB_PATHS = -L$(LIBMLX_PATH) -L$(LIBFT_PATH)
 LIBS 			= -lmlx -lXext -lX11 -lm -lft
@@ -136,11 +134,9 @@ MINRT_HDRS	= $(INC_DIR)/colors.h \
 							$(INC_DIR)/v3.h \
 							$(INC_DIR)/xpm.h
 
-# FIXME: change this back to 'cc' @school for eval
+# change this back to 'cc' @school for eval
 CC			=	clang
 CFLAGS	=	-g -Werror -Wall -Wextra
-# -I$(X11_PATH)/include -I$(XORG_PATH)/include -I$(XEXT_PATH)/include -Wno-deprecated-non-prototype
-#LDFLAGS += -L$(X11_PATH)/lib -L$(XEXT_PATH)/lib -lX11 -lXext
 
 # special nix compilation support for mlx. see LIBMLX rule.
 NIX11 = $(shell echo $$NIX11)
@@ -153,10 +149,10 @@ YLW = \033[38;5;3m
 MSGOPN = $(YLW)[[$(GRN)
 MSGEND = $(YLW)]]$(EOC)
 
+# this is a makefile function defn !!!
 log_msg = $(MSGOPN) $(1) $(MSGEND)
 
 # Control preproc consts in constants.h based on build host:
-
 HOST = $(shell hostname)
 ECHO = echo -e
 ifeq ($(findstring rubi,$(HOST)), rubi)
@@ -168,7 +164,8 @@ else
 	BHOST = DEFAULT
 endif
 
-SETUP_DONE = $(shell ls ./minilibx-linux 2>&1 | cut -d ' ' -f2)
+# is their something inside the mlx dir? <=> submodules have been cloned?
+SETUP_DONE = $(shell ls ./mlx/mlx.h 2>&1 | cut -d ' ' -f2)
 
 all: $(NAME)
 
@@ -203,18 +200,14 @@ ifeq ($(SETUP_DONE),cannot)
 	@$(ECHO) "$(call log_msg,Please call 'make setup' first!)"
 	@exit 0
 else
-ifeq ($(shell uname), Darwin)
-	@$(ECHO) "$(call log_msg,Compiling MLX for macOS...)"
-	make -C ./minilibx-linux/
-endif
 ifeq ($(NIX11),)
 	@$(ECHO) "$(call log_msg,Compiling MLX the normal way!)"
-	make -C ./minilibx-linux/
+	make -C ./mlx/
 else
 	@$(ECHO) "$(call log_msg,Compiling MLX the Nix way!)"
-	sed -i 's/local xlib_inc="$$(get_xlib_include_path)"/local xlib_inc="$$NIX11"/g' ./minilibx-linux/configure
-	sed -i 's/mlx_int_anti_resize_win/\/\/mlx_int_anti_resize_win/g' ./minilibx-linux/mlx_new_window.c
-	make -C ./minilibx-linux/
+	sed -i 's/local xlib_inc="$$(get_xlib_include_path)"/local xlib_inc="$$NIX11"/g' ./mlx/configure
+	sed -i 's/mlx_int_anti_resize_win/\/\/mlx_int_anti_resize_win/g' ./mlx/mlx_new_window.c
+	make -C ./mlx/
 endif
 endif
 
@@ -241,19 +234,14 @@ debug: $(SRCS) $(LIBFT) $(LIBMLX) $(MINRT_HDRS)
 setup:
 ifeq ($(SETUP_DONE),cannot)
 	@$(ECHO) "$(call log_msg,Setup not yet done!)"
-	@$(ECHO) "$(call log_msg,Setting things up...)"
-	@rm -rf ./minilibx-linux
-	@$(ECHO) "$(call log_msg,Downloading mlx...)"
-	@wget -c https://cdn.intra.42.fr/document/document/34406/minilibx-linux.tgz 2> /dev/null
-	@echo	-e "$(call log_msg,Unpacking mlx...)"
-	@tar xzf ./minilibx-linux.tgz > /dev/null
-	@rm -f ./minilibx-linux.tgz > /dev/null
-	@echo	-e "$(call log_msg,Cloning libft submodule...)"
+	@$(ECHO) "$(call log_msg,-> setting things up...)"
+	@rm -rf ./mlx
+	@echo	-e "$(call log_msg,Cloning libft & mlx submodule...)"
 	@git submodule update --init --recursive
 	@sleep 1s
-	@$(ECHO) "$(call log_msg,There you go!)"
+	@$(ECHO) "$(call log_msg,There you go! You can run 'make' now, iyl.)"
 else
-	@$(ECHO) "$(call log_msg,Setup already done -> compile!)"
+	@$(ECHO) "$(call log_msg,Setup already done -> run 'make', iyl!)"
 endif
 
 fullclean:

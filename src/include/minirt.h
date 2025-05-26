@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/26 10:43:08 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 18:32:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,12 @@
 /* for uint8_t, ... */
 # include <stdint.h>
 
-# include "../minilibx-linux/mlx.h"
-# include "../minilibx-linux/mlx_int.h"
+/* the mlx headers we need */
+# include "../mlx/mlx.h"
+# include "../mlx/mlx_int.h"
+
+/********** My libft. **********/
+
 # include "../libft/libft.h"
 
 /********** LinalAlg headers. **********/

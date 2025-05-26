@@ -6,14 +6,14 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 21:45:50 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 21:53:09 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 18:33:01 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef XPM_H
 # define XPM_H
 
-# include "../minilibx-linux/mlx_int.h"
+# include "../mlx/mlx_int.h"
 
 /* Forward declarations. */
 typedef struct s_mrt	t_mrt;
