@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:46:04 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 23:47:54 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 10:43:08 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ void			cleanup_mrt(t_mrt *mrt);
 double			ft_atof(const char *str);
 char			**split_whitespace(char *s);
 bool			is_numstr(char	*s);
-void			free_if_nonnull(void *p);
+void			free_tok_if_nonnull(void *p);
 
 /********** Math utils. **********/
 

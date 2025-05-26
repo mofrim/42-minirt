@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:22:39 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/23 14:24:15 by jroseiro         ###   ########.fr       */
+/*   Updated: 2025/05/26 10:42:10 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,16 @@ void	nullcheck(void *p, char *msg)
 		error_exit(msg);
 }
 
-/* Free a pointer if != NULL. */
-void	free_if_nonnull(void *p)
+/* Free a token if != NULL. */
+void	free_tok_if_nonnull(void *p)
 {
+	t_token	*tok;
+
+	tok = p;
 	if (p)
+	{
+		if (tok->type == TOKEN_TYPE_KEYWORD)
+			free(tok->u_value.str);
 		free(p);
+	}
 }

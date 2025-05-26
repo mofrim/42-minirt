@@ -6,7 +6,7 @@
 /*   By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:35:36 by jroseiro          #+#    #+#             */
-/*   Updated: 2025/05/08 09:50:21 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 10:30:21 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ float	parse_pos_num_maybe(t_tokenizer *tok)
 	skip_whitespace(tok);
 	numstr = get_tokstr(tok);
 	if (!ft_is_unumstr(numstr))
-		return (-1.0);
+		return (free(numstr), -1.0);
 	value = ft_atof(numstr);
 	tok->pos += ft_strlen(numstr);
 	free(numstr);
