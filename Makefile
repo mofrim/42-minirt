@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/26 09:09:37 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/05/26 09:45:43 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,11 +136,8 @@ MINRT_HDRS	= $(INC_DIR)/colors.h \
 							$(INC_DIR)/v3.h \
 							$(INC_DIR)/xpm.h
 
-# FIXME: change this back to 'cc' @school for eval
-CC			=	clang
+CC			=	cc
 CFLAGS	=	-g -Werror -Wall -Wextra
-# -I$(X11_PATH)/include -I$(XORG_PATH)/include -I$(XEXT_PATH)/include -Wno-deprecated-non-prototype
-#LDFLAGS += -L$(X11_PATH)/lib -L$(XEXT_PATH)/lib -lX11 -lXext
 
 # special nix compilation support for mlx. see LIBMLX rule.
 NIX11 = $(shell echo $$NIX11)
