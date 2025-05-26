@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:49:56 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:18:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 21:04:44 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_cam_rot_keys(int key, t_mrt *mrt);
 void	handle_cam_dir_keys(int key, t_mrt mrt);
 void	handle_amb_bright(int key, t_mrt *mrt);
 void	handle_objlst_print(int key, t_mrt mrt);
-void	handle_export(int key, t_mrt mrt);
+void	handle_export(int key, t_mrt *mrt);
 void	handle_hq(int key, t_mrt *mrt);
 void	handle_supersample_ppx(int key, t_mrt *mrt);
 void	handle_supersample_step(int key, t_mrt *mrt);
@@ -59,7 +59,7 @@ int	kbd_press_handler(int key, t_mrt *mrt)
 	handle_cam_dir_keys(key, *mrt);
 	handle_amb_bright(key, mrt);
 	handle_quit_destroy_keys(key, mrt);
-	handle_export(key, *mrt);
+	handle_export(key, mrt);
 	handle_objlst_print(key, *mrt);
 	handle_hq(key, mrt);
 	handle_supersample_ppx(key, mrt);

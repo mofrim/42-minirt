@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/25 14:40:19 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/05/26 21:05:40 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,17 @@ void	handle_objlst_print(int key, t_mrt mrt)
 		print_scene(*mrt.scene);
 }
 
-void	handle_export(int key, t_mrt mrt)
+void	handle_export(int key, t_mrt *mrt)
 {
 	if (key == KEY_O)
 	{
 		ft_printf("exporting to scene.ppm");
-		if (export_ppm(*mrt.xc, mrt.can_params.canvas_width) != -1)
+		put_string_canvas(*mrt, (t_pxl){-70, 0}, GREEN,
+			"exporting to scene.ppm...");
+		mlx_do_sync(mrt->mlx);
+		if (export_ppm(*mrt->xc, mrt->can_params.canvas_width) != -1)
 			ft_printf(" done!\n");
+		redraw_win(mrt, false);
 	}
 }
 
