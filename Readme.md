@@ -30,10 +30,13 @@
 
 You gotta stop implementing features at some point... :)
 
-## Some nice scenes
+## A little showcase...
 
 - A mystical hyper:
 ![a mystical hyper](/images/mystical-hyper.png)
 
 - 3 degrees of hyper-checkerdness:
 ![3deg of checker](/images/3-degrees-of-checkerdness.png)
+
+- The different shapes of a hyperbolo:
+![different shapes of a hyperbolo](/images/cone-to-cyl.png)
