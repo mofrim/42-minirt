@@ -32,4 +32,4 @@ You gotta stop implementing features at some point... :)
 
 ## Some nice scenes
 
-![a mystical hyper][images/mystical-hyper.png]
+![a mystical hyper](/images/mystical-hyper.png)
