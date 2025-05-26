@@ -32,4 +32,8 @@ You gotta stop implementing features at some point... :)
 
 ## Some nice scenes
 
+- A mystical hyper:
 ![a mystical hyper](/images/mystical-hyper.png)
+
+- 3 degrees of hyper-checkerdness:
+![3deg of checker](/images/3-degrees-of-checkerdness.png)
