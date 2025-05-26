@@ -13,8 +13,7 @@ archive/
 Makefile.2
 xpms/xpm-archive
 scene.ppm
-
-
+.bonus
 core
 playground/chat
 playground/immitate_oop
