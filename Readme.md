@@ -1,6 +1,6 @@
 # This is 42's MiniRT 🥳
 
-## Ressources
+## Resources
 
 - [Computerphile video about](https://www.youtube.com/watch?v=ezXGTRSx1g8)
 - [Computerphile Vid about Matrix ops and Computer visuals](https://www.youtube.com/watch?v=vQ60rFwh2ig)
