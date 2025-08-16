@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/26 20:26:30 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/08/17 00:16:03 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		print_mapinfo_float(t_mrt mrt, const char *txt, double prop,
 				int *i);
 void		print_mapinfo_bool(t_mrt mrt, const char *txt, bool prop, int *i);
 void		print_menu_header(t_mrt mrt, int x, int y, char *txt);
+void		print_rtfunc(t_mrt mrt, int *i);
 
 /**
  * The sidebar.
@@ -116,4 +117,5 @@ static void	show_mapparams(t_mrt mrt, int *i)
 	}
 	print_mapinfo_bool(mrt, "nmapping: ", mrt.scene->nmap, i);
 	print_mapinfo_bool(mrt, "bumpmapping: ", mrt.scene->bump, i);
+	print_rtfunc(mrt, i);
 }

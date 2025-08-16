@@ -6,7 +6,7 @@
 #    By: jroseiro <jroseiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 17:02:20 by fmaurer           #+#    #+#              #
-#    Updated: 2025/05/26 19:50:48 by fmaurer          ###   ########.fr        #
+#    Updated: 2025/08/17 00:16:33 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,8 @@ SRCS		=	main.c \
 					kbd_handle_hq.c \
 					plane_get_scolr.c \
 					kbd_toggle_sidebar.c \
-					sidebar_theme.c
+					sidebar_theme.c \
+					sidebar_rtfunc.c
 
 OBJDIR	=	obj
 OBJS		=	$(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

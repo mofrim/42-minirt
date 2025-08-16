@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 07:40:20 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/26 21:12:23 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/08/17 00:23:38 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,25 @@ void	handle_rtfunc(int key, t_mrt *mrt)
 	{
 		printf("-> changing rtfunc to raytrace.\n");
 		mrt->rtfunc = RT_PXPUT;
+		update_sidebar(mrt);
 	}
 	if (key == KEY_X)
 	{
 		printf("-> changing rtfunc to raytrace_xpm.\n");
 		mrt->rtfunc = RT_XPM;
+		update_sidebar(mrt);
 	}
 	if (THREADS > 1 && key == KEY_C)
 	{
 		printf("-> changing rtfunc to raytrace_pthread_xpm.\n");
 		mrt->rtfunc = RT_PTHREAD_XPM;
+		update_sidebar(mrt);
 	}
 	if (THREADS > 1 && key == KEY_V)
 	{
 		printf("-> changing rtfunc to raytrace_pthread_pxput.\n");
 		mrt->rtfunc = RT_PTHREAD_PXPUT;
+		update_sidebar(mrt);
 	}
 }
 
