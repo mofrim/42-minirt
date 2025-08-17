@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:05:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:45:00 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/08/17 22:12:18 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ static void	do_cam_rot(t_mrt *mrt, double x_ang, double y_ang, double z_ang)
 	redraw_win(mrt, false);
 }
 
-/* Handle the camera rotations via `wasd` keys. First the new roation matrix is
- * calculated and then the orient vector is updated correspopndingly. For
+/* Handle the camera rotations via `wasd(eq)` keys. First the new roation matrix
+ * is calculated and then the orient vector is updated correspopndingly. For
  * calculation details see those functions. */
 void	handle_cam_rot_keys(int key, t_mrt *mrt)
 {
 	if (key == KEY_W)
 		do_cam_rot(mrt, 0.075, 0, 0);
-	else if (key == KEY_A)
-		do_cam_rot(mrt, 0, 0.075, 0);
 	else if (key == KEY_S)
 		do_cam_rot(mrt, -0.075, 0, 0);
+	else if (key == KEY_A)
+		do_cam_rot(mrt, 0, 0.075, 0);
 	else if (key == KEY_D)
 		do_cam_rot(mrt, 0, -0.075, 0);
-	else if (key == KEY_Q)
-		do_cam_rot(mrt, 0, 0, -0.075);
 	else if (key == KEY_E)
 		do_cam_rot(mrt, 0, 0, 0.075);
+	else if (key == KEY_Q)
+		do_cam_rot(mrt, 0, 0, -0.075);
 }
 
 /* Helper function for handle_cam_dir_keys. Also updates the is_inside_obj flag

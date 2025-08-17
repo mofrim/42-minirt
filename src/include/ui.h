@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 15:14:21 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/05/24 20:57:54 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/08/17 21:55:19 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_sidebar_theme
 	int	txt_colr;
 	int	head_colr;
 	int	title_colr;
+	int	menu_txt_colr1;
+	int	menu_txt_colr2;
 }	t_sidebar_theme;
 
 t_sidebar_theme	set_sidethm_default(void);

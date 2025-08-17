@@ -6,7 +6,7 @@
 /*   By: fmaurer <fmaurer42@posteo.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:01:37 by fmaurer           #+#    #+#             */
-/*   Updated: 2025/08/17 00:16:03 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/08/17 22:05:02 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	show_mapinfo(t_mrt mrt, int *i);
 static void	show_mapparams(t_mrt mrt, int *i);
 void		print_mapinfo(t_mrt mrt, const char *txt, int prop, int *i);
 void		print_menu_text(t_mrt mrt, int x, int y, char *txt);
+void		print_keys(t_mrt mrt, int x, int y, char *txt);
 void		print_mapinfo_float(t_mrt mrt, const char *txt, double prop,
 				int *i);
 void		print_mapinfo_bool(t_mrt mrt, const char *txt, bool prop, int *i);
@@ -64,20 +65,24 @@ static void	show_keys(t_mrt mrt, int *i)
 {
 	print_menu_header(mrt, 30, 20 + (++(*i)) * 15, "-- shortcuts --");
 	(*i)++;
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "esc = quit");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "],[  = +/- subsample");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "9,0  = +/- fov");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "-,=  = +/- abright");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "o  = export ppm");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "p  = print scene");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "w,a,s,d,e,q  = rot cam");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "->  = move cam");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "z,x,c,v  = choose rtfunc");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "b/n  = toggle bump/nmap");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "1,2  = subsample 1/10");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "3,4  = +/- supers. ppx");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "5,6  = +/- supers. step");
-	print_menu_text(mrt, 30, 20 + (++(*i)) * 15, "/ = toggle sidebar");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "esc: quit");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "],[: +/- subsample");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "9,0: +/- fov");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "-,=: +/- abright");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "o: export ppm");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "p: print scene");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "w,s: rot_x cam");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "a,d: rot_y cam");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "q,e: rot_z cam");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "->: move cam");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "b/n: toggle bump/nmap");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "1,2: subsample 1/10");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "3,4: +/- supers. ppx");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "5,6: +/- supers. step");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "h: render scene hq");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "z,x: choose rtfunc");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "c,v: choose rtfunc");
+	print_keys(mrt, 30, 20 + (++(*i)) * 15, "/: toggle sidebar");
 }
 
 static void	show_mapinfo(t_mrt mrt, int *i)
@@ -104,7 +109,7 @@ static void	show_mapinfo(t_mrt mrt, int *i)
 static void	show_mapparams(t_mrt mrt, int *i)
 {
 	print_menu_header(mrt, 30, 20 + (++(*i)) * 15,
-		"-- current scene params --");
+		"-- curr. scene params --");
 	(*i)++;
 	if (mrt.scene->alight)
 		print_mapinfo_float(mrt, "abright: ", mrt.scene->alight->i, i);
