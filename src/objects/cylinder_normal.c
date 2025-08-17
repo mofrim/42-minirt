@@ -6,20 +6,20 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:27:23 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/25 18:59:07 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/08/17 17:29:37 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/*
-** Checks if the hit point lies on the surface of a specific cylinder cap.
-** params: Contains cylinder data and the hit point.
-** cap_select: 0 for the bottom cap (centered at p1), 1 for the top cap (p2).
-** Returns: 1 if the hit point is on the specified cap surface, 0 otherwise.
-** A point is on the cap surface if it's on the cap's plane and within its
-** radius.
-*/
+/**
+ * Checks if the hit point lies on the surface of a specific cylinder cap.
+ * params: Contains cylinder data and the hit point.
+ * cap_select: 0 for the bottom cap (centered at p1), 1 for the top cap (p2).
+ * Returns: 1 if the hit point is on the specified cap surface, 0 otherwise.
+ * A point is on the cap surface if it's on the cap's plane and within its
+ * radius.
+ */
 static int	is_on_cap_surface_internal(
 		t_cyl_normal_params *params,
 		int cap_select)
@@ -44,12 +44,12 @@ static int	is_on_cap_surface_internal(
 	return (0);
 }
 
-/*
-** Computes the geometric normal vector for a point on the cylinder's body.
-** params: Contains cylinder data (p1, axis) and the hit_point.
-** The normal is perpendicular to the cylinder's axis and points outwards
-** from the hit point.
-*/
+/**
+ * Computes the geometric normal vector for a point on the cylinder's body.
+ * params: Contains cylinder data (p1, axis) and the hit_point.
+ * The normal is perpendicular to the cylinder's axis and points outwards
+ * from the hit point.
+ */
 static t_v3	get_body_normal_geometric(t_cyl_normal_params *params)
 {
 	t_v3	cp_vec;
@@ -66,12 +66,12 @@ v3_mult(params->cyl->axis, projection_len));
 	return (normal);
 }
 
-/*
-** Retrieves the geometric normal vector for a specific cylinder cap.
-** params: Contains cylinder data (axis).
-** cap_select: 0 for the bottom cap (normal is -axis),
-** 1 for top (normal is axis).
-*/
+/**
+ * Retrieves the geometric normal vector for a specific cylinder cap.
+ * params: Contains cylinder data (axis).
+ * cap_select: 0 for the bottom cap (normal is -axis),
+ * 1 for top (normal is axis).
+ */
 static t_v3	get_cap_normal_geometric(t_cyl_normal_params *params, \
 int cap_select)
 {
@@ -88,14 +88,14 @@ int cap_select)
 	return (normal);
 }
 
-/*
-** Calculates the surface normal of the cylinder at a given hit point.
-** params: A pointer to t_cyl_normal_params containing the cylinder, hit point,
-** and incident ray direction.
-** This function determines if the hit is on a cap or the body, calculates the
-** geometric normal, and then orients this normal to face the incident ray.
-** The incident_ray_dir in params is used for correct orientation.
-*/
+/**
+ * Calculates the surface normal of the cylinder at a given hit point.
+ * params: A pointer to t_cyl_normal_params containing the cylinder, hit point,
+ * and incident ray direction.
+ * This function determines if the hit is on a cap or the body, calculates the
+ * geometric normal, and then orients this normal to face the incident ray.
+ * The incident_ray_dir in params is used for correct orientation.
+ */
 t_v3	calculate_cylinder_normal_at_hit(t_cyl_normal_params *params)
 {
 	t_v3	geometric_normal;

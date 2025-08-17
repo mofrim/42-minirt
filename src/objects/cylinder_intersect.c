@@ -6,18 +6,18 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:15:36 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/25 23:37:46 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/08/17 17:27:27 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/*
-** Calculates the closest intersection point of a ray with the cylinder's body.
-** It prepares parameters and calls helper functions to determine if and where
-** the ray intersects the infinite cylinder's curved surface, then checks if
-** that intersection point lies within the finite height of the cylinder.
-*/
+/**
+ * Calculates the closest intersection point of a ray with the cylinder's body.
+ * It prepares parameters and calls helper functions to determine if and where
+ * the ray intersects the infinite cylinder's curved surface, then checks if
+ * that intersection point lies within the finite height of the cylinder.
+ */
 static double	intersect_cylinder_body_main(t_cyl_intersect_params *params)
 {
 	double	t_body_hit;
@@ -26,13 +26,13 @@ static double	intersect_cylinder_body_main(t_cyl_intersect_params *params)
 	return (t_body_hit);
 }
 
-/*
-** Intersects the ray with both circular caps of the cylinder.
-** It configures two t_circle structures, one for each cap, and then calls
-** `circle_intersect_ray` for each. It returns the smallest valid 't' value
-** from these two potential intersections. If neither cap is hit within the
-** valid ray range (rp.tmin, rp.tmax), it returns INF.
-*/
+/**
+ * Intersects the ray with both circular caps of the cylinder.
+ * It configures two t_circle structures, one for each cap, and then calls
+ * `circle_intersect_ray` for each. It returns the smallest valid 't' value
+ * from these two potential intersections. If neither cap is hit within the
+ * valid ray range (rp.tmin, rp.tmax), it returns INF.
+ */
 static double	intersect_caps_circles(t_cyl_intersect_params *params)
 {
 	double		t_hit_bottom;

@@ -6,7 +6,7 @@
 /*   By: zrz <zrz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:17:17 by zrz               #+#    #+#             */
-/*   Updated: 2025/05/25 18:59:07 by fmaurer          ###   ########.fr       */
+/*   Updated: 2025/08/17 17:30:14 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static t_quad_sol	solve_quadratic(double a, double b, double c);
 bool				is_within_bounds(t_cylinder *cyl, t_v3 q);
 
-/*
-** Calculates the coefficients (a, b, c) of the quadratic equation used to find
-** intersections with an infinite cylinder's body.
-** co: vector from ray origin to cylinder's base point (p1).
-** dot_rd_axis: dot product of ray direction and cylinder axis.
-** dot_co_axis: dot product of co and cylinder axis.
-*/
+/**
+ * Calculates the coefficients (a, b, c) of the quadratic equation used to find
+ * intersections with an infinite cylinder's body.
+ * co: vector from ray origin to cylinder's base point (p1).
+ * dot_rd_axis: dot product of ray direction and cylinder axis.
+ * dot_co_axis: dot product of co and cylinder axis.
+ */
 static void	calculate_body_quadratic_coeffs(
 	t_cyl_intersect_params *params, t_quad_coeffs *coeffs)
 {
@@ -41,15 +41,15 @@ static void	calculate_body_quadratic_coeffs(
 	coeffs->c = v3_dot(co, co) - (dot_co_axis * dot_co_axis) - r_sq;
 }
 
-/*
-** Solves the quadratic equation for cylinder body intersection and finds the
-** smallest valid 't' (distance).
-** It iterates through the two potential solutions (t1, t2) from the
-** quadratic formula. For each 't', it checks if it's within the ray's
-** valid range (rp.tmin, rp.tmax). If so, it calculates the intersection point
-** and verifies if this point lies on the finite segment of the cylinder body
-** using `is_within_bounds`.
-*/
+/**
+ * Solves the quadratic equation for cylinder body intersection and finds the
+ * smallest valid 't' (distance).
+ * It iterates through the two potential solutions (t1, t2) from the
+ * quadratic formula. For each 't', it checks if it's within the ray's
+ * valid range (rp.tmin, rp.tmax). If so, it calculates the intersection point
+ * and verifies if this point lies on the finite segment of the cylinder body
+ * using `is_within_bounds`.
+ */
 static double	solve_and_get_valid_t_body(\
 	t_cyl_intersect_params *params, t_quad_coeffs *coeffs)
 {
@@ -81,14 +81,14 @@ v3_mult(params->ray_dir, t_hits[i]));
 	return (closest_t);
 }
 
-/*
-** Calculates the 't' value for the intersection with the cylinder's body.
-** It first computes the coefficients of the quadratic equation. If 'a' is
-** near zero, the ray is parallel to the cylinder axis, and no intersection
-** with the curved body is possible (or it's a grazing hit, treated as miss).
-** Otherwise, it solves the quadratic equation and validates the intersection
-** points against the cylinder's finite height and ray's t_min/t_max.
-*/
+/**
+ * Calculates the 't' value for the intersection with the cylinder's body.
+ * It first computes the coefficients of the quadratic equation. If 'a' is
+ * near zero, the ray is parallel to the cylinder axis, and no intersection
+ * with the curved body is possible (or it's a grazing hit, treated as miss).
+ * Otherwise, it solves the quadratic equation and validates the intersection
+ * points against the cylinder's finite height and ray's t_min/t_max.
+ */
 double	calculate_body_intersection_t(t_cyl_intersect_params *params)
 {
 	t_quad_coeffs	coeffs;
